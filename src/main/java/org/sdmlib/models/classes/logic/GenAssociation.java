@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.SDMFeature;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.models.classes.ClassModel;
@@ -26,7 +27,7 @@ public class GenAssociation extends Generator<Association>
    {
       ClassModel classModel = (ClassModel) clazz.getClassModel();
       
-      if (GraphUtil.isInterface(clazz) && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if (GraphUtil.isInterface(clazz) && ! classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          return;
       }
@@ -70,7 +71,7 @@ public class GenAssociation extends Generator<Association>
          String partnerRoleNameUpFirst = StrUtil.upFirstChar(partnerRole.getName());
          String declaratorName = CGUtil.shortClassName(clazz.getName());
          
-         if (classModel.hasFeature(Feature.EMFSTYLE))
+         if (classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             declaratorName += "Creator";
          }
@@ -149,7 +150,7 @@ public class GenAssociation extends Generator<Association>
                   "\n");
             
             if (clazzModel.hasFeature(Feature.SETCLASS, clazz) == false 
-            		&& clazzModel.hasFeature(Feature.PATTERNOBJECT, clazz) == false
+            		&& clazzModel.hasFeature(SDMFeature.PATTERNOBJECT, clazz) == false
             		&& clazzModel.hasFeature(Feature.SERIALIZATION, clazz) == false
             		 ) {
             	CGUtil.replaceAll(text, "partnerClassNameSet.EMPTY_SET", "new type()");
@@ -676,7 +677,7 @@ public class GenAssociation extends Generator<Association>
       
       Parser myParser = getGenerator(clazz).getOrCreateParser(rootDir);
       
-      if ( ! fromSuperClass && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if ( ! fromSuperClass && ! classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
             // add attribute declaration in class file
             StringBuilder text = new StringBuilder();
@@ -699,7 +700,7 @@ public class GenAssociation extends Generator<Association>
             }
       }
       
-      if (! classModel.hasFeature(Feature.EMFSTYLE))
+      if (! classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          //import partner role class if package name has changed
          if (!StrUtil.stringEquals(clazz.getName(true), partnerRole.getClazz().getName(true)))
@@ -726,7 +727,7 @@ public class GenAssociation extends Generator<Association>
          insertCaseInGenericSetToOne(clazz, creatorParser, partnerRole, rootDir);
       }
       
-      if (! classModel.hasFeature(Feature.EMFSTYLE))
+      if (! classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          insertRemovalInRemoveYou(clazz, myParser, partnerRole);
          
@@ -736,7 +737,7 @@ public class GenAssociation extends Generator<Association>
       
       // generate property in creator class
       if (( ! GraphUtil.isInterface(clazz) && classModel.hasFeature(Feature.SERIALIZATION, partnerRole.getClazz()))
-            || classModel.hasFeature(Feature.EMFSTYLE))
+            || classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
@@ -754,7 +755,7 @@ public class GenAssociation extends Generator<Association>
 
          getGenerator(clazz).printFile(modelSetParser);
 
-         if(((ClassModel) getModel().getClazz().getClassModel()).hasFeature(Feature.PATTERNOBJECT)){
+         if(((ClassModel) getModel().getClazz().getClassModel()).hasFeature(SDMFeature.PATTERNOBJECT)){
             // generate property in pattern object class
             Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
 
@@ -878,7 +879,7 @@ public class GenAssociation extends Generator<Association>
                   "      return result;\n" + 
                   "   }\n" + 
                   "\n");
-         	if(this.getClazz().hasFeature(Feature.STANDALONE) == false) {
+         	if(this.getClazz().hasFeature(SDMFeature.STANDALONE) == false) {
          		 text.append("   /**\n" +
                   "    * Loop through the current set of ContentType objects and collect all contained objects with "
                         + "reference thename pointing to the object passed as parameter. \n" +
@@ -1029,7 +1030,7 @@ public class GenAssociation extends Generator<Association>
          StringBuilder text = new StringBuilder();
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
          
-         if ( ! classModel.hasFeature(Feature.EMFSTYLE) || partnerRole.getCardinality() == Cardinality.ONE) {
+         if ( ! classModel.hasFeature(SDMFeature.EMFSTYLE) || partnerRole.getCardinality() == Cardinality.ONE) {
             text.append
             (       "   public TargetType getRoleName()\n"
                   + "   {\n"
@@ -1115,7 +1116,7 @@ public class GenAssociation extends Generator<Association>
          String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
          
-         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         if (model.getClazz().isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             modelClassName += "Creator";
          }
@@ -1176,7 +1177,7 @@ public class GenAssociation extends Generator<Association>
          String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
          
-         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         if (model.getClazz().isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             modelClassName += "Creator";
          }
@@ -1229,7 +1230,7 @@ public class GenAssociation extends Generator<Association>
          
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         if (model.getClazz().isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             modelClassName += "Creator";
          }
@@ -1275,7 +1276,7 @@ public class GenAssociation extends Generator<Association>
          
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         if (model.getClazz().isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             modelClassName += "Creator";
          }
@@ -1326,7 +1327,7 @@ public class GenAssociation extends Generator<Association>
          
          String setMethod = "with" + StrUtil.upFirstChar(partnerRole.getName());
          
-         if (classModel.hasFeature(Feature.EMFSTYLE)) 
+         if (classModel.hasFeature(SDMFeature.EMFSTYLE)) 
          {
             if (partnerRole.getCardinality() == Cardinality.MANY)
             {
@@ -1380,7 +1381,7 @@ public class GenAssociation extends Generator<Association>
             
             String removeMethod = "without" + StrUtil.upFirstChar(partnerRole.getName());
             
-            if (classModel.hasFeature(Feature.EMFSTYLE))
+            if (classModel.hasFeature(SDMFeature.EMFSTYLE))
             {
                removeMethod = "get" + StrUtil.upFirstChar(partnerRole.getName()) + "().remove";
             }
@@ -1444,7 +1445,7 @@ public class GenAssociation extends Generator<Association>
 //         }
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
          
-         if (classModel.hasFeature(Feature.EMFSTYLE))
+         if (classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             shortClassName += "Creator";
          }
@@ -1457,7 +1458,7 @@ public class GenAssociation extends Generator<Association>
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
          
-         if (clazz.isExternal()  || classModel.hasFeature(Feature.EMFSTYLE))
+         if (clazz.isExternal()  || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
@@ -1512,7 +1513,7 @@ public class GenAssociation extends Generator<Association>
 //         }
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
          
-         if (classModel.hasFeature(Feature.EMFSTYLE))
+         if (classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             shortClassName += "Creator";
          }
@@ -1525,7 +1526,7 @@ public class GenAssociation extends Generator<Association>
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
          
-         if (clazz.isExternal()  || classModel.hasFeature(Feature.EMFSTYLE))
+         if (clazz.isExternal()  || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
@@ -1580,7 +1581,7 @@ public class GenAssociation extends Generator<Association>
 //         }
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
          
-         if (classModel.hasFeature(Feature.EMFSTYLE))
+         if (classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             shortClassName += "Creator";
          }
@@ -1593,7 +1594,7 @@ public class GenAssociation extends Generator<Association>
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
          
-         if (clazz.isExternal()  || classModel.hasFeature(Feature.EMFSTYLE))
+         if (clazz.isExternal()  || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
@@ -1612,7 +1613,7 @@ public class GenAssociation extends Generator<Association>
    {   
       ClassModel classModel = (ClassModel) clazz.getClassModel();
       
-      if (GraphUtil.isInterface(clazz) && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if (GraphUtil.isInterface(clazz) && ! classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          return;
       }
@@ -1668,7 +1669,7 @@ public class GenAssociation extends Generator<Association>
          String withPropertyName = "with" + StrUtil.upFirstChar(partnerRole.getName());
          String withoutPropertyName = "without" + StrUtil.upFirstChar(partnerRole.getName());
          
-         if (classModel.hasFeature(Feature.EMFSTYLE))
+         if (classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             declaratorName += "Creator";
             withPropertyName = "get" + StrUtil.upFirstChar(partnerRole.getName()) + "().add";

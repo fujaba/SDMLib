@@ -6,12 +6,12 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.logging.Logger;
 
+import org.sdmlib.HistoryIdMap;
 import org.sdmlib.test.historymanagement.marketmodel.Actor;
 import org.sdmlib.test.historymanagement.marketmodel.Market;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
 import org.sdmlib.test.historymanagement.marketmodel.util.MarketCreator;
 
-import de.uniks.networkparser.HistoryIdMap;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.json.JsonArray;

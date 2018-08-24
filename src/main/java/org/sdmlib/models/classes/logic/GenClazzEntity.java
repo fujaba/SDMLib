@@ -1,26 +1,32 @@
 package org.sdmlib.models.classes.logic;
 
-import de.uniks.networkparser.EntityUtil;
-import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.graph.*;
-import de.uniks.networkparser.graph.ClazzSet;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.CGUtil;
-import org.sdmlib.codegen.Parser;
-import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
-
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import org.sdmlib.CGUtil;
+import org.sdmlib.SDMFeature;
+import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzSet;
+import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.GraphUtil;
+import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleSet;
 
 public abstract class GenClazzEntity extends Generator<Clazz>
 {
@@ -350,7 +356,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          File modelSetJavaFile = new File(fileName);
 
-         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!modelSetJavaFile.exists() && feature != null)
          {
         	 List<String> featureSet = feature.getPath();
@@ -418,7 +424,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          insertLicense(modelSetParser);
          insertConstructor(modelSetParser);
          insertEmptySetDecl(modelSetParser, modelSetClassName);
-         if (((ClassModel) model.getClassModel()).hasFeature(Feature.PATTERNOBJECT))
+         if (((ClassModel) model.getClassModel()).hasFeature(SDMFeature.PATTERNOBJECT))
          {
             insertSetStartModelPattern(modelSetParser);
          }
@@ -578,7 +584,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          // add attribute declaration in class file
          partnerPos = parser.indexOf(Parser.CLASS_END);
-         FeatureProperty feature = getRepairClassModel().getFeature(Feature.SETCLASS);
+         Feature feature = getRepairClassModel().getFeature(Feature.SETCLASS);
          StringBuilder partnerText;
          if (feature.getClassValue() == null || SimpleSet.class.isAssignableFrom(feature.getClassValue()))
          {
@@ -823,7 +829,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          return null;
       }
-      if (((ClassModel) model.getClassModel()).hasFeature(Feature.PATTERNOBJECT) == false)
+      if (((ClassModel) model.getClassModel()).hasFeature(SDMFeature.PATTERNOBJECT) == false)
       {
          return null;
       }
@@ -856,7 +862,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          File patternObjectJavaFile = new File(fileName);
 
-         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!patternObjectJavaFile.exists() && feature != null)
          {
         	 List<String> featureSet = feature.getPath();
@@ -1010,7 +1016,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          File creatorJavaFile = new File(fileName);
 
-         FeatureProperty feature = classModel.getFeature(Feature.SERIALIZATION);
+         Feature feature = classModel.getFeature(Feature.SERIALIZATION);
 
          if (!creatorJavaFile.exists() && feature != null)
          {
@@ -1042,7 +1048,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
          else
          {
-            boolean standAlone = this.getRepairClassModel().hasFeature(Feature.STANDALONE);
+            boolean standAlone = this.getRepairClassModel().hasFeature(SDMFeature.STANDALONE);
             StringBuilder text = new StringBuilder(
                   "package packageName;\n" +
                      "\n" +
@@ -1168,7 +1174,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             String instanceCreationClause = "";
             String fullFactoryName = null;
 
-            if (classModel.hasFeature(Feature.EMFSTYLE))
+            if (classModel.hasFeature(SDMFeature.EMFSTYLE))
             {
                String factoryName = classModel.getName(true) + "Factory";
                fullFactoryName = classModel.getName() + "." + factoryName;

@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.SDMFeature;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
@@ -26,13 +27,12 @@ import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzSet;
 import de.uniks.networkparser.graph.Feature;
-import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Import;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.ClazzSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -55,7 +55,7 @@ public class GenClass extends GenClazzEntity
    {
       // first generate the class itself
 	  ClassModel classModel = (ClassModel) model.getClassModel();
-      if (!model.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if (!model.isExternal() && ! classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          getOrCreateParser(rootDir);
 
@@ -74,7 +74,7 @@ public class GenClass extends GenClazzEntity
             insertSuperClass();
             insertPropertyChangeSupport(rootDir);
             
-            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model))
+            if (classModel.hasFeature(SDMFeature.REMOVEYOUMETHOD, model))
             	insertRemoveYouMethod(rootDir);
             
             insertInterfaceMethods(model, rootDir, helpersDir);
@@ -102,7 +102,7 @@ public class GenClass extends GenClazzEntity
 
             insertClassInCreatorCreatorClass(getModel(), rootDir, creatorParser);
 
-            if (classModel.hasFeature(Feature.REMOVEYOUMETHOD, model)) {
+            if (classModel.hasFeature(SDMFeature.REMOVEYOUMETHOD, model)) {
             	insertRemoveObjectInCreatorClass();
             }
             printFile(creatorParser);
@@ -115,7 +115,7 @@ public class GenClass extends GenClazzEntity
          getOrCreateParserForModelSetFile(helpersDir);
          printFile(modelSetParser);
 
-         if (getRepairClassModel().hasFeature(Feature.PATTERNOBJECT))
+         if (getRepairClassModel().hasFeature(SDMFeature.PATTERNOBJECT))
          {
 
             // now generate the corresponding PatterObject class
@@ -275,7 +275,7 @@ public class GenClass extends GenClazzEntity
 	private void insertClassInCreatorCreatorClass(Clazz clazz, String rootDir, Parser creatorParser) {
 //		if (GraphUtil.isInterface(clazz) == false && GraphUtil.isEnumeration(clazz) == false && ((ClassModel) clazz.getClassModel()).hasFeature(Feature.Serialization)) {
 		ClassModel model = (ClassModel) clazz.getClassModel();
-		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(Feature.STANDALONE) == false && clazz.getType().equals(Clazz.TYPE_INTERFACE) == false) {
+		if(model.hasFeature(Feature.SERIALIZATION) == true && model.hasFeature(SDMFeature.STANDALONE) == false && clazz.getType().equals(Clazz.TYPE_INTERFACE) == false) {
 			String creatorName = "";
 			if (clazz.isExternal()) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
@@ -308,7 +308,7 @@ public class GenClass extends GenClazzEntity
 			}
 			StringBuilder creators=new StringBuilder();
 			creators.append("      jsonIdMap.with(new " + creatorName + "Creator());\n");
-			if (((ClassModel) clazz.getClassModel()).hasFeature(Feature.PATTERNOBJECT)) {
+			if (((ClassModel) clazz.getClassModel()).hasFeature(SDMFeature.PATTERNOBJECT)) {
 				creators.append("      jsonIdMap.with(new " + creatorName + "POCreator());\n");
 			}
 			ArrayList<SymTabEntry> symTabEntriesFor = creatorcreator.getSymTabEntriesFor("createIdMap(String)");
@@ -675,7 +675,7 @@ public class GenClass extends GenClazzEntity
 
    private void insertImplementsClauseForPropertyChangeInterface()
    {
-	   if(getRepairClassModel().hasFeature(Feature.STANDALONE)) {
+	   if(getRepairClassModel().hasFeature(SDMFeature.STANDALONE)) {
 		   return;
 	   }
       String searchString = Parser.IMPLEMENTS;
@@ -820,7 +820,7 @@ public class GenClass extends GenClazzEntity
 
          File patternObjectCreatorJavaFile = new File(fileName);
 
-         FeatureProperty feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
+         Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!patternObjectCreatorJavaFile.exists() && feature != null)
          {
             List<String> featureSet = feature.getPath();

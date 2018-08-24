@@ -3,6 +3,7 @@ package org.sdmlib.models.classes.logic;
 import java.util.LinkedHashSet;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.SDMFeature;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
 import org.sdmlib.models.classes.ClassModel;
@@ -43,7 +44,7 @@ public class GenMethod extends Generator<Method>
       insertMethodInModelSet(clazz, modelSetParser);
       generator.printFile(modelSetParser);
 
-      if (clazzModel.hasFeature(Feature.PATTERNOBJECT)) {
+      if (clazzModel.hasFeature(SDMFeature.PATTERNOBJECT)) {
          Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
          insertMethodInPatternObject(clazz, patternObjectParser);
          generator.printFile(patternObjectParser);

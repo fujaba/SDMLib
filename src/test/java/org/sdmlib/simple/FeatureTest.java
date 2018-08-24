@@ -1,6 +1,7 @@
 package org.sdmlib.simple;
 
 import org.junit.Test;
+import org.sdmlib.SDMFeature;
 import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Cardinality;
@@ -20,7 +21,7 @@ public class FeatureTest {
 		
 		
 		// Remove Dependency from SDMLib
-		model.withoutFeature(Feature.PATTERNOBJECT);
+		model.withoutFeature(SDMFeature.PATTERNOBJECT);
 		// So Only Networkparser is a Dependency, add it per Maven de.uniks:NetworkParser:Core
 		
 		// Remove all Dependency

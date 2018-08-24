@@ -38,7 +38,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
-import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -55,7 +54,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	public static final String DEFAULTPACKAGE = "i.love.sdmlib";
 	public static final String PROPERTY_CLASSES = "classes";
 	private static final String PROPERTY_FEATURE = "feature";
-	private Set<FeatureProperty> features = Feature.getAll();
+	private Set<Feature> features = Feature.getAll();
 	private GenClassModel generator;
 
 
@@ -206,8 +205,8 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, item, null);
 				} else { 
 					// Search for name
-					for(Iterator<FeatureProperty> i = features.iterator();i.hasNext();) {
-						FeatureProperty prop = i.next();
+					for(Iterator<Feature> i = features.iterator();i.hasNext();) {
+						Feature prop = i.next();
 						if(prop.getName().toString().equals(item.toString())) {
 							this.features.remove(prop);
 							break;
@@ -219,12 +218,12 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		return this;
 	}
 
-	public ClassModel withFeatures(Set<FeatureProperty> value) {
+	public ClassModel withFeatures(Set<Feature> value) {
 		if (value == null) {
 			this.features.clear();
 			return this;
 		}
-		for (FeatureProperty item : value) {
+		for (Feature item : value) {
 			if (item != null) {
 				if (this.features.add(item)) {
 					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, null, item);
@@ -235,8 +234,8 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	}
 
 	public boolean hasFeature(Feature value) {
-		for(Iterator<FeatureProperty> i = features.iterator();i.hasNext();) {
-			FeatureProperty item = i.next();
+		for(Iterator<Feature> i = features.iterator();i.hasNext();) {
+			Feature item = i.next();
 			if(item.equals(value)) {
 				return true;
 			}
@@ -245,7 +244,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	}
 
 	public boolean hasFeature(Feature feature, Clazz value) {
-		FeatureProperty property = getFeature(feature);
+		Feature property = getFeature(feature);
 		if(property != null) {
 			return property.match(value);
 		}
@@ -361,9 +360,9 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
       getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
    }
 
-	public FeatureProperty getFeature(Feature value) {
-		for(Iterator<FeatureProperty> i = features.iterator();i.hasNext();) {
-			FeatureProperty item = i.next();
+	public Feature getFeature(Feature value) {
+		for(Iterator<Feature> i = features.iterator();i.hasNext();) {
+			Feature item = i.next();
 			if(item.equals(value)) {
 				return item;
 			}

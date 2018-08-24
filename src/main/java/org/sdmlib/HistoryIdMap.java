@@ -1,4 +1,4 @@
-package de.uniks.networkparser;
+package org.sdmlib;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import org.sdmlib.replication.ChangeEvent;
 
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.SimpleEvent;
 import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;

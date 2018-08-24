@@ -7,12 +7,10 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
-import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Feature;
-import de.uniks.networkparser.graph.FeatureProperty;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
 
@@ -64,7 +62,7 @@ public class MancalaModel {
         Clazz stone = model.createClazz("Stone")
                 .withBidirectional(player, "player", Cardinality.ONE, "stone", Cardinality.ONE);
         
-        FeatureProperty feature = model.getFeature(Feature.SERIALIZATION);
+        Feature feature = model.getFeature(Feature.SERIALIZATION);
         if(feature != null) {
         	feature.withPath("org.sdmlib.test.examples.mancala.referencemodel.util").withExcludeClazz(stone);
         }

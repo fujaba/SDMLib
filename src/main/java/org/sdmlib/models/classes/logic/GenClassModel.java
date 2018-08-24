@@ -26,6 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.SDMFeature;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.LocalVarTableEntry;
 import org.sdmlib.codegen.Parser;
@@ -47,7 +48,6 @@ import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Literal;
@@ -3223,7 +3223,7 @@ public class GenClassModel implements ClassModelAdapter
       
       // class file
       fileName = srcDir + "/" + className.replaceAll("\\.", "/") + ".java";
-      if (! clazz.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if (! clazz.isExternal() && ! classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          deleteFile(fileName);
       }

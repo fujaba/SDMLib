@@ -22,17 +22,15 @@
 package org.sdmlib.test.examples.SDMLib;
 
 import org.junit.Test;
+import org.sdmlib.SDMFeature;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.Feature;
-import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.graph.Parameter;
 
@@ -578,7 +576,7 @@ public class ClassModelTest
       // .withIgnoreClazz("org.sdmlib.models.classes.Attribute")
       // .withShowDiff(DIFF.DIFF);
 
-      model.withoutFeature(Feature.PATTERNOBJECT);
+      model.withoutFeature(SDMFeature.PATTERNOBJECT);
       // model.generate("src/main/java");
 
       storyboard.dumpHTML();

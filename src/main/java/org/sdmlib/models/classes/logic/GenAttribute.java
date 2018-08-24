@@ -3,6 +3,7 @@ package org.sdmlib.models.classes.logic;
 import java.util.ArrayList;
 
 import org.sdmlib.CGUtil;
+import org.sdmlib.SDMFeature;
 import org.sdmlib.StrUtil;
 import org.sdmlib.codegen.Parser;
 import org.sdmlib.codegen.SymTabEntry;
@@ -21,7 +22,6 @@ import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.DataTypeMap;
 import de.uniks.networkparser.graph.DataTypeSet;
-import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.list.BooleanList;
@@ -334,7 +334,7 @@ public class GenAttribute extends Generator<Attribute>
       String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(false), parser);
       ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
       
-      if (ownerClazz.isExternal() || classModel.hasFeature(Feature.EMFSTYLE)) {
+      if (ownerClazz.isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE)) {
          modelClass = modelClass + "Creator";
       }
       template.insert(parser, 
@@ -377,7 +377,7 @@ public class GenAttribute extends Generator<Attribute>
 
       String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(false), parser);
 
-      if (ownerClazz.isExternal() || classModel.hasFeature(Feature.EMFSTYLE)) {
+      if (ownerClazz.isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE)) {
          modelClass = modelClass + "Creator";
       }
       template.insert(parser, 
@@ -655,7 +655,7 @@ public class GenAttribute extends Generator<Attribute>
       String entitiyClassName = CGUtil.shortClassName(model.getClazz().getName(false));
       String entitiyNameClass = entitiyClassName;
 
-      if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+      if (model.getClazz().isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          entitiyNameClass = CGUtil.shortClassName(model.getClazz().getName() + "Creator");
       }
@@ -838,7 +838,7 @@ public class GenAttribute extends Generator<Attribute>
       
       ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
       
-      if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+      if (model.getClazz().isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          entitiyClassName += "Creator";
       }
@@ -904,7 +904,7 @@ public class GenAttribute extends Generator<Attribute>
       // get parser from class
       Parser parser;
       ClassModel classModel = (ClassModel) clazz.getClassModel();
-      if (!clazz.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if (!clazz.isExternal() && ! classModel.hasFeature(SDMFeature.EMFSTYLE))
       {
          parser = getGenerator(clazz).getOrCreateParser(rootDir);
          if (!fromSuperClass)
@@ -1026,7 +1026,7 @@ public class GenAttribute extends Generator<Attribute>
          // need to add property to string array
          StringBuilder text = new StringBuilder("   className.PROPERTY_NAME,\n   ");
 
-         if (ownerClazz.isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         if (ownerClazz.isExternal() || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             // declare the property in the creator class
             CGUtil.replaceAll(text,
@@ -1043,7 +1043,7 @@ public class GenAttribute extends Generator<Attribute>
 
          parser.insert(endOfStringArrayInit, text.toString());
 
-         if (ownerClazz.isExternal()  || classModel.hasFeature(Feature.EMFSTYLE))
+         if (ownerClazz.isExternal()  || classModel.hasFeature(SDMFeature.EMFSTYLE))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
