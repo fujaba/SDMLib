@@ -37,43 +37,32 @@ public class StudentCreator implements SendableEntityCreator
           return null;
       }
       Student element = (Student)entity;
-      int pos = attribute.indexOf('.');
-      String attrName = attribute;
-
-      if (pos > 0)
-      {
-         attrName = attribute.substring(0, pos);
-      }
-      if(attrName.length()<1) {
-         return null;
-      }
-
-      if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attribute))
       {
          return element.getAssignmentPoints();
       }
 
-      if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attribute))
       {
          return element.getCredits();
       }
 
-      if (Student.PROPERTY_ID.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_ID.equalsIgnoreCase(attribute))
       {
          return element.getId();
       }
 
-      if (Student.PROPERTY_MOTIVATION.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_MOTIVATION.equalsIgnoreCase(attribute))
       {
          return element.getMotivation();
       }
 
-      if (Student.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return element.getName();
       }
 
-      if (Student.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_UNIVERSITY.equalsIgnoreCase(attribute))
       {
          return element.getUniversity();
       }

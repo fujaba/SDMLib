@@ -23,3 +23,5 @@ coverage/
 aStore/
 *.lck
 structurizr-38847-20180411215136.json
+compile_stdout.txt
+compile_error.txt

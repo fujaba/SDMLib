@@ -21,6 +21,7 @@
 
 package org.sdmlib.storyboards;
 
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -83,6 +84,8 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.list.SimpleKeyValueList;
+
+import javax.imageio.ImageIO;
 
 import static guru.nidi.graphviz.model.Factory.graph;
 import static guru.nidi.graphviz.model.Factory.node;
@@ -1465,7 +1468,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       this.dumpHTML(null, null);
    }
 
-   public void addImage(String imageFile)
+   public void addImage(String imageFile, int... dims)
    {
       int num = 0;
       if (this.storyboardSteps != null)
@@ -1497,7 +1500,30 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             Files.copy(srcFile, targetFile, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
          }
 
-         this.addToSteps("<img src='doc-files/_" + shortStepName + suffix + "'>");
+         String imgFileName = shortStepName + suffix;
+         String widthClause = "";
+         int width = 400;
+         try
+         {
+            BufferedImage bimg = ImageIO.read(new File(targetImageName));
+            width = bimg.getWidth();
+         } catch (IOException e)
+         {
+            e.printStackTrace();
+         }
+
+         if (dims != null && dims.length > 0)
+         {
+            width = dims[0];
+         }
+
+         widthClause = "width='" + width + "'";
+
+         String imgTag = CGUtil.replaceAll("<img src='doc-files/_imgFileName' widthClause>\n",
+               "imgFileName", imgFileName,
+               "widthClause", widthClause
+               );
+         this.addToSteps(imgTag);
       }
       catch (IOException e)
       {
@@ -1569,10 +1595,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          }
       }
 
-      // insert link to image in this storyboard
-      this.add("<img src=\"doc-files/" + shortStepName + ".png\" alt=\"" + shortStepName + ".png\">\n");
-
-      // if new / changed
+            // if new / changed
       // if (! htmlHasChanged) return;
 
       // generate image in doc-files
@@ -1584,6 +1607,19 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       {
          generateImageInDocFilesWithDiagramEditor(autoClose, newHtml, shortStepName, fullStepHtmlName, htmlFile, dimensions);
       }
+
+      // insert link to image in this storyboard
+      int width = dimensions[0];
+      try
+      {
+         String imageFileName = this.docDirName + "/doc-files/" + shortStepName + ".png";
+         BufferedImage bimg = ImageIO.read(new File(imageFileName));
+         width = bimg.getWidth();
+      } catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+      this.add("<img src=\"doc-files/" + shortStepName + ".png\" alt=\"" + shortStepName + ".png\" width='" + width + "'>\n");
    }
 
 

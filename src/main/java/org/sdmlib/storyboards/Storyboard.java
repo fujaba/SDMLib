@@ -76,8 +76,8 @@ public class Storyboard {
 	 * 
 	 * @param imageFile name of the file, that contains the image
 	*/
-	public void addImage(String imageFile) {
-		storyboard.addImage(imageFile);
+	public void addImage(String imageFile, int... dims) {
+		storyboard.addImage(imageFile, dims);
 	}
 
 	/**

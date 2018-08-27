@@ -26,10 +26,9 @@
     </head>
 <body>
 <h3>Storyboard NetworkParserCodeGen</h3>
-<p>Check: gradle compileTestJava result 0 actual 0</p>
 <h4><a name = 'step_1'>Step 1: Build model for class University</a></h4>
-<p>Check: gradle compileTestJava result 0 actual 0</p>
-<p>Check: gradle compileTestJava after manuel insertion, expected 0 actual 0</p>
+<p>Check: javac result 0 actual 0</p>
+<p>Check: compile after manuel insertion, expected 0 actual 0</p>
 <p>Check: gradle compileTestJava result after adding University.name 0 actual 0</p>
 <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
 <pre><code class="java" data-lang="java">
@@ -40,19 +39,19 @@
             .withAttribute(&quot;motivation&quot;, DataType.INT)
             .withAttribute(&quot;credits&quot;, DataType.INT);
 </code></pre>
-<img src="doc-files/NetworkParserCodeGenStep7.png" alt="NetworkParserCodeGenStep7.png">
-<p>Check: gradle compileTestJava result after adding class Student 0 actual 0</p>
+<img src="doc-files/NetworkParserCodeGenStep6.png" alt="NetworkParserCodeGenStep6.png">
+<p>Check: compile result after adding class Student 0 actual 0</p>
 <p>3. add University --> Student association</p>
 <pre><code class="java" data-lang="java">
       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
 </code></pre>
-<img src="doc-files/NetworkParserCodeGenStep11.png" alt="NetworkParserCodeGenStep11.png">
-<p>Check: gradle compileTestJava result after adding students assoc 0 actual 0</p>
+<img src="doc-files/NetworkParserCodeGenStep10.png" alt="NetworkParserCodeGenStep10.png">
+<p>Check: compile result after adding students assoc 0 actual 0</p>
 <p>6. generate class source files.</p>
 <pre><code class="java" data-lang="java">
       model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
 </code></pre>
-<p>Check: gradle build result after all 0 actual 0</p>
+<p>Check: compile result after all 0 actual 0</p>
 
 </body>
 </html>

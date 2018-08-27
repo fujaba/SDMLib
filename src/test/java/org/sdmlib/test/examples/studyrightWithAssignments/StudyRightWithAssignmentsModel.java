@@ -23,13 +23,19 @@
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import de.uniks.networkparser.ext.ClassModel;
+import de.uniks.networkparser.ext.SimpleController;
 import de.uniks.networkparser.graph.*;
 import org.junit.Test;
+import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Gradle;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
+
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.logging.Logger;
 
 public class StudyRightWithAssignmentsModel
 {
@@ -232,10 +238,9 @@ public class StudyRightWithAssignmentsModel
    /**
     * 
     * <h3>Storyboard NetworkParserCodeGen</h3>
-    * <p>Check: gradle compileTestJava result 0 actual 0</p>
     * <h4><a name = 'step_1'>Step 1: Build model for class University</a></h4>
-    * <p>Check: gradle compileTestJava result 0 actual 0</p>
-    * <p>Check: gradle compileTestJava after manuel insertion, expected 0 actual 0</p>
+    * <p>Check: javac result 0 actual 0</p>
+    * <p>Check: compile after manuel insertion, expected 0 actual 0</p>
     * <p>Check: gradle compileTestJava result after adding University.name 0 actual 0</p>
     * <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
     * <pre><code class="java" data-lang="java">
@@ -246,19 +251,19 @@ public class StudyRightWithAssignmentsModel
     *             .withAttribute(&quot;motivation&quot;, DataType.INT)
     *             .withAttribute(&quot;credits&quot;, DataType.INT);
     * </code></pre>
-    * <img src="doc-files/NetworkParserCodeGenStep7.png" alt="NetworkParserCodeGenStep7.png">
-    * <p>Check: gradle compileTestJava result after adding class Student 0 actual 0</p>
+    * <img src="doc-files/NetworkParserCodeGenStep6.png" alt="NetworkParserCodeGenStep6.png">
+    * <p>Check: compile result after adding class Student 0 actual 0</p>
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
     *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
     * </code></pre>
-    * <img src="doc-files/NetworkParserCodeGenStep11.png" alt="NetworkParserCodeGenStep11.png">
-    * <p>Check: gradle compileTestJava result after adding students assoc 0 actual 0</p>
+    * <img src="doc-files/NetworkParserCodeGenStep10.png" alt="NetworkParserCodeGenStep10.png">
+    * <p>Check: compile result after adding students assoc 0 actual 0</p>
     * <p>6. generate class source files.</p>
     * <pre><code class="java" data-lang="java">
     *       model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
     * </code></pre>
-    * <p>Check: gradle build result after all 0 actual 0</p>
+    * <p>Check: compile result after all 0 actual 0</p>
     */
    @Test
    public void testNetworkParserCodeGen()
@@ -272,9 +277,7 @@ public class StudyRightWithAssignmentsModel
       Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
 
       // project compiles?
-      int result = Gradle.runTask("compileTestJava");
-      story.assertEquals("gradle compileTestJava result", 0, result);
-
+      int result = -1;
 
       //============================================================
       story.addStep("Build model for class University");
@@ -285,8 +288,11 @@ public class StudyRightWithAssignmentsModel
 
       //============================================================
       model.generate(SRC_TEST_JAVA);
-      result = Gradle.runTask("compileTestJava");
-      story.assertEquals("gradle compileTestJava result", 0, result);
+
+      SimpleController controller = SimpleController.create();
+      controller.withPackageName(SRC_TEST_JAVA + "/" + ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL.replaceAll("\\.", "/"));
+      result = controller.start();
+      story.assertEquals("javac result", 0, result);
 
 
       //============================================================
@@ -299,8 +305,8 @@ public class StudyRightWithAssignmentsModel
                   "\n"
       );
 
-      result = Gradle.runTask("compileTestJava");
-      story.assertEquals("gradle compileTestJava after manuel insertion, expected", 0, result);
+      result = controller.start();
+      story.assertEquals("compile after manuel insertion, expected", 0, result);
 
 
       //============================================================
@@ -308,7 +314,7 @@ public class StudyRightWithAssignmentsModel
 
       model.resetGenerator();
       model.generate(SRC_TEST_JAVA);
-      result = Gradle.runTask("compileTestJava");
+      result = controller.start();
       story.assertEquals("gradle compileTestJava result after adding University.name", 0, result);
 
 
@@ -329,8 +335,8 @@ public class StudyRightWithAssignmentsModel
       // project compiles?
       model.resetGenerator();
       model.generate(SRC_TEST_JAVA);
-      result = Gradle.runTask("compileTestJava");
-      story.assertEquals("gradle compileTestJava result after adding class Student", 0, result);
+      result = controller.start();
+      story.assertEquals("compile result after adding class Student", 0, result);
 
 
       //============================================================
@@ -346,8 +352,8 @@ public class StudyRightWithAssignmentsModel
       // project compiles?
       model.resetGenerator();
       model.generate(SRC_TEST_JAVA);
-      result = Gradle.runTask("compileTestJava");
-      story.assertEquals("gradle compileTestJava result after adding students assoc", 0, result);
+      result = controller.start();
+      story.assertEquals("compile result after adding students assoc", 0, result);
 
 //
 //
@@ -418,9 +424,9 @@ public class StudyRightWithAssignmentsModel
       model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
       story.addCode();
 
-      result = Gradle.runTask("compileTestJava");
+      result = controller.start();
 
-      story.assertEquals("gradle build result after all", 0, result);
+      story.assertEquals("compile result after all", 0, result);
 
       // remove old code
       Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
@@ -430,34 +436,12 @@ public class StudyRightWithAssignmentsModel
 
    /**
     *
-    * <h3>Storyboard NetworkParserCodeGen</h3>
-    * <p>Check: gradle compileTestJava result 0 actual 0</p>
-    * <h4><a name = 'step_1'>Step 1: Build model for class University</a></h4>
-    * <p>Check: gradle compileTestJava result 0 actual 0</p>
-    * <p>Check: gradle compileTestJava after manuel insertion, expected 0 actual 0</p>
-    * <p>Check: gradle compileTestJava result after adding University.name 0 actual 0</p>
-    * <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
-    * <pre><code class="java" data-lang="java">
-    *       Clazz studentClass = model.createClazz(&quot;Student&quot;)
-    *             .withAttribute(&quot;name&quot;, DataType.STRING)
-    *             .withAttribute(&quot;id&quot;, DataType.STRING)
-    *             .withAttribute(&quot;assignmentPoints&quot;, DataType.INT)
-    *             .withAttribute(&quot;motivation&quot;, DataType.INT)
-    *             .withAttribute(&quot;credits&quot;, DataType.INT);
-    * </code></pre>
-    * <img src="doc-files/NetworkParserCodeGenStep7.png" alt="NetworkParserCodeGenStep7.png">
-    * <p>Check: gradle compileTestJava result after adding class Student 0 actual 0</p>
-    * <p>3. add University --> Student association</p>
-    * <pre><code class="java" data-lang="java">
-    *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
-    * </code></pre>
-    * <img src="doc-files/NetworkParserCodeGenStep11.png" alt="NetworkParserCodeGenStep11.png">
-    * <p>Check: gradle compileTestJava result after adding students assoc 0 actual 0</p>
-    * <p>6. generate class source files.</p>
-    * <pre><code class="java" data-lang="java">
-    *       model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
-    * </code></pre>
-    * <p>Check: gradle build result after all 0 actual 0</p>
+    * <h3>Storyboard NetworkParserCodeGenProjectPlan</h3>
+    * <img src='doc-files/_NetworkParserCodeGenProjectPlanStep0.png' width='880'>
+    * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
+    * <img src="doc-files/NetworkParserCodeGenProjectPlanStep2.png" alt="NetworkParserCodeGenProjectPlanStep2.png" width='929'>
+    * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
+    * <img src="doc-files/NetworkParserCodeGenProjectPlanStep4.png" alt="NetworkParserCodeGenProjectPlanStep4.png" width='499'>
     */
    @Test
    public void testNetworkParserCodeGenProjectPlan()
@@ -488,6 +472,7 @@ public class StudyRightWithAssignmentsModel
             "  l4:       burndown           2018-08-15T12:13:30+01:00       1           0              mikadoLog      \n" +
             "  l5:       compile            2018-08-15T12:17:21+01:00       4           0              mikadoLog      \n" +
             "  l6:       studyRight         2018-08-23T12:16:00+01:00       7           0              mikadoLog      \n" +
+            "  l7:       compile            2018-08-27T12:14:42+01:00       4           0              mikadoLog      \n" +
             "";
 
 
