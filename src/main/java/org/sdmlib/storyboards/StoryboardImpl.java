@@ -64,6 +64,7 @@ import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.SDMLibIdMap;
+import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClazzEntity;
 import org.sdmlib.models.modelsets.ModelSet;
@@ -171,9 +172,21 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-   public StoryboardImpl withJsonIdMap(IdMap jsonIdMap)
+   public StoryboardImpl withIdMap(IdMap jsonIdMap)
    {
       this.jsonIdMap = jsonIdMap;
+      return this;
+   }
+
+
+   public StoryboardImpl withIdMap(YamlIdMap jsonIdMap)
+   {
+      SDMLibIdMap sdmIdMap = new SDMLibIdMap(null);
+      for (Map.Entry<String,Object> entry : jsonIdMap.getObjIdMap().entrySet())
+      {
+         sdmIdMap.put(entry.getKey(), entry.getValue(), false);
+      }
+      this.withIdMap(sdmIdMap);
       return this;
    }
 
@@ -512,14 +525,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       String tableText = table.getHtmlBarChart("tableChart"+getStoryboardSteps().size());
 
       this.add(tableText);
-   }
-
-
-
-   public StoryboardImpl withMap(IdMap map)
-   {
-      this.jsonIdMap = map;
-      return this;
    }
 
 
@@ -1678,6 +1683,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                  "edges", edgesString);
          String imageFileName = this.docDirName + "/doc-files/" + shortStepName + ".png";
          // System.out.println(dotString.toString());
+         System.out.println(new File(".").getAbsolutePath());
          Graphviz.fromString(dotString.toString()).render(Format.PNG).toFile(new File(imageFileName));
       }
       catch (IOException e)
@@ -1832,19 +1838,19 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
          String iconName = iconMap.get(jsonObj.getString("id"));
 
-         String imageLink = "";
+         String imageRow = "";
          if (iconName != null)
          {
-            imageLink = "   image=\"doc-files/karli.png\"\n";
+            // imageRow = "       <tr><td>img src=\"" + this.docDirName + "/" + iconName + "\"/</td></tr>\n";
          }
 
          buf.append(objId).append(" " +
                  "[\n" +
                  "   shape=plaintext\n" +
                  "   fontsize=\"10\"\n" +
-                 imageLink +
                  "   label=<\n"  +
                  "     <table border='0' cellborder='1' cellspacing='0'>\n" +
+                 imageRow +
                  "       <tr><td><u>")
                  .append(objId).append(": ").append(shortClassName)
                  .append("</u></td></tr>\n"  +
@@ -1872,32 +1878,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
 
       return buf.toString();
-   }
-
-
-   private void generateImageInDocFilesWithDiagramEditor(boolean autoClose, String newHtml, String shortStepName, String fullStepHtmlName, Path htmlFile, int[] dimensions)
-   {
-      try
-      {
-         Files.write(htmlFile, newHtml.getBytes());
-      }
-      catch (IOException e)
-      {
-         Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-      }
-
-      File file = new File(fullStepHtmlName);
-      // String urlString = file.toURI().toURL().toString();
-//      DiagramEditor.convertToPNG(file, this.docDirName + "/doc-files/" + shortStepName + ".png", autoClose);
-      DiagramEditor.converting(file, this.docDirName + "/doc-files/" + shortStepName + ".png", false, autoClose, dimensions);
-      try
-      {
-         Thread.sleep(4000);
-      }
-      catch (InterruptedException e)
-      {
-         e.printStackTrace();
-      }
    }
 
 
@@ -1974,7 +1954,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          // javadoc for method
          String targetShortName = CGUtil.shortClassName(targetClassName);
          String targetFileName = findJavaFile(targetShortName, symTab);
-         addStoryToJavaDoc(targetFileName, Parser.METHOD + ":" + targetMethodName, text.toString());
+         addStoryToJavaDoc(targetFileName, Parser.METHOD + ":" + targetMethodName+"(", text.toString());
       }
 
       pos = htmlText.indexOf("$text");
@@ -2837,7 +2817,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
          parser.parse();
 
-         ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName+"(");
+         ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
 
          for (int k = symTabEntries.size() - 1; k >= 0; k--)
          {

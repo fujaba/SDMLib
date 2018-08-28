@@ -14,6 +14,15 @@ import java.util.logging.Logger;
 
 public class MikadoProjectPlan
 {
+   /**
+    * 
+    * <h3>Storyboard ExcelProjectPlan</h3>
+    * <img src='doc-files/ExcelProjectPlanStep0.png' width='880'>
+    * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
+    * <img src="doc-files/ExcelProjectPlanStep2.png" alt="ExcelProjectPlanStep2.png" width='212'>
+    * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
+    * <img src="doc-files/ExcelProjectPlanStep4.png" alt="ExcelProjectPlanStep4.png" width='479'>
+    */
    @Test
    public void testExcelProjectPlan()
    {
@@ -27,7 +36,7 @@ public class MikadoProjectPlan
 
       MikadoLog relst18log = (MikadoLog) idMap.getObject("relst18log");
 
-      story.add(relst18log.burnDownChart());
+      story.addImage(relst18log.burnDownChartPng());
 
       Goal done = relst18.clipDone();
 

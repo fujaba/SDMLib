@@ -22,12 +22,14 @@
 
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
+import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.ext.ClassModel;
 import de.uniks.networkparser.ext.SimpleController;
 import de.uniks.networkparser.graph.*;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Gradle;
+import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
@@ -35,6 +37,7 @@ import org.sdmlib.storyboards.Storyboard;
 
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class StudyRightWithAssignmentsModel
@@ -104,7 +107,7 @@ public class StudyRightWithAssignmentsModel
     * <pre><code class="java" data-lang="java">
     *       model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
     * </code></pre>
-    * <p>Check: gradle build result after all 0 actual 0</p>
+    * <p>Check: compile result after all 0 actual 0</p>
     */
    @Test
    public void testStudyRightWithAssignmentsClassGeneration()
@@ -224,9 +227,12 @@ public class StudyRightWithAssignmentsModel
       model.generate("src/test/java"); // usually don't specify anything here, then it goes into src
       story.addCode();
 
-      gradleResult = Gradle.runTask("compileTestJava");
+      SimpleController controller = SimpleController.create();
+      controller.withPackageName(SRC_TEST_JAVA + "/" +
+            "org.sdmlib.test.examples.studyrightWithAssignments.model".replaceAll("\\.", "/"));
+      gradleResult = controller.start();
 
-      story.assertEquals("gradle build result after all", 0, gradleResult);
+      story.assertEquals("compile result after all", 0, gradleResult);
 
       //      story.dumpJavaDoc(ClassModel.class.getName());
 
@@ -436,15 +442,15 @@ public class StudyRightWithAssignmentsModel
 
    /**
     *
-    * <h3>Storyboard NetworkParserCodeGenProjectPlan</h3>
-    * <img src='doc-files/NetworkParserCodeGenProjectPlanStep0.png' width='880'>
+    * <h3>Storyboard ProjectPlan4NetworkParserCodeGen</h3>
+    * <img src='doc-files/ProjectPlan4NetworkParserCodeGenStep0.png' width='880'>
     * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
-    * <img src="doc-files/NetworkParserCodeGenProjectPlanStep2.png" alt="NetworkParserCodeGenProjectPlanStep2.png" width='929'>
+    * <img src="doc-files/ProjectPlan4NetworkParserCodeGenStep2.png" alt="ProjectPlan4NetworkParserCodeGenStep2.png" width='929'>
     * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
-    * <img src="doc-files/NetworkParserCodeGenProjectPlanStep4.png" alt="NetworkParserCodeGenProjectPlanStep4.png" width='1067'>
+    * <img src="doc-files/ProjectPlan4NetworkParserCodeGenStep4.png" alt="ProjectPlan4NetworkParserCodeGenStep4.png" width='1323'>
     */
    @Test
-   public void testNetworkParserCodeGenProjectPlan()
+   public void testProjectPlan4NetworkParserCodeGen()
    {
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
@@ -457,10 +463,9 @@ public class StudyRightWithAssignmentsModel
             "  mikado:               \"add micado diagrams to javadoc\"       root                                    \n" +
             "  doc_files:            \"copy only required doc-files\"         javadoc                                 \n" +
             "  showParentGoals:      \"show done goals of todo subgoals\"     mikado                                  \n" +
+            "  yamlIds:              \"assign yaml ids to objects\"           yaml                                    \n" +
             "  javadoc:              \"enable javadoc for external classes\"  mikado                                  \n" +
             "  yaml:                 \"enhance yaml\"                         mikado                                  \n" +
-            "  yamlSingleQuotes:     \"allow ' for strings in yaml\"          yaml                                    \n" +
-            "  yamlIds:              \"assign yaml ids to objects\"           yaml                                    \n" +
             "  migrateOldTests:      \"migrate old tests\"                    root                                    \n" +
             "  rigorousIncrTest:     \"test incremental code gen rigorously\" root                                    \n" +
             "                                                                                                         \n" +
@@ -475,6 +480,7 @@ public class StudyRightWithAssignmentsModel
             "  l8:       mikado             2018-08-27T17:00:00+01:00       2           0              mikadoLog      \n" +
             "  l9:       doc_files          2018-08-28T17:11:20+01:00       3           0              mikadoLog      \n" +
             "  l10:      showParentGoals    2018-08-28T17:11:48+01:00       0.5         0              mikadoLog      \n" +
+            "  l11:      yamlIds            2018-08-28T17:15:40+01:00       3           0              mikadoLog      \n" +
             "                                                                                                         \n" +
             "- mikadoLog: MikadoLog                                                                                   \n" +
             "  mainGoal: root                                                                                         \n" +
@@ -491,8 +497,11 @@ public class StudyRightWithAssignmentsModel
 
       Goal done = root.clipDone();
 
-      story.addStep("open goals");
+      idMap.getObjIdMap().put("done", done);
 
+      story.withIdMap(idMap);
+
+      story.addStep("open goals");
       story.addObjectDiagram(root);
 
       story.addStep("closed goals");

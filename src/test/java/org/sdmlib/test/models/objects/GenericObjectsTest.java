@@ -1010,7 +1010,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withTgtLabel("has");
 
       // IdMap jsonIdMap = GenericGraphCreator.createIdMap("go");
-      // storyboard.withJsonIdMap(GenericGraphCreator.createIdMap("g"));
+      // storyboard.withIdMap(GenericGraphCreator.createIdMap("g"));
       storyboard.addObjectDiagram(graph);
 
 

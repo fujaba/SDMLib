@@ -1,357 +1,496 @@
 /*
-   Copyright (c) 2013 ulno (http://contact.ulno.net) 
+   Copyright (c) 2013 ulno (http://contact.ulno.net)
 
-   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-   and associated documentation files (the "Software"), to deal in the Software without restriction, 
-   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-   furnished to do so, subject to the following conditions: 
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+   and associated documentation files (the "Software"), to deal in the Software without restriction,
+   including without limitation the rights to use, copy, modify, merge, publish, distribute,
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
 
-   The above copyright notice and this permission notice shall be included in all copies or 
-   substantial portions of the Software. 
+   The above copyright notice and this permission notice shall be included in all copies or
+   substantial portions of the Software.
 
-   The Software shall be used for Good, not Evil. 
+   The Software shall be used for Good, not Evil.
 
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
+import org.junit.Test;
+import org.sdmlib.models.YamlIdMap;
+import org.sdmlib.storyboards.Storyboard;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class StudyRightWithAssignmentsStoryboards
 {
-//     /**
-//    *
-//    * @throws IOException
-//    */
-//   @Test
-//   public void testYaml() throws IOException
-//   {
-//
-//      System.out.println(" (StudyRightWithAssignmentsStoryboards.java:85)");
-//
-//      Storyboard story = new Storyboard();
-//
-//      story.addStep("Read graph from yaml text:");
-//
-//      String yaml = ""
-//         + "- studyRight: University \n"
-//         + "  name:       \"\\\"Study \\\" Right\\\"And\\\"Fast now\\\"\"\n"
-//         + "  students:   karli\n"
-//         + "  rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering \n"
-//         + "\n"
-//         + "- karli: Student\n"
-//         + "  id:    4242\n"
-//         + "  name:  karli\n"
-//         + "\n"
-//         + "- albert: Prof\n"
-//         + "  topic:  SE\n"
-//         + "\n"
-//         + "- Assignment   content:                      points: \n"
-//         + "  matrixMult:  \"Matrix Multiplication\"     5\n"
-//         + "  series:      \"Series\"                    6\n"
-//         + "  a3:          Integrals                     8\n"
-//         + "\n"
-//         + "- Room                  topic:  credits: doors:                 students: assignments: \n"
-//         + "  mathRoom:             math    17       null                   karli     [matrixMult series a3]\n"
-//         + "  artsRoom:             arts    16       mathRoom               null      null\n"
-//         + "  sportsRoom:           sports  25       [mathRoom artsRoom]\n"
-//         + "  examRoom:             exam     0       [sportsRoom artsRoom]\n"
-//         + "  softwareEngineering:  \"Software Engineering\" 42 [artsRoom examRoom]\n"
-//         + "";
-//
-//      story.addPreformatted(yaml);
-//
-//      story.addStep("Call YamlIdMap.decode:");
-//
-//      story.markCodeStart();
-//      YamlIdMap yamlIdMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
-//
-//      University studyRight = (University) yamlIdMap.decode(yaml);
-//      story.addCode();
-//
-//      story.addStep("Decoded object structure:");
-//
-//      story.addObjectDiagramViaGraphViz(studyRight);
-//
-//      story.assertNotNull("root object exists", studyRight);
-//
+   /**
+    *
+    * <h3>Storyboard Yaml</h3>
+    * <h4><a name = 'step_1'>Step 1: Read graph from yaml text:</a></h4>
+    * <pre>- studyRight: University 
+    *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
+    *   students:   karli
+    *   rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering 
+    * 
+    * - karli: Student
+    *   id:    4242
+    *   name:  karli
+    * 
+    * 
+    * - Assignment   content:                      points: 
+    *   matrixMult:  &quot;Matrix Multiplication&quot;     5
+    *   series:      &quot;Series&quot;                    6
+    *   a3:          Integrals                     8
+    * 
+    * - Room                  topic:  credits: doors:                 students: assignments: 
+    *   mathRoom:             math    17       null                   karli     [matrixMult series a3]
+    *   artsRoom:             arts    16       mathRoom               null      null
+    *   sportsRoom:           sports  25       [mathRoom artsRoom]
+    *   examRoom:             exam     0       [sportsRoom artsRoom]
+    *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
+    * </pre>
+    * <h4><a name = 'step_2'>Step 2: Call YamlIdMap.decode:</a></h4>
+    * <pre><code class="java" data-lang="java">
+    *       YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
+    *       University studyRight = (University) yamlIdMap.decode(yaml);
+    * </code></pre>
+    * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='644'>
+    * <p>Check: root object exists org.sdmlib.test.examples.studyrightWithAssignments.model.University@43a0cee9</p>
+    * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
+    * <pre>- u1: 	University
+    *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
+    *   students: 	s2 	
+    *   rooms: 	r3 	r4 	r5 	r6 	r7 	
+    * 
+    * - s2: 	Student
+    *   assignmentPoints: 	0
+    *   credits: 	0
+    *   id: 	4242
+    *   motivation: 	0
+    *   name: 	karli
+    * 
+    * - r3: 	Room
+    *   credits: 	0
+    *   students: 	s2 	
+    *   assignments: 	a8 	a9 	a10 	
+    *   topic: 	math
+    * 
+    * - r4: 	Room
+    *   credits: 	0
+    *   doors: 	r3 	
+    *   topic: 	arts
+    * 
+    * - r5: 	Room
+    *   credits: 	0
+    *   doors: 	r3 	r4 	
+    *   topic: 	sports
+    * 
+    * - r6: 	Room
+    *   credits: 	0
+    *   doors: 	r5 	r4 	
+    *   topic: 	exam
+    * 
+    * - r7: 	Room
+    *   credits: 	0
+    *   doors: 	r4 	r6 	
+    *   topic: 	&quot;Software Engineering&quot;
+    * 
+    * - a8: 	Assignment
+    *   content: 	&quot;Matrix Multiplication&quot;
+    *   points: 	0
+    * 
+    * - a9: 	Assignment
+    *   content: 	Series
+    *   points: 	0
+    * 
+    * - a10: 	Assignment
+    *   content: 	Integrals
+    *   points: 	0
+    * 
+    * </pre>
+    * <p>Check: yaml starts with - u... true</p>
+    * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='651'>
+    * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
+    * <pre><code class="java" data-lang="java">
+    *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
+    *       String excelText = new String(readAllBytes);
+    * 
+    *       YamlIdMap excelIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
+    *       studyRight = (University) excelIdMap.decode(excelText);
+    * </code></pre>
+    * <p>doc/StudyRightStartSituation.txt</p>
+    * <pre>-	studyRight:	University				
+    * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
+    * 	students:	karli				
+    * 	rooms: 	mathRoom	artsRoom	sportsRoom	examRoom	softwareEngineering
+    * 						
+    * -	karli:	Student				
+    * 	id:	4242				
+    * 	name:	karli				
+    * 						
+    * -	Assignment	content:	points:
+    * 	matrixMult:	&quot;&quot;&quot;Matrix Multiplication&quot;&quot;&quot;	5			
+    * 	series:	Series	6			
+    * 	a3:	Integrals	8			
+    * 						
+    * -	Room	topic:	credits:	doors:	students:	assignments:
+    * 	mathRoom:	math	17	null	karli	[matricMult series a3]
+    * 	artsRoom:	arts	25	mathRoom		
+    * 	sportsRoom:	sports	25	[mathRoom artsRoom]		
+    * 	examRoom:	exam	0	[sportsRoom artsRoom]		
+    * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
+    * </pre>
+    * <p>result:</p>
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='495'>
+    * @throws IOException
+    */
+   @Test
+   public void testYaml() throws IOException
+   {
+
+      System.out.println(" (StudyRightWithAssignmentsStoryboards.java:85)");
+
+      Storyboard story = new Storyboard();
+
+      story.addStep("Read graph from yaml text:");
+
+      String yaml = ""
+         + "- studyRight: University \n"
+         + "  name:       \"\\\"Study \\\" Right\\\"And\\\"Fast now\\\"\"\n"
+         + "  students:   karli\n"
+         + "  rooms:      mathRoom artsRoom sportsRoom examRoom softwareEngineering \n"
+         + "\n"
+         + "- karli: Student\n"
+         + "  id:    4242\n"
+         + "  name:  karli\n"
+         + "\n"
+         // + "- albert: Prof\n"
+         // + "  topic:  SE\n"
+         + "\n"
+         + "- Assignment   content:                      points: \n"
+         + "  matrixMult:  \"Matrix Multiplication\"     5\n"
+         + "  series:      \"Series\"                    6\n"
+         + "  a3:          Integrals                     8\n"
+         + "\n"
+         + "- Room                  topic:  credits: doors:                 students: assignments: \n"
+         + "  mathRoom:             math    17       null                   karli     [matrixMult series a3]\n"
+         + "  artsRoom:             arts    16       mathRoom               null      null\n"
+         + "  sportsRoom:           sports  25       [mathRoom artsRoom]\n"
+         + "  examRoom:             exam     0       [sportsRoom artsRoom]\n"
+         + "  softwareEngineering:  \"Software Engineering\" 42 [artsRoom examRoom]\n"
+         + "";
+
+      story.addPreformatted(yaml);
+
+      story.addStep("Call YamlIdMap.decode:");
+
+      story.markCodeStart();
+      YamlIdMap yamlIdMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+
+      University studyRight = (University) yamlIdMap.decode(yaml);
+      story.addCode();
+
+      story.addStep("Decoded object structure:");
+
+      story.addObjectDiagram(studyRight);
+
+      story.assertNotNull("root object exists", studyRight);
+
 //      Object albert = yamlIdMap.getObject("albert");
 //
 //      story.assertNotNull("pojo albert exists", albert);
 //
 //      story.assertEquals("pojo attr", "SE", ((Prof)albert).getTopic());
-//
-//      story.addStep("Generate Yaml from model:");
-//
-//      YamlIdMap yamlEncodeMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
-//
-//      String newYaml = yamlEncodeMap.encode(studyRight);
-//
-//      story.addPreformatted(newYaml);
-//
-//      story.assertTrue("yaml starts with - u...", newYaml.startsWith("- u"));
-//
-//      YamlIdMap yamlDecodeMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
-//
-//      University newStudyRight = (University) yamlIdMap.decode(newYaml);
-//
-//      story.addStep("decoded again:");
-//
-//      story.addObjectDiagramViaGraphViz(newStudyRight);
-//
-//      story.addStep("now read from excel file");
-//
-//      story.markCodeStart();
-//      byte[] readAllBytes = Files.readAllBytes(Paths.get("doc/StudyRightStartSituation.txt"));
-//      String excelText = new String(readAllBytes);
-//
-//      YamlIdMap excelIdMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
-//
-//      studyRight = (University) excelIdMap.decode(excelText);
-//      story.addCode();
-//
-//      story.add("doc/StudyRightStartSituation.txt");
-//      story.addPreformatted(excelText);
-//      story.add("result:");
-//      story.addObjectDiagramViaGraphViz(studyRight);
-//      story.dumpJavaDoc(YamlIdMap.class.getName());
-//      story.dumpHTML();
-//   }
-//
-//   /**
-//    * <p>Storyboard StudyRightWithAssignmentsStoryboard</p>
-//    * <p>1. (start situation/pre-condition) Karli enters the Study-Right University
-//    * in the math room. Karli has no credits yet and still a motivation of 214. </p>
-//    * <pre>            University university = new University()
-//    *          .withName(&quot;StudyRight&quot;);
-//    *
-//    *       Student karli = university.createStudents()
-//    *          .withId(&quot;4242&quot;)
-//    *          .withName(&quot;Karli&quot;);
-//    *
-//    *       Assignment matrixMult = new Assignment()
-//    *          .withContent(&quot;Matrix Multiplication&quot;)
-//    *          .withPoints(5);
-//    *
-//    *       Assignment series = new Assignment()
-//    *          .withContent(&quot;Series&quot;)
-//    *          .withPoints(6);
-//    *
-//    *       Assignment a3 = new Assignment()
-//    *          .withContent(&quot;Integrals&quot;)
-//    *          .withPoints(8);
-//    *
-//    *       Room mathRoom = university.createRooms()
-//    *          .withName(&quot;senate&quot;)
-//    *          .withTopic(&quot;math&quot;)
-//    *          .withCredits(17)
-//    *          .withStudents(karli)
-//    *          .withAssignments(matrixMult, series, a3);
-//    *
-//    *       Room artsRoom = university.createRooms()
-//    *          .withName(&quot;7522&quot;)
-//    *          .withTopic(&quot;arts&quot;)
-//    *          .withCredits(16)
-//    *          .withDoors(mathRoom);
-//    *
-//    *       Room sportsRoom = university.createRooms()
-//    *          .withName(&quot;gymnasium&quot;)
-//    *          .withTopic(&quot;sports&quot;)
-//    *          .withCredits(25)
-//    *          .withDoors(mathRoom, artsRoom);
-//    *
-//    *       Room examRoom = university.createRooms()
-//    *          .withName(&quot;The End&quot;)
-//    *          .withTopic(&quot;exam&quot;)
-//    *          .withCredits(0)
-//    *          .withDoors(sportsRoom, artsRoom);
-//    *
-//    *       Room softwareEngineering = university.createRooms()
-//    *          .withName(&quot;7422&quot;)
-//    *          .withTopic(&quot;Software Engineering&quot;)
-//    *          .withCredits(42)
-//    *          .withDoors(artsRoom, examRoom);
-//    * </pre>
-//    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png">
-//    * <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
-//    * (general rule: the student earns always full points for doing an assignment). <br>
-//    * Karli's motivation is reduced by 5 points to now 209.
-//    * </p>
-//    * <pre>            karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
-//    *       karli.withDone(matrixMult);
-//    * </pre>
-//    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png">
-//    * <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
-//    * Thus Karli has 11 points now. Motivation is reduced to 203.
-//    * </p>
-//    * <pre>            karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
-//    *       karli.withDone(series);
-//    * </pre>
-//    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png">
-//    * <p>4. Karli does the third assignment on Integrals, earns <br>
-//    * another 8 points and thus Karli has now 19 points and a motivation of 195.
-//    * </p>
-//    * <pre>            karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-//    *       karli.withDone(a3);
-//    * </pre>
-//    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png">
-//    * <p>5. Since 19 points are more than the 17 points required
-//    * for the 17 math credits, Karli hands the points in and earns the credits
-//    * and has his assignmnet points reset to 0. <br>
-//    * (General rule: if the points earned by the assignments are higher or equal than
-//    * the credit points, the credit points will be awarded to the student.)</p>
-//    * <pre>            if (karli.getAssignmentPoints() &gt;= mathRoom.getCredits())
-//    *       {
-//    *          karli.setCredits(karli.getCredits() + mathRoom.getCredits());
-//    *          karli.setAssignmentPoints(0);
-//    *       }
-//    * </pre>
-//    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png">
-//    * <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>
-//    * <p>Check: Karli's credits:  17 actual 17</p>
-//    * <p>Check: Karli's assignment points:  0 actual 0</p>
-//    * <p>Check: Number of students:  1 actual 1</p>
-//    * @see <a href='../../../../../../../../doc/StudyRightWithAssignmentsStoryboard.html'>StudyRightWithAssignmentsStoryboard.html</a>
-//    */
-//   @Test
-//   public void testStudyRightWithAssignmentsStoryboard()
-//   {
-//      Storyboard storyboard = new Storyboard();
-//
-//      // =============================================================
-//      storyboard.add("1. (start situation/pre-condition) Karli enters the Study-Right University \n"
-//         + "in the math room. Karli has no credits yet and still a motivation of 214. ");
-//
-//      storyboard.markCodeStart();
-//      University university = new University()
-//         .withName("StudyRight");
-//
-//      Student karli = university.createStudents()
-//         .withId("4242")
-//         .withName("Karli");
-//
-//      Assignment matrixMult = new Assignment()
-//         .withContent("Matrix Multiplication")
-//         .withPoints(5);
-//
-//      Assignment series = new Assignment()
-//         .withContent("Series")
-//         .withPoints(6);
-//
-//      Assignment a3 = new Assignment()
-//         .withContent("Integrals")
-//         .withPoints(8);
-//
-//      Room mathRoom = university.createRooms()
-//         .withName("senate")
-//         .withTopic("math")
-//         .withCredits(17)
-//         .withStudents(karli)
-//         .withAssignments(matrixMult, series, a3);
-//
-//      Room artsRoom = university.createRooms()
-//         .withName("7522")
-//         .withTopic("arts")
-//         .withCredits(16)
-//         .withDoors(mathRoom);
-//
-//      Room sportsRoom = university.createRooms()
-//         .withName("gymnasium")
-//         .withTopic("sports")
-//         .withCredits(25)
-//         .withDoors(mathRoom, artsRoom);
-//
-//      Room examRoom = university.createRooms()
-//         .withName("The End")
-//         .withTopic("exam")
-//         .withCredits(0)
-//         .withDoors(sportsRoom, artsRoom);
-//
-//      Room softwareEngineering = university.createRooms()
-//         .withName("7422")
-//         .withTopic("Software Engineering")
-//         .withCredits(42)
-//         .withDoors(artsRoom, examRoom);
-//      storyboard.addCode();
-//
-//      storyboard.addObjectDiagramViaGraphViz(
-//         "studyRight", university,
-//         "karli", "icons/karli.png", karli,
-//         "mathRoom", "icons/mathroom.png", mathRoom,
-//         "artsRoom", artsRoom,
-//         "sportsRoom", sportsRoom,
-//         "examRoom", examRoom,
-//         "placeToBe", softwareEngineering,
-//         "icons/matrix.png", matrixMult,
-//         "icons/limes.png", series, "icons/integralAssignment.png", a3);
-//
-//      // ===============================================================================================
-//      storyboard.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>\n"
-//         + "(general rule: the student earns always full points for doing an assignment). <br>\n"
-//         + "Karli's motivation is reduced by 5 points to now 209.\n");
-//
-//      storyboard.markCodeStart();
-//      karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
-//      karli.withDone(matrixMult);
-//      storyboard.addCode();
-//
-//      storyboard.addObjectDiagramOnlyWithViaGraphViz(karli, mathRoom, mathRoom.getAssignments());
-//
-//      // ===============================================================================================
-//      storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. <br>\n"
-//         + "Thus Karli has 11 points now. Motivation is reduced to 203.\n");
-//
-//      storyboard.markCodeStart();
-//      karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
-//      karli.withDone(series);
-//      storyboard.addCode();
-//
-//      storyboard.addObjectDiagramOnlyWithViaGraphViz(karli, mathRoom, mathRoom.getAssignments());
-//
-//      // ===============================================================================================
-//      storyboard.add("4. Karli does the third assignment on Integrals, earns <br>\n"
-//         + "another 8 points and thus Karli has now 19 points and a motivation of 195.\n");
-//
-//      storyboard.markCodeStart();
-//      karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-//      karli.withDone(a3);
-//      storyboard.addCode();
-//
-//      storyboard.addObjectDiagramOnlyWithViaGraphViz(karli, mathRoom, mathRoom.getAssignments());
-//
-//      // ===============================================================================================
-//      storyboard.add("5. Since 19 points are more than the 17 points required \n"
-//         + "for the 17 math credits, Karli hands the points in and earns the credits \n"
-//         + "and has his assignmnet points reset to 0. <br>\n"
-//         + "(General rule: if the points earned by the assignments are higher or equal than \n"
-//         + "the credit points, the credit points will be awarded to the student.)");
-//
-//      storyboard.markCodeStart();
-//      if (karli.getAssignmentPoints() >= mathRoom.getCredits())
-//      {
-//         karli.setCredits(karli.getCredits() + mathRoom.getCredits());
-//         karli.setAssignmentPoints(0);
-//      }
-//      storyboard.addCode();
-//
-//      storyboard.addObjectDiagramOnlyWithViaGraphViz(karli, mathRoom, mathRoom.getAssignments());
-//
-//      // ===============================================================================================
-//      storyboard.add("6. (end situation/post-condition) Karli has completed the math topic and moves to sports.");
-//
-//      // ===============================================================================================
-//      storyboard.assertEquals("Karli's credits: ", 17, karli.getCredits());
-//      storyboard.assertEquals("Karli's assignment points: ", 0, karli.getAssignmentPoints());
-//      storyboard.assertEquals("Number of students: ", 1, university.getStudents().size());
-//
-//      // ================ Create HTML
-//      storyboard.dumpHTML();
-//   }
-//
-//
+
+      story.addStep("Generate Yaml from model:");
+
+      YamlIdMap yamlEncodeMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+
+      String newYaml = yamlEncodeMap.encode(studyRight);
+
+      story.addPreformatted(newYaml);
+
+      story.assertTrue("yaml starts with - u...", newYaml.startsWith("- u"));
+
+      YamlIdMap yamlDecodeMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+
+      University newStudyRight = (University) yamlIdMap.decode(newYaml);
+
+      story.addStep("decoded again:");
+
+      story.addObjectDiagram(newStudyRight);
+
+      story.addStep("now read from excel file");
+
+      story.markCodeStart();
+      byte[] readAllBytes = Files.readAllBytes(Paths.get("doc/StudyRightStartSituation.txt"));
+      String excelText = new String(readAllBytes);
+
+      YamlIdMap excelIdMap = new YamlIdMap("org.sdmlib.test.examples.studyrightWithAssignments.model");
+
+      studyRight = (University) excelIdMap.decode(excelText);
+      story.addCode();
+
+      story.add("doc/StudyRightStartSituation.txt");
+      story.addPreformatted(excelText);
+      story.add("result:");
+      story.addObjectDiagram(studyRight);
+      story.dumpJavaDoc(YamlIdMap.class.getName());
+      story.dumpHTML();
+   }
+
+
+   /**
+    *
+    * <h3>Storyboard StudyRightWithAssignmentsStoryboard</h3>
+    * <p>1. (start situation/pre-condition) Karli enters the Study-Right University 
+    * in the math room. Karli has no credits yet and still a motivation of 214. </p>
+    * <pre><code class="java" data-lang="java">
+    *       University university = new University()
+    *          .withName(&quot;StudyRight&quot;);
+    * 
+    *       Student karli = university.createStudents()
+    *          .withId(&quot;4242&quot;)
+    *          .withName(&quot;Karli&quot;);
+    * 
+    *       Assignment matrixMult = new Assignment()
+    *          .withContent(&quot;Matrix Multiplication&quot;)
+    *          .withPoints(5);
+    * 
+    *       Assignment series = new Assignment()
+    *          .withContent(&quot;Series&quot;)
+    *          .withPoints(6);
+    * 
+    *       Assignment a3 = new Assignment()
+    *          .withContent(&quot;Integrals&quot;)
+    *          .withPoints(8);
+    * 
+    *       Room mathRoom = university.createRooms()
+    *          .withName(&quot;senate&quot;)
+    *          .withTopic(&quot;math&quot;)
+    *          .withCredits(17)
+    *          .withStudents(karli)
+    *          .withAssignments(matrixMult, series, a3);
+    * 
+    *       Room artsRoom = university.createRooms()
+    *          .withName(&quot;7522&quot;)
+    *          .withTopic(&quot;arts&quot;)
+    *          .withCredits(16)
+    *          .withDoors(mathRoom);
+    * 
+    *       Room sportsRoom = university.createRooms()
+    *          .withName(&quot;gymnasium&quot;)
+    *          .withTopic(&quot;sports&quot;)
+    *          .withCredits(25)
+    *          .withDoors(mathRoom, artsRoom);
+    * 
+    *       Room examRoom = university.createRooms()
+    *          .withName(&quot;The End&quot;)
+    *          .withTopic(&quot;exam&quot;)
+    *          .withCredits(0)
+    *          .withDoors(sportsRoom, artsRoom);
+    * 
+    *       Room softwareEngineering = university.createRooms()
+    *          .withName(&quot;7422&quot;)
+    *          .withTopic(&quot;Software Engineering&quot;)
+    *          .withCredits(42)
+    *          .withDoors(artsRoom, examRoom);
+    * </code></pre>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='644'>
+    * <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
+    * (general rule: the student earns always full points for doing an assignment). <br>
+    * Karli's motivation is reduced by 5 points to now 209.
+    * </p>
+    * <pre><code class="java" data-lang="java">
+    *       karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
+    *       karli.withDone(matrixMult);
+    * </code></pre>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png" width='480'>
+    * <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
+    * Thus Karli has 11 points now. Motivation is reduced to 203.
+    * </p>
+    * <pre><code class="java" data-lang="java">
+    *       karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
+    *       karli.withDone(series);
+    * </code></pre>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png" width='463'>
+    * <p>4. Karli does the third assignment on Integrals, earns <br>
+    * another 8 points and thus Karli has now 19 points and a motivation of 195.
+    * </p>
+    * <pre><code class="java" data-lang="java">
+    *       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
+    *       karli.withDone(a3);
+    * </code></pre>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png" width='484'>
+    * <p>5. Since 19 points are more than the 17 points required 
+    * for the 17 math credits, Karli hands the points in and earns the credits 
+    * and has his assignmnet points reset to 0. <br>
+    * (General rule: if the points earned by the assignments are higher or equal than 
+    * the credit points, the credit points will be awarded to the student.)</p>
+    * <pre><code class="java" data-lang="java">
+    *       if (karli.getAssignmentPoints() &gt;= mathRoom.getCredits())
+    *       {
+    *          karli.setCredits(karli.getCredits() + mathRoom.getCredits());
+    *          karli.setAssignmentPoints(0);
+    *       }
+    * </code></pre>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png" width='484'>
+    * <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>
+    * <p>Check: Karli's credits:  17 actual 17</p>
+    * <p>Check: Karli's assignment points:  0 actual 0</p>
+    * <p>Check: Number of students:  1 actual 1</p>
+    */
+   @Test
+   public void testStudyRightWithAssignmentsStoryboard()
+   {
+      Storyboard storyboard = new Storyboard();
+
+      // =============================================================
+      storyboard.add("1. (start situation/pre-condition) Karli enters the Study-Right University \n"
+         + "in the math room. Karli has no credits yet and still a motivation of 214. ");
+
+      storyboard.markCodeStart();
+      University university = new University()
+         .withName("StudyRight");
+
+      Student karli = university.createStudents()
+         .withId("4242")
+         .withName("Karli");
+
+      Assignment matrixMult = new Assignment()
+         .withContent("Matrix Multiplication")
+         .withPoints(5);
+
+      Assignment series = new Assignment()
+         .withContent("Series")
+         .withPoints(6);
+
+      Assignment a3 = new Assignment()
+         .withContent("Integrals")
+         .withPoints(8);
+
+      Room mathRoom = university.createRooms()
+         .withName("senate")
+         .withTopic("math")
+         .withCredits(17)
+         .withStudents(karli)
+         .withAssignments(matrixMult, series, a3);
+
+      Room artsRoom = university.createRooms()
+         .withName("7522")
+         .withTopic("arts")
+         .withCredits(16)
+         .withDoors(mathRoom);
+
+      Room sportsRoom = university.createRooms()
+         .withName("gymnasium")
+         .withTopic("sports")
+         .withCredits(25)
+         .withDoors(mathRoom, artsRoom);
+
+      Room examRoom = university.createRooms()
+         .withName("The End")
+         .withTopic("exam")
+         .withCredits(0)
+         .withDoors(sportsRoom, artsRoom);
+
+      Room softwareEngineering = university.createRooms()
+         .withName("7422")
+         .withTopic("Software Engineering")
+         .withCredits(42)
+         .withDoors(artsRoom, examRoom);
+      storyboard.addCode();
+
+      storyboard.addObjectDiagram(
+         "studyRight", university,
+         "karli", "icons/karli.png", karli,
+         "mathRoom", "icons/mathroom.png", mathRoom,
+         "artsRoom", artsRoom,
+         "sportsRoom", sportsRoom,
+         "examRoom", examRoom,
+         "placeToBe", softwareEngineering,
+         "icons/matrix.png", matrixMult,
+         "icons/limes.png", series, "icons/integralAssignment.png", a3);
+
+      // ===============================================================================================
+      storyboard.add("2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>\n"
+         + "(general rule: the student earns always full points for doing an assignment). <br>\n"
+         + "Karli's motivation is reduced by 5 points to now 209.\n");
+
+      storyboard.markCodeStart();
+      karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
+      karli.withDone(matrixMult);
+      storyboard.addCode();
+
+      storyboard.addObjectDiagramOnlyWith(karli, mathRoom, mathRoom.getAssignments());
+
+      // ===============================================================================================
+      storyboard.add("3. Karli does assignment a2 on Series and earns another 6 points. <br>\n"
+         + "Thus Karli has 11 points now. Motivation is reduced to 203.\n");
+
+      storyboard.markCodeStart();
+      karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
+      karli.withDone(series);
+      storyboard.addCode();
+
+      storyboard.addObjectDiagramOnlyWith(karli, mathRoom, mathRoom.getAssignments());
+
+      // ===============================================================================================
+      storyboard.add("4. Karli does the third assignment on Integrals, earns <br>\n"
+         + "another 8 points and thus Karli has now 19 points and a motivation of 195.\n");
+
+      storyboard.markCodeStart();
+      karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
+      karli.withDone(a3);
+      storyboard.addCode();
+
+      storyboard.addObjectDiagramOnlyWith(karli, mathRoom, mathRoom.getAssignments());
+
+      // ===============================================================================================
+      storyboard.add("5. Since 19 points are more than the 17 points required \n"
+         + "for the 17 math credits, Karli hands the points in and earns the credits \n"
+         + "and has his assignmnet points reset to 0. <br>\n"
+         + "(General rule: if the points earned by the assignments are higher or equal than \n"
+         + "the credit points, the credit points will be awarded to the student.)");
+
+      storyboard.markCodeStart();
+      if (karli.getAssignmentPoints() >= mathRoom.getCredits())
+      {
+         karli.setCredits(karli.getCredits() + mathRoom.getCredits());
+         karli.setAssignmentPoints(0);
+      }
+      storyboard.addCode();
+
+      storyboard.addObjectDiagramOnlyWith(karli, mathRoom, mathRoom.getAssignments());
+
+      // ===============================================================================================
+      storyboard.add("6. (end situation/post-condition) Karli has completed the math topic and moves to sports.");
+
+      // ===============================================================================================
+      storyboard.assertEquals("Karli's credits: ", 17, karli.getCredits());
+      storyboard.assertEquals("Karli's assignment points: ", 0, karli.getAssignmentPoints());
+      storyboard.assertEquals("Number of students: ", 1, university.getStudents().size());
+
+      // ================ Create HTML
+      storyboard.dumpHTML();
+   }
+
+
 //   @Test
 //   public void testStudyRightWithAssignmentsAggregation()
 //   {

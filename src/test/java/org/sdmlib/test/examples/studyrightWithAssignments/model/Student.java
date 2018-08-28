@@ -62,6 +62,10 @@ public class Student
       return this.assignmentPoints;
    }
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ */
    public void setAssignmentPoints(int value)
    {
       if (this.assignmentPoints != value)
@@ -86,6 +90,10 @@ public class Student
       return this.credits;
    }
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ */
    public void setCredits(int value)
    {
       if (this.credits != value)
@@ -314,6 +322,10 @@ public class Student
       return this.done;
    }
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ */
    public Student withDone(Assignment... value)
    {
       if (value == null) {

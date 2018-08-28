@@ -122,7 +122,7 @@ public class MikadoPlan
 
       MikadoLog rootLog = (MikadoLog) idMap.getObject(mainGoal + "log");
 
-      story.add(rootLog.burnDownChart());
+      story.addImage(rootLog.burnDownChartPng());
 
       Goal done = root.clipDone();
 

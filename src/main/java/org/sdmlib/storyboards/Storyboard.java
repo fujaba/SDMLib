@@ -1,5 +1,7 @@
 package org.sdmlib.storyboards;
 
+import de.uniks.networkparser.IdMap;
+import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
@@ -335,4 +337,15 @@ public class Storyboard {
       return storyboard.getStoryboardSteps().size();
    }
 
+   public Storyboard withIdMap(IdMap map)
+	{
+		storyboard.withIdMap(map);
+		return this;
+	}
+
+	public Storyboard withIdMap(YamlIdMap map)
+	{
+		storyboard.withIdMap(map);
+		return this;
+	}
 }

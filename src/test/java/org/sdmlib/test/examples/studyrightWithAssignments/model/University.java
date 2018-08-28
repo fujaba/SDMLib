@@ -5,8 +5,11 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
-
-public class University
+   /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ */
+   public class University
 {
    protected PropertyChangeSupport listeners = null;
 
@@ -119,6 +122,10 @@ public class University
       return this;
    }
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ */
    public Student createStudents()
    {
       Student value = new Student();
@@ -165,6 +172,10 @@ public class University
       return this;
    }
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ */
    public Room createRooms()
    {
       Room value = new Room();

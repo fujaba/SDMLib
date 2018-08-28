@@ -743,7 +743,7 @@ public class HelloWorldTTC2011
 
       Graph graph = createExampleGraph();
 
-//      storyboard.withJsonIdMap((JsonIdMap) new GenericIdMap().withSessionId("hg"));
+//      storyboard.withIdMap((JsonIdMap) new GenericIdMap().withSessionId("hg"));
 
       storyboard.addObjectDiagram(graph);
 
