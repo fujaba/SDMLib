@@ -32,18 +32,7 @@ public class PresidentCreator implements SendableEntityCreator
           return null;
       }
       President element = (President)entity;
-      int pos = attribute.indexOf('.');
-      String attrName = attribute;
-
-      if (pos > 0)
-      {
-         attrName = attribute.substring(0, pos);
-      }
-      if(attrName.length()<1) {
-         return null;
-      }
-
-      if (President.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
+      if (President.PROPERTY_UNIVERSITY.equalsIgnoreCase(attribute))
       {
          return element.getUniversity();
       }

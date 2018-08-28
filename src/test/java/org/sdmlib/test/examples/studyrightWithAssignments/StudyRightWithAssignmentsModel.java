@@ -53,7 +53,7 @@ public class StudyRightWithAssignmentsModel
     *       Clazz universityClass = model.createClazz(&quot;University&quot;)
     *             .withAttribute(&quot;name&quot;, DataType.STRING);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png" width='104'>
     * <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
     * <pre><code class="java" data-lang="java">
     *       Clazz studentClass = model.createClazz(&quot;Student&quot;)
@@ -63,12 +63,12 @@ public class StudyRightWithAssignmentsModel
     *             .withAttribute(&quot;motivation&quot;, DataType.INT)
     *             .withAttribute(&quot;credits&quot;, DataType.INT);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png" width='269'>
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
     *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png" width='151'>
     * <p>4. add University --> Room association</p>
     * <pre><code class="java" data-lang="java">
     *       Clazz roomClass = model.createClazz(&quot;Room&quot;)
@@ -88,7 +88,7 @@ public class StudyRightWithAssignmentsModel
     *       studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
     *       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png" width='232'>
     * <p>5. add assignments:</p>
     * <pre><code class="java" data-lang="java">
     *       Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
@@ -99,7 +99,7 @@ public class StudyRightWithAssignmentsModel
     * 
     *       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png">
+    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png" width='319'>
     * <p>6. generate class source files.</p>
     * <pre><code class="java" data-lang="java">
     *       model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
@@ -251,13 +251,13 @@ public class StudyRightWithAssignmentsModel
     *             .withAttribute(&quot;motivation&quot;, DataType.INT)
     *             .withAttribute(&quot;credits&quot;, DataType.INT);
     * </code></pre>
-    * <img src="doc-files/NetworkParserCodeGenStep6.png" alt="NetworkParserCodeGenStep6.png">
+    * <img src="doc-files/NetworkParserCodeGenStep6.png" alt="NetworkParserCodeGenStep6.png" width='269'>
     * <p>Check: compile result after adding class Student 0 actual 0</p>
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
     *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
     * </code></pre>
-    * <img src="doc-files/NetworkParserCodeGenStep10.png" alt="NetworkParserCodeGenStep10.png">
+    * <img src="doc-files/NetworkParserCodeGenStep10.png" alt="NetworkParserCodeGenStep10.png" width='151'>
     * <p>Check: compile result after adding students assoc 0 actual 0</p>
     * <p>6. generate class source files.</p>
     * <pre><code class="java" data-lang="java">
@@ -429,7 +429,7 @@ public class StudyRightWithAssignmentsModel
       story.assertEquals("compile result after all", 0, result);
 
       // remove old code
-      Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
+      // Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
 
       story.dumpHTML();
    }
@@ -437,11 +437,11 @@ public class StudyRightWithAssignmentsModel
    /**
     *
     * <h3>Storyboard NetworkParserCodeGenProjectPlan</h3>
-    * <img src='doc-files/_NetworkParserCodeGenProjectPlanStep0.png' width='880'>
+    * <img src='doc-files/NetworkParserCodeGenProjectPlanStep0.png' width='880'>
     * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
     * <img src="doc-files/NetworkParserCodeGenProjectPlanStep2.png" alt="NetworkParserCodeGenProjectPlanStep2.png" width='929'>
     * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
-    * <img src="doc-files/NetworkParserCodeGenProjectPlanStep4.png" alt="NetworkParserCodeGenProjectPlanStep4.png" width='499'>
+    * <img src="doc-files/NetworkParserCodeGenProjectPlanStep4.png" alt="NetworkParserCodeGenProjectPlanStep4.png" width='1067'>
     */
    @Test
    public void testNetworkParserCodeGenProjectPlan()
@@ -451,19 +451,18 @@ public class StudyRightWithAssignmentsModel
       String yaml = "" +
             "- Goal                  description:                             parents:                                \n" +
             "  root:                 \"migrate to network parser codegen\"    null                                    \n" +
+            "  burndown:             \"fix micado burndown\"                  mikado                                  \n" +
+            "  compile:              \"add compile test after code gen\"      studyRight                              \n" +
             "  studyRight:           \"migrate study right example\"          root                                    \n" +
             "  mikado:               \"add micado diagrams to javadoc\"       root                                    \n" +
-            "  burndown:             \"fix micado burndown\"                  mikado                                  \n" +
+            "  doc_files:            \"copy only required doc-files\"         javadoc                                 \n" +
+            "  showParentGoals:      \"show done goals of todo subgoals\"     mikado                                  \n" +
             "  javadoc:              \"enable javadoc for external classes\"  mikado                                  \n" +
-            "  compile:              \"add compile test after code gen\"      studyRight                              \n" +
             "  yaml:                 \"enhance yaml\"                         mikado                                  \n" +
             "  yamlSingleQuotes:     \"allow ' for strings in yaml\"          yaml                                    \n" +
             "  yamlIds:              \"assign yaml ids to objects\"           yaml                                    \n" +
             "  migrateOldTests:      \"migrate old tests\"                    root                                    \n" +
             "  rigorousIncrTest:     \"test incremental code gen rigorously\" root                                    \n" +
-            "                                                                                                         \n" +
-            "- mikadoLog: MikadoLog                                                                                   \n" +
-            "  mainGoal: root                                                                                         \n" +
             "                                                                                                         \n" +
             "- LogEntry  goal:              date:                           hoursDone: hoursRemaining: parent:        \n" +
             "  l1:       studyRight         2018-08-13T12:00:00+01:00       0           4              mikadoLog      \n" +
@@ -473,6 +472,12 @@ public class StudyRightWithAssignmentsModel
             "  l5:       compile            2018-08-15T12:17:21+01:00       4           0              mikadoLog      \n" +
             "  l6:       studyRight         2018-08-23T12:16:00+01:00       7           0              mikadoLog      \n" +
             "  l7:       compile            2018-08-27T12:14:42+01:00       4           0              mikadoLog      \n" +
+            "  l8:       mikado             2018-08-27T17:00:00+01:00       2           0              mikadoLog      \n" +
+            "  l9:       doc_files          2018-08-28T17:11:20+01:00       3           0              mikadoLog      \n" +
+            "  l10:      showParentGoals    2018-08-28T17:11:48+01:00       0.5         0              mikadoLog      \n" +
+            "                                                                                                         \n" +
+            "- mikadoLog: MikadoLog                                                                                   \n" +
+            "  mainGoal: root                                                                                         \n" +
             "";
 
 
@@ -488,10 +493,10 @@ public class StudyRightWithAssignmentsModel
 
       story.addStep("open goals");
 
-      story.addObjectDiagramViaGraphViz(root);
+      story.addObjectDiagram(root);
 
       story.addStep("closed goals");
-      story.addObjectDiagramViaGraphViz(done);
+      story.addObjectDiagram(done);
 
 
       story.dumpHTML();

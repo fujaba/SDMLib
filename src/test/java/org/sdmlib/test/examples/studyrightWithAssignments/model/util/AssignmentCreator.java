@@ -36,33 +36,22 @@ public class AssignmentCreator implements SendableEntityCreator
           return null;
       }
       Assignment element = (Assignment)entity;
-      int pos = attribute.indexOf('.');
-      String attrName = attribute;
-
-      if (pos > 0)
-      {
-         attrName = attribute.substring(0, pos);
-      }
-      if(attrName.length()<1) {
-         return null;
-      }
-
-      if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attrName))
+      if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attribute))
       {
          return element.getRoom();
       }
 
-      if (Assignment.PROPERTY_CONTENT.equalsIgnoreCase(attrName))
+      if (Assignment.PROPERTY_CONTENT.equalsIgnoreCase(attribute))
       {
          return element.getContent();
       }
 
-      if (Assignment.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
+      if (Assignment.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
       {
          return element.getStudents();
       }
 
-      if (Assignment.PROPERTY_POINTS.equalsIgnoreCase(attrName))
+      if (Assignment.PROPERTY_POINTS.equalsIgnoreCase(attribute))
       {
          return element.getPoints();
       }

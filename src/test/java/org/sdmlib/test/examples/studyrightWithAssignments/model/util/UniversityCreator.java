@@ -37,33 +37,22 @@ public class UniversityCreator implements SendableEntityCreator
           return null;
       }
       University element = (University)entity;
-      int pos = attribute.indexOf('.');
-      String attrName = attribute;
-
-      if (pos > 0)
-      {
-         attrName = attribute.substring(0, pos);
-      }
-      if(attrName.length()<1) {
-         return null;
-      }
-
-      if (University.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (University.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return element.getName();
       }
 
-      if (University.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
+      if (University.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
       {
          return element.getStudents();
       }
 
-      if (University.PROPERTY_ROOMS.equalsIgnoreCase(attrName))
+      if (University.PROPERTY_ROOMS.equalsIgnoreCase(attribute))
       {
          return element.getRooms();
       }
 
-      if (University.PROPERTY_PRESIDENT.equalsIgnoreCase(attrName))
+      if (University.PROPERTY_PRESIDENT.equalsIgnoreCase(attribute))
       {
          return element.getPresident();
       }

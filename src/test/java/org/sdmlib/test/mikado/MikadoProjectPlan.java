@@ -46,10 +46,11 @@ public class MikadoProjectPlan
    /**
     * 
     * <h3>Storyboard MikadoProjectPlan</h3>
-    * <img src='doc-files/_MikadoProjectPlanStep0.png'><h4><a name = 'step_1'>Step 1: open goals</a></h4>
-    * <img src="doc-files/MikadoProjectPlanStep2.png" alt="MikadoProjectPlanStep2.png">
+    * <img src='doc-files/MikadoProjectPlanStep0.png' width='880'>
+    * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
+    * <img src="doc-files/MikadoProjectPlanStep2.png" alt="MikadoProjectPlanStep2.png" width='189'>
     * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
-    * <img src="doc-files/MikadoProjectPlanStep4.png" alt="MikadoProjectPlanStep4.png">
+    * <img src="doc-files/MikadoProjectPlanStep4.png" alt="MikadoProjectPlanStep4.png" width='1069'>
     */
    @Test
    public void testMikadoProjectPlan()
@@ -98,10 +99,10 @@ public class MikadoProjectPlan
 
       story.addStep("open goals");
 
-      story.addObjectDiagramViaGraphViz(root);
+      story.addObjectDiagram(root);
 
       story.addStep("closed goals");
-      story.addObjectDiagramViaGraphViz(done);
+      story.addObjectDiagram(done);
 
 
       story.dumpHTML();

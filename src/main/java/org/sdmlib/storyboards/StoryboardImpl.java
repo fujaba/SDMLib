@@ -1057,15 +1057,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    }
 
 
-
-   public void addObjectDiagramWithViaGraphViz(Object... elems)
-   {
-      ArrayList<Object> tempElems = new ArrayList<Object>(Arrays.asList((Object[]) elems));
-      tempElems.add(true);
-      Object[] moreElems = tempElems.toArray();
-      addObjectDiagramViaGraphViz(moreElems);
-   }
-
    public void addObjectDiagramWith(Object... elems)
    {
       ArrayList<Object> tempElems = new ArrayList<Object>(Arrays.asList((Object[]) elems));
@@ -1076,23 +1067,9 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
 
 
-   public void addObjectDiagramViaGraphViz(Object... elems)
-   {
-      this.addObjectDiagramInternal("graphviz-java", elems);
-   }
-
-
-
-   public void addObjectDiagramAsImage(Object... elems)
-   {
-      this.addObjectDiagramInternal("diagramEditor", elems);
-   }
-
-
-
    public void addObjectDiagram(Object... elems)
    {
-      this.addObjectDiagramInternal("javaScript", elems);
+      this.addObjectDiagramInternal("graphviz-java", elems);
    }
 
 
@@ -1274,13 +1251,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       // this.addObjectDiagramFromJsonArray(root, jsonArray);
    }
 
-
-
-
-   void addSVGImage(String imageFile)
-   {
-      this.addToSteps("<embed type=\"image/svg+xml\" src='" + imageFile + "'>");
-   }
 
 
 
@@ -1479,7 +1449,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       int suffixPos = imageFile.lastIndexOf('.');
       String suffix = imageFile.substring(suffixPos);
       String shortStepName = getName() + "Step" + num;
-      String targetImageName = this.docDirName + "/doc-files/_" + shortStepName + suffix;
+      String targetImageName = this.docDirName + "/doc-files/" + shortStepName + suffix;
 
       // copy images to doc-files
       Path docFilesDir = Paths.get(docDirName + "/doc-files");
@@ -1519,10 +1489,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
          widthClause = "width='" + width + "'";
 
-         String imgTag = CGUtil.replaceAll("<img src='doc-files/_imgFileName' widthClause>\n",
+         String imgTag = CGUtil.replaceAll("<img src='doc-files/imgFileName' widthClause>\n",
                "imgFileName", imgFileName,
                "widthClause", widthClause
                );
+
+         imageFileNameList.add(imgFileName);
          this.addToSteps(imgTag);
       }
       catch (IOException e)
@@ -1603,13 +1575,18 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       {
          generateImageInDocFilesWithGraphVizJava(autoClose, htmlbody, shortStepName, fullStepHtmlName, htmlFile, dimensions);
       }
-      else
-      {
-         generateImageInDocFilesWithDiagramEditor(autoClose, newHtml, shortStepName, fullStepHtmlName, htmlFile, dimensions);
-      }
+//      else
+//      {
+//         generateImageInDocFilesWithDiagramEditor(autoClose, newHtml, shortStepName, fullStepHtmlName, htmlFile, dimensions);
+//      }
 
       // insert link to image in this storyboard
-      int width = dimensions[0];
+
+      int width = 400;
+      if (dimensions != null && dimensions.length > 0)
+      {
+         width = dimensions[0];
+      }
       try
       {
          String imageFileName = this.docDirName + "/doc-files/" + shortStepName + ".png";
@@ -1619,8 +1596,12 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       {
          e.printStackTrace();
       }
+
+      imageFileNameList.add(shortStepName + ".png");
       this.add("<img src=\"doc-files/" + shortStepName + ".png\" alt=\"" + shortStepName + ".png\" width='" + width + "'>\n");
    }
+
+   protected ArrayList<String> imageFileNameList = new ArrayList<>();
 
 
    private void generateImageInDocFilesWithGraphVizJava(boolean autoClose, String jsonString, String shortStepName, String fullStepHtmlName, Path htmlFile, int[] dimensions)
@@ -1959,7 +1940,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
             // already html
             text.append(content);
          }
-         else if (content.startsWith("screendump="))
+         else if (content.startsWith("screendump="))  // TODO: use addImage instead
          {
             String[] split = content.split("=");
             content = split.clone()[1];
@@ -2712,8 +2693,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
    private void generateJavaDoc()
    {
-
-
       SymTabEntry symTabEntry = parser.getSymTabEntry(Parser.METHOD + ":" + methodName + "()");
 
       if (symTabEntry == null)
@@ -2858,7 +2837,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
          parser.parse();
 
-         ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName);
+         ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(methodUnderTestName+"(");
 
          for (int k = symTabEntries.size() - 1; k >= 0; k--)
          {
@@ -2933,15 +2912,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                Files.createDirectories(targetDocFilesDir);
             }
 
-            for(String fileName : new File(docDirName + "/doc-files").list())
+            for(String fileName : imageFileNameList)  // new File(docDirName + "/doc-files").list()
             {
-               Path srcFile = docFilesDir.resolve(fileName);
-               FileTime srclastModifiedTime = Files.getLastModifiedTime(srcFile);
-               Path targetFile = targetDocFilesDir.resolve(fileName);
-
-               if ( ! Files.exists(targetFile) || Files.getLastModifiedTime(targetFile).compareTo(srclastModifiedTime) < 0)
+               try
                {
-                  Files.copy(srcFile, targetFile, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+                  Path srcFile = docFilesDir.resolve(fileName);
+                  FileTime srclastModifiedTime = Files.getLastModifiedTime(srcFile);
+                  Path targetFile = targetDocFilesDir.resolve(fileName);
+
+                  if ( ! Files.exists(targetFile) || Files.getLastModifiedTime(targetFile).compareTo(srclastModifiedTime) < 0)
+                  {
+                     Files.copy(srcFile, targetFile, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+                  }
+               }
+               catch (Exception e)
+               {
+                  Logger.getGlobal().warning("cannot copy " + fileName);
                }
             }
          }
@@ -3010,7 +2996,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                javaDocText = parser.getFileBody().substring(javaDocStartPos, javaDocEndPos + 1);
             }
 
-            String hrefText = "* @see " + testClass + "#" + testMethod;
+            String hrefText = "* see " + testClass + "#" + testMethod;
 
             if (javaDocText.indexOf(hrefText) < 0)
             {
@@ -3116,7 +3102,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
 
             String[] testFileSplit = testFileName.split("/");
 
-            String hrefText = "* @see <a href='" + href + "'>" + testFileSplit[testFileSplit.length - 1] + "</a>";
+            String hrefText = "* see <a href='" + href + "'>" + testFileSplit[testFileSplit.length - 1] + "</a>";
 
             if (javaDocText.indexOf(hrefText) < 0)
             {

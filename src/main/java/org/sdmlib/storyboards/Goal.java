@@ -169,6 +169,18 @@ import org.sdmlib.storyboards.util.GoalSet;
    {
       return this.hoursTodo;
    }
+
+   public double getHoursTodo4SubTree()
+   {
+      double sum = getHoursTodo();
+
+      for (Goal preGoal : this.getPreGoals())
+      {
+         sum += preGoal.getHoursTodo4SubTree();
+      }
+
+      return sum;
+   }
    
    public void setHoursTodo(double value)
    {
@@ -184,7 +196,7 @@ import org.sdmlib.storyboards.util.GoalSet;
    {
       setHoursTodo(value);
       return this;
-   } 
+   }
 
    
    /********************************************************************
@@ -369,7 +381,7 @@ import org.sdmlib.storyboards.util.GoalSet;
 
       for (Goal pre : preGoals)
       {
-         if (pre.getHoursTodo() == 0)
+         if (pre.getHoursTodo4SubTree() == 0)
          {
             this.withoutPreGoals(pre);
 

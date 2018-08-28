@@ -33,7 +33,7 @@
       Clazz universityClass = model.createClazz(&quot;University&quot;)
             .withAttribute(&quot;name&quot;, DataType.STRING);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png">
+<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png" width='104'>
 <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
 <pre><code class="java" data-lang="java">
       Clazz studentClass = model.createClazz(&quot;Student&quot;)
@@ -43,12 +43,12 @@
             .withAttribute(&quot;motivation&quot;, DataType.INT)
             .withAttribute(&quot;credits&quot;, DataType.INT);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png">
+<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png" width='269'>
 <p>3. add University --> Student association</p>
 <pre><code class="java" data-lang="java">
       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png">
+<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png" width='151'>
 <p>4. add University --> Room association</p>
 <pre><code class="java" data-lang="java">
       Clazz roomClass = model.createClazz(&quot;Room&quot;)
@@ -68,7 +68,7 @@
       studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png">
+<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png" width='232'>
 <p>5. add assignments:</p>
 <pre><code class="java" data-lang="java">
       Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
@@ -79,7 +79,7 @@
 
       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png">
+<img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png" width='319'>
 <p>6. generate class source files.</p>
 <pre><code class="java" data-lang="java">
       model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src

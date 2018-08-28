@@ -33,23 +33,12 @@ public class TeachingAssistantCreator implements SendableEntityCreator
           return null;
       }
       TeachingAssistant element = (TeachingAssistant)entity;
-      int pos = attribute.indexOf('.');
-      String attrName = attribute;
-
-      if (pos > 0)
-      {
-         attrName = attribute.substring(0, pos);
-      }
-      if(attrName.length()<1) {
-         return null;
-      }
-
-      if (TeachingAssistant.PROPERTY_CERTIFIED.equalsIgnoreCase(attrName))
+      if (TeachingAssistant.PROPERTY_CERTIFIED.equalsIgnoreCase(attribute))
       {
          return element.isCertified();
       }
 
-      if (TeachingAssistant.PROPERTY_ROOM.equalsIgnoreCase(attrName))
+      if (TeachingAssistant.PROPERTY_ROOM.equalsIgnoreCase(attribute))
       {
          return element.getRoom();
       }

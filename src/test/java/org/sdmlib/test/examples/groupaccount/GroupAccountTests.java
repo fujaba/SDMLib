@@ -452,6 +452,104 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
 
 
+   /**
+    * 
+    * <h3>Storyboard GroupAccountMultiUserYaml</h3>
+    * <h4><a name = 'step_1'>Step 1: create a party data structure and store it with YamlIdMap</a></h4>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep1.png" alt="GroupAccountMultiUserYamlStep1.png" width='243'>
+    * <h4><a name = 'step_2'>Step 2: add component listener and log changes in yaml format</a></h4>
+    * <pre>- p1: 	Party
+    *   partyName: 	&quot;Lectures Done&quot;
+    *   partyName.time: 	2018-08-28T12:37:35.077.albert
+    * - p1: 	Party
+    *   share: 	0.0
+    *   share.time: 	2018-08-28T12:37:35.078.albert
+    * - p1: 	Party
+    *   total: 	0.0
+    *   total.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p2: 	Person
+    *   name: 	Albert
+    *   name.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p2: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p2: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p2: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-08-28T12:37:35.078.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p2
+    *   guests.albert.p2.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p2: 	Person
+    * - albert.p3: 	Person
+    *   name: 	Nathalie
+    *   name.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p3: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p3: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p3: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-08-28T12:37:35.078.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p3
+    *   guests.albert.p3.time: 	2018-08-28T12:37:35.078.albert
+    * - albert.p3: 	Person
+    * </pre>
+    * <h4><a name = 'step_3'>Step 3: load changes into second model, continuously. </a></h4>
+    * <h4><a name = 'step_4'>Step 4: check isomorphism</a></h4>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
+    * <h4><a name = 'step_5'>Step 5: deal with link removal</a></h4>
+    * <pre>- albert.p3: 	Person
+    *   party.remove: 	p1
+    *   party.remove.time: 	2018-08-28T12:37:35.078.albert
+    * - p1: 	Party
+    *   guests.remove: 	albert.p3
+    *   guests.remove.albert.p3.time: 	2018-08-28T12:37:35.078.albert
+    * </pre>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
+    * <p>original model</p>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep11.png" alt="GroupAccountMultiUserYamlStep11.png" width='184'>
+    * <p>cloned model</p>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png" width='184'>
+    * <h4><a name = 'step_6'>Step 6: deal with object removal</a></h4>
+    * <pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-08-28T12:37:35.279.albert
+    * </pre>
+    * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
+    * <p>Check: orig idmap has removed natanull</p>
+    * <p>original model</p>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep19.png" alt="GroupAccountMultiUserYamlStep19.png" width='184'>
+    * <p>cloned model</p>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png" width='184'>
+    * <h4><a name = 'step_7'>Step 7: add objects after removal</a></h4>
+    * <pre>- albert.p3: 	Person.remove
+    *   Person.remove.time: 	2018-08-28T12:37:35.279.albert
+    * - albert.p4: 	Person
+    *   saldo: 	0.0
+    *   saldo.time: 	2018-08-28T12:37:35.412.albert
+    * - albert.p4: 	Person
+    *   total: 	0.0
+    *   total.time: 	2018-08-28T12:37:35.412.albert
+    * - albert.p4: 	Person
+    *   party: 	p1
+    *   party.time: 	2018-08-28T12:37:35.412.albert
+    * - p1: 	Party
+    * - p1: 	Party
+    *   guests: 	albert.p4
+    *   guests.albert.p4.time: 	2018-08-28T12:37:35.412.albert
+    * - albert.p4: 	Person
+    * - albert.p4: 	Person
+    *   name: 	Ann
+    *   name.time: 	2018-08-28T12:37:35.412.albert
+    * </pre>
+    */
    @Test
    public void testGroupAccountMultiUserYaml()
    {
@@ -463,7 +561,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       Person albert = victoryParty.createGuests().withName("Albert");
       Person nata = victoryParty.createGuests().withName("Nathalie");
 
-      story.addObjectDiagramViaGraphViz(victoryParty);
+      story.addObjectDiagram(victoryParty);
 
 
       story.addStep("add component listener and log changes in yaml format");
@@ -510,10 +608,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       story.assertNotNull("match", match);
 
       story.add("original model");
-      story.addObjectDiagramViaGraphViz(victoryParty);
+      story.addObjectDiagram(victoryParty);
 
       story.add("cloned model");
-      story.addObjectDiagramViaGraphViz(copyParty);
+      story.addObjectDiagram(copyParty);
 
 
       //----------------------------------------------------------------------------
@@ -538,10 +636,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       story.assertNull("orig idmap has removed nata", p3);
 
       story.add("original model");
-      story.addObjectDiagramViaGraphViz(victoryParty);
+      story.addObjectDiagram(victoryParty);
 
       story.add("cloned model");
-      story.addObjectDiagramViaGraphViz(copyParty);
+      story.addObjectDiagram(copyParty);
 
       //----------------------------------------------------------------------------
       story.addStep("add objects after removal");

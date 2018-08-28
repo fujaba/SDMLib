@@ -42,53 +42,42 @@ public class RoomCreator implements SendableEntityCreator
           return null;
       }
       Room element = (Room)entity;
-      int pos = attribute.indexOf('.');
-      String attrName = attribute;
-
-      if (pos > 0)
-      {
-         attrName = attribute.substring(0, pos);
-      }
-      if(attrName.length()<1) {
-         return null;
-      }
-
-      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attribute))
       {
          return element.getCredits();
       }
 
-      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attribute))
       {
          return element.getDoors();
       }
 
-      if (Room.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
       {
          return element.getStudents();
       }
 
-      if (Room.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return element.getName();
       }
 
-      if (Room.PROPERTY_ASSIGNMENTS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_ASSIGNMENTS.equalsIgnoreCase(attribute))
       {
          return element.getAssignments();
       }
 
-      if (Room.PROPERTY_TAS.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_TAS.equalsIgnoreCase(attribute))
       {
          return element.getTas();
       }
 
-      if (Room.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_UNIVERSITY.equalsIgnoreCase(attribute))
       {
          return element.getUniversity();
       }
 
-      if (Room.PROPERTY_TOPIC.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_TOPIC.equalsIgnoreCase(attribute))
       {
          return element.getTopic();
       }
