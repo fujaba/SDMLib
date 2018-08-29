@@ -112,9 +112,13 @@ public class StudyRightWithAssignmentsModel
    @Test
    public void testStudyRightWithAssignmentsClassGeneration()
    {
-      /* This file will generate that necessary classes and class diagram for the
+      /* This file will generate necessary classes and class diagram for the
        * StudyRight with Assignments example in the Story Driven Modeling book
        */
+
+      // remove old code?
+      Gradle.removeDir("src/test/java", "org.sdmlib.test.examples.studyrightWithAssignments.model");
+
       Storyboard story = new Storyboard();
 
       // project compiles?

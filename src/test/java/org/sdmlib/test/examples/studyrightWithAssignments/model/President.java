@@ -1,8 +1,8 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+
 
 public class President
 {

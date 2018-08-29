@@ -29,6 +29,12 @@
 <p>1. (start situation/pre-condition) Karli enters the Study-Right University 
 in the math room. Karli has no credits yet and still a motivation of 214. </p>
 <pre><code class="java" data-lang="java">
+
+      &#x2F;&#x2F; =============================================================
+      storyboard.add(&quot;1. (start situation&#x2F;pre-condition) Karli enters the Study-Right University \n&quot;
+            + &quot;in the math room. Karli has no credits yet and still a motivation of 214. &quot;);
+
+      storyboard.markCodeStart();
       University university = new University()
             .withName(&quot;StudyRight&quot;);
 
@@ -72,52 +78,46 @@ in the math room. Karli has no credits yet and still a motivation of 214. </p>
             .withTopic(&quot;exam&quot;)
             .withCredits(0)
             .withDoors(sportsRoom, artsRoom);
-
-      Room softwareEngineering = university.createRooms()
-            .withName(&quot;7422&quot;)
-            .withTopic(&quot;Software Engineering&quot;)
-            .withCredits(42)
-            .withDoors(artsRoom, examRoom);
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='644'>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='831'>
 <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
 (general rule: the student earns always full points for doing an assignment). <br>
 Karli's motivation is reduced by 5 points to now 209.
 </p>
 <pre><code class="java" data-lang="java">
-      karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
-      karli.withDone(matrixMult);
+      &#x2F;&#x2F; ===============================================================================================
+      storyboard.add(&quot;2. Karli does assignment a1 on Matrix Multiplication and earns 5 points &lt;br&gt;\n&quot;
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png" width='480'>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png" width='573'>
 <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
 Thus Karli has 11 points now. Motivation is reduced to 203.
 </p>
 <pre><code class="java" data-lang="java">
-      karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
-      karli.withDone(series);
+
+      &#x2F;&#x2F; ===============================================================================================
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png" width='463'>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png" width='523'>
 <p>4. Karli does the third assignment on Integrals, earns <br>
 another 8 points and thus Karli has now 19 points and a motivation of 195.
 </p>
 <pre><code class="java" data-lang="java">
-      karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-      karli.withDone(a3);
+
+      &#x2F;&#x2F; ===============================================================================================
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png" width='484'>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png" width='585'>
 <p>5. Since 19 points are more than the 17 points required 
 for the 17 math credits, Karli hands the points in and earns the credits 
 and has his assignmnet points reset to 0. <br>
 (General rule: if the points earned by the assignments are higher or equal than 
 the credit points, the credit points will be awarded to the student.)</p>
 <pre><code class="java" data-lang="java">
-      if (karli.getAssignmentPoints() &gt;= mathRoom.getCredits())
-      {
-         karli.setCredits(karli.getCredits() + mathRoom.getCredits());
-         karli.setAssignmentPoints(0);
-      }
+            + &quot;for the 17 math credits, Karli hands the points in and earns the credits \n&quot;
+            + &quot;and has his assignmnet points reset to 0. &lt;br&gt;\n&quot;
+            + &quot;(General rule: if the points earned by the assignments are higher or equal than \n&quot;
+            + &quot;the credit points, the credit points will be awarded to the student.)&quot;);
+
 </code></pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png" width='484'>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png" width='585'>
 <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>
 <p>Check: Karli's credits:  17 actual 17</p>
 <p>Check: Karli's assignment points:  0 actual 0</p>

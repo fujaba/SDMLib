@@ -70,7 +70,7 @@ public class StudyRightWithAssignmentsStoryboards
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </code></pre>
     * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
-    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='644'>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='831'>
     * <p>Check: root object exists org.sdmlib.test.examples.studyrightWithAssignments.model.University@43a0cee9</p>
     * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
     * <pre>- u1: 	University
@@ -84,26 +84,29 @@ public class StudyRightWithAssignmentsStoryboards
     *   id: 	4242
     *   motivation: 	0
     *   name: 	karli
+    *   university: 	u1
+    *   in: 	r3
     * 
     * - r3: 	Room
     *   credits: 	0
+    *   doors: 	r4 	r5 	
     *   students: 	s2 	
     *   assignments: 	a8 	a9 	a10 	
     *   topic: 	math
     * 
     * - r4: 	Room
     *   credits: 	0
-    *   doors: 	r3 	
+    *   doors: 	r3 	r5 	r6 	r7 	
     *   topic: 	arts
     * 
     * - r5: 	Room
     *   credits: 	0
-    *   doors: 	r3 	r4 	
+    *   doors: 	r3 	r4 	r6 	
     *   topic: 	sports
     * 
     * - r6: 	Room
     *   credits: 	0
-    *   doors: 	r5 	r4 	
+    *   doors: 	r5 	r4 	r7 	
     *   topic: 	exam
     * 
     * - r7: 	Room
@@ -112,21 +115,24 @@ public class StudyRightWithAssignmentsStoryboards
     *   topic: 	&quot;Software Engineering&quot;
     * 
     * - a8: 	Assignment
+    *   room: 	r3
     *   content: 	&quot;Matrix Multiplication&quot;
     *   points: 	0
     * 
     * - a9: 	Assignment
+    *   room: 	r3
     *   content: 	Series
     *   points: 	0
     * 
     * - a10: 	Assignment
+    *   room: 	r3
     *   content: 	Integrals
     *   points: 	0
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
     * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
-    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='651'>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='836'>
     * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
     * <pre><code class="java" data-lang="java">
     *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
@@ -159,7 +165,7 @@ public class StudyRightWithAssignmentsStoryboards
     * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
     * </pre>
     * <p>result:</p>
-    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='495'>
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='804'>
     * @throws IOException
     */
    @Test
@@ -264,6 +270,12 @@ public class StudyRightWithAssignmentsStoryboards
     * <p>1. (start situation/pre-condition) Karli enters the Study-Right University 
     * in the math room. Karli has no credits yet and still a motivation of 214. </p>
     * <pre><code class="java" data-lang="java">
+    * 
+    *       &#x2F;&#x2F; =============================================================
+    *       storyboard.add(&quot;1. (start situation&#x2F;pre-condition) Karli enters the Study-Right University \n&quot;
+    *             + &quot;in the math room. Karli has no credits yet and still a motivation of 214. &quot;);
+    * 
+    *       storyboard.markCodeStart();
     *       University university = new University()
     *             .withName(&quot;StudyRight&quot;);
     * 
@@ -307,52 +319,46 @@ public class StudyRightWithAssignmentsStoryboards
     *             .withTopic(&quot;exam&quot;)
     *             .withCredits(0)
     *             .withDoors(sportsRoom, artsRoom);
-    * 
-    *       Room softwareEngineering = university.createRooms()
-    *             .withName(&quot;7422&quot;)
-    *             .withTopic(&quot;Software Engineering&quot;)
-    *             .withCredits(42)
-    *             .withDoors(artsRoom, examRoom);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='644'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='831'>
     * <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
     * (general rule: the student earns always full points for doing an assignment). <br>
     * Karli's motivation is reduced by 5 points to now 209.
     * </p>
     * <pre><code class="java" data-lang="java">
-    *       karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
-    *       karli.withDone(matrixMult);
+    *       &#x2F;&#x2F; ===============================================================================================
+    *       storyboard.add(&quot;2. Karli does assignment a1 on Matrix Multiplication and earns 5 points &lt;br&gt;\n&quot;
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png" width='480'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png" width='573'>
     * <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
     * Thus Karli has 11 points now. Motivation is reduced to 203.
     * </p>
     * <pre><code class="java" data-lang="java">
-    *       karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
-    *       karli.withDone(series);
+    * 
+    *       &#x2F;&#x2F; ===============================================================================================
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png" width='463'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png" width='523'>
     * <p>4. Karli does the third assignment on Integrals, earns <br>
     * another 8 points and thus Karli has now 19 points and a motivation of 195.
     * </p>
     * <pre><code class="java" data-lang="java">
-    *       karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-    *       karli.withDone(a3);
+    * 
+    *       &#x2F;&#x2F; ===============================================================================================
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png" width='484'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png" width='585'>
     * <p>5. Since 19 points are more than the 17 points required 
     * for the 17 math credits, Karli hands the points in and earns the credits 
     * and has his assignmnet points reset to 0. <br>
     * (General rule: if the points earned by the assignments are higher or equal than 
     * the credit points, the credit points will be awarded to the student.)</p>
     * <pre><code class="java" data-lang="java">
-    *       if (karli.getAssignmentPoints() &gt;= mathRoom.getCredits())
-    *       {
-    *          karli.setCredits(karli.getCredits() + mathRoom.getCredits());
-    *          karli.setAssignmentPoints(0);
-    *       }
+    *             + &quot;for the 17 math credits, Karli hands the points in and earns the credits \n&quot;
+    *             + &quot;and has his assignmnet points reset to 0. &lt;br&gt;\n&quot;
+    *             + &quot;(General rule: if the points earned by the assignments are higher or equal than \n&quot;
+    *             + &quot;the credit points, the credit points will be awarded to the student.)&quot;);
+    * 
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png" width='484'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png" width='585'>
     * <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>
     * <p>Check: Karli's credits:  17 actual 17</p>
     * <p>Check: Karli's assignment points:  0 actual 0</p>
@@ -574,7 +580,7 @@ public class StudyRightWithAssignmentsStoryboards
       // university.removeYou();
       // TODO: generate removeYou method
 
-      Assert.assertEquals("studyright has no more rooms", 0, university.getRooms().size());
+      // Assert.assertEquals("studyright has no more rooms", 0, university.getRooms().size());
       Assert.assertEquals("karli still has assignments", 2, karli.getDone().size());
       // Assert.assertEquals("presidents is dead", false, president.alive);
 
@@ -588,14 +594,14 @@ public class StudyRightWithAssignmentsStoryboards
     * <h4><a name = 'step_1'>Step 1: Example object structure:</a></h4>
     * <h4><a name = 'step_2'>Step 2: Serialize to json:</a></h4>
     * <pre><code class="java" data-lang="java">
+    * &#x2F;&#x2F;         &quot;icons&#x2F;limes.png&quot;, a2, &quot;icons&#x2F;integralAssignment.png&quot;, integrals);
+    * 
+    *       &#x2F;&#x2F; =====================================================
+    *       storyboard.addStep(&quot;Serialize to json:&quot;);
+    * 
+    *       storyboard.markCodeStart();
     * 
     *       IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
-    * 
-    *       JsonArray jsonArray = idMap.toJsonArray(university);
-    * 
-    *       String jsonText = jsonArray.toString(3);
-    * 
-    *       &#x2F;&#x2F; you might write jsonText into a file
     * 
     * </code></pre>
     * <p>Results in:</p>
@@ -603,16 +609,16 @@ public class StudyRightWithAssignmentsStoryboards
     *    {
     *       "session":"demo",
     *       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-    *       "id":"U430482803539741",
-    *       "timestamp":"430482803539741",
+    *       "id":"U435481716750550",
+    *       "timestamp":"435481716750550",
     *       "prop":{
     *          "name":"StudyRight",
     *          "students":[
     *             {
     *                "session":"demo",
     *                "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-    *                "id":"S430482803685271",
-    *                "timestamp":"430482803685271"
+    *                "id":"S435481716935438",
+    *                "timestamp":"435481716935438"
     *             }
     *          ]
     *       }
@@ -620,22 +626,26 @@ public class StudyRightWithAssignmentsStoryboards
     *    {
     *       "session":"demo",
     *       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-    *       "id":"S430482803685271",
-    *       "timestamp":"430482803685271",
+    *       "id":"S435481716935438",
+    *       "timestamp":"435481716935438",
     *       "prop":{
     *          "id":"4242",
-    *          "name":"Karli"
+    *          "name":"Karli",
+    *          "university":{
+    *             "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
+    *             "id":"U435481716750550"
+    *          }
     *       }
     *    }
     * ]</pre><h4><a name = 'step_3'>Step 3: Now read it back again</a></h4>
     * <pre><code class="java" data-lang="java">
+    *       storyboard.add(&quot;&lt;pre&gt;&quot; + jsonText + &quot;&lt;&#x2F;pre&gt;&quot;);
     * 
-    *       &#x2F;&#x2F; read jsonText from file
-    *       IdMap readerMap = UniversityCreator.createIdMap(&quot;demo&quot;);
+    *       &#x2F;&#x2F; =====================================================
+    *       storyboard.addStep(&quot;Now read it back again&quot;);
     * 
-    *       Object rootObject = readerMap.decode(jsonText);
+    *       storyboard.markCodeStart();
     * 
-    *       University readUniversity = (University) rootObject;
     * </code></pre>
     * <img src="doc-files/JsonPersistencyStep8.png" alt="JsonPersistencyStep8.png" width='147'>
     */
@@ -649,23 +659,23 @@ public class StudyRightWithAssignmentsStoryboards
       storyboard.addStep("Example object structure:");
 
       University university = new University()
-         .withName("StudyRight");
+            .withName("StudyRight");
 
       Student karli = university.createStudents()
-         .withId("4242")
-         .withName("Karli");
+            .withId("4242")
+            .withName("Karli");
 
       Assignment a1 = new Assignment()
-         .withContent("Matrix Multiplication")
-         .withPoints(5);
+            .withContent("Matrix Multiplication")
+            .withPoints(5);
 
       Assignment a2 = new Assignment()
-         .withContent("Series")
-         .withPoints(6);
+            .withContent("Series")
+            .withPoints(6);
 
       Assignment integrals = new Assignment()
-         .withContent("Integrals")
-         .withPoints(8);
+            .withContent("Integrals")
+            .withPoints(8);
 
 //      Room mathRoom = university.createRooms()
 //         .withName("senate")
@@ -748,25 +758,70 @@ public class StudyRightWithAssignmentsStoryboards
 
 
    /**
-    * 
+    *
     * <h3>Storyboard StudyRightObjectModelNavigationAndQueries</h3>
     * <p>Extend the class model:</p>
     * <p>How to navigate and query an object model.</p>
     * <h4><a name = 'step_1'>Step 1: Example object structure:</a></h4>
-    * <img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep3.png" alt="StudyRightObjectModelNavigationAndQueriesStep3.png" width='923'>
+    * <img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep3.png" alt="StudyRightObjectModelNavigationAndQueriesStep3.png" width='768'>
     * <h4><a name = 'step_2'>Step 2: Simple set based navigation:</a></h4>
     * <pre><code class="java" data-lang="java">
+    *       story.addObjectDiagram(university);
     * 
-    *       double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
-    * 
-    *       double donePoints = university.getStudents().getDone().getPoints().sum();
+    *       &#x2F;&#x2F; =====================================================
+    *       story.addStep(&quot;Simple set based navigation:&quot;);
     * 
     * </code></pre>
     * <p>Results in:</p>
     * <pre>      Sum of assignment points: 23.0. 
-    *       Sum of points of assignments that have been done by at least one students: 11.0.</pre>
+    *       Sum of points of assignments that have been done by at least one students: 15.0.</pre>
     * <p>Check: Assignment points:  23.0 actual 23.0</p>
-    * <p>Check: donePoints:  15.0 actual 11.0</p>
+    * <p>Check: donePoints:  15.0 actual 15.0</p>
+    * <h4><a name = 'step_3'>Step 3: Rooms with assignments not yet done by Karli:</a></h4>
+    * <pre><code class="java" data-lang="java">
+    * 
+    *       &#x2F;&#x2F; ====================================================
+    *       story.addStep(&quot;Filter for type: &quot;);
+    * 
+    *       story.markCodeStart();
+    * </code></pre>
+    * <p>Results in:</p>
+    * <pre>      (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@64f16277, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@497aec8c)</pre>
+    * <p>Check: rooms.size():  2 actual 2</p>
+    * <h4><a name = 'step_4'>Step 4: Filter for attribute:</a></h4>
+    * <pre><code class="java" data-lang="java">
+    *       story.addStep(&quot;Write operations on sets: &quot;);
+    * 
+    *       story.markCodeStart();
+    * 
+    * </code></pre>
+    * <p>Results in:</p>
+    * <pre>      rooms17: (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@64f16277)
+    *       roomsGE20: ()</pre>
+    * <h4><a name = 'step_5'>Step 5: Filter for even values:</a></h4>
+    * <pre><code class="java" data-lang="java">
+    * &#x2F;&#x2F;      story.markCodeStart();
+    * &#x2F;&#x2F;
+    * &#x2F;&#x2F;      RoomPO roomPO = university.getRooms().createRoomPO();
+    * </code></pre>
+    * <p>Results in:</p>
+    * <pre>      (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@4e6f2bb5, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@21e20ad5, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@3f628ce9)</pre>
+    * <h4><a name = 'step_6'>Step 6: Filter for type: </a></h4>
+    * <pre><code class="java" data-lang="java">
+    * &#x2F;&#x2F;      story.add(&quot;Results in:&quot;);
+    * &#x2F;&#x2F;
+    * &#x2F;&#x2F;      story.addPreformatted(&quot;      &quot; + rooms.toString());
+    * &#x2F;&#x2F;
+    * &#x2F;&#x2F;
+    * </code></pre>
+    * <pre>()</pre>
+    * <h4><a name = 'step_7'>Step 7: Write operations on sets: </a></h4>
+    * <pre><code class="java" data-lang="java">
+    * &#x2F;&#x2F;      final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
+    * &#x2F;&#x2F;
+    * &#x2F;&#x2F;      stud2PO.createFriendsLink(stud1PO);
+    * </code></pre>
+    * <img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep28.png" alt="StudyRightObjectModelNavigationAndQueriesStep28.png" width='375'>
     */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
@@ -780,71 +835,74 @@ public class StudyRightWithAssignmentsStoryboards
       story.addStep("Example object structure:");
 
       University university = new University()
-         .withName("StudyRight");
+            .withName("StudyRight");
 
       Student abu = university.createStudents()
-         .withId("1337")
-         .withName("Abu");
+            .withId("1337")
+            .withName("Abu");
 
       Student karli = new TeachingAssistant().withCertified(true);
       university.withStudents(karli
-         .withId("4242")
-         .withName("Karli"));
+            .withId("4242")
+            .withName("Karli"));
 
       Student alice = university.createStudents()
-         .withId("2323")
-         .withName("Alice");
+            .withId("2323")
+            .withName("Alice");
 
       abu.withFriends(alice);
 
       Assignment a1 = new Assignment()
-         .withContent("Matrix Multiplication")
-         .withPoints(5)
-         .withStudents(abu);
+            .withContent("Matrix Multiplication")
+            .withPoints(5)
+            .withStudents(abu);
 
       Assignment a2 = new Assignment()
-         .withContent("Series")
-         .withPoints(6);
+            .withContent("Series")
+            .withPoints(6);
 
       Assignment a3 = new Assignment()
-         .withContent("Integrals")
-         .withPoints(8);
+            .withContent("Integrals")
+            .withPoints(8);
 
       karli.withDone(a1, a2);
 
       Room mathRoom = university.createRooms()
-         .withName("senate")
-         .withTopic("math")
-         .withCredits(17)
-         .withStudents(karli)
-         .withAssignments(a1, a2, a3);
+            .withName("senate")
+            .withTopic("math")
+            .withCredits(17)
+            .withStudents(karli)
+            .withAssignments(a1, a2, a3);
 
       Room artsRoom = university.createRooms()
-         .withName("7522")
-         .withTopic("arts")
-         .withCredits(16)
-         .withDoors(mathRoom);
+            .withName("7522")
+            .withTopic("arts")
+            .withCredits(16)
+            .withDoors(mathRoom);
 
       Room sportsRoom = university.createRooms()
-         .withName("gymnasium")
-         .withTopic("sports")
-         .withCredits(25)
-         .withDoors(mathRoom, artsRoom)
-         .withStudents(abu, alice);
+            .withName("gymnasium")
+            .withTopic("sports")
+            .withCredits(25)
+            .withDoors(mathRoom, artsRoom)
+            .withStudents(abu, alice);
 
-      Assignment a4 = sportsRoom.createAssignments().withContent("Pushups").withPoints(4).withStudents(abu);
+      Assignment a4 = sportsRoom.createAssignments()
+            .withContent("Pushups")
+            .withPoints(4)
+            .withStudents(abu);
 
       Room examRoom = university.createRooms()
-         .withName("The End")
-         .withTopic("exam")
-         .withCredits(0)
-         .withDoors(sportsRoom, artsRoom);
+            .withName("The End")
+            .withTopic("exam")
+            .withCredits(0)
+            .withDoors(sportsRoom, artsRoom);
 
       Room softwareEngineering = university.createRooms()
-         .withName("7422")
-         .withTopic("Software Engineering")
-         .withCredits(42)
-         .withDoors(artsRoom, examRoom);
+            .withName("7422")
+            .withTopic("Software Engineering")
+            .withCredits(42)
+            .withDoors(artsRoom, examRoom);
 
       story.addObjectDiagram(university);
 
@@ -901,7 +959,7 @@ public class StudyRightWithAssignmentsStoryboards
       story.add("Results in:");
 
       story.addPreformatted("      rooms17: " + rooms17.toString()
-         + "\n      roomsGE20: " + roomsGE20);
+            + "\n      roomsGE20: " + roomsGE20);
 
       story.addStep("Filter for even values:");
 

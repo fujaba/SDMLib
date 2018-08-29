@@ -51,7 +51,7 @@ import org.sdmlib.CGUtil;
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </code></pre>
     * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
-    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='644'>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='831'>
     * <p>Check: root object exists org.sdmlib.test.examples.studyrightWithAssignments.model.University@43a0cee9</p>
     * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
     * <pre>- u1: 	University
@@ -65,26 +65,29 @@ import org.sdmlib.CGUtil;
     *   id: 	4242
     *   motivation: 	0
     *   name: 	karli
+    *   university: 	u1
+    *   in: 	r3
     * 
     * - r3: 	Room
     *   credits: 	0
+    *   doors: 	r4 	r5 	
     *   students: 	s2 	
     *   assignments: 	a8 	a9 	a10 	
     *   topic: 	math
     * 
     * - r4: 	Room
     *   credits: 	0
-    *   doors: 	r3 	
+    *   doors: 	r3 	r5 	r6 	r7 	
     *   topic: 	arts
     * 
     * - r5: 	Room
     *   credits: 	0
-    *   doors: 	r3 	r4 	
+    *   doors: 	r3 	r4 	r6 	
     *   topic: 	sports
     * 
     * - r6: 	Room
     *   credits: 	0
-    *   doors: 	r5 	r4 	
+    *   doors: 	r5 	r4 	r7 	
     *   topic: 	exam
     * 
     * - r7: 	Room
@@ -93,21 +96,24 @@ import org.sdmlib.CGUtil;
     *   topic: 	&quot;Software Engineering&quot;
     * 
     * - a8: 	Assignment
+    *   room: 	r3
     *   content: 	&quot;Matrix Multiplication&quot;
     *   points: 	0
     * 
     * - a9: 	Assignment
+    *   room: 	r3
     *   content: 	Series
     *   points: 	0
     * 
     * - a10: 	Assignment
+    *   room: 	r3
     *   content: 	Integrals
     *   points: 	0
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
     * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
-    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='651'>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='836'>
     * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
     * <pre><code class="java" data-lang="java">
     *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
@@ -140,7 +146,7 @@ import org.sdmlib.CGUtil;
     * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
     * </pre>
     * <p>result:</p>
-    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='495'>
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='804'>
     */
    public class YamlIdMap
 {
@@ -199,7 +205,7 @@ import org.sdmlib.CGUtil;
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </code></pre>
     * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
-    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='644'>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='831'>
     * <p>Check: root object exists org.sdmlib.test.examples.studyrightWithAssignments.model.University@43a0cee9</p>
     * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
     * <pre>- u1: 	University
@@ -213,26 +219,29 @@ import org.sdmlib.CGUtil;
     *   id: 	4242
     *   motivation: 	0
     *   name: 	karli
+    *   university: 	u1
+    *   in: 	r3
     * 
     * - r3: 	Room
     *   credits: 	0
+    *   doors: 	r4 	r5 	
     *   students: 	s2 	
     *   assignments: 	a8 	a9 	a10 	
     *   topic: 	math
     * 
     * - r4: 	Room
     *   credits: 	0
-    *   doors: 	r3 	
+    *   doors: 	r3 	r5 	r6 	r7 	
     *   topic: 	arts
     * 
     * - r5: 	Room
     *   credits: 	0
-    *   doors: 	r3 	r4 	
+    *   doors: 	r3 	r4 	r6 	
     *   topic: 	sports
     * 
     * - r6: 	Room
     *   credits: 	0
-    *   doors: 	r5 	r4 	
+    *   doors: 	r5 	r4 	r7 	
     *   topic: 	exam
     * 
     * - r7: 	Room
@@ -241,21 +250,24 @@ import org.sdmlib.CGUtil;
     *   topic: 	&quot;Software Engineering&quot;
     * 
     * - a8: 	Assignment
+    *   room: 	r3
     *   content: 	&quot;Matrix Multiplication&quot;
     *   points: 	0
     * 
     * - a9: 	Assignment
+    *   room: 	r3
     *   content: 	Series
     *   points: 	0
     * 
     * - a10: 	Assignment
+    *   room: 	r3
     *   content: 	Integrals
     *   points: 	0
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
     * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
-    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='651'>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='836'>
     * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
     * <pre><code class="java" data-lang="java">
     *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
@@ -288,7 +300,7 @@ import org.sdmlib.CGUtil;
     * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
     * </pre>
     * <p>result:</p>
-    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='495'>
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='804'>
     */
    private YamlIdMap()
    {
@@ -330,7 +342,7 @@ import org.sdmlib.CGUtil;
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </code></pre>
     * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
-    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='644'>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='831'>
     * <p>Check: root object exists org.sdmlib.test.examples.studyrightWithAssignments.model.University@43a0cee9</p>
     * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
     * <pre>- u1: 	University
@@ -344,26 +356,29 @@ import org.sdmlib.CGUtil;
     *   id: 	4242
     *   motivation: 	0
     *   name: 	karli
+    *   university: 	u1
+    *   in: 	r3
     * 
     * - r3: 	Room
     *   credits: 	0
+    *   doors: 	r4 	r5 	
     *   students: 	s2 	
     *   assignments: 	a8 	a9 	a10 	
     *   topic: 	math
     * 
     * - r4: 	Room
     *   credits: 	0
-    *   doors: 	r3 	
+    *   doors: 	r3 	r5 	r6 	r7 	
     *   topic: 	arts
     * 
     * - r5: 	Room
     *   credits: 	0
-    *   doors: 	r3 	r4 	
+    *   doors: 	r3 	r4 	r6 	
     *   topic: 	sports
     * 
     * - r6: 	Room
     *   credits: 	0
-    *   doors: 	r5 	r4 	
+    *   doors: 	r5 	r4 	r7 	
     *   topic: 	exam
     * 
     * - r7: 	Room
@@ -372,21 +387,24 @@ import org.sdmlib.CGUtil;
     *   topic: 	&quot;Software Engineering&quot;
     * 
     * - a8: 	Assignment
+    *   room: 	r3
     *   content: 	&quot;Matrix Multiplication&quot;
     *   points: 	0
     * 
     * - a9: 	Assignment
+    *   room: 	r3
     *   content: 	Series
     *   points: 	0
     * 
     * - a10: 	Assignment
+    *   room: 	r3
     *   content: 	Integrals
     *   points: 	0
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
     * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
-    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='651'>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='836'>
     * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
     * <pre><code class="java" data-lang="java">
     *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
@@ -419,7 +437,7 @@ import org.sdmlib.CGUtil;
     * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
     * </pre>
     * <p>result:</p>
-    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='495'>
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='804'>
     */
    public YamlIdMap(String... packageNames)
    {

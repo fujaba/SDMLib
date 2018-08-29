@@ -1,5 +1,4 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
@@ -7,6 +6,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+
 
 public class Room
 {
@@ -149,7 +149,7 @@ public class Room
             boolean changed = this.doors.add(item);
             if (changed)
             {
-               item.withoutDoors(this);
+               item.withDoors(this);
                firePropertyChange(PROPERTY_DOORS, null, item);
             }
          }
@@ -198,7 +198,7 @@ public class Room
             boolean changed = this.students.add(item);
             if (changed)
             {
-               item.setIn(null);
+               item.setIn(this);
                firePropertyChange(PROPERTY_STUDENTS, null, item);
             }
          }
@@ -247,7 +247,7 @@ public class Room
             boolean changed = this.assignments.add(item);
             if (changed)
             {
-               item.setRoom(null);
+               item.setRoom(this);
                firePropertyChange(PROPERTY_ASSIGNMENTS, null, item);
             }
          }
@@ -300,7 +300,7 @@ public class Room
             boolean changed = this.tas.add(item);
             if (changed)
             {
-               item.setRoom(null);
+               item.setRoom(this);
                firePropertyChange(PROPERTY_TAS, null, item);
             }
          }

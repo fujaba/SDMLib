@@ -1,10 +1,10 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
+
    /**
     * 
     * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
@@ -112,7 +112,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
             boolean changed = this.students.add(item);
             if (changed)
             {
-               item.setUniversity(null);
+               item.setUniversity(this);
                firePropertyChange(PROPERTY_STUDENTS, null, item);
             }
          }

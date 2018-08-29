@@ -1,11 +1,11 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+
 
 public class Student
 {
@@ -208,7 +208,7 @@ public class Student
             boolean changed = this.friends.add(item);
             if (changed)
             {
-               item.withoutFriends(this);
+               item.withFriends(this);
                firePropertyChange(PROPERTY_FRIENDS, null, item);
             }
          }
@@ -344,7 +344,7 @@ public class Student
             boolean changed = this.done.add(item);
             if (changed)
             {
-               item.withoutStudents(this);
+               item.withStudents(this);
                firePropertyChange(PROPERTY_DONE, null, item);
             }
          }

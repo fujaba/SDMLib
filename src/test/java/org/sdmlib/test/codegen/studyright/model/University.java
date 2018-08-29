@@ -103,7 +103,7 @@ public class University
             boolean changed = this.students.add(item);
             if (changed)
             {
-               item.setUniversity(null);
+               item.setUniversity(this);
                firePropertyChange(PROPERTY_STUDENTS, null, item);
             }
          }
