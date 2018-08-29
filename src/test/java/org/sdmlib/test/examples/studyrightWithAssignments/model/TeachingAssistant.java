@@ -1,8 +1,11 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-
-public class TeachingAssistant extends Student
+   /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ */
+   public class TeachingAssistant extends Student
 {
 
    public static final String PROPERTY_CERTIFIED = "certified";

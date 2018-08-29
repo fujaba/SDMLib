@@ -43,6 +43,18 @@ public class AssignmentSet extends SimpleSet<Assignment>
       }
       return result;
    }
+   public AssignmentSet filterContent(String minValue, String maxValue)
+   {
+      AssignmentSet result = new AssignmentSet();
+      for(Assignment obj : this)
+      {
+         if (minValue.compareTo(obj.getContent()) <= 0 && maxValue.compareTo(obj.getContent()) >= 0)
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
 
    public AssignmentSet withContent(String value) {
       for (Assignment obj : this)
@@ -67,6 +79,18 @@ public class AssignmentSet extends SimpleSet<Assignment>
       for(Assignment obj : this)
       {
          if (value == obj.getPoints())
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
+   public AssignmentSet filterPoints(int minValue, int maxValue)
+   {
+      AssignmentSet result = new AssignmentSet();
+      for(Assignment obj : this)
+      {
+         if (minValue <= obj.getPoints() && maxValue >= obj.getPoints())
          {
             result.add(obj);
          }

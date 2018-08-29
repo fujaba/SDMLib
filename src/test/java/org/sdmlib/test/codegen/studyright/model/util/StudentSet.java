@@ -42,6 +42,18 @@ public class StudentSet extends SimpleSet<Student>
       }
       return result;
    }
+   public StudentSet filterAssignmentPoints(int minValue, int maxValue)
+   {
+      StudentSet result = new StudentSet();
+      for(Student obj : this)
+      {
+         if (minValue <= obj.getAssignmentPoints() && maxValue >= obj.getAssignmentPoints())
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
 
    public StudentSet withAssignmentPoints(int value) {
       for (Student obj : this)
@@ -66,6 +78,18 @@ public class StudentSet extends SimpleSet<Student>
       for(Student obj : this)
       {
          if (value == obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
+   public StudentSet filterCredits(int minValue, int maxValue)
+   {
+      StudentSet result = new StudentSet();
+      for(Student obj : this)
+      {
+         if (minValue <= obj.getCredits() && maxValue >= obj.getCredits())
          {
             result.add(obj);
          }
@@ -102,6 +126,18 @@ public class StudentSet extends SimpleSet<Student>
       }
       return result;
    }
+   public StudentSet filterId(String minValue, String maxValue)
+   {
+      StudentSet result = new StudentSet();
+      for(Student obj : this)
+      {
+         if (minValue.compareTo(obj.getId()) <= 0 && maxValue.compareTo(obj.getId()) >= 0)
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
 
    public StudentSet withId(String value) {
       for (Student obj : this)
@@ -132,6 +168,18 @@ public class StudentSet extends SimpleSet<Student>
       }
       return result;
    }
+   public StudentSet filterMotivation(int minValue, int maxValue)
+   {
+      StudentSet result = new StudentSet();
+      for(Student obj : this)
+      {
+         if (minValue <= obj.getMotivation() && maxValue >= obj.getMotivation())
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
 
    public StudentSet withMotivation(int value) {
       for (Student obj : this)
@@ -156,6 +204,18 @@ public class StudentSet extends SimpleSet<Student>
       for(Student obj : this)
       {
          if (value == obj.getName())
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
+   public StudentSet filterName(String minValue, String maxValue)
+   {
+      StudentSet result = new StudentSet();
+      for(Student obj : this)
+      {
+         if (minValue.compareTo(obj.getName()) <= 0 && maxValue.compareTo(obj.getName()) >= 0)
          {
             result.add(obj);
          }

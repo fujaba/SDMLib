@@ -41,6 +41,18 @@ public class UniversitySet extends SimpleSet<University>
       }
       return result;
    }
+   public UniversitySet filterName(String minValue, String maxValue)
+   {
+      UniversitySet result = new UniversitySet();
+      for(University obj : this)
+      {
+         if (minValue.compareTo(obj.getName()) <= 0 && maxValue.compareTo(obj.getName()) >= 0)
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
 
    public UniversitySet withName(String value) {
       for (University obj : this)

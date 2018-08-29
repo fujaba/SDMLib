@@ -4,11 +4,14 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-   /**
-    * 
-    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+
+/**
+ *
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testJsonPersistency
  */
-   public class Assignment
+public class Assignment
 {
    protected PropertyChangeSupport listeners = null;
 

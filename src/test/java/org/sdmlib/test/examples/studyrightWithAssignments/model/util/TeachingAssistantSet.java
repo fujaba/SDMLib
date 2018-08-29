@@ -41,7 +41,6 @@ public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
       }
       return result;
    }
-
    public TeachingAssistantSet withCertified(boolean value) {
       for (TeachingAssistant obj : this)
       {

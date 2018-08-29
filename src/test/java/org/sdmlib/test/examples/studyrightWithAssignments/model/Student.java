@@ -191,6 +191,10 @@ public class Student
       return this.friends;
    }
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ */
    public Student withFriends(Student... value)
    {
       if (value == null) {
@@ -324,7 +328,8 @@ public class Student
 
      /**
     * 
-    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
  */
    public Student withDone(Assignment... value)
    {

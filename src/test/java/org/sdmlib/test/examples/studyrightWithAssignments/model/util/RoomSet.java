@@ -45,6 +45,18 @@ public class RoomSet extends SimpleSet<Room>
       }
       return result;
    }
+   public RoomSet filterCredits(int minValue, int maxValue)
+   {
+      RoomSet result = new RoomSet();
+      for(Room obj : this)
+      {
+         if (minValue <= obj.getCredits() && maxValue >= obj.getCredits())
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
 
    public RoomSet withCredits(int value) {
       for (Room obj : this)
@@ -75,6 +87,18 @@ public class RoomSet extends SimpleSet<Room>
       }
       return result;
    }
+   public RoomSet filterName(String minValue, String maxValue)
+   {
+      RoomSet result = new RoomSet();
+      for(Room obj : this)
+      {
+         if (minValue.compareTo(obj.getName()) <= 0 && maxValue.compareTo(obj.getName()) >= 0)
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
 
    public RoomSet withName(String value) {
       for (Room obj : this)
@@ -99,6 +123,18 @@ public class RoomSet extends SimpleSet<Room>
       for(Room obj : this)
       {
          if (value == obj.getTopic())
+         {
+            result.add(obj);
+         }
+      }
+      return result;
+   }
+   public RoomSet filterTopic(String minValue, String maxValue)
+   {
+      RoomSet result = new RoomSet();
+      for(Room obj : this)
+      {
+         if (minValue.compareTo(obj.getTopic()) <= 0 && maxValue.compareTo(obj.getTopic()) >= 0)
          {
             result.add(obj);
          }

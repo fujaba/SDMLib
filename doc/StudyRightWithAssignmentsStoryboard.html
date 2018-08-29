@@ -30,54 +30,54 @@
 in the math room. Karli has no credits yet and still a motivation of 214. </p>
 <pre><code class="java" data-lang="java">
       University university = new University()
-         .withName(&quot;StudyRight&quot;);
+            .withName(&quot;StudyRight&quot;);
 
       Student karli = university.createStudents()
-         .withId(&quot;4242&quot;)
-         .withName(&quot;Karli&quot;);
+            .withId(&quot;4242&quot;)
+            .withName(&quot;Karli&quot;);
 
       Assignment matrixMult = new Assignment()
-         .withContent(&quot;Matrix Multiplication&quot;)
-         .withPoints(5);
+            .withContent(&quot;Matrix Multiplication&quot;)
+            .withPoints(5);
 
       Assignment series = new Assignment()
-         .withContent(&quot;Series&quot;)
-         .withPoints(6);
+            .withContent(&quot;Series&quot;)
+            .withPoints(6);
 
       Assignment a3 = new Assignment()
-         .withContent(&quot;Integrals&quot;)
-         .withPoints(8);
+            .withContent(&quot;Integrals&quot;)
+            .withPoints(8);
 
       Room mathRoom = university.createRooms()
-         .withName(&quot;senate&quot;)
-         .withTopic(&quot;math&quot;)
-         .withCredits(17)
-         .withStudents(karli)
-         .withAssignments(matrixMult, series, a3);
+            .withName(&quot;senate&quot;)
+            .withTopic(&quot;math&quot;)
+            .withCredits(17)
+            .withStudents(karli)
+            .withAssignments(matrixMult, series, a3);
 
       Room artsRoom = university.createRooms()
-         .withName(&quot;7522&quot;)
-         .withTopic(&quot;arts&quot;)
-         .withCredits(16)
-         .withDoors(mathRoom);
+            .withName(&quot;7522&quot;)
+            .withTopic(&quot;arts&quot;)
+            .withCredits(16)
+            .withDoors(mathRoom);
 
       Room sportsRoom = university.createRooms()
-         .withName(&quot;gymnasium&quot;)
-         .withTopic(&quot;sports&quot;)
-         .withCredits(25)
-         .withDoors(mathRoom, artsRoom);
+            .withName(&quot;gymnasium&quot;)
+            .withTopic(&quot;sports&quot;)
+            .withCredits(25)
+            .withDoors(mathRoom, artsRoom);
 
       Room examRoom = university.createRooms()
-         .withName(&quot;The End&quot;)
-         .withTopic(&quot;exam&quot;)
-         .withCredits(0)
-         .withDoors(sportsRoom, artsRoom);
+            .withName(&quot;The End&quot;)
+            .withTopic(&quot;exam&quot;)
+            .withCredits(0)
+            .withDoors(sportsRoom, artsRoom);
 
       Room softwareEngineering = university.createRooms()
-         .withName(&quot;7422&quot;)
-         .withTopic(&quot;Software Engineering&quot;)
-         .withCredits(42)
-         .withDoors(artsRoom, examRoom);
+            .withName(&quot;7422&quot;)
+            .withTopic(&quot;Software Engineering&quot;)
+            .withCredits(42)
+            .withDoors(artsRoom, examRoom);
 </code></pre>
 <img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='644'>
 <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>

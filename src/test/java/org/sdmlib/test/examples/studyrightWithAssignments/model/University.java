@@ -7,7 +7,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
    /**
     * 
-    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testJsonPersistency
  */
    public class University
 {
@@ -84,11 +86,19 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
    private StudentSet students = null;
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ */
    public StudentSet getStudents()
    {
       return this.students;
    }
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ */
    public University withStudents(Student... value)
    {
       if (value == null) {
@@ -124,7 +134,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
      /**
     * 
-    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testJsonPersistency
  */
    public Student createStudents()
    {
@@ -137,6 +149,10 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
    private RoomSet rooms = null;
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ */
    public RoomSet getRooms()
    {
       return this.rooms;
@@ -174,7 +190,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 
      /**
     * 
-    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
  */
    public Room createRooms()
    {

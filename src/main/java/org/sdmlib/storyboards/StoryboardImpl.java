@@ -1093,7 +1093,6 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       {
          // jsonIdMap = (IdMap) new GenericIdMap().withSessionId(null);
          jsonIdMap = (IdMap) new SDMLibIdMap("s").withSession(null).withTimeStamp(1);
-         // FIXME TRY IF NESSESSARY jsonIdMap.getLogger().withError(false);
       }
 
       // go through all diagram elems
@@ -2029,8 +2028,7 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
       }
       catch (IOException e)
       {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
+         Logger.getGlobal().log(Level.WARNING, "io problem", e);
       }
    }
 

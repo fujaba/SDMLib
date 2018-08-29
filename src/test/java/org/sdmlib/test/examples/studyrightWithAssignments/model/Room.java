@@ -267,6 +267,10 @@ public class Room
       return this;
    }
 
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ */
    public Assignment createAssignments()
    {
       Assignment value = new Assignment();

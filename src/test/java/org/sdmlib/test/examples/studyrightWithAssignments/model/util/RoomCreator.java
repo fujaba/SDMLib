@@ -147,7 +147,8 @@ public class RoomCreator implements SendableEntityCreator
 
       return false;
    }
-    public IdMap createMap(String session) {
- 	   return CreatorCreator.createIdMap(session);
-    }
+
+   public static IdMap createIdMap(String session) {
+      return CreatorCreator.createIdMap(session);
+   }
 }
