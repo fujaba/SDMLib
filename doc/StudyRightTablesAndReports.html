@@ -1,39 +1,44 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="style.css">
-<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+    <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="includes/dagre.min.js"></script>
-<script src="includes/drawer.js"></script>
-<script src="includes/graph.js"></script>
-<script src="includes/Chart.bundle.js"></script>
-<style>
-    canvas{
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-    }
-</style>
-</head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="includes/dagre.min.js"></script>
+    <script src="includes/drawer.js"></script>
+    <script src="includes/graph.js"></script>
+    <script src="includes/Chart.bundle.js"></script>
+    <script src="highlight.pack.js"></script>
+    <script src="highlightjs-line-numbers.min.js"></script>
+    <script language="Javascript">hljs.initHighlightingOnLoad();
+                                  hljs.initLineNumbersOnLoad();</script>    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    </head>
 <body>
-<p>Storyboard StudyRightTablesAndReports</p>
+<h3>Storyboard StudyRightTablesAndReports</h3>
 <p>How to generate table reports from a model.</p>
-<p>Start: Example object structure:</p>
-<img src="doc-files/StudyRightTablesAndReportsStep2.png" alt="StudyRightTablesAndReportsStep2.png">
-<p><a name = 'step_1'>Step 1: Query for table</a></p>
-<pre>      
+<h4><a name = 'step_1'>Step 1: Example object structure:</a></h4>
+<img src="doc-files/StudyRightTablesAndReportsStep2.png" alt="StudyRightTablesAndReportsStep2.png" width='883'>
+<h4><a name = 'step_2'>Step 2: Query for table</a></h4>
+<pre><code class="java" data-lang="java">
+
          UniversityPO universityPO = new UniversityPO(university);
 
          RoomPO createRoomsPO = universityPO.createRoomsPO();
 
          Table table = universityPO.createResultTable();
 
-</pre>
+</code></pre>
 <script>
    var json = {
    "type":"object",
@@ -80,15 +85,15 @@
 <tbody>
 <tr>
 <td >StudyRight</td>
-<td >senate math 17</td>
+<td >17 senate math</td>
 </tr>
 <tr>
 <td >StudyRight</td>
-<td >7522 arts 16</td>
+<td >16 7522 arts</td>
 </tr>
 <tr>
 <td >StudyRight</td>
-<td >gymnasium sports 25</td>
+<td >25 gymnasium sports</td>
 </tr>
 </tbody>
 
@@ -205,7 +210,8 @@
    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<pre>      
+<pre><code class="java" data-lang="java">
+
          table.createColumns(&quot;Topic&quot;, row -&gt; {
             Room r = row.getCellValue(&quot;B&quot;);
             return r.getTopic();
@@ -216,7 +222,7 @@
             .withTdCssClass(&quot;text-right&quot;);
          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
 
-</pre>
+</code></pre>
 <table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>
@@ -360,8 +366,9 @@
    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
    g.layout(100,100);
 </script>
-<p><a name = 'step_2'>Step 2: List all topics:</a></p>
-<pre>      
+<h4><a name = 'step_3'>Step 3: List all topics:</a></h4>
+<pre><code class="java" data-lang="java">
+
          UniversityPO universityPO = new UniversityPO(university);
 
          TablePO tablePO = new TablePO(CREATE);
@@ -392,10 +399,10 @@
 
          CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
          cell3PO.createCondition(cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null);
-         
+
          universityPO.doAllMatches();
 
-</pre>
+</code></pre>
 <p>Results in:</p>
 <table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
@@ -425,9 +432,10 @@
 </tbody>
 
 </table>
-<img src="doc-files/StudyRightTablesAndReportsStep16.png" alt="StudyRightTablesAndReportsStep16.png">
-<p><a name = 'step_3'>Step 3: Do a nested table</a></p>
-<pre>      
+<img src="doc-files/StudyRightTablesAndReportsStep16.png" alt="StudyRightTablesAndReportsStep16.png" width='603'>
+<h4><a name = 'step_4'>Step 4: Do a nested table</a></h4>
+<pre><code class="java" data-lang="java">
+
          UniversityPO universityPO = new UniversityPO(university);
 
          RoomPO createRoomsPO = universityPO.createRoomsPO();
@@ -440,7 +448,7 @@
             .withTdCssClass(&quot;text-right&quot;);
          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
 
-</pre>
+</code></pre>
 <table style="width: auto;" class="table table-bordered table-condensed">
 <thead>
 <tr>

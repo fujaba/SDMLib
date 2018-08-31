@@ -89,30 +89,30 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             }
          }
          parser
-            .replaceAll(0,
-               "/*\n" +
-                  "   Copyright (c) <year> <developer>\n" +
-                  "   \n" +
-                  "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
-                  "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
-                  "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
-                  "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n" +
-                  "   furnished to do so, subject to the following conditions: \n" +
-                  "   \n" +
-                  "   The above copyright notice and this permission notice shall be included in all copies or \n" +
-                  "   substantial portions of the Software. \n" +
-                  "   \n" +
-                  "   The Software shall be used for Good, not Evil. \n" +
-                  "   \n" +
-                  "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n" +
-                  "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n" +
-                  "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n" +
-                  "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n" +
-                  "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n" +
-                  " */\n" +
-                  "   \n",
-               "<year>", year,
-               "<developer>", developer);
+               .replaceAll(0,
+                     "/*\n" +
+                           "   Copyright (c) <year> <developer>\n" +
+                           "   \n" +
+                           "   Permission is hereby granted, free of charge, to any person obtaining a copy of this software \n" +
+                           "   and associated documentation files (the \"Software\"), to deal in the Software without restriction, \n" +
+                           "   including without limitation the rights to use, copy, modify, merge, publish, distribute, \n" +
+                           "   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is \n" +
+                           "   furnished to do so, subject to the following conditions: \n" +
+                           "   \n" +
+                           "   The above copyright notice and this permission notice shall be included in all copies or \n" +
+                           "   substantial portions of the Software. \n" +
+                           "   \n" +
+                           "   The Software shall be used for Good, not Evil. \n" +
+                           "   \n" +
+                           "   THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING \n" +
+                           "   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND \n" +
+                           "   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, \n" +
+                           "   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, \n" +
+                           "   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. \n" +
+                           " */\n" +
+                           "   \n",
+                     "<year>", year,
+                     "<developer>", developer);
       }
 
    }
@@ -158,7 +158,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
    /**
     * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br> Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table.
-    * 
+    *
     * @param parser used to delete the code fragment from a class, which is determined by the parsers type
     * @param symbName name of the symbol, as it would be contained in the symbol table of the corresponding parser
     */
@@ -185,12 +185,12 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    /**
     * Deletes a fragment of code, by using the parser, that is associated to the matching class type.<br> Chooses a code fragment to delete, with the given symbol name, based on the first matching entry within the parsers symbol table. On finding a matching code fragment, the lines of code, that are supposed to be deleted from the fragment, are determined by searching for a matching start and end line, within the
     * fragment.
-    * 
+    *
     * @param parser used to delete the code fragment from a class, which is determined by the parsers type
     * @param symTabKey name of the symbol, as it would be contained in the symbol table of the corresponding parser
     * @param startLineContent portion of the first line of code, that is supposed to be removed
     * @param endLineContent portion of the last line of code, that is supposed to be removed
-    * 
+    *
     */
    public void removeLineFromFragment(Parser parser, String symTabKey, String startLineContent, String endLineContent)
    {
@@ -263,7 +263,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          {
             model.setClassModel(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly from Superclass ("
-               + getRepairClassModel().getName() + "). Please add Classmodel to Clazz: " + model.getName());
+                  + getRepairClassModel().getName() + "). Please add Classmodel to Clazz: " + model.getName());
             this.repairThis = false;
             return getRepairClassModel();
          }
@@ -277,7 +277,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          {
             model.setClassModel(item.getClassModel());
             System.err.println("Classmodel try to repair automaticly from Kindclass (" + getRepairClassModel()
-               + "). Please add Classmodel to Clazz: " + model.getName());
+                  + "). Please add Classmodel to Clazz: " + model.getName());
             this.repairThis = false;
             return getRepairClassModel();
          }
@@ -292,7 +292,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             {
                model.setClassModel(otherClazz.getClassModel());
                System.err.println("Classmodel try to repair automaticly from Assoc (" + getRepairClassModel().getName()
-                  + "). Please add Classmodel to Clazz: " + model.getName());
+                     + "). Please add Classmodel to Clazz: " + model.getName());
                this.repairThis = false;
                return getRepairClassModel();
             }
@@ -308,7 +308,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
    public Parser getOrCreateParserForModelSetFile(String rootDir)
    {
       if (getRepairClassModel().hasFeature(Feature.SETCLASS) == false
-         && getRepairClassModel().hasFeature(Feature.SERIALIZATION) == false)
+            && getRepairClassModel().hasFeature(Feature.SERIALIZATION) == false)
       {
          return null;
       }
@@ -353,7 +353,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!modelSetJavaFile.exists() && feature != null)
          {
-        	 List<String> featureSet = feature.getPath();
+            List<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
@@ -373,7 +373,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
 
          modelSetParser = new Parser()
-            .withFileName(fileName);
+               .withFileName(fileName);
 
          // found old one?
          if (modelSetJavaFile.exists() && !isShowDiff())
@@ -393,35 +393,35 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                setClass = SimpleSet.class;
             }
             StringBuilder text = new StringBuilder("" +
-               "package packageName;\n" +
-               "\n" +
-               "import sdmsetimport;\n" +
-               "import fullEntityClassName;\n" +
-               "\n" +
-               "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
-               "{\n" +
-               "	public Class<?> getTypClass() {\n" +
-               "		return entitiyClassName.class;\n"+
-               "	}\n"+
-               "}\n");
+                  "package packageName;\n" +
+                  "\n" +
+                  "import sdmsetimport;\n" +
+                  "import fullEntityClassName;\n" +
+                  "\n" +
+                  "public class modelSetClassName extends SDMSet<entitiyClassName>\n" +
+                  "{\n" +
+                  "	public Class<?> getTypClass() {\n" +
+                  "		return entitiyClassName.class;\n"+
+                  "	}\n"+
+                  "}\n");
 
             CGUtil.replaceAll(text,
-               "modelSetClassName", modelSetClassName,
-               "entitiyClassName", entitiyClassName,
-               "fullEntityClassName", fullEntityClassName,
-               "packageName", packageName,
-               "sdmsetimport", setClass.getName(),
-               "SDMSet", EntityUtil.shortClassName(setClass.getName()),
-               "Item", entitiyClassName);
+                  "modelSetClassName", modelSetClassName,
+                  "entitiyClassName", entitiyClassName,
+                  "fullEntityClassName", fullEntityClassName,
+                  "packageName", packageName,
+                  "sdmsetimport", setClass.getName(),
+                  "SDMSet", EntityUtil.shortClassName(setClass.getName()),
+                  "Item", entitiyClassName);
             modelSetParser.withFileBody(text).withFileChanged(true);
          }
          insertLicense(modelSetParser);
          insertConstructor(modelSetParser);
          insertEmptySetDecl(modelSetParser, modelSetClassName);
          insertSetEntryType(modelSetParser);
-         if (((ClassModel) model.getClassModel()).getFeature(Feature.SETCLASS).getClassValue().equals(SimpleSet.class)) 
+         if (((ClassModel) model.getClassModel()).getFeature(Feature.SETCLASS).getClassValue().equals(SimpleSet.class))
          {
-        	 insertGetNewListMethod(modelSetParser);
+            insertGetNewListMethod(modelSetParser);
 //        	 insertFilterMethod(modelSetParser);
          }
          insertInstanceOfMethods(modelSetParser);
@@ -443,10 +443,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          StringBuilder text = new StringBuilder(
                "\n" +
-                  "   public ModelSet()\n" +
-                  "   {\n" +
-                  "      // empty\n" +
-                  "   }\n");
+                     "   public ModelSet()\n" +
+                     "   {\n" +
+                     "      // empty\n" +
+                     "   }\n");
 
          String packageName = CGUtil.packageName(model.getName());
 
@@ -456,8 +456,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
 
          CGUtil.replaceAll(text,
-            "ModelSet", shortClassName + "Set",
-            "ModelClass", shortClassName);
+               "ModelSet", shortClassName + "Set",
+               "ModelClass", shortClassName);
 
          // insertImport(parser, StringList.class.getName());
          pos = parser.indexOf(Parser.CLASS_END);
@@ -466,7 +466,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       }
 
       searchString = Parser.CONSTRUCTOR + ":" + shortClassName
-         + "Set(" + shortClassName + "...)";
+            + "Set(" + shortClassName + "...)";
 
       pos = parser.indexOf(searchString);
 
@@ -474,13 +474,13 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          StringBuilder text = new StringBuilder(
                "\n" +
-                  "   public ModelSet(ModelClass... objects)\n" +
-                  "   {\n" +
-                  "      for (ModelClass obj : objects)\n" +
-                  "      {\n" +
-                  "         this.add(obj);\n" +
-                  "      }\n" +
-                  "   }\n");
+                     "   public ModelSet(ModelClass... objects)\n" +
+                     "   {\n" +
+                     "      for (ModelClass obj : objects)\n" +
+                     "      {\n" +
+                     "         this.add(obj);\n" +
+                     "      }\n" +
+                     "   }\n");
 
          String packageName = CGUtil.packageName(model.getName());
 
@@ -490,8 +490,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
 
          CGUtil.replaceAll(text,
-            "ModelSet", shortClassName + "Set",
-            "ModelClass", shortClassName);
+               "ModelSet", shortClassName + "Set",
+               "ModelClass", shortClassName);
 
          // insertImport(parser, StringList.class.getName());
          pos = parser.indexOf(Parser.CLASS_END);
@@ -500,7 +500,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       }
 
       searchString = Parser.CONSTRUCTOR + ":" + shortClassName
-         + "Set(Collection<" + shortClassName + ">)";
+            + "Set(Collection<" + shortClassName + ">)";
 
       pos = parser.indexOf(searchString);
 
@@ -508,10 +508,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          StringBuilder text = new StringBuilder(
                "\n" +
-                  "   public ModelSet(Collection<ModelClass> objects)\n" +
-                  "   {\n" +
-                  "      this.addAll(objects);\n" +
-                  "   }\n");
+                     "   public ModelSet(Collection<ModelClass> objects)\n" +
+                     "   {\n" +
+                     "      this.addAll(objects);\n" +
+                     "   }\n");
 
          String packageName = CGUtil.packageName(model.getName());
 
@@ -521,8 +521,8 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
 
          CGUtil.replaceAll(text,
-            "ModelSet", shortClassName + "Set",
-            "ModelClass", shortClassName);
+               "ModelSet", shortClassName + "Set",
+               "ModelClass", shortClassName);
 
          // insertImport(parser, StringList.class.getName());
          pos = parser.indexOf(Parser.CLASS_END);
@@ -586,7 +586,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
 
          CGUtil.replaceAll(partnerText,
-            "type", modelSetClassName);
+               "type", modelSetClassName);
 
          parser.insert(partnerPos, partnerText.toString());
       }
@@ -602,33 +602,33 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          StringBuilder text = new StringBuilder(
                "\n\n"
-                  + "   @SuppressWarnings(\"unchecked\")\n"
-                  + "   public ModelTypeSet with(Object value)\n"
-                  + "   {\n"
-                  + "      if (value == null)\n"
-                  + "      {\n"
-                  + "         return this;\n"
-                  + "      }\n"
-                  + "      else if (value instanceof java.util.Collection)\n"
-                  + "      {\n"
-                  + "         this.addAll((Collection<ModelType>)value);\n"
-                  + "      }\n"
-                  + "      else if (value != null)\n"
-                  + "      {\n"
-                  + "         this.add((ModelType) value);\n"
-                  + "      }\n"
-                  + "      \n"
-                  + "      return this;\n" +
-                  "   }\n" +
-                  "   \n" +
-                  "   public ModelTypeSet without(ModelType value)\n" +
-                  "   {\n" +
-                  "      this.remove(value);\n" +
-                  "      return this;\n" +
-                  "   }\n"
-                  + "\n");
+                     + "   @SuppressWarnings(\"unchecked\")\n"
+                     + "   public ModelTypeSet with(Object value)\n"
+                     + "   {\n"
+                     + "      if (value == null)\n"
+                     + "      {\n"
+                     + "         return this;\n"
+                     + "      }\n"
+                     + "      else if (value instanceof java.util.Collection)\n"
+                     + "      {\n"
+                     + "         this.addAll((Collection<ModelType>)value);\n"
+                     + "      }\n"
+                     + "      else if (value != null)\n"
+                     + "      {\n"
+                     + "         this.add((ModelType) value);\n"
+                     + "      }\n"
+                     + "      \n"
+                     + "      return this;\n" +
+                     "   }\n" +
+                     "   \n" +
+                     "   public ModelTypeSet without(ModelType value)\n" +
+                     "   {\n" +
+                     "      this.remove(value);\n" +
+                     "      return this;\n" +
+                     "   }\n"
+                     + "\n");
          CGUtil.replaceAll(text,
-            "ModelType", CGUtil.shortClassName(model.getName(false)));
+               "ModelType", CGUtil.shortClassName(model.getName(false)));
 
          pos = parser.indexOf(Parser.CLASS_END);
 
@@ -649,10 +649,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          StringBuilder text = new StringBuilder(
                "\n\n" +
-                  "   public String getEntryType()\n" +
-                  "   {\n" +
-                  "      return \"ModelType\";\n" +
-                  "   }\n");
+                     "   public String getEntryType()\n" +
+                     "   {\n" +
+                     "      return \"ModelType\";\n" +
+                     "   }\n");
 
          CGUtil.replaceAll(text, "ModelType", model.getName(false));
 
@@ -677,35 +677,35 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          if (pos < 0)
          {
             StringBuilder text = new StringBuilder(
-               "\n\n" +
-                     "   public ModelSetType instanceOfModelType()\n" + 
-                     "   {\n" + 
-                     "      ModelSetType result = new ModelSetType();\n" + 
-                     "      \n" + 
-                     "      for(Object obj : this)\n" + 
-                     "      {\n" + 
-                     "         if (obj instanceof ModelType)\n" + 
-                     "         {\n" + 
-                     "            result.with(obj);\n" + 
-                     "         }\n" + 
-                     "      }\n" + 
-                     "      \n" + 
-                     "      return result;\n" + 
-                     "   }"
-                     );
+                  "\n\n" +
+                        "   public ModelSetType instanceOfModelType()\n" +
+                        "   {\n" +
+                        "      ModelSetType result = new ModelSetType();\n" +
+                        "      \n" +
+                        "      for(Object obj : this)\n" +
+                        "      {\n" +
+                        "         if (obj instanceof ModelType)\n" +
+                        "         {\n" +
+                        "            result.with(obj);\n" +
+                        "         }\n" +
+                        "      }\n" +
+                        "      \n" +
+                        "      return result;\n" +
+                        "   }"
+            );
 
             CGUtil.replaceAll(text,
-               "ModelType", shortClassName,
-               "ModelSetType", shortClassName + "Set");
+                  "ModelType", shortClassName,
+                  "ModelSetType", shortClassName + "Set");
 
             pos = parser.indexOf(Parser.CLASS_END);
 
             parser.insert(pos, text.toString());
 
             parser.insertImport(kid.getName(false));
-            
+
             String helperClassName = CGUtil.helperClassName(kid.getName(false), "Set");
-               
+
             parser.insertImport(helperClassName);
          }
       }
@@ -722,15 +722,15 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          StringBuilder text = new StringBuilder(
                "\n\n" +
-                  "   @Override\n" + 
-                  "   public ModelSetType getNewList(boolean keyValue)\n" + 
-                  "   {\n" + 
-                  "      return new ModelSetType();\n" + 
-                  "   }\n" + 
-                  "");
+                     "   @Override\n" +
+                     "   public ModelSetType getNewList(boolean keyValue)\n" +
+                     "   {\n" +
+                     "      return new ModelSetType();\n" +
+                     "   }\n" +
+                     "");
 
          CGUtil.replaceAll(text,
-            "ModelSetType", shortClassName + "Set");
+               "ModelSetType", shortClassName + "Set");
 
          pos = parser.indexOf(Parser.CLASS_END);
 
@@ -851,7 +851,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          Feature feature = ((ClassModel) model.getClassModel()).getFeature(Feature.SERIALIZATION);
          if (!patternObjectJavaFile.exists() && feature != null)
          {
-        	 List<String> featureSet = feature.getPath();
+            List<String> featureSet = feature.getPath();
 
             for (String featureValue : featureSet)
             {
@@ -871,7 +871,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
 
          patternObjectParser = new Parser()
-            .withFileName(fileName);
+               .withFileName(fileName);
          // found old one?
          if (patternObjectJavaFile.exists() && !isShowDiff())
          {
@@ -881,58 +881,58 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          {
             StringBuilder text = new StringBuilder(
                   ""
-                     + "package packageName;\n\n"
-                     + "import org.sdmlib.models.pattern.PatternObject;\n"
-                     + "import fullEntityClassName;\n\n"
-                     + "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n"
-                     + "{\nALLMATCHES\n\n"
-                     + "   public patternObjectClassName(){\n"
-                     + "      newInstance(null);\n"
-                     + "   }\n\n"
-                     + "   public patternObjectClassName(ModelClass... hostGraphObject) {\n"
-                     + "      if(hostGraphObject==null || hostGraphObject.length<1){\n"
-                     + "         return ;\n"
-                     + "      }\n"
-                     + "      newInstance(null, hostGraphObject);\n"
-                     + "   }\n"
-                     + "}\n");
+                        + "package packageName;\n\n"
+                        + "import org.sdmlib.models.pattern.PatternObject;\n"
+                        + "import fullEntityClassName;\n\n"
+                        + "public class patternObjectClassName extends PatternObject<patternObjectClassName, entitiyClassName>\n"
+                        + "{\nALLMATCHES\n\n"
+                        + "   public patternObjectClassName(){\n"
+                        + "      newInstance(null);\n"
+                        + "   }\n\n"
+                        + "   public patternObjectClassName(ModelClass... hostGraphObject) {\n"
+                        + "      if(hostGraphObject==null || hostGraphObject.length<1){\n"
+                        + "         return ;\n"
+                        + "      }\n"
+                        + "      newInstance(null, hostGraphObject);\n"
+                        + "   }\n"
+                        + "}\n");
 
             if (getRepairClassModel().hasFeature(Feature.SETCLASS))
             {
                CGUtil.replaceAll(text,
-                  "ALLMATCHES", "\n    public entitiyClassNameSet allMatches()\n" +
-                     "   {\n" +
-                     "      this.setDoAllMatches(true);\n" +
-                     "      \n" +
-                     "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" +
-                     "\n" +
-                     "      while (this.getPattern().getHasMatch())\n" +
-                     "      {\n" +
-                     "         matches.add((entitiyClassName) this.getCurrentMatch());\n" +
-                     "         \n" +
-                     "         this.getPattern().findMatch();\n" +
-                     "      }\n" +
-                     "      \n" +
-                     "      return matches;\n" +
-                     "   }\n");
+                     "ALLMATCHES", "\n    public entitiyClassNameSet allMatches()\n" +
+                           "   {\n" +
+                           "      this.setDoAllMatches(true);\n" +
+                           "      \n" +
+                           "      entitiyClassNameSet matches = new entitiyClassNameSet();\n" +
+                           "\n" +
+                           "      while (this.getPattern().getHasMatch())\n" +
+                           "      {\n" +
+                           "         matches.add((entitiyClassName) this.getCurrentMatch());\n" +
+                           "         \n" +
+                           "         this.getPattern().findMatch();\n" +
+                           "      }\n" +
+                           "      \n" +
+                           "      return matches;\n" +
+                           "   }\n");
             }
             else
             {
                CGUtil.replaceAll(text,
-                  "ALLMATCHES", "");
+                     "ALLMATCHES", "");
             }
             CGUtil.replaceAll(text,
-               "patternObjectClassName", patternObjectClassName,
-               "entitiyClassName", entitiyClassName,
-               "fullEntityClassName", fullEntityClassName,
-               "ModelClass", entitiyClassName,
-               "packageName", packageName,
-               "ClassModelPackage", model.getClassModel().getName() + ".util.");
+                  "patternObjectClassName", patternObjectClassName,
+                  "entitiyClassName", entitiyClassName,
+                  "fullEntityClassName", fullEntityClassName,
+                  "ModelClass", entitiyClassName,
+                  "packageName", packageName,
+                  "ClassModelPackage", model.getClassModel().getName() + ".util.");
 
             patternObjectParser.withFileBody(text).withFileChanged(true);
          }
       }
-      
+
       // add constructor with modifier paramter
       String searchString = Parser.CONSTRUCTOR + ":" + patternObjectClassName + "(String)";
 
@@ -942,14 +942,14 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       {
          StringBuilder text = new StringBuilder(
                "\n" +
-                  "   public ModelPO(String modifier)\n" +
-                  "   {\n" +
-                  "      this.setModifier(modifier);\n" +
-                  "   }\n");
+                     "   public ModelPO(String modifier)\n" +
+                     "   {\n" +
+                     "      this.setModifier(modifier);\n" +
+                     "   }\n");
 
          CGUtil.replaceAll(text,
-            "ModelPO", patternObjectClassName
-            );
+               "ModelPO", patternObjectClassName
+         );
 
          // insertImport(parser, StringList.class.getName());
          pos = patternObjectParser.indexOf(Parser.CLASS_END);
@@ -972,9 +972,9 @@ public abstract class GenClazzEntity extends Generator<Clazz>
       }
 
       if (model.getType().equals(Clazz.TYPE_INTERFACE)) {
-    	  return null;
+         return null;
       }
-      
+
       if (creatorParser == null)
       {
          // try to find existing file
@@ -1025,7 +1025,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
 
          creatorParser = new Parser()
-            .withFileName(fileName);
+               .withFileName(fileName);
 
          // found old one?
          if (creatorJavaFile.exists() && !isShowDiff())
@@ -1034,78 +1034,80 @@ public abstract class GenClazzEntity extends Generator<Clazz>
          }
          else
          {
-            StringBuilder text = new StringBuilder(
+            StringBuilder text = new StringBuilder("" +
                   "package packageName;\n" +
-                     "\n" +
-                     "import de.uniks.networkparser.interfaces.AggregatedEntityCreator;\n" +
-                     "fullEntityClassName" +
-                     "\n" +
-                     "public class creatorClassName implements AggregatedEntityCreator\n" +
-                     "{\n" +
-                     "   public static final creatorClassName it = new creatorClassName();\n" +
-                     "   \n" +
-                     "   private final String[] properties = new String[]\n" +
-                     "   {\n" +
-                     "   };\n" +
-                     "   \n" +
-                     "   private final String[] upProperties = new String[]\n" +
-                     "   {\n" +
-                     "   };\n" +
-                     "   \n" +
-                     "   private final String[] downProperties = new String[]\n" +
-                     "   {\n" +
-                     "   };\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public String[] getProperties()\n" +
-                     "   {\n" +
-                     "      return properties;\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public String[] getUpProperties()\n" +
-                     "   {\n" +
-                     "      return upProperties;\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public String[] getDownProperties()\n" +
-                     "   {\n" +
-                     "      return downProperties;\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public Object getSendableInstance(boolean reference)\n" +
-                     "   {\n" +
-                     "      return instanceCreationClause;\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public Object getValue(Object target, String attrName)\n" +
-                     "   {\n" +
-                     "      int pos = attrName.indexOf('.');\n" +
-                     "      String attribute = attrName;\n" +
-                     "      \n" +
-                     "      if (pos > 0)\n" +
-                     "      {\n" +
-                     "         attribute = attrName.substring(0, pos);\n" +
-                     "      }\n" +
-                     "      \n" +
-                     "      return null;\n" +
-                     "   }\n" +
-                     "   \n" +
-                     "   @Override\n" +
-                     "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
-                     "   {\n" +
-                     "      remove_you_clause" +
-                     "      if (SendableEntityCreator.REMOVE.equals(type) && value != null)\n" +
-                     "      {\n" +
-                     "         attrName = attrName + type;\n" +
-                     "      }\n" +
-                     "      \n" +
-                     "      return false;\n" +
-                     "   }\n");
+                  "\n" +
+                  "import de.uniks.networkparser.interfaces.AggregatedEntityCreator;\n" +
+                  "import de.uniks.networkparser.IdMap;\n" +
+                  "" +
+                  "fullEntityClassName" +
+                  "\n" +
+                  "public class creatorClassName implements AggregatedEntityCreator\n" +
+                  "{\n" +
+                  "   public static final creatorClassName it = new creatorClassName();\n" +
+                  "   \n" +
+                  "   private final String[] properties = new String[]\n" +
+                  "   {\n" +
+                  "   };\n" +
+                  "   \n" +
+                  "   private final String[] upProperties = new String[]\n" +
+                  "   {\n" +
+                  "   };\n" +
+                  "   \n" +
+                  "   private final String[] downProperties = new String[]\n" +
+                  "   {\n" +
+                  "   };\n" +
+                  "   \n" +
+                  "   @Override\n" +
+                  "   public String[] getProperties()\n" +
+                  "   {\n" +
+                  "      return properties;\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   @Override\n" +
+                  "   public String[] getUpProperties()\n" +
+                  "   {\n" +
+                  "      return upProperties;\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   @Override\n" +
+                  "   public String[] getDownProperties()\n" +
+                  "   {\n" +
+                  "      return downProperties;\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   @Override\n" +
+                  "   public Object getSendableInstance(boolean reference)\n" +
+                  "   {\n" +
+                  "      return instanceCreationClause;\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   \n" +
+                  "   @Override\n" +
+                  "   public Object getValue(Object target, String attrName)\n" +
+                  "   {\n" +
+                  "      int pos = attrName.indexOf('.');\n" +
+                  "      String attribute = attrName;\n" +
+                  "      \n" +
+                  "      if (pos > 0)\n" +
+                  "      {\n" +
+                  "         attribute = attrName.substring(0, pos);\n" +
+                  "      }\n" +
+                  "      \n" +
+                  "      return null;\n" +
+                  "   }\n" +
+                  "   \n" +
+                  "   @Override\n" +
+                  "   public boolean setValue(Object target, String attrName, Object value, String type)\n" +
+                  "   {\n" +
+                  "      remove_you_clause" +
+                  "      if (SendableEntityCreator.REMOVE.equals(type) && value != null)\n" +
+                  "      {\n" +
+                  "         attrName = attrName + type;\n" +
+                  "      }\n" +
+                  "      \n" +
+                  "      return false;\n" +
+                  "   }\n");
 
             text.append("" +
                   "   public static IdMap createIdMap(String sessionID)\n" +
@@ -1124,7 +1126,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             if (model.isExternal())
             {
                removeYouClause = "";
-               
+
                // check if it has a constructor
                ClassLoader classLoader = this.getClass().getClassLoader();
                boolean hasConstructor = false;
@@ -1145,10 +1147,10 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                if (!hasConstructor)
                {
                   CGUtil.replaceAll(text,
-                     "instanceCreationClause", "null", "fullEntityClassName", "");
+                        "instanceCreationClause", "null", "fullEntityClassName", "");
                }
             }
-            
+
             if (model.getType() == Clazz.TYPE_ENUMERATION)
             {
                removeYouClause = "";
@@ -1179,7 +1181,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                String basicClassName = entitiyClassName.substring(0, entitiyClassName.length() - 4);
 
                instanceCreationClause = modelPackage + "." + modelName + "Factory.eINSTANCE.create" + basicClassName
-                  + "()";
+                     + "()";
             }
 
             if (model.getModifier().has(Modifier.ABSTRACT))
@@ -1191,13 +1193,13 @@ public abstract class GenClazzEntity extends Generator<Clazz>
             CGUtil.replaceAll(text, "      remove_you_clause", removeYouClause);
 
             CGUtil.replaceAll(text,
-               "creatorClassName", creatorClassName,
-               "entitiyClassName", entitiyClassName,
-               "fullEntityClassName", "import " + fullEntityClassName + ";\n",
-               "packageName", packageName,
-               "instanceCreationClause", instanceCreationClause,
-               "ClassModelPackage", classModelPackage
-               );
+                  "creatorClassName", creatorClassName,
+                  "entitiyClassName", entitiyClassName,
+                  "fullEntityClassName", "import " + fullEntityClassName + ";\n",
+                  "packageName", packageName,
+                  "instanceCreationClause", instanceCreationClause,
+                  "ClassModelPackage", classModelPackage
+            );
 
             creatorParser.withFileBody(text).withFileChanged(true);
             creatorParser.insertImport(ObjectSet.class.getName());

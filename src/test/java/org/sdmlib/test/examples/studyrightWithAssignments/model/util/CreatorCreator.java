@@ -1,17 +1,24 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
+
 import de.uniks.networkparser.IdMap;
 
-class CreatorCreator {
+class CreatorCreator{
 
-   public static final IdMap createIdMap(String session) {
-        IdMap map = new IdMap().withSession(session);
-        map.withCreator(new AssignmentCreator());
-        map.withCreator(new PresidentCreator());
-        map.withCreator(new RoomCreator());
-        map.withCreator(new StudentCreator());
-        map.withCreator(new TeachingAssistantCreator());
-        map.withCreator(new UniversityCreator());
-
-        return map;
+   public static IdMap createIdMap(String session)
+   {
+      IdMap jsonIdMap = new IdMap().withSession(session);
+      jsonIdMap.with(new AssignmentCreator());
+      jsonIdMap.with(new AssignmentPOCreator());
+      jsonIdMap.with(new PresidentCreator());
+      jsonIdMap.with(new PresidentPOCreator());
+      jsonIdMap.with(new RoomCreator());
+      jsonIdMap.with(new RoomPOCreator());
+      jsonIdMap.with(new StudentCreator());
+      jsonIdMap.with(new StudentPOCreator());
+      jsonIdMap.with(new TeachingAssistantCreator());
+      jsonIdMap.with(new TeachingAssistantPOCreator());
+      jsonIdMap.with(new UniversityCreator());
+      jsonIdMap.with(new UniversityPOCreator());
+      return jsonIdMap;
    }
 }

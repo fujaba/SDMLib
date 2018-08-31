@@ -1,13 +1,16 @@
 package org.sdmlib.test.codegen.studyright.model.util;
+
 import de.uniks.networkparser.IdMap;
 
-class CreatorCreator {
+class CreatorCreator{
 
-   public static final IdMap createIdMap(String session) {
-        IdMap map = new IdMap().withSession(session);
-        map.withCreator(new StudentCreator());
-        map.withCreator(new UniversityCreator());
-
-        return map;
+   public static IdMap createIdMap(String session)
+   {
+      IdMap jsonIdMap = new IdMap().withSession(session);
+      jsonIdMap.with(new UniversityCreator());
+      jsonIdMap.with(new UniversityPOCreator());
+      jsonIdMap.with(new StudentCreator());
+      jsonIdMap.with(new StudentPOCreator());
+      return jsonIdMap;
    }
 }

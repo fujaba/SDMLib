@@ -29,13 +29,13 @@
 <p>Extend the class model:</p>
 <p>How to navigate and query an object model.</p>
 <h4><a name = 'step_1'>Step 1: Example object structure:</a></h4>
-<img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep3.png" alt="StudyRightObjectModelNavigationAndQueriesStep3.png" width='768'>
+<img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep3.png" alt="StudyRightObjectModelNavigationAndQueriesStep3.png" width='835'>
 <h4><a name = 'step_2'>Step 2: Simple set based navigation:</a></h4>
 <pre><code class="java" data-lang="java">
-      story.addObjectDiagram(university);
 
-      &#x2F;&#x2F; =====================================================
-      story.addStep(&quot;Simple set based navigation:&quot;);
+      double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+
+      double donePoints = university.getStudents().getDone().getPoints().sum();
 
 </code></pre>
 <p>Results in:</p>
@@ -46,48 +46,48 @@
 <h4><a name = 'step_3'>Step 3: Rooms with assignments not yet done by Karli:</a></h4>
 <pre><code class="java" data-lang="java">
 
-      &#x2F;&#x2F; ====================================================
-      story.addStep(&quot;Filter for type: &quot;);
+      AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
 
-      story.markCodeStart();
+      RoomSet rooms = availableAssignments.getRoom();
+
 </code></pre>
 <p>Results in:</p>
-<pre>      (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@64f16277, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@497aec8c)</pre>
+<pre>      (17 senate math, 25 gymnasium sports)</pre>
 <p>Check: rooms.size():  2 actual 2</p>
 <h4><a name = 'step_4'>Step 4: Filter for attribute:</a></h4>
 <pre><code class="java" data-lang="java">
-      story.addStep(&quot;Write operations on sets: &quot;);
 
-      story.markCodeStart();
+      RoomSet rooms17 = university.getRooms().createCreditsCondition(17);
+      RoomSet roomsGE20 = university.getRooms().createCreditsCondition(20, Integer.MAX_VALUE);
 
 </code></pre>
 <p>Results in:</p>
-<pre>      rooms17: (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@64f16277)
-      roomsGE20: ()</pre>
+<pre>      rooms17: (17 senate math)
+      roomsGE20: (25 gymnasium sports, 42 7422 Software Engineering)</pre>
 <h4><a name = 'step_5'>Step 5: Filter for even values:</a></h4>
 <pre><code class="java" data-lang="java">
-&#x2F;&#x2F;      story.markCodeStart();
-&#x2F;&#x2F;
-&#x2F;&#x2F;      RoomPO roomPO = university.getRooms().createRoomPO();
+
+      SimpleSet&lt;Room&gt; roomsEven = university.getRooms().filter(r -&gt; r.getCredits() % 2 == 0);
+
 </code></pre>
 <p>Results in:</p>
-<pre>      (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@4e6f2bb5, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@21e20ad5, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@3f628ce9)</pre>
+<pre>      (16 7522 arts, 0 The End exam, 42 7422 Software Engineering)</pre>
 <h4><a name = 'step_6'>Step 6: Filter for type: </a></h4>
 <pre><code class="java" data-lang="java">
-&#x2F;&#x2F;      story.add(&quot;Results in:&quot;);
-&#x2F;&#x2F;
-&#x2F;&#x2F;      story.addPreformatted(&quot;      &quot; + rooms.toString());
-&#x2F;&#x2F;
-&#x2F;&#x2F;
+
+      &#x2F;&#x2F; TOODO TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOfTeachingAssistant();
+      StudentSet taStuds = university.getRooms().getStudents().filter(s -&gt; s instanceof TeachingAssistant);
+      TeachingAssistantSet taStudents = new TeachingAssistantSet().with(taStuds);
+
 </code></pre>
-<pre>()</pre>
+<pre>(0 0 4242 0 Karli)</pre>
 <h4><a name = 'step_7'>Step 7: Write operations on sets: </a></h4>
 <pre><code class="java" data-lang="java">
-&#x2F;&#x2F;      final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
-&#x2F;&#x2F;
-&#x2F;&#x2F;      stud2PO.createFriendsLink(stud1PO);
+
+      university.getStudents().withMotivation(42);
+
 </code></pre>
-<img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep28.png" alt="StudyRightObjectModelNavigationAndQueriesStep28.png" width='375'>
+<img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep28.png" alt="StudyRightObjectModelNavigationAndQueriesStep28.png" width='345'>
 
 </body>
 </html>

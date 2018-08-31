@@ -30,7 +30,6 @@
 <h4><a name = 'step_1'>Step 1: Example object structure:</a></h4>
 <h4><a name = 'step_2'>Step 2: Serialize to json:</a></h4>
 <pre><code class="java" data-lang="java">
-&#x2F;&#x2F;         &quot;icons&#x2F;limes.png&quot;, a2, &quot;icons&#x2F;integralAssignment.png&quot;, integrals);
 
       &#x2F;&#x2F; =====================================================
       storyboard.addStep(&quot;Serialize to json:&quot;);
@@ -39,22 +38,23 @@
 
       IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
 
+      JsonArray jsonArray = idMap.toJsonArray(university);
 </code></pre>
 <p>Results in:</p>
 <pre>[
    {
       "session":"demo",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-      "id":"U435481716750550",
-      "timestamp":"435481716750550",
+      "id":"U611694416394763",
+      "timestamp":"611694416394763",
       "prop":{
          "name":"StudyRight",
          "students":[
             {
                "session":"demo",
                "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-               "id":"S435481716935438",
-               "timestamp":"435481716935438"
+               "id":"S611694416636540",
+               "timestamp":"611694416636540"
             }
          ]
       }
@@ -62,26 +62,26 @@
    {
       "session":"demo",
       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-      "id":"S435481716935438",
-      "timestamp":"435481716935438",
+      "id":"S611694416636540",
+      "timestamp":"611694416636540",
       "prop":{
          "id":"4242",
          "name":"Karli",
          "university":{
             "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-            "id":"U435481716750550"
+            "id":"U611694416394763"
          }
       }
    }
 ]</pre><h4><a name = 'step_3'>Step 3: Now read it back again</a></h4>
 <pre><code class="java" data-lang="java">
-      storyboard.add(&quot;&lt;pre&gt;&quot; + jsonText + &quot;&lt;&#x2F;pre&gt;&quot;);
 
       &#x2F;&#x2F; =====================================================
       storyboard.addStep(&quot;Now read it back again&quot;);
 
       storyboard.markCodeStart();
 
+      &#x2F;&#x2F; read jsonText from file
 </code></pre>
 <img src="doc-files/JsonPersistencyStep8.png" alt="JsonPersistencyStep8.png" width='147'>
 

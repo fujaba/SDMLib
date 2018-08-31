@@ -39,13 +39,13 @@
             .withAttribute(&quot;motivation&quot;, DataType.INT)
             .withAttribute(&quot;credits&quot;, DataType.INT);
 </code></pre>
-<img src="doc-files/NetworkParserCodeGenStep6.png" alt="NetworkParserCodeGenStep6.png" width='269'>
+<img src='doc-files/NetworkParserCodeGenStep6.png' width='269'>
 <p>Check: compile result after adding class Student 0 actual 0</p>
 <p>3. add University --> Student association</p>
 <pre><code class="java" data-lang="java">
       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
 </code></pre>
-<img src="doc-files/NetworkParserCodeGenStep10.png" alt="NetworkParserCodeGenStep10.png" width='151'>
+<img src='doc-files/NetworkParserCodeGenStep10.png' width='151'>
 <p>Check: compile result after adding students assoc 0 actual 0</p>
 <p>6. generate class source files.</p>
 <pre><code class="java" data-lang="java">

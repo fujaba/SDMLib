@@ -27,6 +27,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.YamlIdMap;
+import org.sdmlib.models.tables.Row;
+import org.sdmlib.models.tables.Table;
+import org.sdmlib.models.tables.util.CellPO;
+import org.sdmlib.models.tables.util.ColumnPO;
+import org.sdmlib.models.tables.util.RowPO;
+import org.sdmlib.models.tables.util.TablePO;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.*;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.*;
@@ -34,6 +40,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
+import static org.sdmlib.models.pattern.Pattern.CREATE;
 
 public class StudyRightWithAssignmentsStoryboards
 {
@@ -70,8 +79,8 @@ public class StudyRightWithAssignmentsStoryboards
     *       University studyRight = (University) yamlIdMap.decode(yaml);
     * </code></pre>
     * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
-    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='831'>
-    * <p>Check: root object exists org.sdmlib.test.examples.studyrightWithAssignments.model.University@43a0cee9</p>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='869'>
+    * <p>Check: root object exists "Study " Right"And"Fast now"</p>
     * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
     * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
@@ -84,55 +93,60 @@ public class StudyRightWithAssignmentsStoryboards
     *   id: 	4242
     *   motivation: 	0
     *   name: 	karli
-    *   university: 	u1
     *   in: 	r3
+    *   university: 	u1
     * 
     * - r3: 	Room
-    *   credits: 	0
+    *   credits: 	17
+    *   topic: 	math
     *   doors: 	r4 	r5 	
     *   students: 	s2 	
     *   assignments: 	a8 	a9 	a10 	
-    *   topic: 	math
+    *   university: 	u1
     * 
     * - r4: 	Room
-    *   credits: 	0
-    *   doors: 	r3 	r5 	r6 	r7 	
+    *   credits: 	16
     *   topic: 	arts
+    *   doors: 	r3 	r5 	r6 	r7 	
+    *   university: 	u1
     * 
     * - r5: 	Room
-    *   credits: 	0
-    *   doors: 	r3 	r4 	r6 	
+    *   credits: 	25
     *   topic: 	sports
+    *   doors: 	r3 	r4 	r6 	
+    *   university: 	u1
     * 
     * - r6: 	Room
     *   credits: 	0
-    *   doors: 	r5 	r4 	r7 	
     *   topic: 	exam
+    *   doors: 	r5 	r4 	r7 	
+    *   university: 	u1
     * 
     * - r7: 	Room
-    *   credits: 	0
-    *   doors: 	r4 	r6 	
+    *   credits: 	42
     *   topic: 	&quot;Software Engineering&quot;
+    *   doors: 	r4 	r6 	
+    *   university: 	u1
     * 
     * - a8: 	Assignment
-    *   room: 	r3
     *   content: 	&quot;Matrix Multiplication&quot;
-    *   points: 	0
+    *   points: 	5
+    *   room: 	r3
     * 
     * - a9: 	Assignment
-    *   room: 	r3
     *   content: 	Series
-    *   points: 	0
+    *   points: 	6
+    *   room: 	r3
     * 
     * - a10: 	Assignment
-    *   room: 	r3
     *   content: 	Integrals
-    *   points: 	0
+    *   points: 	8
+    *   room: 	r3
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
     * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
-    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='836'>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='876'>
     * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
     * <pre><code class="java" data-lang="java">
     *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
@@ -165,7 +179,7 @@ public class StudyRightWithAssignmentsStoryboards
     * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
     * </pre>
     * <p>result:</p>
-    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='804'>
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='795'>
     * @throws IOException
     */
    @Test
@@ -270,7 +284,6 @@ public class StudyRightWithAssignmentsStoryboards
     * <p>1. (start situation/pre-condition) Karli enters the Study-Right University 
     * in the math room. Karli has no credits yet and still a motivation of 214. </p>
     * <pre><code class="java" data-lang="java">
-    * 
     *       &#x2F;&#x2F; =============================================================
     *       storyboard.add(&quot;1. (start situation&#x2F;pre-condition) Karli enters the Study-Right University \n&quot;
     *             + &quot;in the math room. Karli has no credits yet and still a motivation of 214. &quot;);
@@ -319,46 +332,47 @@ public class StudyRightWithAssignmentsStoryboards
     *             .withTopic(&quot;exam&quot;)
     *             .withCredits(0)
     *             .withDoors(sportsRoom, artsRoom);
+    * 
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='831'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='904'>
     * <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
     * (general rule: the student earns always full points for doing an assignment). <br>
     * Karli's motivation is reduced by 5 points to now 209.
     * </p>
     * <pre><code class="java" data-lang="java">
-    *       &#x2F;&#x2F; ===============================================================================================
     *       storyboard.add(&quot;2. Karli does assignment a1 on Matrix Multiplication and earns 5 points &lt;br&gt;\n&quot;
+    *             + &quot;(general rule: the student earns always full points for doing an assignment). &lt;br&gt;\n&quot;
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png" width='573'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png" width='659'>
     * <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
     * Thus Karli has 11 points now. Motivation is reduced to 203.
     * </p>
     * <pre><code class="java" data-lang="java">
-    * 
     *       &#x2F;&#x2F; ===============================================================================================
+    *       storyboard.add(&quot;3. Karli does assignment a2 on Series and earns another 6 points. &lt;br&gt;\n&quot;
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png" width='523'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png" width='659'>
     * <p>4. Karli does the third assignment on Integrals, earns <br>
     * another 8 points and thus Karli has now 19 points and a motivation of 195.
     * </p>
     * <pre><code class="java" data-lang="java">
-    * 
     *       &#x2F;&#x2F; ===============================================================================================
+    *       storyboard.add(&quot;4. Karli does the third assignment on Integrals, earns &lt;br&gt;\n&quot;
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png" width='585'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png" width='659'>
     * <p>5. Since 19 points are more than the 17 points required 
     * for the 17 math credits, Karli hands the points in and earns the credits 
     * and has his assignmnet points reset to 0. <br>
     * (General rule: if the points earned by the assignments are higher or equal than 
     * the credit points, the credit points will be awarded to the student.)</p>
     * <pre><code class="java" data-lang="java">
-    *             + &quot;for the 17 math credits, Karli hands the points in and earns the credits \n&quot;
     *             + &quot;and has his assignmnet points reset to 0. &lt;br&gt;\n&quot;
     *             + &quot;(General rule: if the points earned by the assignments are higher or equal than \n&quot;
     *             + &quot;the credit points, the credit points will be awarded to the student.)&quot;);
     * 
+    *       storyboard.markCodeStart();
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png" width='585'>
+    * <img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png" width='659'>
     * <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>
     * <p>Check: Karli's credits:  17 actual 17</p>
     * <p>Check: Karli's assignment points:  0 actual 0</p>
@@ -594,7 +608,6 @@ public class StudyRightWithAssignmentsStoryboards
     * <h4><a name = 'step_1'>Step 1: Example object structure:</a></h4>
     * <h4><a name = 'step_2'>Step 2: Serialize to json:</a></h4>
     * <pre><code class="java" data-lang="java">
-    * &#x2F;&#x2F;         &quot;icons&#x2F;limes.png&quot;, a2, &quot;icons&#x2F;integralAssignment.png&quot;, integrals);
     * 
     *       &#x2F;&#x2F; =====================================================
     *       storyboard.addStep(&quot;Serialize to json:&quot;);
@@ -603,22 +616,23 @@ public class StudyRightWithAssignmentsStoryboards
     * 
     *       IdMap idMap = UniversityCreator.createIdMap(&quot;demo&quot;);
     * 
+    *       JsonArray jsonArray = idMap.toJsonArray(university);
     * </code></pre>
     * <p>Results in:</p>
     * <pre>[
     *    {
     *       "session":"demo",
     *       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-    *       "id":"U435481716750550",
-    *       "timestamp":"435481716750550",
+    *       "id":"U611694416394763",
+    *       "timestamp":"611694416394763",
     *       "prop":{
     *          "name":"StudyRight",
     *          "students":[
     *             {
     *                "session":"demo",
     *                "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-    *                "id":"S435481716935438",
-    *                "timestamp":"435481716935438"
+    *                "id":"S611694416636540",
+    *                "timestamp":"611694416636540"
     *             }
     *          ]
     *       }
@@ -626,26 +640,26 @@ public class StudyRightWithAssignmentsStoryboards
     *    {
     *       "session":"demo",
     *       "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.Student",
-    *       "id":"S435481716935438",
-    *       "timestamp":"435481716935438",
+    *       "id":"S611694416636540",
+    *       "timestamp":"611694416636540",
     *       "prop":{
     *          "id":"4242",
     *          "name":"Karli",
     *          "university":{
     *             "class":"org.sdmlib.test.examples.studyrightWithAssignments.model.University",
-    *             "id":"U435481716750550"
+    *             "id":"U611694416394763"
     *          }
     *       }
     *    }
     * ]</pre><h4><a name = 'step_3'>Step 3: Now read it back again</a></h4>
     * <pre><code class="java" data-lang="java">
-    *       storyboard.add(&quot;&lt;pre&gt;&quot; + jsonText + &quot;&lt;&#x2F;pre&gt;&quot;);
     * 
     *       &#x2F;&#x2F; =====================================================
     *       storyboard.addStep(&quot;Now read it back again&quot;);
     * 
     *       storyboard.markCodeStart();
     * 
+    *       &#x2F;&#x2F; read jsonText from file
     * </code></pre>
     * <img src="doc-files/JsonPersistencyStep8.png" alt="JsonPersistencyStep8.png" width='147'>
     */
@@ -763,13 +777,13 @@ public class StudyRightWithAssignmentsStoryboards
     * <p>Extend the class model:</p>
     * <p>How to navigate and query an object model.</p>
     * <h4><a name = 'step_1'>Step 1: Example object structure:</a></h4>
-    * <img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep3.png" alt="StudyRightObjectModelNavigationAndQueriesStep3.png" width='768'>
+    * <img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep3.png" alt="StudyRightObjectModelNavigationAndQueriesStep3.png" width='835'>
     * <h4><a name = 'step_2'>Step 2: Simple set based navigation:</a></h4>
     * <pre><code class="java" data-lang="java">
-    *       story.addObjectDiagram(university);
     * 
-    *       &#x2F;&#x2F; =====================================================
-    *       story.addStep(&quot;Simple set based navigation:&quot;);
+    *       double assignmentPoints = university.getRooms().getAssignments().getPoints().sum();
+    * 
+    *       double donePoints = university.getStudents().getDone().getPoints().sum();
     * 
     * </code></pre>
     * <p>Results in:</p>
@@ -780,48 +794,48 @@ public class StudyRightWithAssignmentsStoryboards
     * <h4><a name = 'step_3'>Step 3: Rooms with assignments not yet done by Karli:</a></h4>
     * <pre><code class="java" data-lang="java">
     * 
-    *       &#x2F;&#x2F; ====================================================
-    *       story.addStep(&quot;Filter for type: &quot;);
+    *       AssignmentSet availableAssignments = university.getRooms().getAssignments().minus(karli.getDone());
     * 
-    *       story.markCodeStart();
+    *       RoomSet rooms = availableAssignments.getRoom();
+    * 
     * </code></pre>
     * <p>Results in:</p>
-    * <pre>      (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@64f16277, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@497aec8c)</pre>
+    * <pre>      (17 senate math, 25 gymnasium sports)</pre>
     * <p>Check: rooms.size():  2 actual 2</p>
     * <h4><a name = 'step_4'>Step 4: Filter for attribute:</a></h4>
     * <pre><code class="java" data-lang="java">
-    *       story.addStep(&quot;Write operations on sets: &quot;);
     * 
-    *       story.markCodeStart();
+    *       RoomSet rooms17 = university.getRooms().createCreditsCondition(17);
+    *       RoomSet roomsGE20 = university.getRooms().createCreditsCondition(20, Integer.MAX_VALUE);
     * 
     * </code></pre>
     * <p>Results in:</p>
-    * <pre>      rooms17: (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@64f16277)
-    *       roomsGE20: ()</pre>
+    * <pre>      rooms17: (17 senate math)
+    *       roomsGE20: (25 gymnasium sports, 42 7422 Software Engineering)</pre>
     * <h4><a name = 'step_5'>Step 5: Filter for even values:</a></h4>
     * <pre><code class="java" data-lang="java">
-    * &#x2F;&#x2F;      story.markCodeStart();
-    * &#x2F;&#x2F;
-    * &#x2F;&#x2F;      RoomPO roomPO = university.getRooms().createRoomPO();
+    * 
+    *       SimpleSet&lt;Room&gt; roomsEven = university.getRooms().filter(r -&gt; r.getCredits() % 2 == 0);
+    * 
     * </code></pre>
     * <p>Results in:</p>
-    * <pre>      (org.sdmlib.test.examples.studyrightWithAssignments.model.Room@4e6f2bb5, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@21e20ad5, org.sdmlib.test.examples.studyrightWithAssignments.model.Room@3f628ce9)</pre>
+    * <pre>      (16 7522 arts, 0 The End exam, 42 7422 Software Engineering)</pre>
     * <h4><a name = 'step_6'>Step 6: Filter for type: </a></h4>
     * <pre><code class="java" data-lang="java">
-    * &#x2F;&#x2F;      story.add(&quot;Results in:&quot;);
-    * &#x2F;&#x2F;
-    * &#x2F;&#x2F;      story.addPreformatted(&quot;      &quot; + rooms.toString());
-    * &#x2F;&#x2F;
-    * &#x2F;&#x2F;
+    * 
+    *       &#x2F;&#x2F; TOODO TeachingAssistantSet taStudents = university.getRooms().getStudents().instanceOfTeachingAssistant();
+    *       StudentSet taStuds = university.getRooms().getStudents().filter(s -&gt; s instanceof TeachingAssistant);
+    *       TeachingAssistantSet taStudents = new TeachingAssistantSet().with(taStuds);
+    * 
     * </code></pre>
-    * <pre>()</pre>
+    * <pre>(0 0 4242 0 Karli)</pre>
     * <h4><a name = 'step_7'>Step 7: Write operations on sets: </a></h4>
     * <pre><code class="java" data-lang="java">
-    * &#x2F;&#x2F;      final StudentPO stud2PO = roomPO.createStudentsPO().createMotivationCondition(0, 50);
-    * &#x2F;&#x2F;
-    * &#x2F;&#x2F;      stud2PO.createFriendsLink(stud1PO);
+    * 
+    *       university.getStudents().withMotivation(42);
+    * 
     * </code></pre>
-    * <img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep28.png" alt="StudyRightObjectModelNavigationAndQueriesStep28.png" width='375'>
+    * <img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep28.png" alt="StudyRightObjectModelNavigationAndQueriesStep28.png" width='345'>
     */
    @Test
    public void testStudyRightObjectModelNavigationAndQueries()
@@ -951,8 +965,8 @@ public class StudyRightWithAssignmentsStoryboards
 
       story.markCodeStart();
 
-      RoomSet rooms17 = university.getRooms().filterCredits(17);
-      RoomSet roomsGE20 = university.getRooms().filterCredits(20); // TODO , Integer.MAX_VALUE);
+      RoomSet rooms17 = university.getRooms().createCreditsCondition(17);
+      RoomSet roomsGE20 = university.getRooms().createCreditsCondition(20, Integer.MAX_VALUE);
 
       story.addCode();
 
@@ -1177,783 +1191,766 @@ public class StudyRightWithAssignmentsStoryboards
    }
 
 
-//   /**
-//    * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
-//    */
-//   @Test
-//   public void testReports()
-//   {
-//      University university = new University()
-//         .withName("StudyRight");
-//
-//      Student abu = university.createStudents()
-//         .withId("1337")
-//         .withName("Abu");
-//
-//      Student alice = university.createStudents()
-//         .withId("2323")
-//         .withName("Alice");
-//
-//      abu.withFriends(alice);
-//
-//      IdMap map=new IdMap();
-//      map.with(new org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityCreator());
-//      map.with(new org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentCreator());
-//
-//      System.out.println(map.toJsonArray(university).toString(2));
-//   }
-//
-//   /**
-//    * <p>Storyboard StudyRightTablesAndReports</p>
-//    * <p>How to generate table reports from a model.</p>
-//    * <p>Start: Example object structure:</p>
-//    * <img src="doc-files/StudyRightTablesAndReportsStep2.png" alt="StudyRightTablesAndReportsStep2.png">
-//    * <p><a name = 'step_1'>Step 1: Query for table</a></p>
-//    * <pre>
-//    *          UniversityPO universityPO = new UniversityPO(university);
-//    *
-//    *          RoomPO createRoomsPO = universityPO.createRoomsPO();
-//    *
-//    *          Table table = universityPO.createResultTable();
-//    *
-//    * </pre>
-//    * <script>
-//    *    var json = {
-//    *    "type":"object",
-//    *    "nodes":[
-//    *       {
-//    *          "type":"patternObject",
-//    *          "id":"u1 : UniversityPO",
-//    *          "attributes":[
-//    *             "<< bound>>"
-//    *          ]
-//    *       },
-//    *       {
-//    *          "type":"patternObject",
-//    *          "id":"r2 : RoomPO",
-//    *          "attributes":[]
-//    *       }
-//    *    ],
-//    *    "edges":[
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"u1 : UniversityPO"
-//    *          },
-//    *          "target":{
-//    *             "property":"rooms",
-//    *             "id":"r2 : RoomPO"
-//    *          }
-//    *       }
-//    *    ]
-//    * }   ;
-//    *    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-//    *    g.layout(100,100);
-//    * </script>
-//    * <p>Results in:</p>
-//    * <table style="width: auto;" class="table table-bordered table-condensed">
-//    * <thead>
-//    * <tr>
-//    * <th class="text-center">A</th>
-//    * <th class="text-center">B</th>
-//    * </tr>
-//    * </thead>
-//    *
-//    * <tbody>
-//    * <tr>
-//    * <td >StudyRight</td>
-//    * <td >senate math 17</td>
-//    * </tr>
-//    * <tr>
-//    * <td >StudyRight</td>
-//    * <td >7522 arts 16</td>
-//    * </tr>
-//    * <tr>
-//    * <td >StudyRight</td>
-//    * <td >gymnasium sports 25</td>
-//    * </tr>
-//    * </tbody>
-//    *
-//    * </table>
-//    * <script>
-//    *    var json = {
-//    *    "type":"object",
-//    *    "nodes":[
-//    *       {
-//    *          "type":"patternObject",
-//    *          "id":"t1 : TablePO",
-//    *          "attributes":[
-//    *             "<< bound>>"
-//    *          ]
-//    *       },
-//    *       {
-//    *          "type":"patternObject",
-//    *          "id":"r2 : RowPO",
-//    *          "attributes":[]
-//    *       },
-//    *       {
-//    *          "type":"patternObject",
-//    *          "id":"c3 : CellPO",
-//    *          "attributes":[]
-//    *       },
-//    *       {
-//    *          "type":"patternObject",
-//    *          "id":"r4 : RoomPO",
-//    *          "attributes":[]
-//    *       },
-//    *       {
-//    *          "type":"objectdiagram",
-//    *          "style":"nac",
-//    *          "info":"NegativeApplicationCondition",
-//    *          "nodes":[
-//    *             {
-//    *                "type":"patternObject",
-//    *                "id":"s5 : StudentPO",
-//    *                "attributes":[]
-//    *             }
-//    *          ]
-//    *       },
-//    *       {
-//    *          "type":"objectdiagram",
-//    *          "style":"nac",
-//    *          "info":"OptionalSubPattern",
-//    *          "nodes":[
-//    *             {
-//    *                "type":"patternObject",
-//    *                "id":"c6 : CellPO",
-//    *                "attributes":[]
-//    *             }
-//    *          ]
-//    *       }
-//    *    ],
-//    *    "edges":[
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"t1 : TablePO"
-//    *          },
-//    *          "target":{
-//    *             "property":"rows",
-//    *             "id":"r2 : RowPO"
-//    *          }
-//    *       },
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"r2 : RowPO"
-//    *          },
-//    *          "target":{
-//    *             "property":"cells",
-//    *             "id":"c3 : CellPO"
-//    *          }
-//    *       },
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"c3 : CellPO"
-//    *          },
-//    *          "target":{
-//    *             "property":"value",
-//    *             "id":"r4 : RoomPO"
-//    *          }
-//    *       },
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"r4 : RoomPO"
-//    *          },
-//    *          "target":{
-//    *             "property":"students",
-//    *             "id":"s5 : StudentPO"
-//    *          }
-//    *       },
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"r2 : RowPO"
-//    *          },
-//    *          "target":{
-//    *             "property":"cells",
-//    *             "id":"c6 : CellPO"
-//    *          }
-//    *       }
-//    *    ]
-//    * }   ;
-//    *    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-//    *    g.layout(100,100);
-//    * </script>
-//    * <pre>
-//    *          table.createColumns(&quot;Topic&quot;, row -&gt; {
-//    *             Room r = row.getCellValue(&quot;B&quot;);
-//    *             return r.getTopic();
-//    *          });
-//    *          table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits())
-//    *             .withTdCssClass(&quot;text-right&quot;);
-//    *          table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
-//    *             .withTdCssClass(&quot;text-right&quot;);
-//    *          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
-//    *
-//    * </pre>
-//    * <table style="width: auto;" class="table table-bordered table-condensed">
-//    * <thead>
-//    * <tr>
-//    * <th class="text-center">Topic</th>
-//    * <th class="text-center">Credits</th>
-//    * <th class="text-center">Students</th>
-//    * </tr>
-//    * </thead>
-//    *
-//    * <tbody>
-//    * <tr>
-//    * <td >math</td>
-//    * <td class="text-right">17</td>
-//    * <td class="text-right">1</td>
-//    * </tr>
-//    * <tr>
-//    * <td >arts</td>
-//    * <td class="text-right">16</td>
-//    * <td class="text-right">0</td>
-//    * </tr>
-//    * <tr>
-//    * <td >sports</td>
-//    * <td class="text-right">25</td>
-//    * <td class="text-right">2</td>
-//    * </tr>
-//    * </tbody>
-//    *
-//    * </table>
-//    * <script>
-//    *    var json = {
-//    *    "type":"object",
-//    *    "nodes":[
-//    *       {
-//    *          "type":"patternObject",
-//    *          "id":"t1 : TablePO",
-//    *          "attributes":[
-//    *             "<< bound>>"
-//    *          ]
-//    *       },
-//    *       {
-//    *          "type":"patternObject",
-//    *          "style":"create",
-//    *          "id":"c2 : ColumnPO",
-//    *          "attributes":[
-//    *             "<< create>>",
-//    *             "name == Topic"
-//    *          ]
-//    *       },
-//    *       {
-//    *          "type":"objectdiagram",
-//    *          "style":"nac",
-//    *          "info":"OptionalSubPattern",
-//    *          "nodes":[
-//    *             {
-//    *                "type":"patternObject",
-//    *                "id":"r3 : RowPO",
-//    *                "attributes":[]
-//    *             },
-//    *             {
-//    *                "type":"patternObject",
-//    *                "id":"c4 : CellPO",
-//    *                "attributes":[]
-//    *             },
-//    *             {
-//    *                "type":"patternObject",
-//    *                "id":"r5 : RoomPO",
-//    *                "attributes":[]
-//    *             },
-//    *             {
-//    *                "type":"patternObject",
-//    *                "style":"create",
-//    *                "id":"c6 : CellPO",
-//    *                "attributes":[
-//    *                   "<< create>>",
-//    *                   "value == r5.topic"
-//    *                ]
-//    *             }
-//    *          ]
-//    *       }
-//    *    ],
-//    *    "edges":[
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"t1 : TablePO"
-//    *          },
-//    *          "target":{
-//    *             "property":"columns",
-//    *             "id":"c2 : ColumnPO"
-//    *          },
-//    *          "style":"create"
-//    *       },
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"t1 : TablePO"
-//    *          },
-//    *          "target":{
-//    *             "property":"rows",
-//    *             "id":"r3 : RowPO"
-//    *          }
-//    *       },
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"r3 : RowPO"
-//    *          },
-//    *          "target":{
-//    *             "property":"cells",
-//    *             "id":"c4 : CellPO"
-//    *          }
-//    *       },
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"c4 : CellPO"
-//    *          },
-//    *          "target":{
-//    *             "property":"value",
-//    *             "id":"r5 : RoomPO"
-//    *          }
-//    *       },
-//    *       {
-//    *          "typ":"EDGE",
-//    *          "source":{
-//    *             "property":" ",
-//    *             "id":"c2 : ColumnPO"
-//    *          },
-//    *          "target":{
-//    *             "property":"cells",
-//    *             "id":"c6 : CellPO"
-//    *          },
-//    *          "style":"create"
-//    *       }
-//    *    ]
-//    * }   ;
-//    *    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
-//    *    g.layout(100,100);
-//    * </script>
-//    * <p><a name = 'step_2'>Step 2: List all topics:</a></p>
-//    * <pre>
-//    *          UniversityPO universityPO = new UniversityPO(university);
-//    *
-//    *          TablePO tablePO = new TablePO(CREATE);
-//    *
-//    *          universityPO.addToPattern(tablePO);
-//    *
-//    *          tablePO.createNameAssignment(&quot;University&quot;);
-//    *
-//    *          ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment(&quot;Topic&quot;);
-//    *
-//    *          ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
-//    *             .createNameAssignment(&quot;Credits&quot;)
-//    *             .createTdCssClassAssignment(&quot;text-right&quot;);
-//    *
-//    *          ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
-//    *             .createNameAssignment(&quot;Students&quot;)
-//    *             .createTdCssClassAssignment(&quot;text-right&quot;);
-//    *
-//    *          RoomPO roomsPO = universityPO.createRoomsPO();
-//    *
-//    *          RowPO rowPO = tablePO.createRowsPO(CREATE);
-//    *
-//    *          CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
-//    *          cell1PO.createCondition(cell -&gt; cell.withValue(roomsPO.getTopic()) != null);
-//    *
-//    *          CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
-//    *          cell2PO.createCondition(cell -&gt; cell.withValue(roomsPO.getCredits()) != null);
-//    *
-//    *          CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
-//    *          cell3PO.createCondition(cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null);
-//    *
-//    *          universityPO.doAllMatches();
-//    *
-//    * </pre>
-//    * <p>Results in:</p>
-//    * <table style="width: auto;" class="table table-bordered table-condensed">
-//    * <thead>
-//    * <tr>
-//    * <th class="text-center">Topic</th>
-//    * <th class="text-center">Credits</th>
-//    * <th class="text-center">Students</th>
-//    * </tr>
-//    * </thead>
-//    *
-//    * <tbody>
-//    * <tr>
-//    * <td >math</td>
-//    * <td class="text-right">17</td>
-//    * <td class="text-right">1</td>
-//    * </tr>
-//    * <tr>
-//    * <td >arts</td>
-//    * <td class="text-right">16</td>
-//    * <td class="text-right">0</td>
-//    * </tr>
-//    * <tr>
-//    * <td >sports</td>
-//    * <td class="text-right">25</td>
-//    * <td class="text-right">2</td>
-//    * </tr>
-//    * </tbody>
-//    *
-//    * </table>
-//    * <img src="doc-files/StudyRightTablesAndReportsStep16.png" alt="StudyRightTablesAndReportsStep16.png">
-//    * <p><a name = 'step_3'>Step 3: Do a nested table</a></p>
-//    * <pre>
-//    *          UniversityPO universityPO = new UniversityPO(university);
-//    *
-//    *          RoomPO createRoomsPO = universityPO.createRoomsPO();
-//    *
-//    *          Table table = universityPO.createResultTable();
-//    *
-//    *          table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
-//    *          table.createColumns(&quot;Assignments&quot;, row -&gt; addAssignments(row));
-//    *          table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
-//    *             .withTdCssClass(&quot;text-right&quot;);
-//    *          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
-//    *
-//    * </pre>
-//    * <table style="width: auto;" class="table table-bordered table-condensed">
-//    * <thead>
-//    * <tr>
-//    * <th class="text-center">Topic</th>
-//    * <th class="text-center">Assignments</th>
-//    * <th class="text-center">Students</th>
-//    * </tr>
-//    * </thead>
-//    *
-//    * <tbody>
-//    * <tr>
-//    * <td >math</td>
-//    * <td ><table style="width: auto;" class="table table-bordered table-condensed">
-//    * <thead>
-//    * <tr>
-//    * <th class="text-center">Content</th>
-//    * <th class="text-center">Points</th>
-//    * </tr>
-//    * </thead>
-//    *
-//    * <tbody>
-//    * <tr>
-//    * <td >Matrix Multiplication</td>
-//    * <td class="text-right">5</td>
-//    * </tr>
-//    * <tr>
-//    * <td >Series</td>
-//    * <td class="text-right">6</td>
-//    * </tr>
-//    * <tr>
-//    * <td >Integrals</td>
-//    * <td class="text-right">8</td>
-//    * </tr>
-//    * </tbody>
-//    *
-//    * </table>
-//    * </td>
-//    * <td class="text-right">1</td>
-//    * </tr>
-//    * <tr>
-//    * <td >arts</td>
-//    * <td ><table style="width: auto;" class="table table-bordered table-condensed">
-//    * <thead>
-//    * <tr>
-//    * <th class="text-center">Content</th>
-//    * <th class="text-center">Points</th>
-//    * </tr>
-//    * </thead>
-//    *
-//    * <tbody>
-//    * </tbody>
-//    *
-//    * </table>
-//    * </td>
-//    * <td class="text-right">0</td>
-//    * </tr>
-//    * <tr>
-//    * <td >sports</td>
-//    * <td ><table style="width: auto;" class="table table-bordered table-condensed">
-//    * <thead>
-//    * <tr>
-//    * <th class="text-center">Content</th>
-//    * <th class="text-center">Points</th>
-//    * </tr>
-//    * </thead>
-//    *
-//    * <tbody>
-//    * </tbody>
-//    *
-//    * </table>
-//    * </td>
-//    * <td class="text-right">2</td>
-//    * </tr>
-//    * </tbody>
-//    *
-//    * </table>
-//    * @see <a href='../../../../../../../../doc/StudyRightTablesAndReports.html'>StudyRightTablesAndReports.html</a>
-//    */
-//   @Test
-//   public void testStudyRightTablesAndReports()
-//   {
-//      Storyboard story = new Storyboard();
-//
-//      story.add("How to generate table reports from a model.");
-//
-//      story.addStep("Example object structure:");
-//
-//      University university = new University()
-//         .withName("StudyRight");
-//
-//      Student abu = university.createStudents()
-//         .withId("1337")
-//         .withName("Abu");
-//
-//      Student karli = new TeachingAssistant().withCertified(true);
-//      university.withStudents(karli
-//         .withId("4242")
-//         .withName("Karli"));
-//
-//      Student alice = university.createStudents()
-//         .withId("2323")
-//         .withName("Alice");
-//
-//      abu.withFriends(alice);
-//
-//      Assignment a1 = new Assignment()
-//         .withContent("Matrix Multiplication")
-//         .withPoints(5)
-//         .withStudents(abu);
-//
-//      Assignment a2 = new Assignment()
-//         .withContent("Series")
-//         .withPoints(6);
-////
-//      Assignment a3 = new Assignment()
-//         .withContent("Integrals")
-//         .withPoints(8);
-//
-//      karli.withDone(a1, a2);
-//
-//      Room mathRoom = university.createRooms()
-//         .withName("senate")
-//         .withTopic("math")
-//         .withCredits(17)
-//         .withStudents(karli)
-//         .withAssignments(a1, a2, a3);
-//
-//      Room artsRoom = university.createRooms()
-//         .withName("7522")
-//         .withTopic("arts")
-//         .withCredits(16)
-//         .withDoors(mathRoom);
-//
-//      Room sportsRoom = university.createRooms()
-//         .withName("gymnasium")
-//         .withTopic("sports")
-//         .withCredits(25)
-//         .withDoors(mathRoom, artsRoom)
-//         .withStudents(abu, alice);
-//
-////      Assignment a4 = sportsRoom.createAssignments().withContent("Pushups").withPoints(4).withStudents(abu);
-//
-////      Room examRoom = university.createRooms()
-////         .withName("The End")
-////         .withTopic("exam")
-////         .withCredits(0)
-////         .withDoors(sportsRoom, artsRoom);
-//
-////      Room softwareEngineering = university.createRooms()
-////         .withName("7422")
-////         .withTopic("Software Engineering")
-////         .withCredits(42)
-////         .withDoors(artsRoom, examRoom);
-//
-//      story.addObjectDiagramViaGraphViz(university);
-//
-//      story.addStep("Query for table");
-//
-//      {
-//         story.markCodeStart();
-//
-//         UniversityPO universityPO = new UniversityPO(university);
-//
-//         RoomPO createRoomsPO = universityPO.createRoomsPO();
-//
-//         Table table = universityPO.createResultTable();
-//
-//         story.addCode();
-//
-//         story.addPattern(universityPO, false);
-//
-//         story.add("Results in:");
-//
-//         story.addTable(table);
-//
-//         // filter row rule
-//         TablePO tablePO = new TablePO(table);
-//         RowPO rowPO = tablePO.createRowsPO();
-//         CellPO cellPO = rowPO.createCellsPO();
-//         RoomPO roomPO = new RoomPO();
-//         cellPO.hasLink("value", roomPO);
-//         roomPO.startNAC();
-//         roomPO.createStudentsPO();
-//         roomPO.endNAC();
-//         rowPO.startSubPattern();
-//         CellPO otherCellPO = rowPO.createCellsPO();
-//         otherCellPO.destroy();
-//         otherCellPO.doAllMatches();
-//         rowPO.endSubPattern();
-//         rowPO.destroy();
-//         rowPO.doAllMatches();
-//
-//         story.addPattern(tablePO, false);
-//
-//         story.markCodeStart();
-//
-//         table.createColumns("Topic", row -> {
-//            Room r = row.getCellValue("B");
-//            return r.getTopic();
-//         });
-//         table.createColumns("Credits", row -> ((Room) row.getCellValue("B")).getCredits())
-//            .withTdCssClass("text-right");
-//         table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
-//            .withTdCssClass("text-right");
-//         table.withoutColumns("A", "B");
-//
-//         story.addCode();
-//
-//         story.addTable(table);
-//
-//         double creditsSum = table.getColumn("Credits").getValueSum();
-//
-//         String csv = table.getCSV();
-//
-//         try
-//         {
-//            Files.write(Paths.get("doc/StudyRight.csv"), csv.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-//         }
-//         catch (IOException e)
-//         {
-//            e.printStackTrace();
-//         }
-//
-//         tablePO = new TablePO(table);
-//         ColumnPO columnsPO = tablePO.createColumnsPO(CREATE);
-//         columnsPO.createNameAssignment("Topic");
-//         tablePO.startSubPattern();
-//         rowPO = tablePO.createRowsPO();
-//         cellPO = rowPO.createCellsPO();
-//         roomPO = new RoomPO();
-//         cellPO.hasLink("value", roomPO);
-//         cellPO.startCreate();
-//         CellPO cellPO2 = columnsPO.createCellsPO(CREATE);
-//         cellPO2.createValueAssignment("r5.topic");
-//         cellPO.endCreate();
-//         tablePO.endSubPattern();
-//
-//
-//         story.addPattern(tablePO, false);
-//
-//      }
-//
-//      // =====================================================
-//      story.addStep("List all topics:");
-//
-//      {
-//         story.markCodeStart();
-//
-//         UniversityPO universityPO = new UniversityPO(university);
-//
-//         TablePO tablePO = new TablePO(CREATE);
-//
-//         universityPO.addToPattern(tablePO);
-//
-//         tablePO.createNameAssignment("University");
-//
-//         ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment("Topic");
-//
-//         ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
-//            .createNameAssignment("Credits")
-//            .createTdCssClassAssignment("text-right");
-//
-//         ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
-//            .createNameAssignment("Students")
-//            .createTdCssClassAssignment("text-right");
-//
-//         RoomPO roomsPO = universityPO.createRoomsPO();
-//
-//         RowPO rowPO = tablePO.createRowsPO(CREATE);
-//
-//         CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
-//         cell1PO.createCondition(cell -> cell.withValue(roomsPO.getTopic()) != null);
-//
-//         CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
-//         cell2PO.createCondition(cell -> cell.withValue(roomsPO.getCredits()) != null);
-//
-//         CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
-//         cell3PO.createCondition(cell -> cell.withValue(roomsPO.getStudents().size()) != null);
-//
-//         universityPO.doAllMatches();
-//
-//         story.addCode();
-//
-//         story.add("Results in:");
-//
-//         story.addTable(tablePO.getCurrentMatch());
-//
-//         story.addObjectDiagramViaGraphViz(tablePO.getCurrentMatch());
-//      }
-//
-//      story.addStep("Do a nested table");
-//      {
-//         story.markCodeStart();
-//
-//         UniversityPO universityPO = new UniversityPO(university);
-//
-//         RoomPO createRoomsPO = universityPO.createRoomsPO();
-//
-//         Table table = universityPO.createResultTable();
-//
-//         table.createColumns("Topic", row -> ((Room) row.getCellValue("B")).getTopic());
-//         table.createColumns("Assignments", row -> addAssignments(row));
-//         table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
-//            .withTdCssClass("text-right");
-//         table.withoutColumns("A", "B");
-//
-//         story.addCode();
-//
-//         story.addTable(table);
-//      }
-//      story.dumpHTML();
-//   }
-//
-//   public Table addAssignments(Row row)
-//   {
-//      Room room = (Room) row.getCellValue("B");
-//
-//      RoomPO roomPO = new RoomPO(room);
-//
-//      AssignmentPO assignmentPO = roomPO.createAssignmentsPO();
-//
-//      Table table = roomPO.createResultTable();
-//
-//      table.createColumns("Content", r -> ((Assignment) r.getCellValue("B")).getContent());
-//      table.createColumns("Points", r -> ((Assignment) r.getCellValue("B")).getPoints())
-//         .withTdCssClass("text-right");
-//      table.withoutColumns("A", "B");
-//
-//      return table;
-//   }
+
+   /**
+    * 
+    * <h3>Storyboard StudyRightTablesAndReports</h3>
+    * <p>How to generate table reports from a model.</p>
+    * <h4><a name = 'step_1'>Step 1: Example object structure:</a></h4>
+    * <img src="doc-files/StudyRightTablesAndReportsStep2.png" alt="StudyRightTablesAndReportsStep2.png" width='883'>
+    * <h4><a name = 'step_2'>Step 2: Query for table</a></h4>
+    * <pre><code class="java" data-lang="java">
+    * 
+    *          UniversityPO universityPO = new UniversityPO(university);
+    * 
+    *          RoomPO createRoomsPO = universityPO.createRoomsPO();
+    * 
+    *          Table table = universityPO.createResultTable();
+    * 
+    * </code></pre>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"u1 : UniversityPO",
+    *          "attributes":[
+    *             "<< bound>>"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"r2 : RoomPO",
+    *          "attributes":[]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"u1 : UniversityPO"
+    *          },
+    *          "target":{
+    *             "property":"rooms",
+    *             "id":"r2 : RoomPO"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram5", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <p>Results in:</p>
+    * <table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">A</th>
+    * <th class="text-center">B</th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td >StudyRight</td>
+    * <td >17 senate math</td>
+    * </tr>
+    * <tr>
+    * <td >StudyRight</td>
+    * <td >16 7522 arts</td>
+    * </tr>
+    * <tr>
+    * <td >StudyRight</td>
+    * <td >25 gymnasium sports</td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"t1 : TablePO",
+    *          "attributes":[
+    *             "<< bound>>"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"r2 : RowPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"c3 : CellPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "id":"r4 : RoomPO",
+    *          "attributes":[]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"NegativeApplicationCondition",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"s5 : StudentPO",
+    *                "attributes":[]
+    *             }
+    *          ]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"OptionalSubPattern",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"c6 : CellPO",
+    *                "attributes":[]
+    *             }
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"t1 : TablePO"
+    *          },
+    *          "target":{
+    *             "property":"rows",
+    *             "id":"r2 : RowPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"r2 : RowPO"
+    *          },
+    *          "target":{
+    *             "property":"cells",
+    *             "id":"c3 : CellPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"c3 : CellPO"
+    *          },
+    *          "target":{
+    *             "property":"value",
+    *             "id":"r4 : RoomPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"r4 : RoomPO"
+    *          },
+    *          "target":{
+    *             "property":"students",
+    *             "id":"s5 : StudentPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"r2 : RowPO"
+    *          },
+    *          "target":{
+    *             "property":"cells",
+    *             "id":"c6 : CellPO"
+    *          }
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram8", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <pre><code class="java" data-lang="java">
+    * 
+    *          table.createColumns(&quot;Topic&quot;, row -&gt; {
+    *             Room r = row.getCellValue(&quot;B&quot;);
+    *             return r.getTopic();
+    *          });
+    *          table.createColumns(&quot;Credits&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getCredits())
+    *             .withTdCssClass(&quot;text-right&quot;);
+    *          table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
+    *             .withTdCssClass(&quot;text-right&quot;);
+    *          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
+    * 
+    * </code></pre>
+    * <table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Topic</th>
+    * <th class="text-center">Credits</th>
+    * <th class="text-center">Students</th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td >math</td>
+    * <td class="text-right">17</td>
+    * <td class="text-right">1</td>
+    * </tr>
+    * <tr>
+    * <td >arts</td>
+    * <td class="text-right">16</td>
+    * <td class="text-right">0</td>
+    * </tr>
+    * <tr>
+    * <td >sports</td>
+    * <td class="text-right">25</td>
+    * <td class="text-right">2</td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    * <script>
+    *    var json = {
+    *    "type":"object",
+    *    "nodes":[
+    *       {
+    *          "type":"patternObject",
+    *          "id":"t1 : TablePO",
+    *          "attributes":[
+    *             "<< bound>>"
+    *          ]
+    *       },
+    *       {
+    *          "type":"patternObject",
+    *          "style":"create",
+    *          "id":"c2 : ColumnPO",
+    *          "attributes":[
+    *             "<< create>>",
+    *             "name == Topic"
+    *          ]
+    *       },
+    *       {
+    *          "type":"objectdiagram",
+    *          "style":"nac",
+    *          "info":"OptionalSubPattern",
+    *          "nodes":[
+    *             {
+    *                "type":"patternObject",
+    *                "id":"r3 : RowPO",
+    *                "attributes":[]
+    *             },
+    *             {
+    *                "type":"patternObject",
+    *                "id":"c4 : CellPO",
+    *                "attributes":[]
+    *             },
+    *             {
+    *                "type":"patternObject",
+    *                "id":"r5 : RoomPO",
+    *                "attributes":[]
+    *             },
+    *             {
+    *                "type":"patternObject",
+    *                "style":"create",
+    *                "id":"c6 : CellPO",
+    *                "attributes":[
+    *                   "<< create>>",
+    *                   "value == r5.topic"
+    *                ]
+    *             }
+    *          ]
+    *       }
+    *    ],
+    *    "edges":[
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"t1 : TablePO"
+    *          },
+    *          "target":{
+    *             "property":"columns",
+    *             "id":"c2 : ColumnPO"
+    *          },
+    *          "style":"create"
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"t1 : TablePO"
+    *          },
+    *          "target":{
+    *             "property":"rows",
+    *             "id":"r3 : RowPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"r3 : RowPO"
+    *          },
+    *          "target":{
+    *             "property":"cells",
+    *             "id":"c4 : CellPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"c4 : CellPO"
+    *          },
+    *          "target":{
+    *             "property":"value",
+    *             "id":"r5 : RoomPO"
+    *          }
+    *       },
+    *       {
+    *          "typ":"EDGE",
+    *          "source":{
+    *             "property":" ",
+    *             "id":"c2 : ColumnPO"
+    *          },
+    *          "target":{
+    *             "property":"cells",
+    *             "id":"c6 : CellPO"
+    *          },
+    *          "style":"create"
+    *       }
+    *    ]
+    * }   ;
+    *    json["options"]={"canvasid":"canvasStudyRightTablesAndReportsPatternDiagram11", "display":"html", "fontsize":10,"bar":true};   var g = new Graph(json);
+    *    g.layout(100,100);
+    * </script>
+    * <h4><a name = 'step_3'>Step 3: List all topics:</a></h4>
+    * <pre><code class="java" data-lang="java">
+    * 
+    *          UniversityPO universityPO = new UniversityPO(university);
+    * 
+    *          TablePO tablePO = new TablePO(CREATE);
+    * 
+    *          universityPO.addToPattern(tablePO);
+    * 
+    *          tablePO.createNameAssignment(&quot;University&quot;);
+    * 
+    *          ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment(&quot;Topic&quot;);
+    * 
+    *          ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
+    *             .createNameAssignment(&quot;Credits&quot;)
+    *             .createTdCssClassAssignment(&quot;text-right&quot;);
+    * 
+    *          ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
+    *             .createNameAssignment(&quot;Students&quot;)
+    *             .createTdCssClassAssignment(&quot;text-right&quot;);
+    * 
+    *          RoomPO roomsPO = universityPO.createRoomsPO();
+    * 
+    *          RowPO rowPO = tablePO.createRowsPO(CREATE);
+    * 
+    *          CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
+    *          cell1PO.createCondition(cell -&gt; cell.withValue(roomsPO.getTopic()) != null);
+    * 
+    *          CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
+    *          cell2PO.createCondition(cell -&gt; cell.withValue(roomsPO.getCredits()) != null);
+    * 
+    *          CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
+    *          cell3PO.createCondition(cell -&gt; cell.withValue(roomsPO.getStudents().size()) != null);
+    * 
+    *          universityPO.doAllMatches();
+    * 
+    * </code></pre>
+    * <p>Results in:</p>
+    * <table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Topic</th>
+    * <th class="text-center">Credits</th>
+    * <th class="text-center">Students</th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td >math</td>
+    * <td class="text-right">17</td>
+    * <td class="text-right">1</td>
+    * </tr>
+    * <tr>
+    * <td >arts</td>
+    * <td class="text-right">16</td>
+    * <td class="text-right">0</td>
+    * </tr>
+    * <tr>
+    * <td >sports</td>
+    * <td class="text-right">25</td>
+    * <td class="text-right">2</td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    * <img src="doc-files/StudyRightTablesAndReportsStep16.png" alt="StudyRightTablesAndReportsStep16.png" width='603'>
+    * <h4><a name = 'step_4'>Step 4: Do a nested table</a></h4>
+    * <pre><code class="java" data-lang="java">
+    * 
+    *          UniversityPO universityPO = new UniversityPO(university);
+    * 
+    *          RoomPO createRoomsPO = universityPO.createRoomsPO();
+    * 
+    *          Table table = universityPO.createResultTable();
+    * 
+    *          table.createColumns(&quot;Topic&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getTopic());
+    *          table.createColumns(&quot;Assignments&quot;, row -&gt; addAssignments(row));
+    *          table.createColumns(&quot;Students&quot;, row -&gt; ((Room) row.getCellValue(&quot;B&quot;)).getStudents().size())
+    *             .withTdCssClass(&quot;text-right&quot;);
+    *          table.withoutColumns(&quot;A&quot;, &quot;B&quot;);
+    * 
+    * </code></pre>
+    * <table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Topic</th>
+    * <th class="text-center">Assignments</th>
+    * <th class="text-center">Students</th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td >math</td>
+    * <td ><table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Content</th>
+    * <th class="text-center">Points</th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * <tr>
+    * <td >Matrix Multiplication</td>
+    * <td class="text-right">5</td>
+    * </tr>
+    * <tr>
+    * <td >Series</td>
+    * <td class="text-right">6</td>
+    * </tr>
+    * <tr>
+    * <td >Integrals</td>
+    * <td class="text-right">8</td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    * </td>
+    * <td class="text-right">1</td>
+    * </tr>
+    * <tr>
+    * <td >arts</td>
+    * <td ><table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Content</th>
+    * <th class="text-center">Points</th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * </tbody>
+    * 
+    * </table>
+    * </td>
+    * <td class="text-right">0</td>
+    * </tr>
+    * <tr>
+    * <td >sports</td>
+    * <td ><table style="width: auto;" class="table table-bordered table-condensed">
+    * <thead>
+    * <tr>
+    * <th class="text-center">Content</th>
+    * <th class="text-center">Points</th>
+    * </tr>
+    * </thead>
+    * 
+    * <tbody>
+    * </tbody>
+    * 
+    * </table>
+    * </td>
+    * <td class="text-right">2</td>
+    * </tr>
+    * </tbody>
+    * 
+    * </table>
+    */
+   @Test
+   public void testStudyRightTablesAndReports()
+   {
+      Storyboard story = new Storyboard();
+
+      story.add("How to generate table reports from a model.");
+
+      story.addStep("Example object structure:");
+
+      University university = new University()
+         .withName("StudyRight");
+
+      Student abu = university.createStudents()
+         .withId("1337")
+         .withName("Abu");
+
+      Student karli = new TeachingAssistant().withCertified(true);
+      university.withStudents(karli
+         .withId("4242")
+         .withName("Karli"));
+
+      Student alice = university.createStudents()
+         .withId("2323")
+         .withName("Alice");
+
+      abu.withFriends(alice);
+
+      Assignment a1 = new Assignment()
+         .withContent("Matrix Multiplication")
+         .withPoints(5)
+         .withStudents(abu);
+
+      Assignment a2 = new Assignment()
+         .withContent("Series")
+         .withPoints(6);
+//
+      Assignment a3 = new Assignment()
+         .withContent("Integrals")
+         .withPoints(8);
+
+      karli.withDone(a1, a2);
+
+      Room mathRoom = university.createRooms()
+         .withName("senate")
+         .withTopic("math")
+         .withCredits(17)
+         .withStudents(karli)
+         .withAssignments(a1, a2, a3);
+
+      Room artsRoom = university.createRooms()
+         .withName("7522")
+         .withTopic("arts")
+         .withCredits(16)
+         .withDoors(mathRoom);
+
+      Room sportsRoom = university.createRooms()
+         .withName("gymnasium")
+         .withTopic("sports")
+         .withCredits(25)
+         .withDoors(mathRoom, artsRoom)
+         .withStudents(abu, alice);
+
+//      Assignment a4 = sportsRoom.createAssignments().withContent("Pushups").withPoints(4).withStudents(abu);
+
+//      Room examRoom = university.createRooms()
+//         .withName("The End")
+//         .withTopic("exam")
+//         .withCredits(0)
+//         .withDoors(sportsRoom, artsRoom);
+
+//      Room softwareEngineering = university.createRooms()
+//         .withName("7422")
+//         .withTopic("Software Engineering")
+//         .withCredits(42)
+//         .withDoors(artsRoom, examRoom);
+
+      story.addObjectDiagram(university);
+
+      story.addStep("Query for table");
+
+      {
+         story.markCodeStart();
+
+         UniversityPO universityPO = new UniversityPO(university);
+
+         RoomPO createRoomsPO = universityPO.createRoomsPO();
+
+         Table table = universityPO.createResultTable();
+
+         story.addCode();
+
+         story.addPattern(universityPO, false);
+
+         story.add("Results in:");
+
+         story.addTable(table);
+
+         // filter row rule
+         TablePO tablePO = new TablePO(table);
+         RowPO rowPO = tablePO.createRowsPO();
+         CellPO cellPO = rowPO.createCellsPO();
+         RoomPO roomPO = new RoomPO();
+         cellPO.hasLink("value", roomPO);
+         roomPO.startNAC();
+         roomPO.createStudentsPO();
+         roomPO.endNAC();
+         rowPO.startSubPattern();
+         CellPO otherCellPO = rowPO.createCellsPO();
+         otherCellPO.destroy();
+         otherCellPO.doAllMatches();
+         rowPO.endSubPattern();
+         rowPO.destroy();
+         rowPO.doAllMatches();
+
+         story.addPattern(tablePO, false);
+
+         story.markCodeStart();
+
+         table.createColumns("Topic", row -> {
+            Room r = row.getCellValue("B");
+            return r.getTopic();
+         });
+         table.createColumns("Credits", row -> ((Room) row.getCellValue("B")).getCredits())
+            .withTdCssClass("text-right");
+         table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
+            .withTdCssClass("text-right");
+         table.withoutColumns("A", "B");
+
+         story.addCode();
+
+         story.addTable(table);
+
+         double creditsSum = table.getColumn("Credits").getValueSum();
+
+         String csv = table.getCSV();
+
+         try
+         {
+            Files.write(Paths.get("doc/StudyRight.csv"), csv.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+         }
+         catch (IOException e)
+         {
+            e.printStackTrace();
+         }
+
+         tablePO = new TablePO(table);
+         ColumnPO columnsPO = tablePO.createColumnsPO(CREATE);
+         columnsPO.createNameAssignment("Topic");
+         tablePO.startSubPattern();
+         rowPO = tablePO.createRowsPO();
+         cellPO = rowPO.createCellsPO();
+         roomPO = new RoomPO();
+         cellPO.hasLink("value", roomPO);
+         cellPO.startCreate();
+         CellPO cellPO2 = columnsPO.createCellsPO(CREATE);
+         cellPO2.createValueAssignment("r5.topic");
+         cellPO.endCreate();
+         tablePO.endSubPattern();
+
+
+         story.addPattern(tablePO, false);
+
+      }
+
+      // =====================================================
+      story.addStep("List all topics:");
+
+      {
+         story.markCodeStart();
+
+         UniversityPO universityPO = new UniversityPO(university);
+
+         TablePO tablePO = new TablePO(CREATE);
+
+         universityPO.addToPattern(tablePO);
+
+         tablePO.createNameAssignment("University");
+
+         ColumnPO col1PO = tablePO.createColumnsPO(CREATE).createNameAssignment("Topic");
+
+         ColumnPO col2PO = tablePO.createColumnsPO(CREATE)
+            .createNameAssignment("Credits")
+            .createTdCssClassAssignment("text-right");
+
+         ColumnPO col3PO = tablePO.createColumnsPO(CREATE)
+            .createNameAssignment("Students")
+            .createTdCssClassAssignment("text-right");
+
+         RoomPO roomsPO = universityPO.createRoomsPO();
+
+         RowPO rowPO = tablePO.createRowsPO(CREATE);
+
+         CellPO cell1PO = rowPO.createCellsPO(CREATE).createColumnLink(col1PO, CREATE);
+         cell1PO.createCondition(cell -> cell.withValue(roomsPO.getTopic()) != null);
+
+         CellPO cell2PO = rowPO.createCellsPO(CREATE).createColumnLink(col2PO, CREATE);
+         cell2PO.createCondition(cell -> cell.withValue(roomsPO.getCredits()) != null);
+
+         CellPO cell3PO = rowPO.createCellsPO(CREATE).createColumnLink(col3PO, CREATE);
+         cell3PO.createCondition(cell -> cell.withValue(roomsPO.getStudents().size()) != null);
+
+         universityPO.doAllMatches();
+
+         story.addCode();
+
+         story.add("Results in:");
+
+         story.addTable(tablePO.getCurrentMatch());
+
+         story.addObjectDiagram(tablePO.getCurrentMatch());
+      }
+
+      story.addStep("Do a nested table");
+      {
+         story.markCodeStart();
+
+         UniversityPO universityPO = new UniversityPO(university);
+
+         RoomPO createRoomsPO = universityPO.createRoomsPO();
+
+         Table table = universityPO.createResultTable();
+
+         table.createColumns("Topic", row -> ((Room) row.getCellValue("B")).getTopic());
+         table.createColumns("Assignments", row -> addAssignments(row));
+         table.createColumns("Students", row -> ((Room) row.getCellValue("B")).getStudents().size())
+            .withTdCssClass("text-right");
+         table.withoutColumns("A", "B");
+
+         story.addCode();
+
+         story.addTable(table);
+      }
+      story.dumpHTML();
+   }
+
+   public Table addAssignments(Row row)
+   {
+      Room room = (Room) row.getCellValue("B");
+
+      RoomPO roomPO = new RoomPO(room);
+
+      AssignmentPO assignmentPO = roomPO.createAssignmentsPO();
+
+      Table table = roomPO.createResultTable();
+
+      table.createColumns("Content", r -> ((Assignment) r.getCellValue("B")).getContent());
+      table.createColumns("Points", r -> ((Assignment) r.getCellValue("B")).getPoints())
+         .withTdCssClass("text-right");
+      table.withoutColumns("A", "B");
+
+      return table;
+   }
+
+
+
+
 //
 //   /**
 //    *

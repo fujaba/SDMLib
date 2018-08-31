@@ -1819,9 +1819,9 @@ public class GenAssociation extends Generator<Association>
       //		}
 
       // also for subclasses
-      fixSubclasses(model, rootDir, helperDir);
+      // fixSubclasses(model, rootDir, helperDir);
       // Other subClasses
-      fixSubclasses(model.getOther(), rootDir, helperDir);
+      // fixSubclasses(model.getOther(), rootDir, helperDir);
 
       //		if (model.getName() == null || model.getType()==AssociationTypes.EDGE || model.getType() == AssociationTypes.UNDIRECTIONAL) {
       //			// uni directional assoc, do not generate reverse direction

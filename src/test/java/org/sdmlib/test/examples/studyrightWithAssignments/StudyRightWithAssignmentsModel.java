@@ -23,7 +23,6 @@
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.ext.ClassModel;
 import de.uniks.networkparser.ext.SimpleController;
 import de.uniks.networkparser.graph.*;
 import org.junit.Test;
@@ -31,6 +30,7 @@ import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Gradle;
 import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.YamlIdMap;
+import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
@@ -56,7 +56,7 @@ public class StudyRightWithAssignmentsModel
     *       Clazz universityClass = model.createClazz(&quot;University&quot;)
     *             .withAttribute(&quot;name&quot;, DataType.STRING);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep2.png" alt="StudyRightWithAssignmentsClassGenerationStep2.png" width='104'>
+    * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep2.png' width='104'>
     * <h4><a name = 'step_2'>Step 2: Add class Student</a></h4>
     * <pre><code class="java" data-lang="java">
     *       Clazz studentClass = model.createClazz(&quot;Student&quot;)
@@ -66,12 +66,12 @@ public class StudyRightWithAssignmentsModel
     *             .withAttribute(&quot;motivation&quot;, DataType.INT)
     *             .withAttribute(&quot;credits&quot;, DataType.INT);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep5.png" alt="StudyRightWithAssignmentsClassGenerationStep5.png" width='269'>
+    * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep5.png' width='269'>
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
     *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep8.png" alt="StudyRightWithAssignmentsClassGenerationStep8.png" width='151'>
+    * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep8.png' width='151'>
     * <p>4. add University --> Room association</p>
     * <pre><code class="java" data-lang="java">
     *       Clazz roomClass = model.createClazz(&quot;Room&quot;)
@@ -91,7 +91,7 @@ public class StudyRightWithAssignmentsModel
     *       studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
     *       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep11.png" alt="StudyRightWithAssignmentsClassGenerationStep11.png" width='232'>
+    * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep11.png' width='232'>
     * <p>5. add assignments:</p>
     * <pre><code class="java" data-lang="java">
     *       Clazz assignmentClass = model.createClazz(&quot;Assignment&quot;)
@@ -102,7 +102,9 @@ public class StudyRightWithAssignmentsModel
     * 
     *       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
     * </code></pre>
-    * <img src="doc-files/StudyRightWithAssignmentsClassGenerationStep14.png" alt="StudyRightWithAssignmentsClassGenerationStep14.png" width='319'>
+    * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep14.png' width='319'>
+    * <h4><a name = 'step_3'>Step 3: Some more classes for extended navigation demo</a></h4>
+    * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep16.png' width='321'>
     * <p>6. generate class source files.</p>
     * <pre><code class="java" data-lang="java">
     *       model.generate(&quot;src&#x2F;test&#x2F;java&quot;); &#x2F;&#x2F; usually don&#x27;t specify anything here, then it goes into src
@@ -220,6 +222,8 @@ public class StudyRightWithAssignmentsModel
       universityClass.createBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
 
 
+      story.addStep("Some more classes for extended navigation demo");
+      story.addClassDiagram(model);
       //============================================================
       story.add("6. generate class source files.");
 
@@ -261,13 +265,13 @@ public class StudyRightWithAssignmentsModel
     *             .withAttribute(&quot;motivation&quot;, DataType.INT)
     *             .withAttribute(&quot;credits&quot;, DataType.INT);
     * </code></pre>
-    * <img src="doc-files/NetworkParserCodeGenStep6.png" alt="NetworkParserCodeGenStep6.png" width='269'>
+    * <img src='doc-files/NetworkParserCodeGenStep6.png' width='269'>
     * <p>Check: compile result after adding class Student 0 actual 0</p>
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
     *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
     * </code></pre>
-    * <img src="doc-files/NetworkParserCodeGenStep10.png" alt="NetworkParserCodeGenStep10.png" width='151'>
+    * <img src='doc-files/NetworkParserCodeGenStep10.png' width='151'>
     * <p>Check: compile result after adding students assoc 0 actual 0</p>
     * <p>6. generate class source files.</p>
     * <pre><code class="java" data-lang="java">
@@ -322,7 +326,6 @@ public class StudyRightWithAssignmentsModel
       //============================================================
       universityClass.withAttribute("name", DataType.STRING);
 
-      model.resetGenerator();
       model.generate(SRC_TEST_JAVA);
       result = controller.start();
       story.assertEquals("gradle compileTestJava result after adding University.name", 0, result);
@@ -343,7 +346,6 @@ public class StudyRightWithAssignmentsModel
       story.addClassDiagram(model);
 
       // project compiles?
-      model.resetGenerator();
       model.generate(SRC_TEST_JAVA);
       result = controller.start();
       story.assertEquals("compile result after adding class Student", 0, result);
@@ -360,7 +362,6 @@ public class StudyRightWithAssignmentsModel
       story.addClassDiagram(model);
 
       // project compiles?
-      model.resetGenerator();
       model.generate(SRC_TEST_JAVA);
       result = controller.start();
       story.assertEquals("compile result after adding students assoc", 0, result);

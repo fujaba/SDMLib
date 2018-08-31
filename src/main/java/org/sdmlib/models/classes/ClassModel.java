@@ -45,11 +45,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
 
 
-/**
- * @deprecated use de.uniks.networkparser.ext.ClassModel instead
- * @see org.sdmlib.models.tables.TableModel#testTableModel
- */
-@Deprecated
 public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
 {
 	public static final String DEFAULTPACKAGE = "i.love.sdmlib";

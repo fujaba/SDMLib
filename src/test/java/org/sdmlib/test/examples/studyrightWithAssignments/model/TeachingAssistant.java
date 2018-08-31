@@ -1,38 +1,98 @@
+/*
+   Copyright (c) 2018 zuendorf
+   
+   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+   and associated documentation files (the "Software"), to deal in the Software without restriction, 
+   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+   furnished to do so, subject to the following conditions: 
+   
+   The above copyright notice and this permission notice shall be included in all copies or 
+   substantial portions of the Software. 
+   
+   The Software shall be used for Good, not Evil. 
+   
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ */
+   
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    /**
     * 
     * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
-   public class TeachingAssistant extends Student
+   public  class TeachingAssistant extends Student
 {
 
-   public static final String PROPERTY_CERTIFIED = "certified";
+   
+   //==========================================================================
+   
+   @Override
+   public void removeYou()
+   {
+      setRoom(null);
+      firePropertyChange("REMOVE_YOU", this, null);
+   }
 
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CERTIFIED = "certified";
+   
    private boolean certified;
 
    public boolean isCertified()
    {
       return this.certified;
    }
-
+   
    public void setCertified(boolean value)
    {
-      if (this.certified != value)
-      {         boolean oldValue = this.certified;
+      if (this.certified != value) {
+      
+         boolean oldValue = this.certified;
          this.certified = value;
-         firePropertyChange(PROPERTY_CERTIFIED, oldValue, value);
+         this.firePropertyChange(PROPERTY_CERTIFIED, oldValue, value);
       }
    }
-
+   
    public TeachingAssistant withCertified(boolean value)
    {
       setCertified(value);
       return this;
+   } 
+
+
+   @Override
+   public String toString()
+   {
+      StringBuilder result = new StringBuilder();
+      
+      result.append(" ").append(this.getAssignmentPoints());
+      result.append(" ").append(this.getCredits());
+      result.append(" ").append(this.getId());
+      result.append(" ").append(this.getMotivation());
+      result.append(" ").append(this.getName());
+      return result.substring(1);
    }
 
 
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * TeachingAssistant ----------------------------------- Room
+    *              tas                   room
+    * </pre>
+    */
+   
    public static final String PROPERTY_ROOM = "room";
 
    private Room room = null;
@@ -45,32 +105,41 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
    public boolean setRoom(Room value)
    {
       boolean changed = false;
-      if (this.room != value) {
+      
+      if (this.room != value)
+      {
          Room oldValue = this.room;
-         if (this.room != null) {
+         
+         if (this.room != null)
+         {
             this.room = null;
             oldValue.withoutTas(this);
          }
+         
          this.room = value;
-         if (value != null) {
+         
+         if (value != null)
+         {
             value.withTas(this);
          }
+         
          firePropertyChange(PROPERTY_ROOM, oldValue, value);
          changed = true;
       }
+      
       return changed;
    }
 
    public TeachingAssistant withRoom(Room value)
    {
-      this.setRoom(value);
+      setRoom(value);
       return this;
-   }
+   } 
 
    public Room createRoom()
    {
       Room value = new Room();
       withRoom(value);
       return value;
-   }
+   } 
 }

@@ -1057,8 +1057,8 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    public void addClassDiagramAsImage(ClassModel model, int... dimensions)
    {
       String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
-      diagScript = model.dumpClassDiagram(diagScript);
-      this.addAsImage(diagScript, true, dimensions);
+      String imgFileName = Diagrams.classDiag(model);
+      this.addImage(imgFileName);
    }
 
 
@@ -1739,34 +1739,36 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
          objId = StrUtil.downFirstChar(objId);
          String shortClassName = CGUtil.shortClassName(jsonObj.getString("class"));
 
-         JsonObject props = jsonObj.getJsonObject("prop");
+         JsonObject props = (JsonObject) jsonObj.get("prop");
 
-         for (String key : props.keySet())
+         if (props != null)
          {
-            Object value = props.getValue(key);
-
-            if (value instanceof JsonArray)
+            for (String key : props.keySet())
             {
-               ArrayList<LinkTarget> elemList = new ArrayList<LinkTarget>();
+               Object value = props.getValue(key);
 
-               for (Object elem : (JsonArray) value)
+               if (value instanceof JsonArray)
                {
-                  JsonObject jsonElem = (JsonObject) elem;
+                  ArrayList<LinkTarget> elemList = new ArrayList<LinkTarget>();
+
+                  for (Object elem : (JsonArray) value)
+                  {
+                     JsonObject jsonElem = (JsonObject) elem;
+                     String elemId = jsonElem.getString("id");
+                     elemId = StrUtil.downFirstChar(elemId);
+
+                     buf.append(objId).append(" -> ").append(elemId).append(" [arrowhead=none fontsize=\"10\" headlabel=\"" +
+                           key + "\"];\n");
+                  }
+               } else if (value instanceof JsonObject)
+               {
+                  JsonObject jsonElem = (JsonObject) value;
                   String elemId = jsonElem.getString("id");
                   elemId = StrUtil.downFirstChar(elemId);
 
                   buf.append(objId).append(" -> ").append(elemId).append(" [arrowhead=none fontsize=\"10\" headlabel=\"" +
-                          key + "\"];\n");
+                        key + "\"];\n");
                }
-            }
-            else if (value instanceof JsonObject)
-            {
-               JsonObject jsonElem = (JsonObject) value;
-               String elemId = jsonElem.getString("id");
-               elemId = StrUtil.downFirstChar(elemId);
-
-               buf.append(objId).append(" -> ").append(elemId).append(" [arrowhead=none fontsize=\"10\" headlabel=\"" +
-                       key + "\"];\n");
             }
          }
       }
@@ -1855,19 +1857,22 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
                  .append("</u></td></tr>\n"  +
                          "       <tr><td>");
 
-         JsonObject props = jsonObj.getJsonObject("prop");
+         JsonObject props = (JsonObject) jsonObj.get("prop");
 
-         for (String key : props.keySet())
+         if (props != null)
          {
-            Object value = props.getValue(key);
-
-            if (value instanceof JsonArray || value instanceof JsonObject)
+            for (String key : props.keySet())
             {
+               Object value = props.getValue(key);
 
-            }
-            else
-            {
-               buf.append(key).append(": ").append("" + value).append("<br  align='left'/>");
+               if (value instanceof JsonArray || value instanceof JsonObject)
+               {
+
+               }
+               else
+               {
+                  buf.append(key).append(": ").append("" + value).append("<br  align='left'/>");
+               }
             }
          }
 
