@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -185,7 +185,7 @@ public class ModelSpaceChatModel
             .withAttribute("time", DataType.LONG)
             .withAttribute("sender", DataType.STRING);
             
-      chatChannel.withBidirectional(chatMsg, "msgs", Cardinality.MANY, "channel", Cardinality.ONE);
+      chatChannel.withBidirectional(chatMsg, "msgs", Association.MANY, "channel", Association.ONE);
       
       Clazz chatGroup = model.createClazz("MSChatGroup")
             .withAttribute("task", DataType.STRING);
@@ -197,11 +197,11 @@ public class ModelSpaceChatModel
             .withAttribute("name", DataType.STRING)
             .withAttribute("location", DataType.STRING);
       
-      chatGroup.withBidirectional(chatMember, "members", Cardinality.MANY, "group", Cardinality.ONE);
+      chatGroup.withBidirectional(chatMember, "members", Association.MANY, "group", Association.ONE);
       
-      chatGroup.withBidirectional(chatChannelDesc, "channels", Cardinality.MANY, "group", Cardinality.ONE);
+      chatGroup.withBidirectional(chatChannelDesc, "channels", Association.MANY, "group", Association.ONE);
       
-      chatMember.withBidirectional(chatChannelDesc, "channels", Cardinality.MANY, "members", Cardinality.MANY);
+      chatMember.withBidirectional(chatChannelDesc, "channels", Association.MANY, "members", Association.MANY);
       
       model.generate("src/test/java");
       

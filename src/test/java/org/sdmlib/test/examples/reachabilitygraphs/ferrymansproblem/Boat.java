@@ -27,9 +27,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>

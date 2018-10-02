@@ -21,39 +21,28 @@
    
 package org.sdmlib.storyboards;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-
-import java.awt.*;
-import java.beans.PropertyChangeSupport;
+import java.awt.Color;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.sdmlib.CGUtil;
 import org.sdmlib.storyboards.util.LogEntrySet;
-import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.storyboards.Goal;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 
 public  class MikadoLog implements SendableEntity

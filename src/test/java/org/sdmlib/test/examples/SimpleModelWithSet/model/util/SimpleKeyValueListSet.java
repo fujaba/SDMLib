@@ -25,7 +25,6 @@ import java.util.Collection;
 
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class SimpleKeyValueListSet extends SimpleSet<SimpleKeyValueList>
 {

@@ -1,8 +1,9 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.storyboards.LogEntry;
+
+import de.uniks.networkparser.IdMap;
 
 public class LogEntryPOCreator extends PatternObjectCreator
 {

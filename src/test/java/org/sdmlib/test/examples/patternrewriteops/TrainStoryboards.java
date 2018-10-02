@@ -1,6 +1,5 @@
 package org.sdmlib.test.examples.patternrewriteops;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.storyboards.Storyboard;

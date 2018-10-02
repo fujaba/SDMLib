@@ -1,8 +1,9 @@
 package org.sdmlib.test.codegen.studyright.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.codegen.studyright.model.University;
+
+import de.uniks.networkparser.IdMap;
 
 public class UniversityPOCreator extends PatternObjectCreator
 {

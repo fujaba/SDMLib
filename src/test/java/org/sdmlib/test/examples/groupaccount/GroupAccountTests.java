@@ -24,9 +24,7 @@ package org.sdmlib.test.examples.groupaccount;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
@@ -37,10 +35,17 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import io.moquette.server.Server;
-import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.Test;
-import org.sdmlib.models.*;
+import org.sdmlib.models.SDMComponentListener;
+import org.sdmlib.models.YamlFileMap;
+import org.sdmlib.models.YamlIdMap;
+import org.sdmlib.models.YamlMqttMap;
+import org.sdmlib.models.Yamler;
 import org.sdmlib.models.pattern.ModelIsomorphimOp;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Goal;
@@ -48,8 +53,8 @@ import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.slf4j.LoggerFactory;
-import org.slf4j.impl.SimpleLogger;
+
+import io.moquette.server.Server;
 
 public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 {

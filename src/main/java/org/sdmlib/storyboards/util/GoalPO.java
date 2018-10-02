@@ -1,11 +1,9 @@
 package org.sdmlib.storyboards.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.storyboards.Goal;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.storyboards.util.GoalPO;
-import org.sdmlib.storyboards.util.GoalSet;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.storyboards.Goal;
 
 public class GoalPO extends PatternObject<GoalPO, Goal>
 {

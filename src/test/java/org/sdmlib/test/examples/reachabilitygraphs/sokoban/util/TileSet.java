@@ -21,17 +21,16 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+import java.util.Collections;
+
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazeSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class TileSet extends SimpleSet<Tile>
 {

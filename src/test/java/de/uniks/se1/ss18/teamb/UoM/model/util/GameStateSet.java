@@ -22,6 +22,7 @@
 package de.uniks.se1.ss18.teamb.UoM.model.util;
 
 import org.sdmlib.models.modelsets.SDMSet;
+
 import de.uniks.se1.ss18.teamb.UoM.model.GameState;
 
 public class GameStateSet extends SDMSet<GameState>

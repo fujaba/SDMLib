@@ -1,12 +1,10 @@
 package org.sdmlib.test.codegen.studyright.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.codegen.studyright.model.Student;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.codegen.studyright.model.util.UniversityPO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.codegen.studyright.model.Student;
 import org.sdmlib.test.codegen.studyright.model.University;
-import org.sdmlib.test.codegen.studyright.model.util.StudentPO;
 
 public class StudentPO extends PatternObject<StudentPO, Student>
 {

@@ -33,8 +33,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonObject;
-import org.sdmlib.modelspace.ModelCloud;
-import org.sdmlib.modelspace.ModelCloudProxy;
 
 
    public  class ModelSpaceProxy implements PropertyChangeInterface, SendableEntity

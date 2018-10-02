@@ -21,11 +21,12 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
+
 import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class UCargoSet extends SimpleSet<UCargo>
 {

@@ -1,14 +1,13 @@
 package org.sdmlib.models.tables;
 
-import static de.uniks.networkparser.graph.Cardinality.MANY;
-import static de.uniks.networkparser.graph.Cardinality.ONE;
+import static de.uniks.networkparser.graph.Association.MANY;
+import static de.uniks.networkparser.graph.Association.ONE;
 import static de.uniks.networkparser.graph.DataType.INT;
 import static de.uniks.networkparser.graph.DataType.STRING;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;

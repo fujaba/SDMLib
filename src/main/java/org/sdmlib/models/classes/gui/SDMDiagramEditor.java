@@ -63,7 +63,7 @@ public class SDMDiagramEditor extends Application {
 //						Clazz fromClazz = classModel.getClazz(source.getString("id"));
 //						Clazz toClazz = classModel.getClazz(target.getString("id"));
 //						
-//						fromClazz.withBidirectional(toClazz, target.getString("property"), Cardinality.ONE, source.getString("property"), Cardinality.ONE);
+//						fromClazz.withBidirectional(toClazz, target.getString("property"), Association.ONE, source.getString("property"), Association.ONE);
 //					}
 //				}
 //			}

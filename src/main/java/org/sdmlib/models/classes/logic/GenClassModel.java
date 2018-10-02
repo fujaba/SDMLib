@@ -44,10 +44,8 @@ import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
-import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphMember;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Literal;
@@ -322,7 +320,7 @@ public class GenClassModel implements ClassModelAdapter
          // add javadoc references to all generated model classes
          for (Clazz clazz : this.model.getClazzes())
          {
-            if (clazz.isExternal()) continue;
+            if (GraphUtil.isExternal(clazz)) continue;
             
             String fullClazzFileName = rootDir + "/" + clazz.getName(false).replaceAll("\\.", "/") + ".java";
             
@@ -647,7 +645,7 @@ public class GenClassModel implements ClassModelAdapter
    public void insertModelCreationCodeHere(String rootDir, String className, String newMethod)
    {
       Clazz modelCreationClass = getOrCreateClazz(className);
-      modelCreationClass.getClassModel().without(modelCreationClass);
+      GraphUtil.without(modelCreationClass.getClassModel(), modelCreationClass);
       GenClass modelCreationGenerator = getOrCreateClazz(modelCreationClass);
       Parser modelCreationParser = modelCreationGenerator.getOrCreateParser(rootDir);
       modelCreationParser.indexOf(Parser.CLASS_END);
@@ -721,7 +719,7 @@ public class GenClassModel implements ClassModelAdapter
       // parse the model creation file
       Clazz modelCreationClass = getOrCreateClazz(className);
 
-      modelCreationClass.getClassModel().without(modelCreationClass);
+      GraphUtil.without(modelCreationClass.getClassModel(), modelCreationClass);
 
       String signature = Parser.METHOD + ":" + methodName + "(";
 
@@ -1269,7 +1267,7 @@ public class GenClassModel implements ClassModelAdapter
       String shortClassName = role.getClazz().getName(true);
       String clazzString = StrUtil.downFirstChar(shortClassName) + "Class";
       sequence += "," + clazzString + ",";
-      sequence += "\"" + role.getCardinality().getValue() + "\"" + ")";
+      sequence += "\"" + role.getCardinality() + "\"" + ")";
       return sequence;
    }
 
@@ -1924,11 +1922,11 @@ public class GenClassModel implements ClassModelAdapter
          target = tempRole;
       }
 
-      String sourceCard = Cardinality.class.getSimpleName()+"." + source.getCardinality().toString().toUpperCase();
+      String sourceCard = Association.class.getSimpleName()+"." + GraphUtil.getCardinaltiy(source.getCardinality());
       String sourceName = source.getName();
       String sourceClazz = StrUtil.downFirstChar(source.getClazz().getName(true)) + "Class";
 
-      String targetCard = Cardinality.class.getSimpleName()+"." + source.getCardinality().toString().toUpperCase();
+      String targetCard = Association.class.getSimpleName()+"." + GraphUtil.getCardinaltiy(source.getCardinality());
       String targetName = target.getName();
       String targetClazz = StrUtil.downFirstChar(target.getClazz().getName(true)) + "Class";
 
@@ -1943,7 +1941,7 @@ public class GenClassModel implements ClassModelAdapter
       currentInsertPos = checkImport(Association.class.getName(), currentInsertPos, modelCreationClass, symTabEntry);
 
       GenClass genCreationClass = getOrCreateClazz(modelCreationClass);
-      addImportForClazz(Cardinality.class.getName(), genCreationClass);
+      addImportForClazz(Association.class.getName(), genCreationClass);
 
       int result = insertCreationCode(text, currentInsertPos, modelCreationClass);
       writeToFile(modelCreationClass);
@@ -2121,9 +2119,9 @@ public class GenClassModel implements ClassModelAdapter
          {
             // need to create a new one
         	 Association other = new Association(getOrCreateClazz(packageName + "." + targetType))
-        			 .with(Cardinality.ONE).with(targetLabel);
+        			 .with(Association.ONE).with(targetLabel);
             currentAssoc = new Association(this.getOrCreateClazz(packageName + "." + sourceType))
-            		.with(Cardinality.ONE)
+            		.with(Association.ONE)
             		.with(sourceLabel)
             		.with(other);
             GraphUtil.setAssociation(model, currentAssoc);
@@ -2131,12 +2129,12 @@ public class GenClassModel implements ClassModelAdapter
 
          if (alreadyUsedLabels.contains(currentLink.getSrc().hashCode() + ":" + targetLabel))
          {
-            currentAssoc.getOther().with(Cardinality.MANY);
+            currentAssoc.getOther().with(Association.MANY);
          }
 
          if (alreadyUsedLabels.contains(currentLink.getTgt().hashCode() + ":" + sourceLabel))
          {
-            currentAssoc.with(Cardinality.MANY);
+            currentAssoc.with(Association.MANY);
          }
 
          alreadyUsedLabels.add(currentLink.getSrc().hashCode() + ":" + targetLabel);
@@ -2201,11 +2199,11 @@ public class GenClassModel implements ClassModelAdapter
    {
       Clazz firstClass = first.getClazz();
       String firstName = first.getName();
-      String firstCard = first.getCardinality().getValue();
+      int firstCard = first.getCardinality();
       Clazz secondClass = second.getClazz();
       String secondName = second.getName();
-      String secondCard = second.getCardinality().getValue();
-      if (firstClass == secondClass && firstName.equals(secondName) && firstCard.equals(secondCard))
+      int secondCard = second.getCardinality();
+      if (firstClass == secondClass && firstName.equals(secondName) && firstCard == secondCard)
          return true;
       return false;
    }
@@ -2514,10 +2512,10 @@ public class GenClassModel implements ClassModelAdapter
       if (partnerClass == null)
          return;
 
-      Cardinality card = findRoleCard(partnerTypeName);
+      int card = findRoleCard(partnerTypeName);
 
       String setterPrefix = "set";
-      if (Cardinality.MANY.equals(card))
+      if (Association.MANY == card)
       {
          setterPrefix = "addTo";
       }
@@ -2591,8 +2589,7 @@ public class GenClassModel implements ClassModelAdapter
 
    }
 
-   private void handleAssoc(Clazz clazz, String rootDir, String memberName, Cardinality card,
-         String partnerClassName, Clazz partnerClass, String partnerAttrName)
+   private void handleAssoc(Clazz clazz, String rootDir, String memberName, int card, String partnerClassName, Clazz partnerClass, String partnerAttrName)
    {
       partnerAttrName = StrUtil.downFirstChar(partnerAttrName);
       GenClass partnerGenClass = getOrCreateClazz(partnerClass);
@@ -2603,13 +2600,12 @@ public class GenClassModel implements ClassModelAdapter
 
       if (attributePosition > -1)
       {
-         Cardinality partnerCard = findRoleCard(partnerParser, searchString);
+         int partnerCard = findRoleCard(partnerParser, searchString);
          tryToCreateAssoc(clazz, memberName, card, partnerClassName, partnerClass, partnerAttrName, partnerCard);
       }
    }
 
-   private void tryToCreateAssoc(Clazz clazz, String memberName, Cardinality card, String partnerClassName,
-         Clazz partnerClass, String partnerAttrName, Cardinality partnerCard)
+   private void tryToCreateAssoc(Clazz clazz, String memberName, int card, String partnerClassName, Clazz partnerClass, String partnerAttrName, int partnerCard)
    {
       Association sourceRole = new Association(clazz).with(partnerCard).with(partnerAttrName);
       Association targetRole = new Association(partnerClass).with(card).with(memberName);
@@ -2637,7 +2633,7 @@ public class GenClassModel implements ClassModelAdapter
       return compareRoles(assoc, source) && compareRoles(assoc.getOther(), target);
    }
 
-   private Cardinality findRoleCard(Parser partnerParser, String searchString)
+   private int findRoleCard(Parser partnerParser, String searchString)
    {
       String partnerTypeName;
       SymTabEntry partnerSymTabEntry = partnerParser.getSymTab().get(searchString);
@@ -2646,15 +2642,15 @@ public class GenClassModel implements ClassModelAdapter
       return findRoleCard(partnerTypeName);
    }
 
-   private Cardinality findRoleCard(String partnerTypeName)
+   private int findRoleCard(String partnerTypeName)
    {
-      Cardinality partnerCard = Cardinality.ONE;
+      int partnerCard = Association.ONE;
       int _openAngleBracket = partnerTypeName.indexOf("<");
       int _closeAngleBracket = partnerTypeName.indexOf(">");
       if (_openAngleBracket > 1 && _closeAngleBracket > _openAngleBracket)
       {
          // partner to many
-         partnerCard = Cardinality.MANY;
+         partnerCard = Association.MANY;
       }
       else if (partnerTypeName.endsWith("Set") && partnerTypeName.length() > 3)
       {
@@ -2664,7 +2660,7 @@ public class GenClassModel implements ClassModelAdapter
          {
             if (prefix.equals(CGUtil.shortClassName(clazz.getName())))
             {
-               partnerCard = Cardinality.MANY;
+               partnerCard = Association.MANY;
                break;
             }
          }
@@ -2867,7 +2863,7 @@ public class GenClassModel implements ClassModelAdapter
    {
       for (Method method : clazz.getMethods())
       {
-         if (method.getName(false).equals(memberName))
+         if (method.getName(false, false).equals(memberName))
             return false;
       }
 
@@ -3223,8 +3219,7 @@ public class GenClassModel implements ClassModelAdapter
       
       // class file
       fileName = srcDir + "/" + className.replaceAll("\\.", "/") + ".java";
-      if (! clazz.isExternal())
-      {
+      if (! GraphUtil.isExternal(clazz)) {
          deleteFile(fileName);
       }
 

@@ -1,6 +1,7 @@
 package org.sdmlib.test.examples.mancala.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.mancala.model.Kalah;
 import org.sdmlib.test.examples.mancala.model.Mancala;
@@ -9,7 +10,6 @@ import org.sdmlib.test.examples.mancala.model.Player;
 import org.sdmlib.test.examples.mancala.model.PlayerState;
 import org.sdmlib.test.examples.mancala.model.Stone;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
-import org.sdmlib.models.pattern.Pattern;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {

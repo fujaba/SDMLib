@@ -3,12 +3,10 @@ package org.sdmlib.replication.util;
 import java.net.Socket;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.replication.util.SeppelSpaceProxyPO;
-import org.sdmlib.replication.util.SeppelChannelPO;
 
 public class SeppelChannelPO extends PatternObject<SeppelChannelPO, SeppelChannel>
 {

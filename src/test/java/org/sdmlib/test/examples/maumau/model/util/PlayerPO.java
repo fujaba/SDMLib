@@ -1,6 +1,7 @@
 package org.sdmlib.test.examples.maumau.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.test.examples.maumau.model.Card;
@@ -8,11 +9,6 @@ import org.sdmlib.test.examples.maumau.model.Duty;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.test.examples.maumau.model.Player;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.maumau.model.util.CardPO;
-import org.sdmlib.test.examples.maumau.model.util.PlayerPO;
-import org.sdmlib.test.examples.maumau.model.util.MauMauPO;
-import org.sdmlib.test.examples.maumau.model.util.DutyPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {

@@ -22,23 +22,20 @@
 
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
-import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.ext.SimpleController;
-import de.uniks.networkparser.graph.*;
 import org.junit.Test;
-import org.sdmlib.CGUtil;
 import org.sdmlib.codegen.Gradle;
-import org.sdmlib.models.SDMLibIdMap;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
 
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Map;
-import java.util.logging.Logger;
+import de.uniks.networkparser.ext.SimpleController;
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationTypes;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.DataType;
+import de.uniks.networkparser.graph.Parameter;
 
 public class StudyRightWithAssignmentsModel
 {
@@ -69,7 +66,7 @@ public class StudyRightWithAssignmentsModel
     * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep5.png' width='269'>
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
-    *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
+    *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Association.MANY, &quot;university&quot;, Association.ONE);
     * </code></pre>
     * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep8.png' width='151'>
     * <p>4. add University --> Room association</p>
@@ -82,14 +79,14 @@ public class StudyRightWithAssignmentsModel
     *       roomClass.withMethod(&quot;findPath&quot;, DataType.STRING, new Parameter(DataType.INT).with(&quot;motivation&quot;));
     * 
     *       &#x2F;&#x2F;Association universityToRoom =
-    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+    *       universityClass.createBidirectional(roomClass, &quot;rooms&quot;, Association.MANY, &quot;university&quot;, Association.ONE).with(AssociationTypes.AGGREGATION);
     * 
     *       &#x2F;&#x2F; Association doors =
-    *       roomClass.createBidirectional(roomClass, &quot;doors&quot;, Cardinality.MANY, &quot;doors&quot;, Cardinality.MANY);
+    *       roomClass.createBidirectional(roomClass, &quot;doors&quot;, Association.MANY, &quot;doors&quot;, Association.MANY);
     * 
     *       &#x2F;&#x2F; Association studentsInRoom =
-    *       studentClass.createBidirectional(roomClass, &quot;in&quot;, Cardinality.ONE, &quot;students&quot;, Cardinality.MANY);
-    *       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Cardinality.MANY, &quot;friends&quot;, Cardinality.MANY);
+    *       studentClass.createBidirectional(roomClass, &quot;in&quot;, Association.ONE, &quot;students&quot;, Association.MANY);
+    *       studentClass.createBidirectional(studentClass, &quot;friends&quot;, Association.MANY, &quot;friends&quot;, Association.MANY);
     * </code></pre>
     * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep11.png' width='232'>
     * <p>5. add assignments:</p>
@@ -98,9 +95,9 @@ public class StudyRightWithAssignmentsModel
     *             .withAttribute(&quot;content&quot;, DataType.STRING)
     *             .withAttribute(&quot;points&quot;, DataType.INT);
     * 
-    *       assignmentClass.createBidirectional(roomClass, &quot;room&quot;, Cardinality.ONE, &quot;assignments&quot;, Cardinality.MANY);
+    *       assignmentClass.createBidirectional(roomClass, &quot;room&quot;, Association.ONE, &quot;assignments&quot;, Association.MANY);
     * 
-    *       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Cardinality.MANY, &quot;students&quot;, Cardinality.MANY);
+    *       studentClass.createBidirectional(assignmentClass, &quot;done&quot;, Association.MANY, &quot;students&quot;, Association.MANY);
     * </code></pre>
     * <img src='doc-files/StudyRightWithAssignmentsClassGenerationStep14.png' width='319'>
     * <h4><a name = 'step_3'>Step 3: Some more classes for extended navigation demo</a></h4>
@@ -160,7 +157,7 @@ public class StudyRightWithAssignmentsModel
 
       // Association universityToStudent =
       story.markCodeStart();
-      universityClass.withBidirectional(studentClass, "students", Cardinality.MANY, "university", Cardinality.ONE);
+      universityClass.withBidirectional(studentClass, "students", Association.MANY, "university", Association.ONE);
       story.addCode();
 
       story.addClassDiagram(model);
@@ -178,14 +175,14 @@ public class StudyRightWithAssignmentsModel
       roomClass.withMethod("findPath", DataType.STRING, new Parameter(DataType.INT).with("motivation"));
 
       //Association universityToRoom =
-      universityClass.createBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+      universityClass.createBidirectional(roomClass, "rooms", Association.MANY, "university", Association.ONE).with(AssociationTypes.AGGREGATION);
 
       // Association doors =
-      roomClass.createBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);
+      roomClass.createBidirectional(roomClass, "doors", Association.MANY, "doors", Association.MANY);
 
       // Association studentsInRoom =
-      studentClass.createBidirectional(roomClass, "in", Cardinality.ONE, "students", Cardinality.MANY);
-      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      studentClass.createBidirectional(roomClass, "in", Association.ONE, "students", Association.MANY);
+      studentClass.createBidirectional(studentClass, "friends", Association.MANY, "friends", Association.MANY);
       story.addCode();
 
       story.addClassDiagram(model);
@@ -199,27 +196,27 @@ public class StudyRightWithAssignmentsModel
             .withAttribute("content", DataType.STRING)
             .withAttribute("points", DataType.INT);
 
-      assignmentClass.createBidirectional(roomClass, "room", Cardinality.ONE, "assignments", Cardinality.MANY);
+      assignmentClass.createBidirectional(roomClass, "room", Association.ONE, "assignments", Association.MANY);
 
-      studentClass.createBidirectional(assignmentClass, "done", Cardinality.MANY, "students", Cardinality.MANY);
+      studentClass.createBidirectional(assignmentClass, "done", Association.MANY, "students", Association.MANY);
       story.addCode();
 
       story.addClassDiagram(model);
 
-      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      studentClass.createBidirectional(studentClass, "friends", Association.MANY, "friends", Association.MANY);
 
 
       // some more classes for model navigation tests
-      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+      studentClass.createBidirectional(studentClass, "friends", Association.MANY, "friends", Association.MANY);
 
       model.createClazz("TeachingAssistant")
             .withSuperClazz(studentClass)
-            .withBidirectional(roomClass, "room", Cardinality.ONE, "tas", Cardinality.MANY)
+            .withBidirectional(roomClass, "room", Association.ONE, "tas", Association.MANY)
             .withAttribute("certified", DataType.BOOLEAN);
 
 
       Clazz presidentClass = model.createClazz("President");
-      universityClass.createBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+      universityClass.createBidirectional(presidentClass, "president", Association.ONE, "university", Association.ONE).with(AssociationTypes.AGGREGATION);
 
 
       story.addStep("Some more classes for extended navigation demo");
@@ -269,7 +266,7 @@ public class StudyRightWithAssignmentsModel
     * <p>Check: compile result after adding class Student 0 actual 0</p>
     * <p>3. add University --> Student association</p>
     * <pre><code class="java" data-lang="java">
-    *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Cardinality.MANY, &quot;university&quot;, Cardinality.ONE);
+    *       universityClass.withBidirectional(studentClass, &quot;students&quot;, Association.MANY, &quot;university&quot;, Association.ONE);
     * </code></pre>
     * <img src='doc-files/NetworkParserCodeGenStep10.png' width='151'>
     * <p>Check: compile result after adding students assoc 0 actual 0</p>
@@ -356,7 +353,7 @@ public class StudyRightWithAssignmentsModel
 
       // Association universityToStudent =
       story.markCodeStart();
-      universityClass.withBidirectional(studentClass, "students", Cardinality.MANY, "university", Cardinality.ONE);
+      universityClass.withBidirectional(studentClass, "students", Association.MANY, "university", Association.ONE);
       story.addCode();
 
       story.addClassDiagram(model);
@@ -380,14 +377,14 @@ public class StudyRightWithAssignmentsModel
 //      roomClass.withMethod("findPath", DataType.STRING, new Parameter(DataType.INT).with("motivation"));
 //
 //      //Association universityToRoom =
-//      universityClass.createBidirectional(roomClass, "rooms", Cardinality.MANY, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+//      universityClass.createBidirectional(roomClass, "rooms", Association.MANY, "university", Association.ONE).with(AssociationTypes.AGGREGATION);
 //
 //      // Association doors =
-//      roomClass.createBidirectional(roomClass, "doors", Cardinality.MANY, "doors", Cardinality.MANY);
+//      roomClass.createBidirectional(roomClass, "doors", Association.MANY, "doors", Association.MANY);
 //
 //      // Association studentsInRoom =
-//      studentClass.createBidirectional(roomClass, "in", Cardinality.ONE, "students", Cardinality.MANY);
-//      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+//      studentClass.createBidirectional(roomClass, "in", Association.ONE, "students", Association.MANY);
+//      studentClass.createBidirectional(studentClass, "friends", Association.MANY, "friends", Association.MANY);
 //
 //      story.addCode();
 //
@@ -403,27 +400,27 @@ public class StudyRightWithAssignmentsModel
 //              .withAttribute("content", DataType.STRING)
 //              .withAttribute("points", DataType.INT);
 //
-//      assignmentClass.createBidirectional(roomClass, "room", Cardinality.ONE, "assignments", Cardinality.MANY);
+//      assignmentClass.createBidirectional(roomClass, "room", Association.ONE, "assignments", Association.MANY);
 //
-//      studentClass.createBidirectional(assignmentClass, "done", Cardinality.MANY, "students", Cardinality.MANY);
+//      studentClass.createBidirectional(assignmentClass, "done", Association.MANY, "students", Association.MANY);
 //      story.addCode();
 //
 //      // story.addClassDiagramAsImage(model, 450, 600);
 //
-//      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+//      studentClass.createBidirectional(studentClass, "friends", Association.MANY, "friends", Association.MANY);
 //
 //
 //      // some more classes for model navigation tests
-//      studentClass.createBidirectional(studentClass, "friends", Cardinality.MANY, "friends", Cardinality.MANY);
+//      studentClass.createBidirectional(studentClass, "friends", Association.MANY, "friends", Association.MANY);
 //
 //      model.createClazz("TeachingAssistant")
 //              .withSuperClazz(studentClass)
-//              .withBidirectional(roomClass, "room", Cardinality.ONE, "tas", Cardinality.MANY)
+//              .withBidirectional(roomClass, "room", Association.ONE, "tas", Association.MANY)
 //              .withAttribute("certified", DataType.BOOLEAN);
 //
 //
 //      Clazz presidentClass = model.createClazz("President");
-//      universityClass.createBidirectional(presidentClass, "president", Cardinality.ONE, "university", Cardinality.ONE).with(AssociationTypes.AGGREGATION);
+//      universityClass.createBidirectional(presidentClass, "president", Association.ONE, "university", Association.ONE).with(AssociationTypes.AGGREGATION);
 
       //============================================================
       story.add("6. generate class source files.");

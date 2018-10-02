@@ -54,7 +54,6 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.json.JsonTokener;
 import javafx.application.Platform;
-import org.sdmlib.replication.ChangeEventList;
 
    public class SeppelSpace extends Thread implements PropertyChangeInterface, ObjectCondition, SendableEntity
 {

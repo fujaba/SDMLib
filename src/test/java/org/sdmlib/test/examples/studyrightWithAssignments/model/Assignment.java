@@ -21,14 +21,13 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries

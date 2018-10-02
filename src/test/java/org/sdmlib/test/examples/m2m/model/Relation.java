@@ -29,8 +29,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.m2m.model.util.RelationSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.m2m.model.Graph;
-import org.sdmlib.test.examples.m2m.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/m2m/BanfM2MModelGen.java'>BanfM2MModelGen.java</a>

@@ -25,7 +25,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.MapEntity;
-import org.sdmlib.models.pattern.Pattern;
 
 
    public class CloneOp extends PatternElement implements PropertyChangeInterface

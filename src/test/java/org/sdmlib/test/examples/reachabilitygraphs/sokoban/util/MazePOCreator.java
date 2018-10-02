@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+
+import de.uniks.networkparser.IdMap;
 
 public class MazePOCreator extends PatternObjectCreator
 {

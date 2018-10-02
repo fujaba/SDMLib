@@ -21,12 +21,13 @@
    
 package org.sdmlib.test.codegen.studyright.model;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import de.uniks.networkparser.EntityUtil;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.test.codegen.studyright.model.util.StudentSet;
-import org.sdmlib.test.codegen.studyright.model.Student;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 public  class University implements SendableEntity
 {

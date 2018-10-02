@@ -1,18 +1,12 @@
 package org.sdmlib.test.examples.groupaccount.gui;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import org.sdmlib.models.YamlFileMap;
-import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.test.examples.groupaccount.model.Party;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;

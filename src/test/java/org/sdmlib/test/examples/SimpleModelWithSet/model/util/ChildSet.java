@@ -26,7 +26,6 @@ import java.util.Collection;
 import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Child;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class ChildSet extends SDMSet<Child>
 {

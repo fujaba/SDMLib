@@ -1,7 +1,6 @@
 package org.sdmlib.test.examples.groupaccount.gui;
 
 import java.beans.PropertyChangeEvent;
-import java.text.NumberFormat;
 
 import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.test.examples.groupaccount.model.Person;

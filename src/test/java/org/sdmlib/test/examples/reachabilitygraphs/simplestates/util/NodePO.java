@@ -1,14 +1,10 @@
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodePO;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStatePO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
 
 public class NodePO extends PatternObject<NodePO, Node>
 {

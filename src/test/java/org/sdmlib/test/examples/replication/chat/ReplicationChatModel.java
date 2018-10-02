@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.StoryboardImpl;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -27,18 +27,18 @@ public class ReplicationChatModel
       Clazz chatUser = model.createClazz("ChatUser")
             .withAttribute("userName", DataType.STRING);
       
-      chatRoot.withBidirectional(chatUser, "users", Cardinality.MANY, "chatRoot", Cardinality.ONE);
+      chatRoot.withBidirectional(chatUser, "users", Association.MANY, "chatRoot", Association.ONE);
       
       Clazz chatChannel = model.createClazz("ChatChannel");
       
-      chatUser.withBidirectional(chatChannel, "channels", Cardinality.MANY, "users", Cardinality.MANY);
+      chatUser.withBidirectional(chatChannel, "channels", Association.MANY, "users", Association.MANY);
       
       Clazz chatMsg = model.createClazz("ChatMsg") 
             .withAttribute("text", DataType.STRING) 
             .withAttribute("time", DataType.LONG)
             .withAttribute("sender", DataType.STRING);
             
-      chatChannel.withBidirectional(chatMsg, "msgs", Cardinality.MANY, "channel", Cardinality.ONE);
+      chatChannel.withBidirectional(chatMsg, "msgs", Association.MANY, "channel", Association.ONE);
             
       
       model.generate("src/test/java");

@@ -29,9 +29,6 @@ import org.sdmlib.test.examples.mancala.model.util.PitSet;
 import org.sdmlib.test.examples.mancala.model.util.PlayerSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.mancala.model.Player;
-import org.sdmlib.test.examples.mancala.model.Kalah;
-import org.sdmlib.test.examples.mancala.model.Pit;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>

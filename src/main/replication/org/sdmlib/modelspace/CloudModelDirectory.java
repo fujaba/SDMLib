@@ -29,7 +29,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.modelspace.CloudModelFile;
 
 
    public  class CloudModelDirectory implements PropertyChangeInterface, SendableEntity

@@ -4,9 +4,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.features.model.all.Door;
 import org.sdmlib.test.examples.features.model.all.House;
 import org.sdmlib.test.examples.features.model.all.Window;
-import org.sdmlib.test.examples.features.model.all.util.DoorPO;
-import org.sdmlib.test.examples.features.model.all.util.HousePO;
-import org.sdmlib.test.examples.features.model.all.util.WindowPO;
 
 public class HousePO extends PatternObject<HousePO, House>
 {

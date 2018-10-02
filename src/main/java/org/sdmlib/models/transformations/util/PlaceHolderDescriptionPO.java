@@ -1,14 +1,11 @@
 package org.sdmlib.models.transformations.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.transformations.Match;
 import org.sdmlib.models.transformations.PlaceHolderDescription;
 import org.sdmlib.models.transformations.Template;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.transformations.util.MatchPO;
-import org.sdmlib.models.transformations.util.PlaceHolderDescriptionPO;
-import org.sdmlib.models.transformations.util.TemplatePO;
 
 public class PlaceHolderDescriptionPO extends PatternObject<PlaceHolderDescriptionPO, PlaceHolderDescription>
 {

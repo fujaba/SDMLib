@@ -1,14 +1,13 @@
 package org.sdmlib.test.doc;
 
+import java.util.LinkedHashMap;
+
 import org.junit.Test;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.Yamler;
 import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
-
-import java.io.File;
-import java.util.LinkedHashMap;
 
 public class TestJavaDocStories
 {

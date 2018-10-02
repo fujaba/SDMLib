@@ -21,11 +21,12 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.simplestates;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
-import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>

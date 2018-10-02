@@ -1,11 +1,12 @@
 package org.sdmlib.storyboards;
 
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.tables.Table;
+
+import de.uniks.networkparser.IdMap;
 
 
 /**

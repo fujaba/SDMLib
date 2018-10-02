@@ -40,19 +40,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.FileTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.uniks.networkparser.ext.DiagramEditor;
-import de.uniks.networkparser.json.JsonObject;
-import guru.nidi.graphviz.attribute.Font;
-import guru.nidi.graphviz.attribute.Label;
-import guru.nidi.graphviz.attribute.Shape;
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.LinkTarget;
-import guru.nidi.graphviz.model.Node;
+import javax.imageio.ImageIO;
+
 import org.junit.Assert;
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
@@ -84,13 +82,13 @@ import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleKeyValueList;
-
-import javax.imageio.ImageIO;
-
-import static guru.nidi.graphviz.model.Factory.graph;
-import static guru.nidi.graphviz.model.Factory.node;
-import static guru.nidi.graphviz.model.Factory.to;
+import de.uniks.networkparser.xml.HTMLEntity;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
+import guru.nidi.graphviz.model.LinkTarget;
+import guru.nidi.graphviz.model.Node;
 
 /**
  * A Storyboard collects entries for the generation of an html page from e.g. a JUnit test. This html page will be named like the story, i.e. like the method that created the Storyboard. It will be added to the refs.html and thus become part of the index.html. All these html files are stored in an directory "doc" located in the project root directory.
@@ -1046,7 +1044,11 @@ public class StoryboardImpl implements PropertyChangeInterface, SendableEntity
    public void addClassDiagramAsImage(de.uniks.networkparser.ext.ClassModel model, int... dimensions)
    {
       String diagScript = this.getName() + "ClassDiagram" + this.getStoryboardSteps().size();
-      String htmlString = model.dumpHTMLString();
+      HTMLEntity dumpHTML = model.dumpHTML(null, false);
+      String htmlString = "";
+      if(dumpHTML != null) {
+    	  htmlString = dumpHTML.toString();
+      }
       int startPos = htmlString.indexOf("var json=");
       int endPos = htmlString.indexOf("};", startPos);
       String bodyString = htmlString.substring(startPos+9, endPos+1);

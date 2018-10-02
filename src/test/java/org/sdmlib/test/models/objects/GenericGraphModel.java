@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -208,22 +208,22 @@ public class GenericGraphModel
          .withAttribute("type", DataType.STRING)
          .withAttribute("icon", DataType.STRING);
 
-      genericGraph.withBidirectional(genericObjectClazz, "objects", Cardinality.MANY, "graph", Cardinality.ONE);
+      genericGraph.withBidirectional(genericObjectClazz, "objects", Association.MANY, "graph", Association.ONE);
 
       Clazz genericAttributeClazz = genericModel.createClazz("GenericAttribute")
          .withAttribute("name", DataType.STRING)
          .withAttribute("value", DataType.STRING);
 
-      genericObjectClazz.withBidirectional(genericAttributeClazz, "attrs", Cardinality.MANY, "owner", Cardinality.ONE);
+      genericObjectClazz.withBidirectional(genericAttributeClazz, "attrs", Association.MANY, "owner", Association.ONE);
 
       Clazz genericLinkClazz = genericModel.createClazz("GenericLink")
          .withAttribute("tgtLabel", DataType.STRING)
          .withAttribute("srcLabel", DataType.STRING);
 
-      genericObjectClazz.withBidirectional(genericLinkClazz, "outgoingLinks", Cardinality.MANY, "src", Cardinality.ONE);
-      genericObjectClazz.withBidirectional(genericLinkClazz, "incommingLinks", Cardinality.MANY, "tgt", Cardinality.ONE);
+      genericObjectClazz.withBidirectional(genericLinkClazz, "outgoingLinks", Association.MANY, "src", Association.ONE);
+      genericObjectClazz.withBidirectional(genericLinkClazz, "incommingLinks", Association.MANY, "tgt", Association.ONE);
 
-      genericGraph.withBidirectional(genericLinkClazz, "links", Cardinality.MANY, "graph", Cardinality.ONE);
+      genericGraph.withBidirectional(genericLinkClazz, "links", Association.MANY, "graph", Association.ONE);
 
       storyboard.addClassDiagram(genericModel);
 

@@ -21,10 +21,10 @@
    
 package de.uniks.se1.ss18.teamb.UoM.model;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import de.uniks.se1.ss18.teamb.UoM.model.GameState;
+import java.beans.PropertyChangeSupport;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 public  class Game implements SendableEntity
 {

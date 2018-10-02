@@ -29,7 +29,6 @@ import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Set;
 
-import de.uniks.networkparser.graph.FeatureSet;
 import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.JavascriptAdapter.Javascript;
@@ -39,6 +38,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.FeatureSet;
 import de.uniks.networkparser.graph.GraphModel;
 import de.uniks.networkparser.interfaces.BaseItem;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -170,12 +170,6 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 		super.with(name);
 		return this;
 	}
-
-	public ClassModel without(Clazz... values) {
-		super.without(values);
-		return this;
-	}
-	
 
 	public ClassModel withFeature(Feature... value) {
 		if (value == null) {

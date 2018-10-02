@@ -10,13 +10,11 @@ import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzSet;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.ClazzSet;
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -360,7 +358,7 @@ public class GenAssociation extends Generator<Association>
 
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
 
-      if (model.getCardinality() == Cardinality.MANY)
+      if (model.getCardinality() == Association.MANY)
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
@@ -621,7 +619,7 @@ public class GenAssociation extends Generator<Association>
 
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
 
-      if (model.getCardinality() == Cardinality.MANY)
+      if (model.getCardinality() == Association.MANY)
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
@@ -647,7 +645,7 @@ public class GenAssociation extends Generator<Association>
       );
 
       GenClazzEntity generator = getGenerator(model.getClazz());
-      if (model.getOther().getCardinality() == Cardinality.MANY){
+      if (model.getOther().getCardinality() == Association.MANY){
          if(generator!=null ){
             myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
          }
@@ -663,7 +661,7 @@ public class GenAssociation extends Generator<Association>
    {
       ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
 
-      if (clazz.isExternal())
+      if (GraphUtil.isExternal(clazz))
       {
          return;
       }
@@ -674,7 +672,7 @@ public class GenAssociation extends Generator<Association>
          // add attribute declaration in class file
          StringBuilder text = new StringBuilder();
 
-         if (partnerRole.getCardinality() == Cardinality.MANY) {
+         if (partnerRole.getCardinality() == Association.MANY) {
             generateToManyRole(myParser, clazz, partnerRole, text);
          }
          else
@@ -708,7 +706,7 @@ public class GenAssociation extends Generator<Association>
 
       insertCaseInGenericGet(clazz, creatorParser, partnerRole, rootDir);
 
-      if (partnerRole.getCardinality() == Cardinality.MANY) {
+      if (partnerRole.getCardinality() == Association.MANY) {
          insertCaseInGenericSetToMany(clazz, creatorParser, partnerRole, rootDir);
       }
       else
@@ -793,7 +791,7 @@ public class GenAssociation extends Generator<Association>
                "getPresident", "get"+roleName);
       }
 
-      if (partnerRole.getCardinality() == Cardinality.MANY)
+      if (partnerRole.getCardinality() == Association.MANY)
       {
          if (partnerRole.getOther().getType() == AssociationTypes.AGGREGATION)
          {
@@ -907,7 +905,7 @@ public class GenAssociation extends Generator<Association>
                + StrUtil.upFirstChar(partnerRole.getName())
                + "() == null)";
 
-         if (partnerRole.getCardinality() == Cardinality.MANY) {
+         if (partnerRole.getCardinality() == Association.MANY) {
             containsClause = " ! Collections.disjoint(neighbors, obj.get"
                   + StrUtil.upFirstChar(partnerRole.getName()) + "())";
             parser.insertImport(Collections.class.getName());
@@ -950,7 +948,7 @@ public class GenAssociation extends Generator<Association>
                         + "         }\n" + "      }\n" + "      \n"
                         + "      return result;\n" + "   }\n" + "\n" + "");
 
-            if (partnerRole.getCardinality() == Cardinality.ONE) {
+            if (partnerRole.getCardinality() == Association.ONE) {
                CGUtil.replaceAll(text,
                      "todo.with(current.getPartnerrolenameupfirst()).minus(result);",
                      "if ( ! result.contains(current.getName()))\n"
@@ -982,7 +980,7 @@ public class GenAssociation extends Generator<Association>
 
          parser.insert(classEnd, text.toString());
 
-         if (! partnerRole.getClazz().isExternal())
+         if (! GraphUtil.isExternal(partnerRole.getClazz()))
          {
             // external classes get a set in this util package, no need for an import
             // thus just for real classes that may be in other packages
@@ -1013,7 +1011,7 @@ public class GenAssociation extends Generator<Association>
          StringBuilder text = new StringBuilder();
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (partnerRole.getCardinality() == Cardinality.ONE) {
+         if (partnerRole.getCardinality() == Association.ONE) {
             text.append
                   (       "   public TargetType getRoleName()\n"
                         + "   {\n"
@@ -1038,9 +1036,9 @@ public class GenAssociation extends Generator<Association>
 
          String targetType;
 
-         if (partnerRole.getCardinality() == Cardinality.MANY) {
+         if (partnerRole.getCardinality() == Association.MANY) {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "Set");
-            if (partnerRole.getClazz().isExternal())
+            if (GraphUtil.isExternal(partnerRole.getClazz()))
             {
                targetType = CGUtil.shortClassName(partnerRole.getClazz().getName()) + "Set";
             }
@@ -1091,7 +1089,7 @@ public class GenAssociation extends Generator<Association>
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
          String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
 
-         if ( ! partnerRole.getClazz().isExternal())
+         if ( ! GraphUtil.isExternal(partnerRole.getClazz() ))
          {
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
@@ -1099,7 +1097,7 @@ public class GenAssociation extends Generator<Association>
          String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (model.getClazz().isExternal())
+         if (GraphUtil.isExternal(model.getClazz()))
          {
             modelClassName += "Creator";
          }
@@ -1152,7 +1150,7 @@ public class GenAssociation extends Generator<Association>
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
          String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
 
-         if ( ! partnerRole.getClazz().isExternal())
+         if ( ! GraphUtil.isExternal(partnerRole.getClazz()))
          {
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
@@ -1160,7 +1158,7 @@ public class GenAssociation extends Generator<Association>
          String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (model.getClazz().isExternal())
+         if (GraphUtil.isExternal(model.getClazz()))
          {
             modelClassName += "Creator";
          }
@@ -1213,7 +1211,7 @@ public class GenAssociation extends Generator<Association>
 
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (model.getClazz().isExternal())
+         if (GraphUtil.isExternal(model.getClazz()))
          {
             modelClassName += "Creator";
          }
@@ -1259,7 +1257,7 @@ public class GenAssociation extends Generator<Association>
 
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (model.getClazz().isExternal())
+         if (GraphUtil.isExternal(model.getClazz()))
          {
             modelClassName += "Creator";
          }
@@ -1325,7 +1323,7 @@ public class GenAssociation extends Generator<Association>
          parser.insertImport(partnerRole.getClazz().getName(false));
       }
 
-      if (partnerRole.getCardinality() == Cardinality.MANY)
+      if (partnerRole.getCardinality() == Association.MANY)
       {
          key = Parser.METHOD + ":without" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
          pos = parser.indexOf(key);
@@ -1419,7 +1417,7 @@ public class GenAssociation extends Generator<Association>
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
 
-         if (clazz.isExternal())
+         if (GraphUtil.isExternal(clazz))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
@@ -1482,7 +1480,7 @@ public class GenAssociation extends Generator<Association>
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
 
-         if (clazz.isExternal())
+         if (GraphUtil.isExternal(clazz))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
@@ -1545,7 +1543,7 @@ public class GenAssociation extends Generator<Association>
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
 
-         if (clazz.isExternal())
+         if (GraphUtil.isExternal(clazz))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
@@ -1716,7 +1714,7 @@ public class GenAssociation extends Generator<Association>
 
       String cardType = "";
 
-      if (this.getModel().getOther().getCardinality() == Cardinality.MANY) {
+      if (this.getModel().getOther().getCardinality() == Association.MANY) {
          cardType = "...";
       }
 

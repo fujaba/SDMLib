@@ -31,9 +31,6 @@ import org.sdmlib.models.taskflows.util.LoggerSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
-import org.sdmlib.models.taskflows.PeerProxy;
-import org.sdmlib.models.taskflows.LogEntry;
-import org.sdmlib.models.taskflows.TaskFlow;
 
 
      /**

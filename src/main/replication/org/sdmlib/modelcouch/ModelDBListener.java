@@ -41,7 +41,6 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import javafx.application.Platform;
-import org.sdmlib.modelcouch.ModelCouch;
 
 
 public  class ModelDBListener implements SendableEntity, Runnable

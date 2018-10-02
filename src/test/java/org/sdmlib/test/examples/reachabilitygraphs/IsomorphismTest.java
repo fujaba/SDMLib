@@ -1,15 +1,11 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
-import java.util.LinkedHashMap;
-
 import org.junit.Test;
 import org.sdmlib.models.pattern.IsomorphismComputation;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateCreator;
-
-import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class IsomorphismTest
 {

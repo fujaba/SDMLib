@@ -1,13 +1,18 @@
 package org.sdmlib.codegen;
 
-import de.uniks.networkparser.ext.ClassModel;
-import de.uniks.networkparser.graph.Clazz;
-import org.gradle.tooling.*;
-
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.logging.Logger;
+
+import org.gradle.tooling.BuildLauncher;
+import org.gradle.tooling.GradleConnectionException;
+import org.gradle.tooling.GradleConnector;
+import org.gradle.tooling.ProjectConnection;
+import org.gradle.tooling.ResultHandler;
 
 public class Gradle
 {

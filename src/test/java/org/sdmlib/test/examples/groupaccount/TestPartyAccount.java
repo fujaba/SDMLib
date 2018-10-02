@@ -13,15 +13,12 @@ import javax.imageio.ImageIO;
 import org.junit.Test;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.gui.PartyAccountApp;
-
-import org.testfx.api.*;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;

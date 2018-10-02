@@ -3,8 +3,6 @@ package org.sdmlib.modelcouch.util;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelDBListener;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.modelcouch.util.ModelCouchPO;
-import org.sdmlib.modelcouch.util.ModelDBListenerPO;
 
 public class ModelDBListenerPO extends PatternObject<ModelDBListenerPO, ModelDBListener>
 {

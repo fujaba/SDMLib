@@ -21,14 +21,14 @@
    
 package org.sdmlib.test.codegen.studyright.model.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.codegen.studyright.model.University;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.codegen.studyright.model.util.StudentSet;
+
 import org.sdmlib.test.codegen.studyright.model.Student;
+import org.sdmlib.test.codegen.studyright.model.University;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class UniversitySet extends SimpleSet<University>
 {

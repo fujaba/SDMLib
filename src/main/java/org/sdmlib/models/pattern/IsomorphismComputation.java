@@ -1,7 +1,6 @@
 package org.sdmlib.models.pattern;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class IsomorphismComputation
 {

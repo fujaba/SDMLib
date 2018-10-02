@@ -8,7 +8,7 @@ import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.storyboards.StoryboardImpl;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -353,18 +353,18 @@ public class ReplicationModel
             .withAttribute("loginName", DataType.STRING)
             .withAttribute("password", DataType.STRING);
       
-      seppelSpaceProxy.withBidirectional(seppelSpaceProxy, "partners", Cardinality.MANY, "partners", Cardinality.MANY);
+      seppelSpaceProxy.withBidirectional(seppelSpaceProxy, "partners", Association.MANY, "partners", Association.MANY);
       
       Clazz seppelScope = model.createClazz("SeppelScope")
             .withAttribute("scopeName", DataType.STRING);
       
-      seppelScope.withBidirectional(seppelScope, "subScopes", Cardinality.MANY, "superScopes", Cardinality.MANY);
+      seppelScope.withBidirectional(seppelScope, "subScopes", Association.MANY, "superScopes", Association.MANY);
 
-      seppelSpaceProxy.withBidirectional(seppelScope, "scopes", Cardinality.MANY, "spaces", Cardinality.MANY);
+      seppelSpaceProxy.withBidirectional(seppelScope, "scopes", Association.MANY, "spaces", Association.MANY);
       
       Clazz object = model.createClazz(Object.class.getName()).withExternal(true);
       
-      seppelScope.withUniDirectional(object, "observedObjects", Cardinality.MANY); 
+      seppelScope.withUniDirectional(object, "observedObjects", Association.MANY); 
 
       Clazz seppelChannel = model.createClazz("SeppelChannel")
             .withSuperClazz(thread)
@@ -372,11 +372,11 @@ public class ReplicationModel
             .withAttribute("loginValidated", DataType.BOOLEAN); 
       
             
-      seppelSpaceProxy.withBidirectional(seppelChannel, "channel", Cardinality.ONE, "seppelSpaceProxy", Cardinality.ONE);
+      seppelSpaceProxy.withBidirectional(seppelChannel, "channel", Association.ONE, "seppelSpaceProxy", Association.ONE);
       
       Clazz boardTask = model.createClazz("BoardTask");
       
-      seppelSpaceProxy.withBidirectional(boardTask, "tasks", Cardinality.MANY, "proxy", Cardinality.ONE);
+      seppelSpaceProxy.withBidirectional(boardTask, "tasks", Association.MANY, "proxy", Association.ONE);
       
       model.generate("src/main/replication");
 
@@ -413,13 +413,13 @@ public class ReplicationModel
 
       Clazz sharedSpace = model.createClazz("SharedSpace")
             .withAttribute("spaceId", DataType.STRING) 
-            .withUniDirectional(changeHistory, "history", Cardinality.ONE)
+            .withUniDirectional(changeHistory, "history", Association.ONE)
             .withAttribute("lastChangeId", DataType.LONG) 
             .withAttribute("nodeId", DataType.STRING) 
             .withAttribute("javaFXApplication", DataType.BOOLEAN)
             .withSuperClazz(thread);
 
-      replicationNode.withBidirectional(sharedSpace, "sharedSpaces", Cardinality.MANY, "node", Cardinality.ONE);
+      replicationNode.withBidirectional(sharedSpace, "sharedSpaces", Association.MANY, "node", Association.ONE);
       
       
       Clazz replicationChannel = model.createClazz("ReplicationChannel")
@@ -427,7 +427,7 @@ public class ReplicationModel
       .withAttribute("socket", DataType.create(Socket.class)) 
       .withAttribute("targetNodeId", DataType.STRING); 
       
-      sharedSpace.withBidirectional(replicationChannel, "channels", Cardinality.MANY, "sharedSpace", Cardinality.ONE);
+      sharedSpace.withBidirectional(replicationChannel, "channels", Association.MANY, "sharedSpace", Association.ONE);
 
       Clazz replicationServer = model.createClazz("ReplicationServer")
          .withSuperClazz(replicationNode);
@@ -445,7 +445,7 @@ public class ReplicationModel
             .withAttribute("timeStamp", DataType.LONG);
 
       
-      task.withBidirectional(logEntry, "logEntries", Cardinality.MANY, "task", Cardinality.ONE);
+      task.withBidirectional(logEntry, "logEntries", Association.MANY, "task", Association.ONE);
 
       
       Clazz change = model.createClazz("ReplicationChange")
@@ -457,7 +457,7 @@ public class ReplicationModel
             .withAttribute("isToManyProperty", DataType.BOOLEAN)
             .withAttribute("changeMsg", DataType.STRING);
    
-      changeHistory.withBidirectional(change, "changes", Cardinality.MANY, "history", Cardinality.ONE);
+      changeHistory.withBidirectional(change, "changes", Association.MANY, "history", Association.ONE);
          
       // replicated task flow model
       Clazz remoteTaskBoard = model.createClazz("RemoteTaskBoard");
@@ -465,7 +465,7 @@ public class ReplicationModel
       Clazz lane = model.createClazz("Lane")
             .withAttribute("name", DataType.STRING);
             
-      remoteTaskBoard.withBidirectional(lane, "lanes", Cardinality.MANY, "board", Cardinality.ONE);
+      remoteTaskBoard.withBidirectional(lane, "lanes", Association.MANY, "board", Association.ONE);
 
       Clazz boardTask = model.createClazz("BoardTask")
             .withSuperClazz(task)
@@ -484,15 +484,15 @@ public class ReplicationModel
             .withSuperClazz(runnable)
             .withAttribute("boardTask", DataType.create(boardTask));
       
-      lane.withBidirectional(boardTask, "tasks", Cardinality.MANY, "lane", Cardinality.ONE);
+      lane.withBidirectional(boardTask, "tasks", Association.MANY, "lane", Association.ONE);
          
-      boardTask.withBidirectional(boardTask, "next", Cardinality.MANY, "prev", Cardinality.MANY);
+      boardTask.withBidirectional(boardTask, "next", Association.MANY, "prev", Association.MANY);
 
       Clazz replicationRoot = model.createClazz("ReplicationRoot")
             .withAttribute("name", DataType.STRING)
             .withAttribute("applicationObject", DataType.OBJECT);
       
-      replicationRoot.withBidirectional(replicationRoot, "kids", Cardinality.MANY, "parent", Cardinality.ONE);
+      replicationRoot.withBidirectional(replicationRoot, "kids", Association.MANY, "parent", Association.ONE);
 
       model.generate("src/main/replication");
 

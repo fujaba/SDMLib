@@ -31,7 +31,6 @@ import org.sdmlib.replication.util.SeppelSpaceProxySet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.replication.SeppelSpaceProxy;
 
    public class SeppelScope implements PropertyChangeInterface, SendableEntity
 {

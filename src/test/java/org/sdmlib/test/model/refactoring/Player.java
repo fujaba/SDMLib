@@ -27,7 +27,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.model.refactoring.Ludo;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/model/ModelRefactoring.java'>ModelRefactoring.java</a>/n * @see org.sdmlib.test.model.ModelRefactoring#testRemoveAttribute

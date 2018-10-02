@@ -33,9 +33,6 @@ import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.PatternElementSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
 public class NegativeApplicationConditionSet extends SimpleSet<NegativeApplicationCondition>
 {

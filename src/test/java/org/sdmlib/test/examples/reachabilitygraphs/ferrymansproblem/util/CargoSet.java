@@ -30,8 +30,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatSet;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankSet;
 
 public class CargoSet extends SimpleSet<Cargo>
 {

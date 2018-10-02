@@ -1,7 +1,7 @@
 package org.sdmlib.test.historymanagement;
 
-import static de.uniks.networkparser.graph.Cardinality.MANY;
-import static de.uniks.networkparser.graph.Cardinality.ONE;
+import static de.uniks.networkparser.graph.Association.MANY;
+import static de.uniks.networkparser.graph.Association.ONE;
 import static de.uniks.networkparser.graph.DataType.DOUBLE;
 import static de.uniks.networkparser.graph.DataType.STRING;
 

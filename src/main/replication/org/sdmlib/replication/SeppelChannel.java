@@ -35,7 +35,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.json.JsonObject;
-import org.sdmlib.replication.SeppelSpaceProxy;
 
    public class SeppelChannel extends Thread implements PropertyChangeInterface, SendableEntity
 {

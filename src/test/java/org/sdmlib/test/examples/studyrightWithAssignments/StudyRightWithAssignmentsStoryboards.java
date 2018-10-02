@@ -20,9 +20,13 @@
  */
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
-import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.list.SimpleSet;
+import static org.sdmlib.models.pattern.Pattern.CREATE;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.sdmlib.CGUtil;
@@ -34,15 +38,24 @@ import org.sdmlib.models.tables.util.ColumnPO;
 import org.sdmlib.models.tables.util.RowPO;
 import org.sdmlib.models.tables.util.TablePO;
 import org.sdmlib.storyboards.Storyboard;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.*;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.*;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentPO;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityCreator;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityPO;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
-import static org.sdmlib.models.pattern.Pattern.CREATE;
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.json.JsonArray;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class StudyRightWithAssignmentsStoryboards
 {

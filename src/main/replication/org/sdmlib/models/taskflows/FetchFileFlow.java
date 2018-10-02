@@ -32,8 +32,6 @@ import java.io.OutputStream;
 import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.models.taskflows.PeerProxy;
-import org.sdmlib.models.taskflows.TaskFlow;
 
 
      /**

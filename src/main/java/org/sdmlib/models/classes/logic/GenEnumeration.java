@@ -38,6 +38,7 @@ import org.sdmlib.models.modelsets.SDMSet;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Literal;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.list.SimpleList;
@@ -45,7 +46,7 @@ import de.uniks.networkparser.list.SimpleSet;
 
 public class GenEnumeration extends GenClazzEntity{
 	public void generate(String rootDir, String helpersDir) {
-		if (!model.isExternal()) {
+		if (!GraphUtil.isExternal(model)) {
 			getOrCreateParser(rootDir);
 			insertLicense(parser);
 			generateAttributes(rootDir, helpersDir);
@@ -70,7 +71,7 @@ public class GenEnumeration extends GenClazzEntity{
 			}
 			generator.generate(rootDir, helpersDir);
 
-			String signature = method.getName(false);
+			String signature = method.getName(false, false);
 			parser.parse();
 			ArrayList<SymTabEntry> symTabEntries = parser
 					.getSymTabEntriesFor(signature);
@@ -123,7 +124,7 @@ public class GenEnumeration extends GenClazzEntity{
 
 	         String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
 
-	         if (model.isExternal())
+	         if (GraphUtil.isExternal(model))
 	         {
 	            packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
 	         }

@@ -26,7 +26,6 @@ import java.util.Collection;
 import org.sdmlib.test.examples.mancala.referencemodel.Color;
 
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class ColorSet extends SimpleSet<Color>
 {

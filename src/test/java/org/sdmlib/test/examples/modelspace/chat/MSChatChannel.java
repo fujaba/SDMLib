@@ -29,7 +29,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 
 /**
  * 

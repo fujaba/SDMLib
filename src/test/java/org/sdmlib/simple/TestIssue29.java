@@ -3,7 +3,7 @@ package org.sdmlib.simple;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 
 public class TestIssue29 {
@@ -17,7 +17,7 @@ public class TestIssue29 {
 		
 		b.withSuperClazz(a);
 		c.withSuperClazz(a);
-		b.withBidirectional(c, "c", Cardinality.ONE, "b", Cardinality.ONE);
+		b.withBidirectional(c, "c", Association.ONE, "b", Association.ONE);
 		
 		model.getGenerator().testGeneratedCode();
 		

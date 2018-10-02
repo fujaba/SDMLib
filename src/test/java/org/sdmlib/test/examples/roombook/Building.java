@@ -28,7 +28,6 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.test.examples.roombook.util.FloorSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.roombook.Floor;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/models/objects/GenericObjectsTest.java'>GenericObjectsTest.java</a>

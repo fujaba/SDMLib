@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
+
+import de.uniks.networkparser.IdMap;
 
 public class WindowPOCreator extends PatternObjectCreator
 {

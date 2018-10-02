@@ -1,10 +1,10 @@
 package org.sdmlib.models.taskflows.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.taskflows.PeerProxy;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
-import org.sdmlib.models.pattern.Pattern;
 
 public class PeerProxyPO extends PatternObject<PeerProxyPO, PeerProxy>
 {

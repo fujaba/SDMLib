@@ -31,7 +31,6 @@ import org.sdmlib.test.examples.mancala.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.list.NumberList;
 
 public class KalahSet extends SimpleSet<Kalah>
 {

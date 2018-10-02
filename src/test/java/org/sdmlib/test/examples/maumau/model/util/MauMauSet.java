@@ -34,11 +34,6 @@ import org.sdmlib.test.examples.maumau.model.Suit;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.util.HolderSet;
-import org.sdmlib.test.examples.maumau.model.util.PlayerSet;
-import org.sdmlib.test.examples.maumau.model.util.DrawingStackSet;
-import org.sdmlib.test.examples.maumau.model.util.OpenStackSet;
 
 public class MauMauSet extends SimpleSet<MauMau>
 {

@@ -33,8 +33,6 @@ import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.models.taskflows.util.LogEntrySet;
 
 public class LoggerSet extends SimpleSet<Logger>
 {

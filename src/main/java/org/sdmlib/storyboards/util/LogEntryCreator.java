@@ -21,13 +21,13 @@
    
 package org.sdmlib.storyboards.util;
 
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import org.sdmlib.storyboards.LogEntry;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.storyboards.Goal;
+import org.sdmlib.storyboards.LogEntry;
 import org.sdmlib.storyboards.MikadoLog;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class LogEntryCreator implements AggregatedEntityCreator
 {

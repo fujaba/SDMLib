@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Modifier;
@@ -116,8 +116,8 @@ public class TestGenModel
       Clazz person = model.createClazz("Person")
             .withAttribute("name", DataType.STRING);
       
-      bigBrother.withUniDirectional(person, "noOne", Cardinality.ONE);
-      bigBrother.withUniDirectional(person, "suspects", Cardinality.MANY);
+      bigBrother.withUniDirectional(person, "noOne", Association.ONE);
+      bigBrother.withUniDirectional(person, "suspects", Association.MANY);
       
       story.addClassDiagram(model);
       
@@ -188,7 +188,7 @@ public class TestGenModel
       
       Clazz person = model.createClazz(Object.class.getName()).withExternal(true);
       
-      bigBrother.withUniDirectional(person, "kids", Cardinality.MANY);
+      bigBrother.withUniDirectional(person, "kids", Association.MANY);
       
       story.addClassDiagram(model);
       

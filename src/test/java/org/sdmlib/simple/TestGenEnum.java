@@ -3,7 +3,7 @@ package org.sdmlib.simple;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 
 public class TestGenEnum {
@@ -13,7 +13,7 @@ public class TestGenEnum {
 		Clazz gameState = cm.createClazz("GameState");
 		gameState.enableEnumeration("PENDING", "STARTED", "STARTING_TURN", "PLAYERS_TURN", "ENDING_TURN", "ENDED");
 		Clazz game = cm.createClazz("Game");
-		game.withUniDirectional(gameState, "gameState", Cardinality.ONE);
+		game.withUniDirectional(gameState, "gameState", Association.ONE);
 		cm.generate("src/test/java");	
 		
 	}

@@ -2,9 +2,7 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversityPO;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.PresidentPO;
 
 public class PresidentPO extends PatternObject<PresidentPO, President>
 {

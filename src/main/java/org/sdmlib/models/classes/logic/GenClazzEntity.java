@@ -1,26 +1,30 @@
 package org.sdmlib.models.classes.logic;
 
-import de.uniks.networkparser.EntityUtil;
-import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.graph.*;
-import de.uniks.networkparser.graph.ClazzSet;
-import de.uniks.networkparser.interfaces.Condition;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.CGUtil;
-import org.sdmlib.codegen.Parser;
-import org.sdmlib.codegen.SymTabEntry;
-import org.sdmlib.models.classes.ClassModel;
-import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
-
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import org.sdmlib.CGUtil;
+import org.sdmlib.codegen.Parser;
+import org.sdmlib.codegen.SymTabEntry;
+import org.sdmlib.models.classes.ClassModel;
+import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzSet;
+import de.uniks.networkparser.graph.Feature;
+import de.uniks.networkparser.graph.GraphUtil;
+import de.uniks.networkparser.graph.Modifier;
+import de.uniks.networkparser.interfaces.Condition;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleKeyValueList;
+import de.uniks.networkparser.list.SimpleSet;
 
 public abstract class GenClazzEntity extends Generator<Clazz>
 {
@@ -331,7 +335,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
 
-         if (model.isExternal())
+         if (GraphUtil.isExternal(model))
          {
             packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
          }
@@ -783,7 +787,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
       String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
 
-      if (model.isExternal())
+      if (GraphUtil.isExternal(model))
       {
          packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
       }
@@ -826,7 +830,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
       String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
 
-      if (model.isExternal())
+      if (GraphUtil.isExternal(model))
       {
          packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
       }
@@ -983,7 +987,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
 
-         if (model.isExternal())
+         if (GraphUtil.isExternal(model))
          {
             packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
          }
@@ -1123,7 +1127,7 @@ public abstract class GenClazzEntity extends Generator<Clazz>
                   "           return true;\n"+
                   "      }\n";
 
-            if (model.isExternal())
+            if (GraphUtil.isExternal(model))
             {
                removeYouClause = "";
 

@@ -29,7 +29,6 @@ import org.sdmlib.test.examples.simpleModel.model.Person;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.simpleModel.model.util.PersonSet;
 
 public class BigBrotherSet extends SimpleSet<BigBrother>
 {

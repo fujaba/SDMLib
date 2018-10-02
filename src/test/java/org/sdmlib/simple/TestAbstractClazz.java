@@ -3,7 +3,7 @@ package org.sdmlib.simple;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Modifier;
 
@@ -15,7 +15,7 @@ public class TestAbstractClazz {
 		
 		Clazz human = model.createClazz("Human");
 		human.enableInterface();
-		human.withBidirectional(person, "has", Cardinality.ONE, "owner", Cardinality.ONE);
+		human.withBidirectional(person, "has", Association.ONE, "owner", Association.ONE);
 		
 		person.withSuperClazz(human);
 		person.with(Modifier.ABSTRACT);
@@ -34,7 +34,7 @@ public class TestAbstractClazz {
 		
 		Clazz human = model.createClazz("Human");
 		human.enableInterface();
-		human.withBidirectional(flower, "has", Cardinality.ONE, "owner", Cardinality.ONE);
+		human.withBidirectional(flower, "has", Association.ONE, "owner", Association.ONE);
 		
 		person.withSuperClazz(human);
 		person.with(Modifier.ABSTRACT);
@@ -58,7 +58,7 @@ public class TestAbstractClazz {
 		ground.withKidClazzes(grass);
 		
 		// associations
-		game.withBidirectional(ground, "grounds", Cardinality.MANY, "game", Cardinality.ONE);
+		game.withBidirectional(ground, "grounds", Association.MANY, "game", Association.ONE);
 		
 		model.getGenerator().testGeneratedCode();
 	}

@@ -29,7 +29,6 @@ import org.sdmlib.test.examples.simpleModel.model.util.ObjectSet;
 import org.sdmlib.test.examples.simpleModel.model.util.PersonSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.simpleModel.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleModel/TestJsonForUniDirectionalAssoc.java'>TestJsonForUniDirectionalAssoc.java</a>

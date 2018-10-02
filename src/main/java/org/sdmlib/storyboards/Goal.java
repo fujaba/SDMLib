@@ -21,13 +21,14 @@
    
 package org.sdmlib.storyboards;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.storyboards.util.GoalSet;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 
    public  class Goal implements SendableEntity

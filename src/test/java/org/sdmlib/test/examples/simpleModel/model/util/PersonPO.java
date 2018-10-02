@@ -1,9 +1,9 @@
 package org.sdmlib.test.examples.simpleModel.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.simpleModel.model.Person;
-import org.sdmlib.models.pattern.Pattern;
 
 public class PersonPO extends PatternObject<PersonPO, Person>
 {

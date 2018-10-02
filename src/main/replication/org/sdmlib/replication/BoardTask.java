@@ -32,7 +32,6 @@ import org.sdmlib.replication.util.BoardTaskSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.replication.SeppelSpaceProxy;
 
 
    public class BoardTask extends Task implements PropertyChangeInterface, SendableEntity

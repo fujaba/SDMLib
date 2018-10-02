@@ -1,12 +1,10 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomPO;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantPO;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
 
 public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, TeachingAssistant>
 {

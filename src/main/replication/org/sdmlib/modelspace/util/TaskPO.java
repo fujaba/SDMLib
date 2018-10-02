@@ -1,12 +1,10 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.Task;
 import org.sdmlib.modelspace.TaskLane;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.modelspace.util.TaskLanePO;
-import org.sdmlib.modelspace.util.TaskPO;
 
 public class TaskPO extends PatternObject<TaskPO, Task>
 {

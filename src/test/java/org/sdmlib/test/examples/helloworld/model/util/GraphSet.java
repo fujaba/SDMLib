@@ -29,10 +29,8 @@ import org.sdmlib.test.examples.helloworld.model.Graph;
 import org.sdmlib.test.examples.helloworld.model.GraphComponent;
 import org.sdmlib.test.examples.helloworld.model.Node;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
 
 public class GraphSet extends SimpleSet<Graph>
 {

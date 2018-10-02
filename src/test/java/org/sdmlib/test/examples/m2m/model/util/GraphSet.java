@@ -31,9 +31,6 @@ import org.sdmlib.test.examples.m2m.model.Relation;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.m2m.model.util.GraphComponentSet;
-import org.sdmlib.test.examples.m2m.model.util.RelationSet;
-import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 
 public class GraphSet extends SimpleSet<Graph>
 {

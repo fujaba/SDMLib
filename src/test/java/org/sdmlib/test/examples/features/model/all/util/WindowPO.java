@@ -3,8 +3,6 @@ package org.sdmlib.test.examples.features.model.all.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.features.model.all.House;
 import org.sdmlib.test.examples.features.model.all.Window;
-import org.sdmlib.test.examples.features.model.all.util.HousePO;
-import org.sdmlib.test.examples.features.model.all.util.WindowPO;
 
 public class WindowPO extends PatternObject<WindowPO, Window>
 {

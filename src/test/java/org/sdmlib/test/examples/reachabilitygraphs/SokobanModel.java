@@ -1,13 +1,11 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -296,7 +294,7 @@ public class SokobanModel
             .withAttribute("width", DataType.INT)
             .withAttribute("height", DataType.INT);
 
-      sokoban.createUniDirectional(maze, "maze", Cardinality.ONE)
+      sokoban.createUniDirectional(maze, "maze", Association.ONE)
       .with(AssociationTypes.AGGREGATION);
       
       Clazz tile = model.createClazz("Tile")
@@ -305,30 +303,30 @@ public class SokobanModel
             .withAttribute("wall", DataType.BOOLEAN)
             .withAttribute("goal", DataType.BOOLEAN);
 
-      maze.createBidirectional(tile, "tiles", Cardinality.MANY, "maze", Cardinality.MANY)
+      maze.createBidirectional(tile, "tiles", Association.MANY, "maze", Association.MANY)
       .with(AssociationTypes.AGGREGATION);
       
-      tile.createBidirectional(tile, "neighbors", Cardinality.MANY, "neighbors", Cardinality.MANY);
+      tile.createBidirectional(tile, "neighbors", Association.MANY, "neighbors", Association.MANY);
       
       Clazz box = model.createClazz("Box");
       
-      sokoban.createUniDirectional(box, "boxes", Cardinality.MANY)
+      sokoban.createUniDirectional(box, "boxes", Association.MANY)
       .with(AssociationTypes.AGGREGATION);
       
-      box.createUniDirectional(tile, "tile", Cardinality.ONE);
+      box.createUniDirectional(tile, "tile", Association.ONE);
       
       Clazz karli = model.createClazz("Karli");
 
-      sokoban.createUniDirectional(karli, "karli", Cardinality.ONE)
+      sokoban.createUniDirectional(karli, "karli", Association.ONE)
       .with(AssociationTypes.AGGREGATION);
 
-      karli.createUniDirectional(tile, "tile", Cardinality.ONE);
+      karli.createUniDirectional(tile, "tile", Association.ONE);
       
       Clazz akarli = model.createClazz("AKarli");
 
-      sokoban.createUniDirectional(akarli, "akarli", Cardinality.ONE);
+      sokoban.createUniDirectional(akarli, "akarli", Association.ONE);
 
-      akarli.createUniDirectional(tile, "tiles", Cardinality.MANY);
+      akarli.createUniDirectional(tile, "tiles", Association.MANY);
       
       
 

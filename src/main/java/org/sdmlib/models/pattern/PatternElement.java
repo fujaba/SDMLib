@@ -30,7 +30,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.models.pattern.Pattern;
 
    public class PatternElement<PEC> implements PropertyChangeInterface, SendableEntity
 {

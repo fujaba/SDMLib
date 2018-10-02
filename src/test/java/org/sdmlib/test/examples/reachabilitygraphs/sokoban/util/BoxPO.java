@@ -2,9 +2,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxPO;
 
 public class BoxPO extends PatternObject<BoxPO, Box>
 {

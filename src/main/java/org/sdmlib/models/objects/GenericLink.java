@@ -29,8 +29,6 @@ import org.sdmlib.models.objects.util.GenericLinkSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.objects.GenericGraph;
-import org.sdmlib.models.objects.GenericObject;
 
    public class GenericLink implements PropertyChangeInterface, SendableEntity
 {

@@ -33,9 +33,6 @@ import org.sdmlib.test.examples.maumau.model.Player;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.maumau.model.util.CardSet;
-import org.sdmlib.test.examples.maumau.model.util.MauMauSet;
-import org.sdmlib.test.examples.maumau.model.util.DutySet;
 
 public class PlayerSet extends SimpleSet<Player>
 {

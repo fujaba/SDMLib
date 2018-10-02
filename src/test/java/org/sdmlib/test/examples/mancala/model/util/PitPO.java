@@ -1,11 +1,11 @@
 package org.sdmlib.test.examples.mancala.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.mancala.model.Mancala;
 import org.sdmlib.test.examples.mancala.model.Pit;
 import org.sdmlib.test.examples.mancala.model.Player;
-import org.sdmlib.models.pattern.Pattern;
 
 public class PitPO extends PatternObject<PitPO, Pit>
 {

@@ -1,15 +1,12 @@
 package org.sdmlib.test.examples.m2m.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.m2m.model.Graph;
 import org.sdmlib.test.examples.m2m.model.GraphComponent;
 import org.sdmlib.test.examples.m2m.model.Person;
 import org.sdmlib.test.examples.m2m.model.Relation;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.m2m.model.util.GraphPO;
-import org.sdmlib.test.examples.m2m.model.util.RelationPO;
-import org.sdmlib.test.examples.m2m.model.util.PersonPO;
 
 public class RelationPO extends PatternObject<RelationPO, Relation>
 {

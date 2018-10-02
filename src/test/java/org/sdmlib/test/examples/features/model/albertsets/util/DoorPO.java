@@ -3,8 +3,6 @@ package org.sdmlib.test.examples.features.model.albertsets.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.features.model.albertsets.Door;
 import org.sdmlib.test.examples.features.model.albertsets.House;
-import org.sdmlib.test.examples.features.model.albertsets.util.HousePO;
-import org.sdmlib.test.examples.features.model.albertsets.util.DoorPO;
 
 public class DoorPO extends PatternObject<DoorPO, Door>
 {

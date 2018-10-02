@@ -1,6 +1,6 @@
 package org.sdmlib.test.examples.modelcouch;
 
-import static de.uniks.networkparser.graph.Cardinality.MANY;
+import static de.uniks.networkparser.graph.Association.MANY;
 import static de.uniks.networkparser.graph.DataType.STRING;
 
 import org.sdmlib.models.classes.ClassModel;

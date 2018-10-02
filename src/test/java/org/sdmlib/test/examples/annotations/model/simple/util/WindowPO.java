@@ -1,10 +1,8 @@
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.annotations.model.simple.Window;
-import org.sdmlib.test.examples.annotations.model.simple.util.HousePO;
 import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.util.WindowPO;
+import org.sdmlib.test.examples.annotations.model.simple.Window;
 
 public class WindowPO extends PatternObject<WindowPO, Window>
 {

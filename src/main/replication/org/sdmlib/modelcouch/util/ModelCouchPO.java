@@ -3,10 +3,8 @@ package org.sdmlib.modelcouch.util;
 import org.sdmlib.modelcouch.ModelCouch;
 import org.sdmlib.modelcouch.ModelDBListener;
 import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.modelcouch.util.ModelDBListenerPO;
-import org.sdmlib.modelcouch.util.ModelCouchPO;
+import org.sdmlib.models.pattern.PatternObject;
 
 public class ModelCouchPO extends PatternObject<ModelCouchPO, ModelCouch>
 {

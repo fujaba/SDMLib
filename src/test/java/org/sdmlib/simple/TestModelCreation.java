@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.StoryboardImpl;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Literal;
@@ -304,10 +304,10 @@ public class TestModelCreation {
 		room.withSuperClazz(roomInterface);
 		
 		// Associations
-		room.withBidirectional(person, "persons", Cardinality.MANY, "room", Cardinality.ONE);
-		room.withBidirectional(pupil, "currentPupils", Cardinality.MANY, "currentRoom", Cardinality.ONE);
-		room.withBidirectional(teacher, "currentTeacher", Cardinality.ONE, "currentRoom", Cardinality.ONE);
-		pupil.withBidirectional(teacher, "teacher", Cardinality.ONE, "pupils", Cardinality.MANY);
+		room.withBidirectional(person, "persons", Association.MANY, "room", Association.ONE);
+		room.withBidirectional(pupil, "currentPupils", Association.MANY, "currentRoom", Association.ONE);
+		room.withBidirectional(teacher, "currentTeacher", Association.ONE, "currentRoom", Association.ONE);
+		pupil.withBidirectional(teacher, "teacher", Association.ONE, "pupils", Association.MANY);
 		
 		model.generate("src/test/java");
 		

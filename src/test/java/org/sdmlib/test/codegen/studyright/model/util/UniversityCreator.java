@@ -21,12 +21,12 @@
    
 package org.sdmlib.test.codegen.studyright.model.util;
 
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.codegen.studyright.model.University;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.test.codegen.studyright.model.Student;
+import org.sdmlib.test.codegen.studyright.model.University;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class UniversityCreator implements AggregatedEntityCreator
 {

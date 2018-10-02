@@ -21,16 +21,15 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.annotations.model.simple.House;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
+
 import org.sdmlib.test.examples.annotations.model.simple.Door;
-import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
+import org.sdmlib.test.examples.annotations.model.simple.House;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class HouseSet extends SimpleSet<House>
 {

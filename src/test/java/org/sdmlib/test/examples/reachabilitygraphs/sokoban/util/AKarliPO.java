@@ -2,10 +2,7 @@ package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.AKarliPO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
 
 public class AKarliPO extends PatternObject<AKarliPO, AKarli>
 {

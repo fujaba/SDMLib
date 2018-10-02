@@ -1,21 +1,16 @@
 package org.sdmlib.storyboards;
 
-import de.uniks.networkparser.graph.Association;
-import de.uniks.networkparser.graph.Attribute;
-import de.uniks.networkparser.graph.Cardinality;
-import de.uniks.networkparser.graph.Clazz;
-import de.uniks.networkparser.json.JsonArray;
-import de.uniks.networkparser.json.JsonObject;
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.Node;
-import org.sdmlib.CGUtil;
-import org.sdmlib.StrUtil;
-import org.sdmlib.models.classes.ClassModel;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedHashMap;
+
+import org.sdmlib.CGUtil;
+import org.sdmlib.models.classes.ClassModel;
+
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Attribute;
+import de.uniks.networkparser.graph.Clazz;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
 
 public class Diagrams
 {
@@ -68,13 +63,13 @@ public class Diagrams
          String targetId = assoc.getOther().getClazz().getName();
 
          String sourceLabel = assoc.getName();
-         if (assoc.getCardinality() == Cardinality.MANY)
+         if (assoc.getCardinality() == Association.MANY)
          {
             sourceLabel += " *";
          }
 
          String targetLabel = assoc.getOther().getName();
-         if (assoc.getOther().getCardinality() == Cardinality.MANY)
+         if (assoc.getOther().getCardinality() == Association.MANY)
          {
             targetLabel += " *";
          }

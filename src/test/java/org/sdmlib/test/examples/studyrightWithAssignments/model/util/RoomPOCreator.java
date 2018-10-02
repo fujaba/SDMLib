@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+
+import de.uniks.networkparser.IdMap;
 
 public class RoomPOCreator extends PatternObjectCreator
 {

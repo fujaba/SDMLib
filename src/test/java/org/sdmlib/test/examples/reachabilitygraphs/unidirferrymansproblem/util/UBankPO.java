@@ -1,13 +1,10 @@
 package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UCargoPO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBankPO;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UCargoSet;
 
 public class UBankPO extends PatternObject<UBankPO, UBank>
 {

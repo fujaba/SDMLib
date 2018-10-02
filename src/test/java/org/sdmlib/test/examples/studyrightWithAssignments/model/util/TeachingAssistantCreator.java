@@ -21,13 +21,13 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import de.uniks.networkparser.IdMap;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class TeachingAssistantCreator implements AggregatedEntityCreator
 {

@@ -29,9 +29,6 @@ import org.sdmlib.test.examples.couchspace.tasks.util.TaskSet;
 import org.sdmlib.test.examples.couchspace.tasks.util.UserGroupSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
-import org.sdmlib.test.examples.couchspace.tasks.User;
-import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelcouch/ModelCouchTasksModel.java'>ModelCouchTasksModel.java</a>

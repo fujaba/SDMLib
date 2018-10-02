@@ -21,15 +21,15 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
+
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class TeachingAssistantSet extends SimpleSet<TeachingAssistant>
 {

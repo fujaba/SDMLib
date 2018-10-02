@@ -30,8 +30,6 @@ import org.sdmlib.test.examples.replication.chat.ChatMsg;
 import org.sdmlib.test.examples.replication.chat.ChatUser;
 
 import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.replication.chat.util.ChatUserSet;
-import org.sdmlib.test.examples.replication.chat.util.ChatMsgSet;
 
 public class ChatChannelSet extends SDMSet<ChatChannel>
 {

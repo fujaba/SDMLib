@@ -16,8 +16,8 @@ import org.sdmlib.test.historymanagement.marketmodel.Market;
 import org.sdmlib.test.historymanagement.marketmodel.Offer;
 import org.sdmlib.test.historymanagement.marketmodel.util.MarketCreator;
 
-import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.interfaces.ObjectCondition;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonTokener;

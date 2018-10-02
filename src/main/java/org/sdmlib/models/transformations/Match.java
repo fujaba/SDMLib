@@ -30,8 +30,6 @@ import org.sdmlib.models.transformations.util.MatchSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Template;
 public class Match implements PropertyChangeInterface, SendableEntity
 {
       

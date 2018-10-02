@@ -27,7 +27,6 @@ import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.list.ObjectSet;
 
 public class AlexSet extends SimpleSet<Alex>
 {

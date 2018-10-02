@@ -21,9 +21,10 @@
    
 package org.sdmlib.test.examples.annotations.model.simple;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 public  class Cube implements SendableEntity
 {

@@ -1,14 +1,11 @@
 package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.RemoteTaskBoard;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.replication.util.RemoteTaskBoardPO;
-import org.sdmlib.replication.util.LanePO;
-import org.sdmlib.replication.util.BoardTaskPO;
 
 public class LanePO extends PatternObject<LanePO, Lane>
 {

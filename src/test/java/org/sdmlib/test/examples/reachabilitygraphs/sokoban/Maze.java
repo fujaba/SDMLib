@@ -21,13 +21,12 @@
 
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 /**
  * 
  * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java'>SokobanModel.java</a>

@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Parameter;
@@ -80,7 +80,7 @@ public class ModelRefactoring {
 		
 		ludo.withMethod("init", DataType.VOID, new Parameter(DataType.STRING).with("p"));
 		
-		ludo.withBidirectional(player, "players", Cardinality.MANY, "game", Cardinality.ONE);
+		ludo.withBidirectional(player, "players", Association.MANY, "game", Association.ONE);
 		
 		ludo.getMethods().first().withBody("     System.out.println(\"Hallo\");\n");
 		

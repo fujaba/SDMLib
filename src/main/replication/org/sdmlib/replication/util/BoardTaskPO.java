@@ -9,8 +9,6 @@ import org.sdmlib.replication.Lane;
 import org.sdmlib.replication.LogEntry;
 import org.sdmlib.replication.SeppelSpaceProxy;
 import org.sdmlib.replication.Task;
-import org.sdmlib.replication.util.SeppelSpaceProxyPO;
-import org.sdmlib.replication.util.BoardTaskPO;
 
 public class BoardTaskPO extends PatternObject<BoardTaskPO, BoardTask>
 {

@@ -26,12 +26,12 @@ import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzSet;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Import;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.ClazzSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -54,7 +54,7 @@ public class GenClass extends GenClazzEntity
    {
       // first generate the class itself
 	  ClassModel classModel = (ClassModel) model.getClassModel();
-      if (!model.isExternal())
+      if (!GraphUtil.isExternal(model))
       {
          getOrCreateParser(rootDir);
 
@@ -132,7 +132,7 @@ public class GenClass extends GenClazzEntity
       {
          getGenerator(method).generate(rootDir, helpersDir);
 
-         String signature = method.getName(false); // TODO: this signature contains parameter name, the parser signature not.
+         String signature = method.getName(false, false); // TODO: this signature contains parameter name, the parser signature not.
          parser.parse();
          ArrayList<SymTabEntry> symTabEntries = parser.getSymTabEntriesFor(signature);
 
@@ -273,7 +273,7 @@ public class GenClass extends GenClazzEntity
 		ClassModel model = (ClassModel) clazz.getClassModel();
 		if(model.hasFeature(Feature.SERIALIZATION) == true && clazz.getType().equals(Clazz.TYPE_INTERFACE) == false) {
 			String creatorName = "";
-			if (clazz.isExternal()) {
+			if (GraphUtil.isExternal(clazz)) {
 				ClassModelAdapter generator = ((ClassModel) clazz.getClassModel()).getGenerator();
 				creatorName = clazz.getClassModel().getName() + GenClassModel.UTILPATH + "."
 						+ CGUtil.shortClassName(clazz.getName(false));
@@ -499,7 +499,7 @@ public class GenClass extends GenClazzEntity
               "      {{Body}}\n" +
               "   }" +
               "\n");
-        template.withVariable(new ReplaceText("Body", model.isExternal(), "// wrapped object has no removeYou method", "(({{ModelClass}}) entity).removeYou();"));
+        template.withVariable(new ReplaceText("Body", GraphUtil.isExternal(model), "// wrapped object has no removeYou method", "(({{ModelClass}}) entity).removeYou();"));
     	template.insert(creatorParser, "ModelClass", CGUtil.shortClassName(model.getName(false)));
    }
 
@@ -520,7 +520,7 @@ public class GenClass extends GenClazzEntity
 			if (GraphUtil.isInterface(clazz)) {
 				continue;
 			}
-			if (!clazz.isExternal()) {
+			if (!GraphUtil.isExternal(clazz)) {
 				overrideText = "@Override";
 			}
 			if (getGenerator(clazz).getOrCreateParser(rootDir).indexOf(searchString) >= 0) {
@@ -556,7 +556,7 @@ public class GenClass extends GenClazzEntity
          {
             continue;
          }
-         if (!clazz.isExternal())
+         if (!GraphUtil.isExternal(clazz))
          {
             return;
          }
@@ -796,7 +796,7 @@ public class GenClass extends GenClazzEntity
 
          String packageName = name.substring(0, pos) + GenClassModel.UTILPATH;
 
-         if (model.isExternal())
+         if (GraphUtil.isExternal(model))
          {
             packageName = getRepairClassModel().getName() + GenClassModel.UTILPATH;
          }
@@ -912,7 +912,7 @@ public class GenClass extends GenClazzEntity
       String creatorClassName = CGUtil.packageName(name) + GenClassModel.UTILPATH + "." + shortCreatorClassName;
       String creatorPOClassName = CGUtil.packageName(name) + GenClassModel.UTILPATH + "." + shortCreatorPOClassName;
 
-      if (model.isExternal())
+      if (GraphUtil.isExternal(model))
       {
          // generate creator for external class. Put it in the model package
          creatorClassName = getRepairClassModel().getName() + GenClassModel.UTILPATH + "." + shortCreatorClassName;

@@ -26,8 +26,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Optional;
 
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
@@ -47,22 +45,6 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.models.pattern.PatternLink;
-import org.sdmlib.models.pattern.AttributeConstraint;
-import org.sdmlib.models.pattern.MatchIsomorphicConstraint;
-import org.sdmlib.models.pattern.CloneOp;
-import org.sdmlib.models.pattern.UnifyGraphsOp;
-import org.sdmlib.models.pattern.DestroyObjectElem;
-import org.sdmlib.models.pattern.CardinalityConstraint;
-import org.sdmlib.models.pattern.MatchOtherThen;
-import org.sdmlib.models.pattern.GenericConstraint;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
-import org.sdmlib.models.pattern.LinkConstraint;
-import org.sdmlib.models.pattern.PatternElement;
-import org.sdmlib.models.pattern.ReachabilityGraph;
 
 
 public class Pattern<MP> extends PatternElement<MP>implements PropertyChangeInterface, Iterable<Match>

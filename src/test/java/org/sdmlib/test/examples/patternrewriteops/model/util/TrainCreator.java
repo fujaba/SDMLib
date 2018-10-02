@@ -21,11 +21,12 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.test.examples.patternrewriteops.model.Train;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.patternrewriteops.model.Person;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
+import org.sdmlib.test.examples.patternrewriteops.model.Train;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class TrainCreator implements SendableEntityCreator
 {

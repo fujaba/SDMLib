@@ -1,6 +1,7 @@
 package de.uniks.se1.ss18.teamb.UoM.model.util;
 
 import org.sdmlib.models.pattern.PatternObject;
+
 import de.uniks.se1.ss18.teamb.UoM.model.Game;
 import de.uniks.se1.ss18.teamb.UoM.model.GameState;
 

@@ -21,11 +21,10 @@
    
 package de.uniks.se1.ss18.teamb.UoM.model.util;
 
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import de.uniks.se1.ss18.teamb.UoM.model.Game;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.se1.ss18.teamb.UoM.model.Game;
 import de.uniks.se1.ss18.teamb.UoM.model.GameState;
 
 public class GameCreator implements AggregatedEntityCreator
