@@ -76,7 +76,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: "junit", name: "junit", version: "4.+"
+	implementation(group: 'junit', name: 'junit', version: '[4,)')
 	implementation "org.eclipse.paho:org.eclipse.paho.client.mqttv3:+"
 	// https://mvnrepository.com/artifact/jfree/jfreechart
 	implementation  group: 'jfree', name: 'jfreechart', version: '+'
@@ -141,7 +141,7 @@ jacocoTestReport {
 test {
     testLogging {
 		events "failed"
-		exceptionFormat "short"
+		exceptionFormat "full"
 		showStackTraces	true
 		showStandardStreams true
 		showCauses true

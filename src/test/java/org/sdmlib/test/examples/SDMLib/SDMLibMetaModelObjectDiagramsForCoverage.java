@@ -911,9 +911,9 @@ public class SDMLibMetaModelObjectDiagramsForCoverage
       
       
       
-      story.addObjectDiagram(model, statementEntry, localVarTableEntry, symTabEntry);
+//      story.addObjectDiagram(model, statementEntry, localVarTableEntry, symTabEntry);
       
-      story.dumpHTML();
+//      story.dumpHTML();
    }
 
 }
