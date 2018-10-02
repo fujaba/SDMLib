@@ -111,7 +111,14 @@ public class GraphFactory
    
    
    public void loadPlugins(List<URL> plugins) {
-         URLClassLoader ucl = new URLClassLoader(plugins.toArray(new URL[plugins.size()]), this.getClass().getClassLoader());
+	   URLClassLoader ucl = null;
+	   try {
+		   ucl = new URLClassLoader(plugins.toArray(new URL[plugins.size()]), this.getClass().getClassLoader());
+	   }catch (Exception e) {
+	   }
+	   if(ucl == null) {
+		   return;
+	   }
 
          for (URL plugin : plugins) {
             String name = plugin.getPath();

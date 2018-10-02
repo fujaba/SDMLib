@@ -23,6 +23,7 @@
 package org.sdmlib.test.examples.studyrightWithAssignments;
 
 import org.junit.Test;
+import org.sdmlib.SimpleSDMLib;
 import org.sdmlib.codegen.Gradle;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.classes.ClassModel;
@@ -454,6 +455,9 @@ public class StudyRightWithAssignmentsModel
    @Test
    public void testProjectPlan4NetworkParserCodeGen()
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       String yaml = "" +
