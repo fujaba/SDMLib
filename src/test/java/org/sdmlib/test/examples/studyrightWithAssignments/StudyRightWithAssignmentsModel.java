@@ -117,7 +117,7 @@ public class StudyRightWithAssignmentsModel
        */
 
       // remove old code?
-      Gradle.removeDir("src/test/java", "org.sdmlib.test.examples.studyrightWithAssignments.model");
+//      Gradle.removeDir("src/test/java", "org.sdmlib.test.examples.studyrightWithAssignments.model");
 
       Storyboard story = new Storyboard();
 

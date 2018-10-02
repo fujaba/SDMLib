@@ -58,6 +58,7 @@ public class Gradle
 
    public static void removeDir(String rootDir, String packageName)
    {
+	   System.out.println("REMOVE:"+rootDir+" - "+packageName);
       try
       {
          Path root = Paths.get(rootDir);
