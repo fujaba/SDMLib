@@ -218,7 +218,6 @@ public class ReplicationNode extends Thread implements PropertyChangeInterface, 
     * Create a SharedSpace
     * @return The created Sharedspace 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public SharedSpace createSharedSpaces()
    {

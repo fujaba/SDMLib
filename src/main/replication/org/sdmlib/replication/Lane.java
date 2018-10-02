@@ -322,7 +322,6 @@ public class Lane implements PropertyChangeInterface, SendableEntity
    /**
     * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public BoardTask createTasks()
    {
@@ -336,7 +335,6 @@ public class Lane implements PropertyChangeInterface, SendableEntity
     * @param taskName The Name of BoardTask
     * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public BoardTask createTask(String taskName)
    {

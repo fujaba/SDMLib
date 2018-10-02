@@ -44,7 +44,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
     * @param replicationNode The ReplicationNode
     * @param replicationServerPort The PortNumber
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public ServerSocketAcceptThread(ReplicationNode replicationNode,
          int replicationServerPort)
@@ -56,7 +55,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
     * 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public ServerSocketAcceptThread()
    {
@@ -67,7 +65,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
     * @param sharedSpace The SharedSpace
     * @param port The Portnumber 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public ServerSocketAcceptThread(SharedSpace sharedSpace, int port)
    {
