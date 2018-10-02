@@ -40,11 +40,11 @@ public class Diagrams
          String imageFileName = "doc/doc-files/" + model.getName() + ".png";
          // System.out.println(dotString.toString());
          System.out.println(new File(".").getAbsolutePath());
-         Graphviz.fromString(dotString.toString()).render(Format.PNG).toFile(new File(imageFileName));
+       	 Graphviz.fromString(dotString.toString()).render(Format.PNG).toFile(new File(imageFileName));
 
          return imageFileName;
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          e.printStackTrace();
       }
