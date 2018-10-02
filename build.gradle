@@ -95,23 +95,23 @@ dependencies {
 		if (new File("../NetworkParser/build/libs/networkparser.local.jar").exists() )
 		{
 			println "using local networkparser.local.jar"
-			implementation files("../NetworkParser/build/libs/networkparser.local.jar")
+			compile files("../NetworkParser/build/libs/networkparser.local.jar")
 		}
 		else if((gitVersion.isMaster())) //  || isTravisSnapshot())== false)
 		{
 			println "using master networkparser.jar "
-			implementation group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources18", changing: true
+			compile group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources18", changing: true
 		}
 		else
 		{
 			println "using snapshot jar"
-			implementation 'de.uniks:NetworkParser:4.7.+:sources18'
+			compile 'de.uniks:NetworkParser:4.7.+:sources18'
 		}
 	}
 	else
 	{
 		println "using local networkparser"
-		implementation fileTree(dir: "../NetworkParser/build/libs", include: ['networkparser.local.jar'])
+		compile fileTree(dir: "../NetworkParser/build/libs", include: ['networkparser.local.jar'])
 	}
 }
 
