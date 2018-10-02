@@ -64,9 +64,6 @@ import de.uniks.networkparser.json.JsonTokener;
 import javafx.application.Platform;
 
 
-/**
- * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
- */
 public class SharedSpace extends Thread implements PropertyChangeInterface, PropertyChangeListener, ObjectCondition, SendableEntity
 {
 
@@ -1256,8 +1253,6 @@ public class SharedSpace extends Thread implements PropertyChangeInterface, Prop
 
      /**
     * @return Return the created Channel 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public ReplicationChannel createChannels()
    {

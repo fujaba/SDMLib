@@ -26,15 +26,8 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-* @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- */
-   public class ReplicationServer extends ReplicationNode implements
+
+public class ReplicationServer extends ReplicationNode implements
       PropertyChangeInterface
 {
    public static final int REPLICATION_SERVER_PORT = 11142;

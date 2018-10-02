@@ -314,8 +314,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
      /**
       * @param value The next BoardTask(s)
     * @return Self 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public BoardTask withNext(BoardTask... value)
    {

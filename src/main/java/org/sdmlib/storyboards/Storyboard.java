@@ -78,6 +78,7 @@ public class Storyboard {
 	 * Adds an image to the current step of the storyboard.
 	 * 
 	 * @param imageFile name of the file, that contains the image
+	 * @param dims The Dimension of Image
 	*/
 	public void addImage(String imageFile, int... dims) {
 		storyboard.addImage(imageFile, dims);

@@ -34,10 +34,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.serialization.SDMLibJsonIdMap;
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
- */
    public class FetchFileFlow extends TaskFlow implements PropertyChangeInterface
 {
    enum TaskNames

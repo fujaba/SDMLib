@@ -30,12 +30,6 @@ import java.net.Socket;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- */
    public class ServerSocketAcceptThread extends Thread implements
       PropertyChangeInterface, SendableEntity
 {

@@ -70,7 +70,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 
 
      /**
-    * 
+    * @param packageName The PackageName
     * @see org.sdmlib.models.tables.TableModel#testTableModel
  */
    public ClassModel(String packageName)
@@ -81,7 +81,7 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 
 
      /**
-    * 
+    * @return This Component
     * @see org.sdmlib.models.tables.TableModel#testTableModel
  */
    public ClassModel generate() 
@@ -92,7 +92,8 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 
 
      /**
-    * 
+    * @param rootDir The RootDir for Generating
+    * @return This Component
     * @see org.sdmlib.models.tables.TableModel#testTableModel
  */
    public ClassModel generate(String rootDir) {
@@ -244,8 +245,8 @@ public class ClassModel extends GraphModel implements PropertyChangeInterface, S
 	/**
 	 * dump classdiagram
 	 * 
-	 * @param diagramName
-	 *            Diagrammname
+	 * @param diagramName Diagrammname
+	 * @return success of dumping
 	 */
 	public boolean dumpHTML(String diagramName) {
 		dumpHTML(diagramName, "doc", Javascript.NAME);
