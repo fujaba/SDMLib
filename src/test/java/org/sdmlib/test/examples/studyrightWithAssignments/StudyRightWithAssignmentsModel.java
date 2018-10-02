@@ -282,6 +282,9 @@ public class StudyRightWithAssignmentsModel
    @Test
    public void testNetworkParserCodeGen()
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       /* This file will generate that necessary classes and class diagram for the
        * StudyRight with Assignments example in the Story Driven Modeling book
        */
