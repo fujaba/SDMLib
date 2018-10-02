@@ -1,6 +1,7 @@
 package org.sdmlib.test.examples.simpleModel;
 
 import org.junit.Test;
+import org.sdmlib.SimpleSDMLib;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
@@ -180,6 +181,10 @@ public class TestGenModel
    @Test
    public void testUniDirectionalAssocToObject()
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
+	   
       Storyboard story = new Storyboard();
       
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");

@@ -41,6 +41,7 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.Test;
+import org.sdmlib.SimpleSDMLib;
 import org.sdmlib.models.SDMComponentListener;
 import org.sdmlib.models.YamlFileMap;
 import org.sdmlib.models.YamlIdMap;
@@ -155,6 +156,9 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    @Test
    public void testGroupAccountYamlWithUserEncoding() throws InterruptedException, IOException, MqttException
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       story.addStep("start mqtt broker");
@@ -382,6 +386,9 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    @Test
    public void testGroupAccountMultiUserYamlMerging() throws InterruptedException
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       story.addStep("Create two parties");
@@ -558,6 +565,9 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    @Test
    public void testGroupAccountMultiUserYaml()
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard();
 
       story.addStep("create a party data structure and store it with YamlIdMap");
@@ -668,6 +678,9 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    @Test
    public void testMultiUserGroupAccountProjectPlan()
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       story.addStep("Project plan: ");
