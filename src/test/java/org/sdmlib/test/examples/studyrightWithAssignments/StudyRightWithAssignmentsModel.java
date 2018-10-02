@@ -115,7 +115,9 @@ public class StudyRightWithAssignmentsModel
       /* This file will generate necessary classes and class diagram for the
        * StudyRight with Assignments example in the Story Driven Modeling book
        */
-
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       // remove old code?
 //      Gradle.removeDir("src/test/java", "org.sdmlib.test.examples.studyrightWithAssignments.model");
 
@@ -286,7 +288,7 @@ public class StudyRightWithAssignmentsModel
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       // remove old code
-      Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
+//      Gradle.removeDir(SRC_TEST_JAVA, ORG_SDMLIB_TEST_CODEEGEN_STUDYRIGHT_MODEL);
 
       // project compiles?
       int result = -1;
