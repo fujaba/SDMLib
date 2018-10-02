@@ -51,11 +51,11 @@ import de.uniks.networkparser.list.SimpleList;
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
     * <h4><a name = 'step_2'>Step 2: Call YamlIdMap.decode:</a></h4>
-    * <pre><code class="java" data-lang="java">
+    * <pre>&lt;code class="java" data-lang="java"&gt;
     *       YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     * 
     *       University studyRight = (University) yamlIdMap.decode(yaml);
-    * </code></pre>
+    * &lt;/code%gt;</pre>
     * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
     * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='869'>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
@@ -126,14 +126,14 @@ import de.uniks.networkparser.list.SimpleList;
     * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
     * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='876'>
     * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
-    * <pre><code class="java" data-lang="java">
+    * <pre>&lt;code class="java" data-lang="java"&gt;
     *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
     *       String excelText = new String(readAllBytes);
     * 
     *       YamlIdMap excelIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     * 
     *       studyRight = (University) excelIdMap.decode(excelText);
-    * </code></pre>
+    * &lt;/code&gt;</pre>
     * <p>doc/StudyRightStartSituation.txt</p>
     * <pre>-	studyRight:	University				
     * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
@@ -328,7 +328,7 @@ import de.uniks.networkparser.list.SimpleList;
    /**
     * 
     * <h3>Storyboard Yaml</h3>
-    * <h4><a name = 'step_1'>Step 1: Read graph from yaml text:</a></h4>
+    * <h4>&lt;a name = 'step_1'&gt;Step 1: Read graph from yaml text:&lt;/a&gt;</h4>
     * <pre>- studyRight: University 
     *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students:   karli
@@ -351,16 +351,16 @@ import de.uniks.networkparser.list.SimpleList;
     *   examRoom:             exam     0       [sportsRoom artsRoom]
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
-    * <h4><a name = 'step_2'>Step 2: Call YamlIdMap.decode:</a></h4>
-    * <pre><code class="java" data-lang="java">
+    * <h4>&lt;a name = 'step_2'&gt;Step 2: Call YamlIdMap.decode:&lt;/a&gt;</h4>
+    * <pre>&lt;code class="java" data-lang="java"&gt;
     *       YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     * 
     *       University studyRight = (University) yamlIdMap.decode(yaml);
-    * </code></pre>
-    * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
+    * &lt;/code&gt;</pre>
+    * <h4>&lt;a name = 'step_3'&gt;Step 3: Decoded object structure:&lt;/a&gt;</h4>
     * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='869'>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
-    * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
+    * <h4>&lt;a name = 'step_4'&gt;Step 4: Generate Yaml from model:&lt;/a&gt;</h4>
     * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students: 	s2 	
@@ -424,17 +424,17 @@ import de.uniks.networkparser.list.SimpleList;
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
-    * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
+    * <h4>&lt;a name = 'step_5'&gt;Step 5: decoded again:&lt;/a&gt;</h4>
     * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='876'>
-    * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
-    * <pre><code class="java" data-lang="java">
+    * <h4>&lt;a name = 'step_6'&gt;Step 6: now read from excel file&lt;/a&gt;</h4>
+    * <pre>&lt;code class="java" data-lang="java"&gt;s
     *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
     *       String excelText = new String(readAllBytes);
     * 
     *       YamlIdMap excelIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
     * 
     *       studyRight = (University) excelIdMap.decode(excelText);
-    * </code></pre>
+    * &lt;/code&gt;</pre>
     * <p>doc/StudyRightStartSituation.txt</p>
     * <pre>-	studyRight:	University				
     * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
@@ -459,6 +459,7 @@ import de.uniks.networkparser.list.SimpleList;
     * </pre>
     * <p>result:</p>
     * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='795'>
+    * @param packageNames The Name of Package
     */
    public YamlIdMap(String... packageNames)
    {
