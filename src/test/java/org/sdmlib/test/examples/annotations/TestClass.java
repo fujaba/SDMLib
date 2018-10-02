@@ -9,7 +9,7 @@ import de.uniks.networkparser.graph.Method;
 
 public class TestClass {
 
-	@Test(timeout = 200000)
+//	@Test(timeout = 200000)
 	public void testMethod() {
 		ClassModel model = new ClassModel();
 		model.getGenerator().updateFromCode("src/test/java", "org.sdmlib.test.examples.annotations");
