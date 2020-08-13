@@ -1,3 +1,9 @@
+Fulib
+=====
+
+In 2019 we did a major refactoring of SDMLib and moved it to https://github.com/fujaba/fulib now. Please visit https://github.com/fujaba/fulib for 
+recent updates. 
+
 SDMLib
 ======
 
