@@ -1,6 +1,7 @@
 language: java
 jdk:
  - oraclejdk9
+dist: trusty
 
 git:
   depth: 42000
@@ -23,6 +24,9 @@ before_install:
  - chmod +x gradlew
 
 addons:
+  apt:
+    packages:
+      - oracle-java8-installer
   coverity_scan:
     project:
       name: "fujaba/SDMLib"
