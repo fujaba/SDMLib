@@ -1,24 +1,24 @@
 /*
-   Copyright (c) 2016 Stefan
-   
-   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-   and associated documentation files (the "Software"), to deal in the Software without restriction, 
-   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-   furnished to do so, subject to the following conditions: 
-   
-   The above copyright notice and this permission notice shall be included in all copies or 
-   substantial portions of the Software. 
-   
-   The Software shall be used for Good, not Evil. 
-   
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ * Copyright (c) 2016 Stefan
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * The Software shall be used for Good, not Evil.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-   
+
 package org.sdmlib.models.classes;
 
 import java.beans.PropertyChangeListener;
@@ -28,14 +28,12 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.Set;
-
 import org.sdmlib.doc.DocEnvironment;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.JavascriptAdapter.Javascript;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.classes.logic.GenClassModel;
 import org.sdmlib.serialization.PropertyChangeInterface;
-
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.FeatureSet;
@@ -45,329 +43,320 @@ import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.list.SimpleSet;
 
 
-public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity 
-{
-	public static final String DEFAULTPACKAGE = "i.love.sdmlib";
-	public static final String PROPERTY_CLASSES = "classes";
-	private static final String PROPERTY_FEATURE = "feature";
-	private FeatureSet features = Feature.getAll();
-	private GenClassModel generator;
+public class ClassModel extends GraphModel implements PropertyChangeInterface, SendableEntity {
+  public static final String DEFAULTPACKAGE = "i.love.sdmlib";
+  public static final String PROPERTY_CLASSES = "classes";
+  private static final String PROPERTY_FEATURE = "feature";
+  private FeatureSet features = Feature.createAll();
+  private GenClassModel generator;
 
 
-     /**
-    * 
-    * @see org.sdmlib.models.tables.TableModel#testTableModel
- */
-   public ClassModel() {
-		name = getDefaultPackage();
-		setAuthorName(System.getProperty("user.name"));
-	}
-   
-   @Override
-	public String getDefaultPackage() {
-		return DEFAULTPACKAGE;
-	}
+  /**
+   * 
+   * @see org.sdmlib.models.tables.TableModel#testTableModel
+   */
+  public ClassModel() {
+    name = getDefaultPackage();
+    setAuthorName(System.getProperty("user.name"));
+  }
+
+  @Override
+  public String getDefaultPackage() {
+    return DEFAULTPACKAGE;
+  }
 
 
-     /**
-    * @param packageName The PackageName
-    * @see org.sdmlib.models.tables.TableModel#testTableModel
- */
-   public ClassModel(String packageName)
-	   {
-		  this();
-	      with(packageName);
-	   }
+  /**
+   * @param packageName The PackageName
+   * @see org.sdmlib.models.tables.TableModel#testTableModel
+   */
+  public ClassModel(String packageName) {
+    this();
+    with(packageName);
+  }
 
 
-     /**
-    * @return This Component
-    * @see org.sdmlib.models.tables.TableModel#testTableModel
- */
-   public ClassModel generate() 
-   {
-      getGenerator().generate();
+  /**
+   * @return This Component
+   * @see org.sdmlib.models.tables.TableModel#testTableModel
+   */
+  public ClassModel generate() {
+    getGenerator().generate();
+    return this;
+  }
+
+
+  /**
+   * @param rootDir The RootDir for Generating
+   * @return This Component
+   * @see org.sdmlib.models.tables.TableModel#testTableModel
+   */
+  public ClassModel generate(String rootDir) {
+    getGenerator().generate(rootDir);
+    return this;
+  }
+
+
+  public GenClassModel getGenerator() {
+    if (generator == null) {
+      this.setGenerator(new GenClassModel());
+    }
+    return generator;
+  }
+
+  protected void setGenerator(GenClassModel value) {
+    if (this.generator != value) {
+      GenClassModel oldValue = this.generator;
+      if (this.generator != null) {
+        this.generator = null;
+        oldValue.setModel(null);
+      }
+      this.generator = value;
+      if (value != null) {
+        value.setModel(this);
+      }
+    }
+  }
+
+  public String dumpClassDiagram(String diagName) {
+    GuiAdapter graphViz = GraphFactory.getAdapter();
+
+    return graphViz.dumpClassDiagram(diagName, this);
+  }
+
+  private String dumpClassDiagram(String diagName, String outputType) {
+    GuiAdapter graphViz = GraphFactory.getAdapter(outputType);
+    return graphViz.dumpClassDiagram(diagName, this);
+  }
+
+  public void removeAllGeneratedCode() {
+    File srcDir = new File("src/main/java");
+
+    if (srcDir.exists()) {
+      // getGenerator().removeAllGeneratedCode("src/main/java", "src/main/java", "src/main/java");
+    } else {
+      getGenerator().removeAllGeneratedCode("src", "src", "src");
+    }
+  }
+
+  public void removeAllGeneratedCode(String rootDir) {
+    getGenerator().removeAllGeneratedCode(rootDir, rootDir, rootDir);
+  }
+
+  protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
+  @Override
+  public PropertyChangeSupport getPropertyChangeSupport() {
+    return listeners;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder result = new StringBuilder();
+
+    result.append(" ").append(this.getId());
+    result.append(" ").append(this.getName());
+    return result.substring(1);
+  }
+
+  @Override
+  public ClassModel with(String name) {
+    super.with(name);
+    return this;
+  }
+
+  public ClassModel withFeature(Feature... value) {
+    if (value == null) {
       return this;
-	}
-
-
-     /**
-    * @param rootDir The RootDir for Generating
-    * @return This Component
-    * @see org.sdmlib.models.tables.TableModel#testTableModel
- */
-   public ClassModel generate(String rootDir) {
-		getGenerator().generate(rootDir);
-		return this;
-	}
-
-
-   public GenClassModel getGenerator() {
-		if (generator == null) {
-			this.setGenerator(new GenClassModel());
-		}
-		return generator;
-	}
-
-	protected void setGenerator(GenClassModel value) {
-		if (this.generator != value) {
-			GenClassModel oldValue = this.generator;
-			if (this.generator != null) {
-				this.generator = null;
-				oldValue.setModel(null);
-			}
-			this.generator = value;
-			if (value != null) {
-				value.setModel(this);
-			}
-		}
-	}
-
-	public String dumpClassDiagram(String diagName) {
-		GuiAdapter graphViz = GraphFactory.getAdapter();
-
-		return graphViz.dumpClassDiagram(diagName, this);
-	}
-
-	private String dumpClassDiagram(String diagName, String outputType) {
-		GuiAdapter graphViz = GraphFactory.getAdapter(outputType);
-		return graphViz.dumpClassDiagram(diagName, this);
-	}
-
-	public void removeAllGeneratedCode() {
-	   File srcDir = new File("src/main/java");
-
-      if (srcDir.exists()) {
-         // getGenerator().removeAllGeneratedCode("src/main/java", "src/main/java", "src/main/java");
+    }
+    for (Feature item : value) {
+      if (item != null) {
+        if (this.features.add(item.create())) {
+          getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, null, item);
+        }
       }
-      else
-      {
-         getGenerator().removeAllGeneratedCode("src", "src", "src");
+    }
+    return this;
+  }
+
+  public ClassModel withoutFeature(Feature... value) {
+    if (value == null) {
+      return this;
+    }
+    for (Feature item : value) {
+      if (item != null) {
+        if (this.features.remove(item)) {
+          getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, item, null);
+        } else {
+          // Search for name
+          for (Iterator<Feature> i = features.iterator(); i.hasNext();) {
+            Feature prop = i.next();
+            if (prop.getName().toString().equals(item.toString())) {
+              this.features.remove(prop);
+              break;
+            }
+          }
+        }
       }
-	}
+    }
+    return this;
+  }
 
-	public void removeAllGeneratedCode(String rootDir) {
-		getGenerator().removeAllGeneratedCode(rootDir, rootDir, rootDir);
-	}
+  public ClassModel withFeatures(Set<Feature> value) {
+    if (value == null) {
+      this.features.clear();
+      return this;
+    }
+    for (Feature item : value) {
+      if (item != null) {
+        if (this.features.add(item)) {
+          getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, null, item);
+        }
+      }
+    }
+    return this;
+  }
 
-	protected final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+  public boolean hasFeature(Feature value) {
+    for (Iterator<Feature> i = features.iterator(); i.hasNext();) {
+      Feature item = i.next();
+      if (item.equals(value)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
-	@Override
-	public PropertyChangeSupport getPropertyChangeSupport() {
-		return listeners;
-	}
-	
-	@Override
-	public String toString() {
-		StringBuilder result = new StringBuilder();
+  public boolean hasFeature(Feature feature, Clazz value) {
+    Feature property = getFeature(feature);
+    if (property != null) {
+      return property.match(value);
+    }
+    return false;
+  }
 
-		result.append(" ").append(this.getId());
-		result.append(" ").append(this.getName());
-      return result.substring(1);
-	}
-	
-	@Override
-	public ClassModel with(String name) {
-		super.with(name);
-		return this;
-	}
+  /**
+   * dump classdiagram
+   * 
+   * @param diagramName Diagrammname
+   * @return success of dumping
+   */
+  public boolean dumpHTML(String diagramName) {
+    dumpHTML(diagramName, "doc", Javascript.NAME);
+    return true;
+  }
 
-	public ClassModel withFeature(Feature... value) {
-		if (value == null) {
-			return this;
-		}
-		for (Feature item : value) {
-			if (item != null) {
-				if (this.features.add(item.create())) {
-					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, null, item);
-				}
-			}
-		}
-		return this;
-	}
+  /**
+   * dump classdiagram
+   * 
+   * @param diagramName Diagrammname
+   * @param folder target folder
+   * @param outputType GuiAdapter name (Javascript.NAME or GraphViz.NAME)
+   */
 
-	public ClassModel withoutFeature(Feature... value) {
-		if (value == null) {
-			return this;
-		}
-		for (Feature item : value) {
-			if (item != null) {
-				if (this.features.remove(item)) {
-					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, item, null);
-				} else { 
-					// Search for name
-					for(Iterator<Feature> i = features.iterator();i.hasNext();) {
-						Feature prop = i.next();
-						if(prop.getName().toString().equals(item.toString())) {
-							this.features.remove(prop);
-							break;
-						}
-					}
-				}
-			}
-		}
-		return this;
-	}
+  public void dumpHTML(String diagramName, String folder, String outputType) {
+    new File(folder).mkdirs();
 
-	public ClassModel withFeatures(Set<Feature> value) {
-		if (value == null) {
-			this.features.clear();
-			return this;
-		}
-		for (Feature item : value) {
-			if (item != null) {
-				if (this.features.add(item)) {
-					getPropertyChangeSupport().firePropertyChange(PROPERTY_FEATURE, null, item);
-				}
-			}
-		}
-		return this;
-	}
+    String dumpClassDiagram = dumpClassDiagram(diagramName, outputType);
 
-	public boolean hasFeature(Feature value) {
-		for(Iterator<Feature> i = features.iterator();i.hasNext();) {
-			Feature item = i.next();
-			if(item.equals(value)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    // build index
+    String htmlTemplate = "<html>\n" + "<head>\n"
+        + "<link rel=\"stylesheet\" type=\"text/css\" href=\"includes/diagramstyle.css\">\n"
+        + "<script src=\"includes/dagre.min.js\"></script>\n" + "<script src=\"includes/graph.js\"></script>\n"
+        + "<script src=\"includes/drawer.js\"></script>\n" + "</head>\n" + "<body>\n" + "bodytext\n"
+        + "</body>\n" + "</html>\n";
 
-	public boolean hasFeature(Feature feature, Clazz value) {
-		Feature property = getFeature(feature);
-		if(property != null) {
-			return property.match(value);
-		}
-		return false;
-	}
+    htmlTemplate = htmlTemplate.replaceFirst("bodytext", dumpClassDiagram);
 
-	/**
-	 * dump classdiagram
-	 * 
-	 * @param diagramName Diagrammname
-	 * @return success of dumping
-	 */
-	public boolean dumpHTML(String diagramName) {
-		dumpHTML(diagramName, "doc", Javascript.NAME);
-		return true;
-	}
+    File file = new File(folder + "/" + diagramName + ".html");
+    try {
+      PrintStream out = new PrintStream(file);
+      out.println(htmlTemplate);
+      out.close();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    new DocEnvironment().copyJS(folder);
+  }
 
-	/**
-	 * dump classdiagram
-	 * 
-	 * @param diagramName
-	 *            Diagrammname
-	 * @param folder
-	 *            target folder
-	 * @param outputType
-	 *            GuiAdapter name (Javascript.NAME or GraphViz.NAME)
-	 */
+  public Clazz getClazz(String name) {
+    if (name == null) {
+      return null;
+    }
+    for (Clazz c : getClazzes()) {
+      if (c.getName().equals(name)) {
+        return c;
+      } else if (name.indexOf(".") > 0) {
+        if (c.getName().equals(name.substring(name.lastIndexOf(".") + 1))) {
+          return c;
+        }
+      } else if (c.getName().endsWith("." + name)) {
+        return c;
+      }
+    }
+    return null;
+  }
 
-	public void dumpHTML(String diagramName, String folder, String outputType) {
-		new File(folder).mkdirs();
+  public SimpleSet<Clazz> getEnumerations() {
+    SimpleSet<Clazz> clazzes = getClazzes();
+    SimpleSet<Clazz> collection = new SimpleSet<Clazz>();
+    for (Clazz child : clazzes) {
+      if (child.getType() == Clazz.TYPE_ENUMERATION) {
+        collection.add(child);
+      }
+    }
+    return collection;
+  }
 
-		String dumpClassDiagram = dumpClassDiagram(diagramName, outputType);
+  public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+    getPropertyChangeSupport().removePropertyChangeListener(listener);
+    return true;
+  }
 
-		// build index
-		String htmlTemplate = "<html>\n" + "<head>\n"
-				+ "<link rel=\"stylesheet\" type=\"text/css\" href=\"includes/diagramstyle.css\">\n"
-				+ "<script src=\"includes/dagre.min.js\"></script>\n" + "<script src=\"includes/graph.js\"></script>\n"
-				+ "<script src=\"includes/drawer.js\"></script>\n" + "</head>\n" + "<body>\n" + "bodytext\n"
-				+ "</body>\n" + "</html>\n";
+  public boolean removePropertyChangeListener(String property,
+      PropertyChangeListener listener) {
+    if (listeners != null) {
+      listeners.removePropertyChangeListener(property, listener);
+    }
+    return true;
+  }
 
-		htmlTemplate = htmlTemplate.replaceFirst("bodytext", dumpClassDiagram);
+  @Override
+  public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+    getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+    return true;
+  }
 
-		File file = new File(folder + "/" + diagramName + ".html");
-		try {
-			PrintStream out = new PrintStream(file);
-			out.println(htmlTemplate);
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		new DocEnvironment().copyJS(folder);
-	}
-	public Clazz getClazz(String name)
-	{
-		if (name == null) {
-			return null;
-		}
-		for (Clazz c : getClazzes()) {
-			if (c.getName().equals(name) ) {
-				return c;
-			}else if(name.indexOf(".")>0) {
-				if(c.getName().equals(name.substring(name.lastIndexOf(".")+1))) {
-					return c;
-				}
-			}else if(c.getName().endsWith("." + name)){
-				return c;
-			}
-		}
-		return null;
-	}
+  @Override
+  public boolean addPropertyChangeListener(PropertyChangeListener listener) {
+    getPropertyChangeSupport().addPropertyChangeListener(listener);
+    return true;
+  }
 
-	public SimpleSet<Clazz> getEnumerations() {
-		SimpleSet<Clazz> clazzes = getClazzes();
-		SimpleSet<Clazz> collection = new SimpleSet<Clazz>();
-		for (Clazz child : clazzes) {
-			if (child.getType()==Clazz.TYPE_ENUMERATION)  {
-				collection.add(child);
-			}
-		}
-		return collection;
-	}
-	
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		getPropertyChangeSupport().removePropertyChangeListener(listener);
-		return true;
-	}
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
-	
-	@Override
-	public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-		getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-		return true;
-	}
+  // ==========================================================================
 
-	@Override
-	public boolean addPropertyChangeListener(PropertyChangeListener listener) {
-		getPropertyChangeSupport().addPropertyChangeListener(listener);
-		return true;
-	}
+  public void removeYou() {
+    getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
+  }
 
-   
-   //==========================================================================
-   
-   public void removeYou()
-   {
-      getPropertyChangeSupport().firePropertyChange("REMOVE_YOU", this, null);
-   }
+  public Feature getFeature(Feature value) {
+    for (Iterator<Feature> i = features.iterator(); i.hasNext();) {
+      Feature item = i.next();
+      if (item.equals(value)) {
+        return item;
+      }
+    }
+    return null;
+  }
 
-	public Feature getFeature(Feature value) {
-		for(Iterator<Feature> i = features.iterator();i.hasNext();) {
-			Feature item = i.next();
-			if(item.equals(value)) {
-				return item;
-			}
-		}
-		return null;
-	}
+  @Override
+  public boolean add(Object... values) {
+    return false;
+  }
 
-	@Override
-	public boolean add(Object... values) {
-		return false;
-	}
-
-	@Override
-	public BaseItem getNewList(boolean keyValue) {
-		return new ClassModel();
-	}
+  @Override
+  public BaseItem getNewList(boolean keyValue) {
+    return new ClassModel();
+  }
 }

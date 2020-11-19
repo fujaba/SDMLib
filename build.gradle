@@ -105,7 +105,7 @@ dependencies {
 		else
 		{
 			println "using snapshot jar"
-			compile 'de.uniks:NetworkParser:4.7.+:sources18'
+			compile 'de.uniks:NetworkParser:4.8.+:sources18'
 		}
 	}
 	else
@@ -113,29 +113,11 @@ dependencies {
 		println "using local networkparser"
 		compile fileTree(dir: "../NetworkParser/build/libs", include: ['networkparser.local.jar'])
 	}
+	compile 'de.uniks:NetworkParser:4.8.+:sources18'
 }
 
 jacoco {
 	toolVersion = "0.7.9"
-}
-
-jacocoTestReport {
-	group = "Reporting"
-	description = "Generate Jacoco coverage reports after running tests."
-	executionData = files("$buildDir/jacoco/test.exec")
-	reports {
-		xml {
-			enabled true
-			//Following value is a file
-			destination "${buildDir}/reports/jacoco/jacoco.xml"
-		}
-		csv.enabled false
-		html {
-			enabled true
-			//Following value is a folder
-			destination "${buildDir}/reports/jacoco"
-		}
-	}
 }
 
 test {

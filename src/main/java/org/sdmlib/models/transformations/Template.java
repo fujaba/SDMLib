@@ -1,22 +1,22 @@
 /*
-   Copyright (c) 2013 zuendorf 
-
-   Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
-   and associated documentation files (the "Software"), to deal in the Software without restriction, 
-   including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-   sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
-   furnished to do so, subject to the following conditions: 
-
-   The above copyright notice and this permission notice shall be included in all copies or 
-   substantial portions of the Software. 
-
-   The Software shall be used for Good, not Evil. 
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
-   BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-   NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-   DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+ * Copyright (c) 2013 zuendorf
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * The Software shall be used for Good, not Evil.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 package org.sdmlib.models.transformations;
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.sdmlib.CGUtil;
 import org.sdmlib.StrUtil;
 import org.sdmlib.models.transformations.util.MatchSet;
@@ -37,1419 +36,1205 @@ import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.GenericCreator;
 import org.sdmlib.storyboards.GenericIdMap;
-
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 /**
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
+ * @see <a href=
+ *      '../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>
  */
-public class Template implements PropertyChangeInterface, SendableEntity
-{
-   // ==========================================================================
+public class Template implements PropertyChangeInterface, SendableEntity {
+  // ==========================================================================
 
-   protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+  protected PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
-   @Override
-   public PropertyChangeSupport getPropertyChangeSupport()
-   {
-      return listeners;
-   }
+  @Override
+  public PropertyChangeSupport getPropertyChangeSupport() {
+    return listeners;
+  }
 
-   public boolean addPropertyChangeListener(PropertyChangeListener listener) 
-   {
-      getPropertyChangeSupport().addPropertyChangeListener(listener);
-      return true;
-   }
-   
-   public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
-      getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
-      return true;
-   }
-   
-	public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(listener);
-		}
-		return true;
-	}
+  public boolean addPropertyChangeListener(PropertyChangeListener listener) {
+    getPropertyChangeSupport().addPropertyChangeListener(listener);
+    return true;
+  }
 
-	public boolean removePropertyChangeListener(String property,
-			PropertyChangeListener listener) {
-		if (listeners != null) {
-			listeners.removePropertyChangeListener(property, listener);
-		}
-		return true;
-	}
+  public boolean addPropertyChangeListener(String propertyName, PropertyChangeListener listener) {
+    getPropertyChangeSupport().addPropertyChangeListener(propertyName, listener);
+    return true;
+  }
 
-   // ==========================================================================
+  public boolean removePropertyChangeListener(PropertyChangeListener listener) {
+    if (listeners != null) {
+      listeners.removePropertyChangeListener(listener);
+    }
+    return true;
+  }
 
-   public void removeYou()
-   {
-      setChooser(null);
-      withoutPlaceholders(this.getPlaceholders().toArray(new PlaceHolderDescription[this.getPlaceholders().size()]));
-      withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
-      withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
-      firePropertyChange("REMOVE_YOU", this, null);
-   }
+  public boolean removePropertyChangeListener(String property,
+      PropertyChangeListener listener) {
+    if (listeners != null) {
+      listeners.removePropertyChangeListener(property, listener);
+    }
+    return true;
+  }
 
-   // ==========================================================================
+  // ==========================================================================
 
-   public static final String PROPERTY_TEMPLATETEXT = "templateText";
+  public void removeYou() {
+    setChooser(null);
+    withoutPlaceholders(this.getPlaceholders().toArray(new PlaceHolderDescription[this.getPlaceholders().size()]));
+    withoutMatches(this.getMatches().toArray(new Match[this.getMatches().size()]));
+    withoutParents(this.getParents().toArray(new PlaceHolderDescription[this.getParents().size()]));
+    firePropertyChange("REMOVE_YOU", this, null);
+  }
 
-   private String templateText = "";
+  // ==========================================================================
 
-   public String getTemplateText()
-   {
-      return this.templateText;
-   }
+  public static final String PROPERTY_TEMPLATETEXT = "templateText";
 
-   public void setTemplateText(String value)
-   {
-      if (!StrUtil.stringEquals(this.templateText, value))
-      {
-         String oldValue = this.templateText;
-         this.templateText = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_TEMPLATETEXT, oldValue, value);
+  private String templateText = "";
+
+  public String getTemplateText() {
+    return this.templateText;
+  }
+
+  public void setTemplateText(String value) {
+    if (!StrUtil.stringEquals(this.templateText, value)) {
+      String oldValue = this.templateText;
+      this.templateText = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_TEMPLATETEXT, oldValue, value);
+    }
+  }
+
+  public Template withTemplateText(String value) {
+    setTemplateText(value);
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder s = new StringBuilder();
+
+    s.append(" ").append(this.getTemplateText());
+    s.append(" ").append(this.getModelClassName());
+    s.append(" ").append(this.getExpandedText());
+    s.append(" ").append(this.getListStart());
+    s.append(" ").append(this.getListSeparator());
+    s.append(" ").append(this.getListEnd());
+    s.append(" ").append(this.getName());
+    return s.substring(1);
+  }
+
+  public Template withSimple(String propertyName) {
+    return with("_", "_", propertyName);
+  }
+
+  public Template withReplacements(String... placeholderAttrNamePairs) {
+    for (int i = 0; i + 2 <= placeholderAttrNamePairs.length; i += 2) {
+      this.createPlaceholders().withTextFragment(placeholderAttrNamePairs[i]).withAttrName(placeholderAttrNamePairs[i + 1]);
+    }
+
+    return this;
+  }
+
+  public Template with(String templateText, String... placeholderAttrNamePairs) {
+    this.setTemplateText(templateText);
+
+    this.withReplacements(placeholderAttrNamePairs);
+
+    return this;
+  }
+
+  public Template withList(String start, String separator, String end) {
+    this.setListStart(start);
+    this.setListSeparator(separator);
+    this.setListEnd(end);
+
+    return this;
+  }
+
+  // ==========================================================================
+
+  public static final String PROPERTY_MODELOBJECT = "modelObject";
+
+  private Object modelObject;
+
+  public Object getModelObject() {
+    return this.modelObject;
+  }
+
+  public void setModelObject(Object value) {
+    if (this.modelObject != value) {
+      Object oldValue = this.modelObject;
+      this.modelObject = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELOBJECT, oldValue, value);
+    }
+  }
+
+  public Template withModelObject(Object value) {
+    setModelObject(value);
+    return this;
+  }
+
+  // ==========================================================================
+
+  public static final String PROPERTY_MODELCLASSNAME = "modelClassName";
+
+  private String modelClassName;
+
+  public String getModelClassName() {
+    return this.modelClassName;
+  }
+
+  public void setModelClassName(String value) {
+    if (!StrUtil.stringEquals(this.modelClassName, value)) {
+      String oldValue = this.modelClassName;
+      this.modelClassName = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELCLASSNAME, oldValue, value);
+    }
+  }
+
+  public Template withModelClassName(String value) {
+    setModelClassName(value);
+    return this;
+  }
+
+
+  public Template createPlaceHolderAndSubTemplate() {
+    PlaceHolderDescription placeholder = this.createPlaceholders();
+
+    Template subTemplate = placeholder.createSubTemplate();
+
+    return subTemplate;
+  }
+
+  // ==========================================================================
+
+  public static final String PROPERTY_EXPANDEDTEXT = "expandedText";
+
+  private String expandedText;
+
+  protected IdMap idMap;
+
+  public String getExpandedText() {
+    return this.expandedText;
+  }
+
+  public void setExpandedText(String value) {
+    if (!StrUtil.stringEquals(this.expandedText, value)) {
+      String oldValue = this.expandedText;
+      this.expandedText = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_EXPANDEDTEXT, oldValue, value);
+    }
+  }
+
+  public Template withExpandedText(String value) {
+    setExpandedText(value);
+    return this;
+  }
+
+  protected int currentPosInExpandedText = 0;
+
+  protected String constFragmentFollowingAfterList;
+
+  public int getValueStartPos() {
+    return currentPosInExpandedText;
+  }
+
+  public Template withValueStartPos(int valueStartPos) {
+    this.currentPosInExpandedText = valueStartPos;
+    return this;
+  }
+
+  public Match parseOnceNew() {
+    this.currentPosInExpandedText = 0;
+    return parseOnce();
+  }
+
+  public MatchSet parse() {
+    MatchSet result = new MatchSet();
+    if (!isList()) {
+      Match subMatch = parseOnce();
+
+      if (subMatch != null) {
+        result.add(subMatch);
       }
-   }
+    } else {
+      int oldValueStartPos = 0;
 
-   public Template withTemplateText(String value)
-   {
-      setTemplateText(value);
-      return this;
-   }
+      // look for list start
+      int listStartPos = this.getExpandedText().indexOf(this.getListStart(), currentPosInExpandedText);
 
-   @Override
-   public String toString()
-   {
-      StringBuilder s = new StringBuilder();
+      if (listStartPos >= 0) {
+        currentPosInExpandedText = currentPosInExpandedText + getListStart().length();
 
-      s.append(" ").append(this.getTemplateText());
-      s.append(" ").append(this.getModelClassName());
-      s.append(" ").append(this.getExpandedText());
-      s.append(" ").append(this.getListStart());
-      s.append(" ").append(this.getListSeparator());
-      s.append(" ").append(this.getListEnd());
-      s.append(" ").append(this.getName());
-      return s.substring(1);
-   }
+        LinkedHashSet<Object> modelObjectSet = new LinkedHashSet<Object>();
 
-   public Template withSimple(String propertyName)
-   {
-      return with("_", "_", propertyName);
-   }
+        oldValueStartPos = currentPosInExpandedText;
+        Match subMatch = parseOnce();
 
-   public Template withReplacements(String... placeholderAttrNamePairs)
-   {
-      for (int i = 0; i + 2 <= placeholderAttrNamePairs.length; i += 2)
-      {
-         this.createPlaceholders().withTextFragment(placeholderAttrNamePairs[i]).withAttrName(placeholderAttrNamePairs[i + 1]);
-      }
+        while (subMatch != null) {
+          // add to results
+          modelObjectSet.add(this.getModelObject());
+          result.add(subMatch);
 
-      return this;
-   }
+          // skip list separator
+          int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
+          int behindListSeparatorPos = listSeperatorPos + this.getListSeparator().length();
+          int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
 
-   public Template with(String templateText, String... placeholderAttrNamePairs)
-   {
-      this.setTemplateText(templateText);
+          if (" ".equals(this.getListSeparator())) {
+            int length = this.getExpandedText().length();
+            boolean startFound = false;
+            for (int i = currentPosInExpandedText; i < length; i++) {
+              char charAt = expandedText.charAt(i);
+              if (!startFound && Character.isWhitespace(charAt)) {
+                startFound = true;
+                listSeperatorPos = i;
+                behindListSeparatorPos = i + 1;
+              } else if (startFound) {
+                if (Character.isWhitespace(charAt)) {
+                  behindListSeparatorPos = i + 1;
+                } else {
+                  break;
+                }
+              }
+            }
+          }
 
-      this.withReplacements(placeholderAttrNamePairs);
+          if ("".equals(this.getListEnd())) {
+            // there is no good list end symbol use constFragment behind
+            // list placeholder instead
+            listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
+          }
 
-      return this;
-   }
+          boolean found = listSeperatorPos == currentPosInExpandedText && listSeperatorPos <= listEndPos;
 
-   public Template withList(String start, String separator, String end)
-   {
-      this.setListStart(start);
-      this.setListSeparator(separator);
-      this.setListEnd(end);
-
-      return this;
-   }
-
-   // ==========================================================================
-
-   public static final String PROPERTY_MODELOBJECT = "modelObject";
-
-   private Object modelObject;
-
-   public Object getModelObject()
-   {
-      return this.modelObject;
-   }
-
-   public void setModelObject(Object value)
-   {
-      if (this.modelObject != value)
-      {
-         Object oldValue = this.modelObject;
-         this.modelObject = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELOBJECT, oldValue, value);
-      }
-   }
-
-   public Template withModelObject(Object value)
-   {
-      setModelObject(value);
-      return this;
-   }
-
-   // ==========================================================================
-
-   public static final String PROPERTY_MODELCLASSNAME = "modelClassName";
-
-   private String modelClassName;
-
-   public String getModelClassName()
-   {
-      return this.modelClassName;
-   }
-
-   public void setModelClassName(String value)
-   {
-      if (!StrUtil.stringEquals(this.modelClassName, value))
-      {
-         String oldValue = this.modelClassName;
-         this.modelClassName = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_MODELCLASSNAME, oldValue, value);
-      }
-   }
-
-   public Template withModelClassName(String value)
-   {
-      setModelClassName(value);
-      return this;
-   }
-
-
-   public Template createPlaceHolderAndSubTemplate()
-   {
-      PlaceHolderDescription placeholder = this.createPlaceholders();
-
-      Template subTemplate = placeholder.createSubTemplate();
-
-      return subTemplate;
-   }
-
-   // ==========================================================================
-
-   public static final String PROPERTY_EXPANDEDTEXT = "expandedText";
-
-   private String expandedText;
-
-   protected IdMap idMap;
-
-   public String getExpandedText()
-   {
-      return this.expandedText;
-   }
-
-   public void setExpandedText(String value)
-   {
-      if (!StrUtil.stringEquals(this.expandedText, value))
-      {
-         String oldValue = this.expandedText;
-         this.expandedText = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_EXPANDEDTEXT, oldValue, value);
-      }
-   }
-
-   public Template withExpandedText(String value)
-   {
-      setExpandedText(value);
-      return this;
-   }
-
-   protected int currentPosInExpandedText = 0;
-
-   protected String constFragmentFollowingAfterList;
-
-   public int getValueStartPos()
-   {
-      return currentPosInExpandedText;
-   }
-
-   public Template withValueStartPos(int valueStartPos)
-   {
-      this.currentPosInExpandedText = valueStartPos;
-      return this;
-   }
-
-   public Match parseOnceNew()
-   {
-      this.currentPosInExpandedText = 0;
-      return parseOnce();
-   }
-
-   public MatchSet parse()
-   {
-      MatchSet result = new MatchSet();
-      if (!isList())
-      {
-         Match subMatch = parseOnce();
-
-         if (subMatch != null)
-         {
-            result.add(subMatch);
-         }
-      }
-      else
-      {
-         int oldValueStartPos = 0;
-
-         // look for list start
-         int listStartPos = this.getExpandedText().indexOf(this.getListStart(), currentPosInExpandedText);
-
-         if (listStartPos >= 0)
-         {
-            currentPosInExpandedText = currentPosInExpandedText + getListStart().length();
-
-            LinkedHashSet<Object> modelObjectSet = new LinkedHashSet<Object>();
-
+          if (found) {
+            // more to come
             oldValueStartPos = currentPosInExpandedText;
-            Match subMatch = parseOnce();
 
-            while (subMatch != null)
-            {
-               // add to results
-               modelObjectSet.add(this.getModelObject());
-               result.add(subMatch);
+            currentPosInExpandedText = behindListSeparatorPos;
 
-               // skip list separator
-               int listSeperatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
-               int behindListSeparatorPos = listSeperatorPos + this.getListSeparator().length();
-               int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
+            subMatch = parseOnce();
+          } else {
+            subMatch = null;
+            oldValueStartPos = currentPosInExpandedText;
+          }
+        }
 
-               if (" ".equals(this.getListSeparator()))
-               {
-                  int length = this.getExpandedText().length();
-                  boolean startFound = false;
-                  for (int i = currentPosInExpandedText; i < length; i++)
-                  {
-                     char charAt = expandedText.charAt(i);
-                     if (!startFound && Character.isWhitespace(charAt))
-                     {
-                        startFound = true;
-                        listSeperatorPos = i;
-                        behindListSeparatorPos = i + 1;
-                     }
-                     else if (startFound)
-                     {
-                        if (Character.isWhitespace(charAt))
-                        {
-                           behindListSeparatorPos = i + 1;
-                        }
-                        else
-                        {
-                           break;
-                        }
-                     }
-                  }
-               }
+        currentPosInExpandedText = oldValueStartPos;
 
-               if ("".equals(this.getListEnd()))
-               {
-                  // there is no good list end symbol use constFragment behind
-                  // list placeholder instead
-                  listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
-               }
+        // skip list end
+        int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
 
-               boolean found = listSeperatorPos == currentPosInExpandedText && listSeperatorPos <= listEndPos;
+        if (listEndPos == currentPosInExpandedText) {
+          currentPosInExpandedText = currentPosInExpandedText + getListEnd().length();
+        }
 
-               if (found)
-               {
-                  // more to come
-                  oldValueStartPos = currentPosInExpandedText;
+        this.setModelObject(modelObjectSet);
+      }
+    }
 
-                  currentPosInExpandedText = behindListSeparatorPos;
+    return result;
+  }
 
-                  subMatch = parseOnce();
-               }
-               else
-               {
-                  subMatch = null;
-                  oldValueStartPos = currentPosInExpandedText;
-               }
-            }
+  public static int logStartPos = 8331;
 
-            currentPosInExpandedText = oldValueStartPos;
+  public Match parseOnce() {
+    // the templateText contains placeholders and constant text fragments.
+    // Match the constant fragments in the expanded text.
+    // Assign the content in between to the placeholders
 
-            // skip list end
-            int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
+    int placeHolderPosInTemplateText = 0;
+    int currentPosInTemplateText = 0;
 
-            if (listEndPos == currentPosInExpandedText)
-            {
-               currentPosInExpandedText = currentPosInExpandedText + getListEnd().length();
-            }
+    // int constantStartPosInExpandedText = 0;
 
-            this.setModelObject(modelObjectSet);
-         }
+    int matchStartPos = currentPosInExpandedText;
+
+    Match templateMatch = new Match()
+        .withFullText(this.getExpandedText())
+        .withStartPos(matchStartPos);
+
+    PlaceHolderDescription previousPlaceHolder;
+
+    // split template text into fragments and identify fragments in expanded
+    // text
+    Iterator<PlaceHolderDescription> iterator = this.getPlaceholders().iterator();
+    if (iterator.hasNext()) {
+      PlaceHolderDescription placeholder = iterator.next();
+
+      // find constant fragment before placeholder
+      placeHolderPosInTemplateText = this.getTemplateText().indexOf(placeholder.getTextFragment(), currentPosInTemplateText);
+
+      String constfragment = this.getTemplateText().substring(currentPosInTemplateText, placeHolderPosInTemplateText);
+
+      currentPosInTemplateText = placeHolderPosInTemplateText + placeholder.getTextFragment().length();
+
+      // find fragment in expanded text
+      int endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
+
+      // constantStartPosInExpandedText =
+      // this.getExpandedText().indexOf(constfragment,
+      // currentPosInExpandedText);
+
+      if (startOfMatch != currentPosInExpandedText || endOfMatchInExpandedText < currentPosInExpandedText) {
+        return null;
       }
 
-      return result;
-   }
+      currentPosInExpandedText = endOfMatchInExpandedText;
 
-   public static int logStartPos = 8331;
-
-   public Match parseOnce()
-   {
-      // the templateText contains placeholders and constant text fragments.
-      // Match the constant fragments in the expanded text.
-      // Assign the content in between to the placeholders
-
-      int placeHolderPosInTemplateText = 0;
-      int currentPosInTemplateText = 0;
-
-      // int constantStartPosInExpandedText = 0;
-
-      int matchStartPos = currentPosInExpandedText;
-
-      Match templateMatch = new Match()
-         .withFullText(this.getExpandedText())
-         .withStartPos(matchStartPos);
-
-      PlaceHolderDescription previousPlaceHolder;
-
-      // split template text into fragments and identify fragments in expanded
-      // text
-      Iterator<PlaceHolderDescription> iterator = this.getPlaceholders().iterator();
-      if (iterator.hasNext())
-      {
-         PlaceHolderDescription placeholder = iterator.next();
-
-         // find constant fragment before placeholder
-         placeHolderPosInTemplateText = this.getTemplateText().indexOf(placeholder.getTextFragment(), currentPosInTemplateText);
-
-         String constfragment = this.getTemplateText().substring(currentPosInTemplateText, placeHolderPosInTemplateText);
-
-         currentPosInTemplateText = placeHolderPosInTemplateText + placeholder.getTextFragment().length();
-
-         // find fragment in expanded text
-         int endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
-
-         // constantStartPosInExpandedText =
-         // this.getExpandedText().indexOf(constfragment,
-         // currentPosInExpandedText);
-
-         if (startOfMatch != currentPosInExpandedText || endOfMatchInExpandedText < currentPosInExpandedText)
-         {
-            return null;
-         }
-
-         currentPosInExpandedText = endOfMatchInExpandedText;
-
-         SendableEntityCreator creator = this.getIdMap().getCreator(this.getModelClassName(), true, null);
-
-         boolean first = true;
-
-         while (true)
-         {
-            if (currentPosInExpandedText >= logStartPos)
-            {
-               System.out.print("Parsing at " + currentPosInExpandedText + ": "
-                  + getExpandedText().substring(currentPosInExpandedText, Math.min(currentPosInExpandedText + 50, getExpandedText().length())));
-               System.out.println();
-            }
-
-            previousPlaceHolder = placeholder;
-
-            if (iterator.hasNext())
-            {
-               placeholder = iterator.next();
-            }
-            else
-            {
-               placeholder = null;
-            }
-
-            // find constant fragment before placeholder
-            if (placeholder != null)
-            {
-               placeHolderPosInTemplateText = this.getTemplateText().indexOf(placeholder.getTextFragment(), currentPosInTemplateText);
-            }
-            else
-            {
-               placeHolderPosInTemplateText = this.getTemplateText().length();
-            }
-
-            constfragment = this.getTemplateText().substring(currentPosInTemplateText, placeHolderPosInTemplateText);
-
-            if (placeholder != null)
-            {
-               currentPosInTemplateText = placeHolderPosInTemplateText + placeholder.getTextFragment().length();
-            }
-
-            Template subTemplate = previousPlaceHolder.getSubTemplate();
-            if (subTemplate != null)
-            {
-               // ask subtemplate to parse
-               MatchSet subMatches = subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(currentPosInExpandedText)
-                  .withIdMap(idMap).withConstFragmentFollowingAfterList(constfragment)
-                  .parse();
-
-               if (!subMatches.isEmpty())
-               {
-                  // create placeholderMatch
-                  Match placeholderMatch = new Match()
-                     .withPlaceholder(previousPlaceHolder)
-                     .withModelObject(this.getModelObject())
-                     .withFullText(this.getExpandedText())
-                     .withStartPos(currentPosInExpandedText)
-                     .withEndPos(subTemplate.getValueStartPos() - 1)
-                     .withParentMatch(templateMatch)
-                     .withSubMatches(subMatches.toArray(new Match[subMatches.size()]));
-
-               }
-
-               this.currentPosInExpandedText = subTemplate.getValueStartPos();
-
-               // now the constant fragment should follow
-               endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
-
-               // constantStartPosInExpandedText =
-               // this.getExpandedText().indexOf(constfragment,
-               // currentPosInExpandedText);
-
-               if (endOfMatchInExpandedText < 0)
-               {
-                  return null;
-               }
-
-               currentPosInExpandedText = endOfMatchInExpandedText;
-            }
-            else
-            {
-               // find fragment in expanded text
-               endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
-
-               if (endOfMatchInExpandedText < 0)
-               {
-                  return null;
-               }
-
-               if (constfragment.equals(""))
-               {
-                  // empty constfragment, look for list separator
-                  int listSeparatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
-                  int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
-
-                  if ("".equals(this.getListEnd()))
-                  {
-                     // there is no good list end symbol use constFragment
-                     // behind list placeholder instead
-                     listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
-                  }
-
-                  if (!"".equals(this.getListSeparator()) && listSeparatorPos >= 0 && listSeparatorPos < listEndPos)
-                  {
-                     startOfMatch = listSeparatorPos;
-                     endOfMatchInExpandedText = listSeparatorPos;
-                  }
-                  else if (listEndPos >= 0)
-                  {
-                     startOfMatch = listEndPos;
-                     endOfMatchInExpandedText = listEndPos;
-                  }
-                  else
-                  {
-                     return null;
-                  }
-               }
-
-               String value = this.getExpandedText().substring(currentPosInExpandedText, startOfMatch);
-
-               int valueStartPos = currentPosInExpandedText;
-
-               currentPosInExpandedText = endOfMatchInExpandedText;
-
-               if (first)
-               {
-                  first = false;
-
-                  // look for object in idMap
-                  String key = getModelClassName() + "_" + value;
-                  Object object = idMap.getObject(key);
-
-                  if (object != null && this.referenceLookup == false)
-                  {
-                     System.out.println("Warning: two objects with id: " + key);
-                  }
-
-                  if (object == null || this.referenceLookup == false)
-                  {
-                     // create object and assign attribute
-                     object = creator.getSendableInstance(false);
-                  }
-
-                  idMap.put(key, object);
-
-                  this.setModelObject(object);
-               }
-               creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
-
-               // create placeholderMatch
-               Match placeholderMatch = new Match()
-                  .withPlaceholder(previousPlaceHolder)
-                  .withModelObject(this.getModelObject())
-                  .withFullText(this.getExpandedText())
-                  .withStartPos(valueStartPos)
-                  .withEndPos(endOfMatchInExpandedText - 1)
-                  .withParentMatch(templateMatch);
-            }
-
-            if (placeholder == null)
-            {
-               break;
-            }
-         }
-      }
-
-      // found a match, protocol it
-      templateMatch.withEndPos(currentPosInExpandedText - 1)
-         .withTemplate(this)
-         .withModelObject(this.getModelObject());
-
-      return templateMatch;
-   }
-
-   private int startOfMatch = -1;
-
-   private int matchConstantFragmentToExpandedText(String constfragment, int currentPosInExpandedText)
-   {
-      int currentPosInConstFragment = 0;
-
-      int blankPos = constfragment.indexOf(' ');
-
-      if (blankPos <= 0)
-      {
-         // no blank, take it all
-         blankPos = constfragment.length();
-      }
-
-      // search for real prefix in text
-      currentPosInExpandedText = this.expandedText.indexOf(constfragment.substring(0, blankPos), currentPosInExpandedText);
-
-      if (currentPosInExpandedText < 0)
-      {
-         return -1;
-      }
-
-      startOfMatch = currentPosInExpandedText;
-
-      while (currentPosInConstFragment < constfragment.length())
-      {
-         char constFragmentChar = constfragment.charAt(currentPosInConstFragment);
-
-         if (constFragmentChar == ' ')
-         {
-            char nextFragmentChar = Character.MIN_VALUE;
-            if (currentPosInConstFragment + 1 < constfragment.length())
-            {
-               nextFragmentChar = constfragment.charAt(currentPosInConstFragment + 1);
-            }
-
-            while (currentPosInExpandedText < expandedText.length()
-               && Character.isWhitespace(expandedText.charAt(currentPosInExpandedText))
-               && expandedText.charAt(currentPosInExpandedText) != nextFragmentChar)
-            {
-               currentPosInExpandedText++;
-            }
-
-            currentPosInConstFragment++;
-         }
-         else
-         {
-            if (expandedText.charAt(currentPosInExpandedText) != constFragmentChar)
-            {
-               return -1;
-            }
-            currentPosInConstFragment++;
-            currentPosInExpandedText++;
-         }
-      }
-
-      return currentPosInExpandedText;
-   }
-
-   protected Template withConstFragmentFollowingAfterList(String constfragment)
-   {
-      this.constFragmentFollowingAfterList = constfragment;
-      return this;
-   }
-
-   private IdMap getIdMap()
-   {
-      if (this.idMap == null)
-      {
-         this.idMap = new GenericIdMap();
-      }
-      return idMap;
-   }
-
-   private boolean isList()
-   {
-      return !"".equals(this.getListStart() + this.getListSeparator() + this.getListEnd());
-   }
-
-   protected Template withIdMap(IdMap idMap2)
-   {
-      this.idMap = idMap2;
-
-      return this;
-   }
-
-   public static int expansionStep = 0;
-
-   public void generate()
-   {
-      // expand all placeholder descriptions
-      StringBuilder result = new StringBuilder();
-
-      provideIdMap();
-
-      LinkedHashSet<Object> rootObjects = new LinkedHashSet<Object>();
-
-      if (modelObject == null)
-      {
-         this.setExpandedText("");
-         return;
-      }
-
-      if (modelObject instanceof Collection)
-      {
-         Collection<?> collection = (Collection<?>) modelObject;
-         if (!collection.isEmpty())
-         {
-            Object elem = collection.iterator().next();
-
-            if ("Double Integer String".indexOf(CGUtil.shortClassName(elem.getClass().getName())) >= 0)
-            {
-               rootObjects.add(modelObject);
-            }
-            else
-            {
-               rootObjects.addAll((Collection<?>) modelObject);
-            }
-         }
-      }
-      else
-      {
-         rootObjects.add(modelObject);
-      }
-
-      result.append(this.getListStart());
+      SendableEntityCreator creator = this.getIdMap().getCreator(this.getModelClassName(), true);
 
       boolean first = true;
 
-      for (Object root : rootObjects)
-      {
-         if (first)
-         {
+      while (true) {
+        if (currentPosInExpandedText >= logStartPos) {
+          System.out.print("Parsing at " + currentPosInExpandedText + ": "
+              + getExpandedText().substring(currentPosInExpandedText, Math.min(currentPosInExpandedText + 50, getExpandedText().length())));
+          System.out.println();
+        }
+
+        previousPlaceHolder = placeholder;
+
+        if (iterator.hasNext()) {
+          placeholder = iterator.next();
+        } else {
+          placeholder = null;
+        }
+
+        // find constant fragment before placeholder
+        if (placeholder != null) {
+          placeHolderPosInTemplateText = this.getTemplateText().indexOf(placeholder.getTextFragment(), currentPosInTemplateText);
+        } else {
+          placeHolderPosInTemplateText = this.getTemplateText().length();
+        }
+
+        constfragment = this.getTemplateText().substring(currentPosInTemplateText, placeHolderPosInTemplateText);
+
+        if (placeholder != null) {
+          currentPosInTemplateText = placeHolderPosInTemplateText + placeholder.getTextFragment().length();
+        }
+
+        Template subTemplate = previousPlaceHolder.getSubTemplate();
+        if (subTemplate != null) {
+          // ask subtemplate to parse
+          MatchSet subMatches = subTemplate.withExpandedText(this.getExpandedText()).withValueStartPos(currentPosInExpandedText)
+              .withIdMap(idMap).withConstFragmentFollowingAfterList(constfragment)
+              .parse();
+
+          if (!subMatches.isEmpty()) {
+            // create placeholderMatch
+            Match placeholderMatch = new Match()
+                .withPlaceholder(previousPlaceHolder)
+                .withModelObject(this.getModelObject())
+                .withFullText(this.getExpandedText())
+                .withStartPos(currentPosInExpandedText)
+                .withEndPos(subTemplate.getValueStartPos() - 1)
+                .withParentMatch(templateMatch)
+                .withSubMatches(subMatches.toArray(new Match[subMatches.size()]));
+
+          }
+
+          this.currentPosInExpandedText = subTemplate.getValueStartPos();
+
+          // now the constant fragment should follow
+          endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
+
+          // constantStartPosInExpandedText =
+          // this.getExpandedText().indexOf(constfragment,
+          // currentPosInExpandedText);
+
+          if (endOfMatchInExpandedText < 0) {
+            return null;
+          }
+
+          currentPosInExpandedText = endOfMatchInExpandedText;
+        } else {
+          // find fragment in expanded text
+          endOfMatchInExpandedText = matchConstantFragmentToExpandedText(constfragment, currentPosInExpandedText);
+
+          if (endOfMatchInExpandedText < 0) {
+            return null;
+          }
+
+          if (constfragment.equals("")) {
+            // empty constfragment, look for list separator
+            int listSeparatorPos = this.getExpandedText().indexOf(this.getListSeparator(), currentPosInExpandedText);
+            int listEndPos = this.getExpandedText().indexOf(this.getListEnd(), currentPosInExpandedText);
+
+            if ("".equals(this.getListEnd())) {
+              // there is no good list end symbol use constFragment
+              // behind list placeholder instead
+              listEndPos = this.getExpandedText().indexOf(this.constFragmentFollowingAfterList, currentPosInExpandedText);
+            }
+
+            if (!"".equals(this.getListSeparator()) && listSeparatorPos >= 0 && listSeparatorPos < listEndPos) {
+              startOfMatch = listSeparatorPos;
+              endOfMatchInExpandedText = listSeparatorPos;
+            } else if (listEndPos >= 0) {
+              startOfMatch = listEndPos;
+              endOfMatchInExpandedText = listEndPos;
+            } else {
+              return null;
+            }
+          }
+
+          String value = this.getExpandedText().substring(currentPosInExpandedText, startOfMatch);
+
+          int valueStartPos = currentPosInExpandedText;
+
+          currentPosInExpandedText = endOfMatchInExpandedText;
+
+          if (first) {
             first = false;
-            this.setModelClassName(root.getClass().getName());
-         }
-         else
-         {
-            result.append(this.getListSeparator());
-         }
 
-         int searchPos = 0;
+            // look for object in idMap
+            String key = getModelClassName() + "_" + value;
+            Object object = idMap.getObject(key);
 
-         // expand template
-         for (PlaceHolderDescription placeholder : this.getPlaceholders())
-         {
-            // find textFragment in template text
-            int foundPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
-
-            if (foundPos >= 0)
-            {
-               // copy initial template fragment to result
-               result.append(this.getTemplateText().substring(searchPos, foundPos));
-
-               // read attribute and append to result
-               Object attrValue = getValue(placeholder, root);
-
-               Template subTemplate = placeholder.getSubTemplate();
-               if (subTemplate == null)
-               {
-                  // use value direct
-                  expansionStep++;
-                  if (expansionStep >= logStartStep)
-                  {
-                     System.out.print("Expansion step " + expansionStep + ": " + this + " " + attrValue);
-                     System.out.println();
-                  }
-                  result.append(attrValue);
-               }
-               else
-               {
-                  // use subtemplate
-                  expansionStep++;
-                  if (expansionStep >= logStartStep)
-                  {
-                     System.out.print("Expansion step " + expansionStep + ": " + subTemplate + " " + attrValue);
-                     System.out.println();
-                  }
-                  subTemplate.withModelObject(attrValue)
-                     .generate();
-
-                  result.append(subTemplate.getExpandedText());
-               }
-
-               // update positions
-               searchPos = foundPos + placeholder.getTextFragment().length();
+            if (object != null && this.referenceLookup == false) {
+              System.out.println("Warning: two objects with id: " + key);
             }
-         }
 
-         // append closing text fragment
-         result.append(this.getTemplateText().substring(searchPos));
-      }
-
-      result.append(this.getListEnd());
-
-      this.setExpandedText(result.toString());
-   }
-
-   public static int logStartStep = 453;
-
-   private Object getValue(PlaceHolderDescription placeholder, Object root)
-   {
-      SendableEntityCreator creator;
-
-      String[] split = placeholder.getAttrName().split("\\.");
-
-      Object currentObject = root;
-
-      for (String attrName : split)
-      {
-         Integer index = null;
-
-         try
-         {
-            index = Integer.valueOf(attrName);
-         }
-         catch (NumberFormatException e)
-         {
-            // do nothing
-         }
-
-         if (index != null)
-         {
-            // look up the element with this index
-            Object[] array = ((Collection<?>) currentObject).toArray(new Object[((Collection<?>) currentObject).size()]);
-
-            currentObject = array[index];
-         }
-         else if (currentObject instanceof ArrayList)
-         {
-            ArrayList<?> arrayList = (ArrayList<?>) currentObject;
-            currentObject = arrayList.get(Integer.valueOf(attrName));
-         }
-         else
-         {
-            creator = idMap.getCreatorClass(currentObject);
-            if (creator == null)
-            {
-               creator = new GenericCreator().withClassName(currentObject
-                  .getClass().getName());
+            if (object == null || this.referenceLookup == false) {
+              // create object and assign attribute
+              object = creator.getSendableInstance(false);
             }
-            currentObject = creator.getValue(currentObject, attrName);
-         }
+
+            idMap.put(key, object);
+
+            this.setModelObject(object);
+          }
+          creator.setValue(this.getModelObject(), previousPlaceHolder.getAttrName(), value, "update");
+
+          // create placeholderMatch
+          Match placeholderMatch = new Match()
+              .withPlaceholder(previousPlaceHolder)
+              .withModelObject(this.getModelObject())
+              .withFullText(this.getExpandedText())
+              .withStartPos(valueStartPos)
+              .withEndPos(endOfMatchInExpandedText - 1)
+              .withParentMatch(templateMatch);
+        }
+
+        if (placeholder == null) {
+          break;
+        }
+      }
+    }
+
+    // found a match, protocol it
+    templateMatch.withEndPos(currentPosInExpandedText - 1)
+        .withTemplate(this)
+        .withModelObject(this.getModelObject());
+
+    return templateMatch;
+  }
+
+  private int startOfMatch = -1;
+
+  private int matchConstantFragmentToExpandedText(String constfragment, int currentPosInExpandedText) {
+    int currentPosInConstFragment = 0;
+
+    int blankPos = constfragment.indexOf(' ');
+
+    if (blankPos <= 0) {
+      // no blank, take it all
+      blankPos = constfragment.length();
+    }
+
+    // search for real prefix in text
+    currentPosInExpandedText = this.expandedText.indexOf(constfragment.substring(0, blankPos), currentPosInExpandedText);
+
+    if (currentPosInExpandedText < 0) {
+      return -1;
+    }
+
+    startOfMatch = currentPosInExpandedText;
+
+    while (currentPosInConstFragment < constfragment.length()) {
+      char constFragmentChar = constfragment.charAt(currentPosInConstFragment);
+
+      if (constFragmentChar == ' ') {
+        char nextFragmentChar = Character.MIN_VALUE;
+        if (currentPosInConstFragment + 1 < constfragment.length()) {
+          nextFragmentChar = constfragment.charAt(currentPosInConstFragment + 1);
+        }
+
+        while (currentPosInExpandedText < expandedText.length()
+            && Character.isWhitespace(expandedText.charAt(currentPosInExpandedText))
+            && expandedText.charAt(currentPosInExpandedText) != nextFragmentChar) {
+          currentPosInExpandedText++;
+        }
+
+        currentPosInConstFragment++;
+      } else {
+        if (expandedText.charAt(currentPosInExpandedText) != constFragmentChar) {
+          return -1;
+        }
+        currentPosInConstFragment++;
+        currentPosInExpandedText++;
+      }
+    }
+
+    return currentPosInExpandedText;
+  }
+
+  protected Template withConstFragmentFollowingAfterList(String constfragment) {
+    this.constFragmentFollowingAfterList = constfragment;
+    return this;
+  }
+
+  private IdMap getIdMap() {
+    if (this.idMap == null) {
+      this.idMap = new GenericIdMap();
+    }
+    return idMap;
+  }
+
+  private boolean isList() {
+    return !"".equals(this.getListStart() + this.getListSeparator() + this.getListEnd());
+  }
+
+  protected Template withIdMap(IdMap idMap2) {
+    this.idMap = idMap2;
+
+    return this;
+  }
+
+  public static int expansionStep = 0;
+
+  public void generate() {
+    // expand all placeholder descriptions
+    StringBuilder result = new StringBuilder();
+
+    provideIdMap();
+
+    LinkedHashSet<Object> rootObjects = new LinkedHashSet<Object>();
+
+    if (modelObject == null) {
+      this.setExpandedText("");
+      return;
+    }
+
+    if (modelObject instanceof Collection) {
+      Collection<?> collection = (Collection<?>) modelObject;
+      if (!collection.isEmpty()) {
+        Object elem = collection.iterator().next();
+
+        if ("Double Integer String".indexOf(CGUtil.shortClassName(elem.getClass().getName())) >= 0) {
+          rootObjects.add(modelObject);
+        } else {
+          rootObjects.addAll((Collection<?>) modelObject);
+        }
+      }
+    } else {
+      rootObjects.add(modelObject);
+    }
+
+    result.append(this.getListStart());
+
+    boolean first = true;
+
+    for (Object root : rootObjects) {
+      if (first) {
+        first = false;
+        this.setModelClassName(root.getClass().getName());
+      } else {
+        result.append(this.getListSeparator());
       }
 
-      return currentObject;
-   }
+      int searchPos = 0;
 
-   private void provideIdMap()
-   {
-      try
-      {
-         if (idMap == null)
-         {
-            String className = modelObject.getClass().getName();
-            String packageName = CGUtil.packageName(className) + ".util";
-            className = packageName + "." + CGUtil.shortClassName(className) + "Creator";
+      // expand template
+      for (PlaceHolderDescription placeholder : this.getPlaceholders()) {
+        // find textFragment in template text
+        int foundPos = this.getTemplateText().indexOf(placeholder.getTextFragment(), searchPos);
 
-            idMap = new GenericIdMap();
+        if (foundPos >= 0) {
+          // copy initial template fragment to result
+          result.append(this.getTemplateText().substring(searchPos, foundPos));
 
-            Class<?> creatorClass = Class.forName(className);
-            Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
+          // read attribute and append to result
+          Object attrValue = getValue(placeholder, root);
 
-            IdMap newIdMap = (IdMap) method.invoke(null, "debug");
+          Template subTemplate = placeholder.getSubTemplate();
+          if (subTemplate == null) {
+            // use value direct
+            expansionStep++;
+            if (expansionStep >= logStartStep) {
+              System.out.print("Expansion step " + expansionStep + ": " + this + " " + attrValue);
+              System.out.println();
+            }
+            result.append(attrValue);
+          } else {
+            // use subtemplate
+            expansionStep++;
+            if (expansionStep >= logStartStep) {
+              System.out.print("Expansion step " + expansionStep + ": " + subTemplate + " " + attrValue);
+              System.out.println();
+            }
+            subTemplate.withModelObject(attrValue)
+                .generate();
 
-            idMap.with(newIdMap);
-         }
-      }
-      catch (Exception e)
-      {
+            result.append(subTemplate.getExpandedText());
+          }
 
-      }
-
-   }
-
-   // ==========================================================================
-
-   public static final String PROPERTY_LISTSTART = "listStart";
-
-   private String listStart = "";
-
-   public String getListStart()
-   {
-      return this.listStart;
-   }
-
-   public void setListStart(String value)
-   {
-      if (!StrUtil.stringEquals(this.listStart, value))
-      {
-         String oldValue = this.listStart;
-         this.listStart = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LISTSTART, oldValue, value);
-      }
-   }
-
-   public Template withListStart(String value)
-   {
-      setListStart(value);
-      return this;
-   }
-
-   // ==========================================================================
-
-   public static final String PROPERTY_LISTSEPARATOR = "listSeparator";
-
-   private String listSeparator = "";
-
-   public String getListSeparator()
-   {
-      return this.listSeparator;
-   }
-
-   public void setListSeparator(String value)
-   {
-      if (!StrUtil.stringEquals(this.listSeparator, value))
-      {
-         String oldValue = this.listSeparator;
-         this.listSeparator = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LISTSEPARATOR, oldValue, value);
-      }
-   }
-
-   public Template withListSeparator(String value)
-   {
-      setListSeparator(value);
-      return this;
-   }
-
-   // ==========================================================================
-
-   public static final String PROPERTY_LISTEND = "listEnd";
-
-   private String listEnd = "";
-
-   public String getListEnd()
-   {
-      return this.listEnd;
-   }
-
-   public void setListEnd(String value)
-   {
-      if (!StrUtil.stringEquals(this.listEnd, value))
-      {
-         String oldValue = this.listEnd;
-         this.listEnd = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_LISTEND, oldValue, value);
-      }
-   }
-
-   public Template withListEnd(String value)
-   {
-      setListEnd(value);
-      return this;
-   }
-
-   public Template withParent(String textFragment, String attrName)
-   {
-      this.getParents().first().withTextFragment(textFragment).withAttrName(attrName);
-
-      return this;
-   }
-
-   public static final TemplateSet EMPTY_SET = new TemplateSet();
-
-   /********************************************************************
-    * <pre>
-    *              many                       many
-    * Template ----------------------------------- PlaceHolderDescription
-    *              owners                   placeholders
-    * </pre>
-    */
-
-   public static final String PROPERTY_PLACEHOLDERS = "placeholders";
-
-   private PlaceHolderDescriptionSet placeholders = null;
-
-   public PlaceHolderDescriptionSet getPlaceholders()
-   {
-      if (this.placeholders == null)
-      {
-         return PlaceHolderDescription.EMPTY_SET;
+          // update positions
+          searchPos = foundPos + placeholder.getTextFragment().length();
+        }
       }
 
-      return this.placeholders;
-   }
+      // append closing text fragment
+      result.append(this.getTemplateText().substring(searchPos));
+    }
 
-   public boolean addToPlaceholders(PlaceHolderDescription value)
-   {
-      boolean changed = false;
+    result.append(this.getListEnd());
 
-      if (value != null)
-      {
-         if (this.placeholders == null)
-         {
-            this.placeholders = new PlaceHolderDescriptionSet();
-         }
+    this.setExpandedText(result.toString());
+  }
 
-         changed = this.placeholders.add(value);
+  public static int logStartStep = 453;
 
-         if (changed)
-         {
-            value.withOwners(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, null, value);
-         }
+  private Object getValue(PlaceHolderDescription placeholder, Object root) {
+    SendableEntityCreator creator;
+
+    String[] split = placeholder.getAttrName().split("\\.");
+
+    Object currentObject = root;
+
+    for (String attrName : split) {
+      Integer index = null;
+
+      try {
+        index = Integer.valueOf(attrName);
+      } catch (NumberFormatException e) {
+        // do nothing
       }
 
-      return changed;
-   }
+      if (index != null) {
+        // look up the element with this index
+        Object[] array = ((Collection<?>) currentObject).toArray(new Object[((Collection<?>) currentObject).size()]);
 
-   public boolean removeFromPlaceholders(PlaceHolderDescription value)
-   {
-      boolean changed = false;
+        currentObject = array[index];
+      } else if (currentObject instanceof ArrayList) {
+        ArrayList<?> arrayList = (ArrayList<?>) currentObject;
+        currentObject = arrayList.get(Integer.valueOf(attrName));
+      } else {
+        creator = idMap.getCreatorClass(currentObject);
+        if (creator == null) {
+          creator = new GenericCreator().withClassName(currentObject
+              .getClass().getName());
+        }
+        currentObject = creator.getValue(currentObject, attrName);
+      }
+    }
 
-      if ((this.placeholders != null) && (value != null))
-      {
-         changed = this.placeholders.remove(value);
+    return currentObject;
+  }
 
-         if (changed)
-         {
-            value.withoutOwners(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, value, null);
-         }
+  private void provideIdMap() {
+    try {
+      if (idMap == null) {
+        String className = modelObject.getClass().getName();
+        String packageName = CGUtil.packageName(className) + ".util";
+        className = packageName + "." + CGUtil.shortClassName(className) + "Creator";
+
+        idMap = new GenericIdMap();
+
+        Class<?> creatorClass = Class.forName(className);
+        Method method = creatorClass.getDeclaredMethod("createIdMap", String.class);
+
+        IdMap newIdMap = (IdMap) method.invoke(null, "debug");
+
+        idMap.with(newIdMap);
+      }
+    } catch (Exception e) {
+
+    }
+
+  }
+
+  // ==========================================================================
+
+  public static final String PROPERTY_LISTSTART = "listStart";
+
+  private String listStart = "";
+
+  public String getListStart() {
+    return this.listStart;
+  }
+
+  public void setListStart(String value) {
+    if (!StrUtil.stringEquals(this.listStart, value)) {
+      String oldValue = this.listStart;
+      this.listStart = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_LISTSTART, oldValue, value);
+    }
+  }
+
+  public Template withListStart(String value) {
+    setListStart(value);
+    return this;
+  }
+
+  // ==========================================================================
+
+  public static final String PROPERTY_LISTSEPARATOR = "listSeparator";
+
+  private String listSeparator = "";
+
+  public String getListSeparator() {
+    return this.listSeparator;
+  }
+
+  public void setListSeparator(String value) {
+    if (!StrUtil.stringEquals(this.listSeparator, value)) {
+      String oldValue = this.listSeparator;
+      this.listSeparator = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_LISTSEPARATOR, oldValue, value);
+    }
+  }
+
+  public Template withListSeparator(String value) {
+    setListSeparator(value);
+    return this;
+  }
+
+  // ==========================================================================
+
+  public static final String PROPERTY_LISTEND = "listEnd";
+
+  private String listEnd = "";
+
+  public String getListEnd() {
+    return this.listEnd;
+  }
+
+  public void setListEnd(String value) {
+    if (!StrUtil.stringEquals(this.listEnd, value)) {
+      String oldValue = this.listEnd;
+      this.listEnd = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_LISTEND, oldValue, value);
+    }
+  }
+
+  public Template withListEnd(String value) {
+    setListEnd(value);
+    return this;
+  }
+
+  public Template withParent(String textFragment, String attrName) {
+    this.getParents().first().withTextFragment(textFragment).withAttrName(attrName);
+
+    return this;
+  }
+
+  public static final TemplateSet EMPTY_SET = new TemplateSet();
+
+  /********************************************************************
+   * <pre>
+   *              many                       many
+   * Template ----------------------------------- PlaceHolderDescription
+   *              owners                   placeholders
+   * </pre>
+   */
+
+  public static final String PROPERTY_PLACEHOLDERS = "placeholders";
+
+  private PlaceHolderDescriptionSet placeholders = null;
+
+  public PlaceHolderDescriptionSet getPlaceholders() {
+    if (this.placeholders == null) {
+      return PlaceHolderDescription.EMPTY_SET;
+    }
+
+    return this.placeholders;
+  }
+
+  public boolean addToPlaceholders(PlaceHolderDescription value) {
+    boolean changed = false;
+
+    if (value != null) {
+      if (this.placeholders == null) {
+        this.placeholders = new PlaceHolderDescriptionSet();
       }
 
-      return changed;
-   }
+      changed = this.placeholders.add(value);
 
-   public Template withPlaceholders(PlaceHolderDescription... value)
-   {
-      for (PlaceHolderDescription item : value)
-      {
-         addToPlaceholders(item);
+      if (changed) {
+        value.withOwners(this);
+        getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, null, value);
       }
-      return this;
-   }
+    }
 
-   public Template withoutPlaceholders(PlaceHolderDescription... value)
-   {
-      for (PlaceHolderDescription item : value)
-      {
-         removeFromPlaceholders(item);
+    return changed;
+  }
+
+  public boolean removeFromPlaceholders(PlaceHolderDescription value) {
+    boolean changed = false;
+
+    if ((this.placeholders != null) && (value != null)) {
+      changed = this.placeholders.remove(value);
+
+      if (changed) {
+        value.withoutOwners(this);
+        getPropertyChangeSupport().firePropertyChange(PROPERTY_PLACEHOLDERS, value, null);
       }
-      return this;
-   }
+    }
 
-   public void removeAllFromPlaceholders()
-   {
-      LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getPlaceholders());
+    return changed;
+  }
 
-      for (PlaceHolderDescription value : tmpSet)
-      {
-         this.removeFromPlaceholders(value);
-      }
-   }
+  public Template withPlaceholders(PlaceHolderDescription... value) {
+    for (PlaceHolderDescription item : value) {
+      addToPlaceholders(item);
+    }
+    return this;
+  }
 
-   public PlaceHolderDescription createPlaceholders()
-   {
-      PlaceHolderDescription value = new PlaceHolderDescription();
-      withPlaceholders(value);
-      return value;
-   }
+  public Template withoutPlaceholders(PlaceHolderDescription... value) {
+    for (PlaceHolderDescription item : value) {
+      removeFromPlaceholders(item);
+    }
+    return this;
+  }
 
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Template ----------------------------------- ChoiceTemplate
-    *              choices                   chooser
-    * </pre>
-    */
+  public void removeAllFromPlaceholders() {
+    LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getPlaceholders());
 
-   public static final String PROPERTY_CHOOSER = "chooser";
+    for (PlaceHolderDescription value : tmpSet) {
+      this.removeFromPlaceholders(value);
+    }
+  }
 
-   private ChoiceTemplate chooser = null;
+  public PlaceHolderDescription createPlaceholders() {
+    PlaceHolderDescription value = new PlaceHolderDescription();
+    withPlaceholders(value);
+    return value;
+  }
 
-   public ChoiceTemplate getChooser()
-   {
-      return this.chooser;
-   }
+  /********************************************************************
+   * <pre>
+   *              many                       one
+   * Template ----------------------------------- ChoiceTemplate
+   *              choices                   chooser
+   * </pre>
+   */
 
-   public boolean setChooser(ChoiceTemplate value)
-   {
-      boolean changed = false;
+  public static final String PROPERTY_CHOOSER = "chooser";
 
-      if (this.chooser != value)
-      {
-         ChoiceTemplate oldValue = this.chooser;
+  private ChoiceTemplate chooser = null;
 
-         if (this.chooser != null)
-         {
-            this.chooser = null;
-            oldValue.withoutChoices(this);
-         }
+  public ChoiceTemplate getChooser() {
+    return this.chooser;
+  }
 
-         this.chooser = value;
+  public boolean setChooser(ChoiceTemplate value) {
+    boolean changed = false;
 
-         if (value != null)
-         {
-            value.withChoices(this);
-         }
+    if (this.chooser != value) {
+      ChoiceTemplate oldValue = this.chooser;
 
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_CHOOSER, oldValue, value);
-         changed = true;
-      }
-
-      return changed;
-   }
-
-   public Template withChooser(ChoiceTemplate value)
-   {
-      setChooser(value);
-      return this;
-   }
-
-   public ChoiceTemplate createChooser()
-   {
-      ChoiceTemplate value = new ChoiceTemplate();
-      withChooser(value);
-      return value;
-   }
-
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Template ----------------------------------- Match
-    *              template                   matches
-    * </pre>
-    */
-
-   public static final String PROPERTY_MATCHES = "matches";
-
-   private MatchSet matches = null;
-
-   public MatchSet getMatches()
-   {
-      if (this.matches == null)
-      {
-         return Match.EMPTY_SET;
+      if (this.chooser != null) {
+        this.chooser = null;
+        oldValue.withoutChoices(this);
       }
 
-      return this.matches;
-   }
+      this.chooser = value;
 
-   public boolean addToMatches(Match value)
-   {
-      boolean changed = false;
-
-      if (value != null)
-      {
-         if (this.matches == null)
-         {
-            this.matches = new MatchSet();
-         }
-
-         changed = this.matches.add(value);
-
-         if (changed)
-         {
-            value.withTemplate(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, null, value);
-         }
+      if (value != null) {
+        value.withChoices(this);
       }
 
-      return changed;
-   }
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_CHOOSER, oldValue, value);
+      changed = true;
+    }
 
-   public boolean removeFromMatches(Match value)
-   {
-      boolean changed = false;
+    return changed;
+  }
 
-      if ((this.matches != null) && (value != null))
-      {
-         changed = this.matches.remove(value);
+  public Template withChooser(ChoiceTemplate value) {
+    setChooser(value);
+    return this;
+  }
 
-         if (changed)
-         {
-            value.setTemplate(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, value, null);
-         }
+  public ChoiceTemplate createChooser() {
+    ChoiceTemplate value = new ChoiceTemplate();
+    withChooser(value);
+    return value;
+  }
+
+  /********************************************************************
+   * <pre>
+   *              one                       many
+   * Template ----------------------------------- Match
+   *              template                   matches
+   * </pre>
+   */
+
+  public static final String PROPERTY_MATCHES = "matches";
+
+  private MatchSet matches = null;
+
+  public MatchSet getMatches() {
+    if (this.matches == null) {
+      return Match.EMPTY_SET;
+    }
+
+    return this.matches;
+  }
+
+  public boolean addToMatches(Match value) {
+    boolean changed = false;
+
+    if (value != null) {
+      if (this.matches == null) {
+        this.matches = new MatchSet();
       }
 
-      return changed;
-   }
+      changed = this.matches.add(value);
 
-   public Template withMatches(Match... value)
-   {
-      for (Match item : value)
-      {
-         addToMatches(item);
+      if (changed) {
+        value.withTemplate(this);
+        getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, null, value);
       }
-      return this;
-   }
+    }
 
-   public Template withoutMatches(Match... value)
-   {
-      for (Match item : value)
-      {
-         removeFromMatches(item);
+    return changed;
+  }
+
+  public boolean removeFromMatches(Match value) {
+    boolean changed = false;
+
+    if ((this.matches != null) && (value != null)) {
+      changed = this.matches.remove(value);
+
+      if (changed) {
+        value.setTemplate(null);
+        getPropertyChangeSupport().firePropertyChange(PROPERTY_MATCHES, value, null);
       }
-      return this;
-   }
+    }
 
-   public void removeAllFromMatches()
-   {
-      LinkedHashSet<Match> tmpSet = new LinkedHashSet<Match>(this.getMatches());
+    return changed;
+  }
 
-      for (Match value : tmpSet)
-      {
-         this.removeFromMatches(value);
-      }
-   }
+  public Template withMatches(Match... value) {
+    for (Match item : value) {
+      addToMatches(item);
+    }
+    return this;
+  }
 
-   public Match createMatches()
-   {
-      Match value = new Match();
-      withMatches(value);
-      return value;
-   }
+  public Template withoutMatches(Match... value) {
+    for (Match item : value) {
+      removeFromMatches(item);
+    }
+    return this;
+  }
 
-   /********************************************************************
-    * <pre>
-    *              one                       many
-    * Template ----------------------------------- PlaceHolderDescription
-    *              subTemplate                   parents
-    * </pre>
-    */
+  public void removeAllFromMatches() {
+    LinkedHashSet<Match> tmpSet = new LinkedHashSet<Match>(this.getMatches());
 
-   public static final String PROPERTY_PARENTS = "parents";
+    for (Match value : tmpSet) {
+      this.removeFromMatches(value);
+    }
+  }
 
-   private PlaceHolderDescriptionSet parents = null;
+  public Match createMatches() {
+    Match value = new Match();
+    withMatches(value);
+    return value;
+  }
 
-   public PlaceHolderDescriptionSet getParents()
-   {
-      if (this.parents == null)
-      {
-         return PlaceHolderDescription.EMPTY_SET;
-      }
+  /********************************************************************
+   * <pre>
+   *              one                       many
+   * Template ----------------------------------- PlaceHolderDescription
+   *              subTemplate                   parents
+   * </pre>
+   */
 
-      return this.parents;
-   }
+  public static final String PROPERTY_PARENTS = "parents";
 
-   public boolean addToParents(PlaceHolderDescription value)
-   {
-      boolean changed = false;
+  private PlaceHolderDescriptionSet parents = null;
 
-      if (value != null)
-      {
-         if (this.parents == null)
-         {
-            this.parents = new PlaceHolderDescriptionSet();
-         }
+  public PlaceHolderDescriptionSet getParents() {
+    if (this.parents == null) {
+      return PlaceHolderDescription.EMPTY_SET;
+    }
 
-         changed = this.parents.add(value);
+    return this.parents;
+  }
 
-         if (changed)
-         {
-            value.withSubTemplate(this);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTS, null, value);
-         }
-      }
+  public boolean addToParents(PlaceHolderDescription value) {
+    boolean changed = false;
 
-      return changed;
-   }
-
-   public boolean removeFromParents(PlaceHolderDescription value)
-   {
-      boolean changed = false;
-
-      if ((this.parents != null) && (value != null))
-      {
-         changed = this.parents.remove(value);
-
-         if (changed)
-         {
-            value.setSubTemplate(null);
-            getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTS, value, null);
-         }
+    if (value != null) {
+      if (this.parents == null) {
+        this.parents = new PlaceHolderDescriptionSet();
       }
 
-      return changed;
-   }
+      changed = this.parents.add(value);
 
-   public Template withParents(PlaceHolderDescription... value)
-   {
-      for (PlaceHolderDescription item : value)
-      {
-         addToParents(item);
+      if (changed) {
+        value.withSubTemplate(this);
+        getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTS, null, value);
       }
-      return this;
-   }
+    }
 
-   public Template withoutParents(PlaceHolderDescription... value)
-   {
-      for (PlaceHolderDescription item : value)
-      {
-         removeFromParents(item);
+    return changed;
+  }
+
+  public boolean removeFromParents(PlaceHolderDescription value) {
+    boolean changed = false;
+
+    if ((this.parents != null) && (value != null)) {
+      changed = this.parents.remove(value);
+
+      if (changed) {
+        value.setSubTemplate(null);
+        getPropertyChangeSupport().firePropertyChange(PROPERTY_PARENTS, value, null);
       }
-      return this;
-   }
+    }
 
-   public void removeAllFromParents()
-   {
-      LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getParents());
+    return changed;
+  }
 
-      for (PlaceHolderDescription value : tmpSet)
-      {
-         this.removeFromParents(value);
-      }
-   }
+  public Template withParents(PlaceHolderDescription... value) {
+    for (PlaceHolderDescription item : value) {
+      addToParents(item);
+    }
+    return this;
+  }
 
-   public PlaceHolderDescription createParents()
-   {
-      PlaceHolderDescription value = new PlaceHolderDescription();
-      withParents(value);
-      return value;
-   }
+  public Template withoutParents(PlaceHolderDescription... value) {
+    for (PlaceHolderDescription item : value) {
+      removeFromParents(item);
+    }
+    return this;
+  }
+
+  public void removeAllFromParents() {
+    LinkedHashSet<PlaceHolderDescription> tmpSet = new LinkedHashSet<PlaceHolderDescription>(this.getParents());
+
+    for (PlaceHolderDescription value : tmpSet) {
+      this.removeFromParents(value);
+    }
+  }
+
+  public PlaceHolderDescription createParents() {
+    PlaceHolderDescription value = new PlaceHolderDescription();
+    withParents(value);
+    return value;
+  }
 
 
-   public Template createPlaceHolderAndSubTemplate(String textFragment,
-         String attrName, String templateText, String listStart, String listSeparator, String listEnd)
-   {
-      Template subTemplate = this.createPlaceHolderAndSubTemplate(textFragment, attrName, templateText)
-         .withList(listStart, listSeparator, listEnd);
+  public Template createPlaceHolderAndSubTemplate(String textFragment,
+      String attrName, String templateText, String listStart, String listSeparator, String listEnd) {
+    Template subTemplate = this.createPlaceHolderAndSubTemplate(textFragment, attrName, templateText)
+        .withList(listStart, listSeparator, listEnd);
 
-      return subTemplate;
-   }
+    return subTemplate;
+  }
 
 
-   public Template createPlaceHolderAndSubTemplate(String textFragment,
-         String attrName, String templateText)
-   {
-      Template subTemplate = this.createPlaceHolderAndSubTemplate()
-         .withParent(textFragment, attrName)
-         .withTemplateText(templateText);
+  public Template createPlaceHolderAndSubTemplate(String textFragment,
+      String attrName, String templateText) {
+    Template subTemplate = this.createPlaceHolderAndSubTemplate()
+        .withParent(textFragment, attrName)
+        .withTemplateText(templateText);
 
-      return subTemplate;
-   }
+    return subTemplate;
+  }
 
-   public Template withMultiStep(String textFragment, String... properties)
-   {
-      Template subTemplate = this.createPlaceHolderAndSubTemplate()
-         .withParent(textFragment, properties[0]);
+  public Template withMultiStep(String textFragment, String... properties) {
+    Template subTemplate = this.createPlaceHolderAndSubTemplate()
+        .withParent(textFragment, properties[0]);
 
-      for (int i = 1; i < properties.length - 1; i++)
-      {
-         subTemplate = subTemplate.createPlaceHolderAndSubTemplate("_", properties[i], "_");
-      }
+    for (int i = 1; i < properties.length - 1; i++) {
+      subTemplate = subTemplate.createPlaceHolderAndSubTemplate("_", properties[i], "_");
+    }
 
-      subTemplate.withSimple(properties[properties.length - 1]);
+    subTemplate.withSimple(properties[properties.length - 1]);
 
-      return this;
-   }
+    return this;
+  }
 
-   public Template withSeparatedMultiStep(String textFragment, String listSeperator, String... properties)
-   {
-      Template subTemplate = this.createPlaceHolderAndSubTemplate()
-         .withParent(textFragment, properties[0]).withListSeparator(listSeperator);
+  public Template withSeparatedMultiStep(String textFragment, String listSeperator, String... properties) {
+    Template subTemplate = this.createPlaceHolderAndSubTemplate()
+        .withParent(textFragment, properties[0]).withListSeparator(listSeperator);
 
-      for (int i = 1; i < properties.length - 1; i++)
-      {
-         subTemplate = subTemplate.createPlaceHolderAndSubTemplate("_", properties[i], "_");
-      }
+    for (int i = 1; i < properties.length - 1; i++) {
+      subTemplate = subTemplate.createPlaceHolderAndSubTemplate("_", properties[i], "_");
+    }
 
-      subTemplate.withSimple(properties[properties.length - 1]);
+    subTemplate.withSimple(properties[properties.length - 1]);
 
-      return this;
-   }
+    return this;
+  }
 
-   // ==========================================================================
+  // ==========================================================================
 
-   public static final String PROPERTY_REFERENCELOOKUP = "referenceLookup";
+  public static final String PROPERTY_REFERENCELOOKUP = "referenceLookup";
 
-   private boolean referenceLookup = false;
+  private boolean referenceLookup = false;
 
-   public boolean getReferenceLookup()
-   {
-      return this.referenceLookup;
-   }
+  public boolean getReferenceLookup() {
+    return this.referenceLookup;
+  }
 
-   public void setReferenceLookup(boolean value)
-   {
-      if (this.referenceLookup != value)
-      {
-         boolean oldValue = this.referenceLookup;
-         this.referenceLookup = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_REFERENCELOOKUP, oldValue, value);
-      }
-   }
+  public void setReferenceLookup(boolean value) {
+    if (this.referenceLookup != value) {
+      boolean oldValue = this.referenceLookup;
+      this.referenceLookup = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_REFERENCELOOKUP, oldValue, value);
+    }
+  }
 
-   public Template withReferenceLookup(boolean value)
-   {
-      setReferenceLookup(value);
-      return this;
-   }
+  public Template withReferenceLookup(boolean value) {
+    setReferenceLookup(value);
+    return this;
+  }
 
-   // ==========================================================================
+  // ==========================================================================
 
-   public static final String PROPERTY_NAME = "name";
+  public static final String PROPERTY_NAME = "name";
 
-   private String name;
+  private String name;
 
-   public String getName()
-   {
-      return this.name;
-   }
+  public String getName() {
+    return this.name;
+  }
 
-   public void setName(String value)
-   {
-      if (!StrUtil.stringEquals(this.name, value))
-      {
-         String oldValue = this.name;
-         this.name = value;
-         getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
-      }
-   }
+  public void setName(String value) {
+    if (!StrUtil.stringEquals(this.name, value)) {
+      String oldValue = this.name;
+      this.name = value;
+      getPropertyChangeSupport().firePropertyChange(PROPERTY_NAME, oldValue, value);
+    }
+  }
 
-   public Template withName(String value)
-   {
-      setName(value);
-      return this;
-   }
+  public Template withName(String value) {
+    setName(value);
+    return this;
+  }
 
-   
-   //==========================================================================
-   
-   public boolean isReferenceLookup()
-   {
-      return this.referenceLookup;
-   }
-   
-   public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
-   {
-      if (listeners != null) {
-   		listeners.firePropertyChange(propertyName, oldValue, newValue);
-   		return true;
-   	}
-   	return false;
-   }
-   }
+
+  // ==========================================================================
+
+  public boolean isReferenceLookup() {
+    return this.referenceLookup;
+  }
+
+  public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue) {
+    if (listeners != null) {
+      listeners.firePropertyChange(propertyName, oldValue, newValue);
+      return true;
+    }
+    return false;
+  }
+}
