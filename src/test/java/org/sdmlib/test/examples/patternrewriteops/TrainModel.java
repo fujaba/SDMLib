@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 
 public class TrainModel
@@ -171,15 +171,15 @@ public class TrainModel
       Clazz trainClass = model.createClazz("Train");
       trainClass.setClassModel(model);
       
-      Clazz stationClass = model.createClazz("Station").withBidirectional(trainClass, "trains", Cardinality.MANY, "station", Cardinality.ONE);
+      Clazz stationClass = model.createClazz("Station").withBidirectional(trainClass, "trains", Association.MANY, "station", Association.ONE);
 
-      stationClass.withBidirectional(stationClass, "next", Cardinality.ONE, "prev", Cardinality.ONE);
+      stationClass.withBidirectional(stationClass, "next", Association.ONE, "prev", Association.ONE);
       
-      Clazz personClass = model.createClazz("Person").withBidirectional(stationClass, "station", Cardinality.ONE, "people", Cardinality.MANY);
+      Clazz personClass = model.createClazz("Person").withBidirectional(stationClass, "station", Association.ONE, "people", Association.MANY);
       
-      trainClass.withBidirectional(personClass, "passengers", Cardinality.MANY, "train", Cardinality.ONE);
+      trainClass.withBidirectional(personClass, "passengers", Association.MANY, "train", Association.ONE);
       
-      model.createClazz("SignalFlag").withBidirectional(stationClass, "station", Cardinality.MANY, "flag", Cardinality.ONE);
+      model.createClazz("SignalFlag").withBidirectional(stationClass, "station", Association.MANY, "flag", Association.ONE);
       
       storyboard.addClassDiagram(model);
       

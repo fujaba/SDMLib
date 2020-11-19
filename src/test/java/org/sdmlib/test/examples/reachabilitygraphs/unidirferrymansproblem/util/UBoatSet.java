@@ -21,15 +21,14 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBankSet;
+
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UCargoSet;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class UBoatSet extends SimpleSet<UBoat>
 {

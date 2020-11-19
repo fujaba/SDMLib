@@ -30,8 +30,6 @@ import org.sdmlib.test.examples.patternrewriteops.model.Train;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.PersonSet;
-import org.sdmlib.test.examples.patternrewriteops.model.util.StationSet;
 
 public class TrainSet extends SimpleSet<Train>
 {

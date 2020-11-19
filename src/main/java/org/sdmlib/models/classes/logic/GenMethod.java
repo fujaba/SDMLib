@@ -12,7 +12,6 @@ import de.uniks.networkparser.buffer.CharacterBuffer;
 import de.uniks.networkparser.graph.Annotation;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
-import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Modifier;
@@ -43,11 +42,9 @@ public class GenMethod extends Generator<Method>
       insertMethodInModelSet(clazz, modelSetParser);
       generator.printFile(modelSetParser);
 
-      if (clazzModel.hasFeature(Feature.PATTERNOBJECT)) {
-         Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
-         insertMethodInPatternObject(clazz, patternObjectParser);
-         generator.printFile(patternObjectParser);
-      }
+      Parser patternObjectParser = generator.getOrCreateParserForPatternObjectFile(helpersDir);
+      insertMethodInPatternObject(clazz, patternObjectParser);
+      generator.printFile(patternObjectParser);
 
       return this;
    }
@@ -536,19 +533,19 @@ public class GenMethod extends Generator<Method>
 
       //	   String methodName = StrUtil.upFirstChar(this.getModel().getName());
 
-      genClass.removeFragment(parser, Parser.METHOD + ":" + this.getModel().getName(false));
+      genClass.removeFragment(parser, Parser.METHOD + ":" + this.getModel().getName(false, false));
 
       CGUtil.printFile(parser);
 
       Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
 
-      genClass.removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getName(false));
+      genClass.removeFragment(poParser, Parser.METHOD + ":" + this.getModel().getName(false, false));
 
       CGUtil.printFile(poParser);
 
       Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
 
-      genClass.removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getName(false));
+      genClass.removeFragment(setParser, Parser.METHOD + ":" + this.getModel().getName(false, false));
 
       CGUtil.printFile(setParser);
    }

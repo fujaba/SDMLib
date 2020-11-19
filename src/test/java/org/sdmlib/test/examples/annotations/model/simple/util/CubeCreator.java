@@ -21,11 +21,11 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import org.sdmlib.test.examples.annotations.model.simple.Cube;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
+
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class CubeCreator implements AggregatedEntityCreator
 {

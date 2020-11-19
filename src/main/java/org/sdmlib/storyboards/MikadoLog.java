@@ -21,94 +21,108 @@
    
 package org.sdmlib.storyboards;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
+import java.awt.Color;
 import java.beans.PropertyChangeListener;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.beans.PropertyChangeSupport;
+import java.io.File;
+import java.io.IOException;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.util.Date;
 
-import org.sdmlib.CGUtil;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 import org.sdmlib.storyboards.util.LogEntrySet;
-import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.storyboards.Goal;
+
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 
 public  class MikadoLog implements SendableEntity
 {
-   public String burnDownChart()
+   public String burnDownChartPng()
    {
-      StringBuilder buf = new StringBuilder();
+      double totalHours = getTotalHours();
 
-      buf     .append("<canvas id=\"myChart\" width=\"880\" height=\"550\"></canvas>\n")
-              .append("<script>\n")
-              .append("var ctx = document.getElementById(\"myChart\").getContext('2d');")
-              .append("var myLineChart = new Chart(ctx, {\n")
-              .append("    type: 'line',\n")
-              .append("    data: {\n" +
-                      "        datasets: [\n" +
-                      "            {\n" +
-                      "                label: \"Burn Down\",\n" +
-                      "                data: [\n" +
-                      "                    burndowndatapoints" +
-                      "                ]\n" +
-                      "            }\n" +
-                      "        ]\n" +
-                      "    },\n" +
-                      "    ")
-              .append("options: {\n" +
-                      "        animation: false,\n" +
-                      "        responsive: false,\n" +
-                      "         animation: {\n" +
-                      "            onComplete: function(animation) {\n" +
-                      "                    java.screendump(\"42\");\n"+
-                      "                    java.close();\n"+
-                      "                }\n"+
-                      "         },\n"+
-                      "        scales: {\n" +
-                      "            xAxes: [{\n" +
-                      "                type: \"time\",\n" +
-                      "                time: {\n" +
-                      "                    displayFormats: {\n" +
-                      "                       'millisecond': 'DD MMM hh:mm',\n" +
-                      "                       'second': 'DD MMM hh:mm',\n" +
-                      "                       'minute': 'DD MMM hh:mm',\n" +
-                      "                       'hour': 'DD MMM hh:mm',\n" +
-                      "                       'day': 'DD MMM',\n" +
-                      "                       'week': 'DD MMM',\n" +
-                      "                       'month': 'MMM YYYY',\n" +
-                      "                       'quarter': 'MMM YYYY',\n" +
-                      "                       'year': 'YYYY',\n" +
-                      "                    }\n" +
-                      "                },\n" +
-                      "                display: true,\n" +
-                      "                scaleLabel: {\n" +
-                      "                    display: true,\n" +
-                      "                    labelString: 'Date'\n" +
-                      "                },\n" +
-                      "                ticks: {\n" +
-                      "                    major: {\n" +
-                      "                        fontStyle: \"bold\",\n" +
-                      "                        fontColor: \"#FF0000\"\n" +
-                      "                    }\n" +
-                      "                }\n" +
-                      "            }],\n" +
-                      "            yAxes: [{\n" +
-                      "                display: true,\n" +
-                      "                scaleLabel: {\n" +
-                      "                    display: true,\n" +
-                      "                    labelString: 'hours'\n" +
-                      "                },\n" +
-                      "                ticks: {\n" +
-                      "                    beginAtZero: true\n" +
-                      "                }\n" +
-                      "            }]\n" +
-                      "        }\n" +
-                      "    }")
-              .append("});\n")
-              .append("</script>\n")
-      ;
+      String series1 = "Hours";
 
+      TimeSeriesCollection dataset = new TimeSeriesCollection();
+      // dataset.setDomainIsPointsInTime(true);
+
+      final TimeSeries s1 = new TimeSeries("Series 1");
+
+
+      for (LogEntry e : this.getEntries())
+      {
+         totalHours -= e.getHoursDone();
+
+         String date = e.getDate();
+
+         try
+         {
+            OffsetDateTime odt = OffsetDateTime.parse(date);
+            Instant instant = odt.toInstant();
+            Date from = Date.from(instant);
+            Minute minute = new Minute(from);
+            s1.addOrUpdate(minute, totalHours);
+
+         }
+         catch (Exception e1)
+         {
+            e1.printStackTrace();
+         }
+      }
+
+      dataset.addSeries(s1);
+
+      JFreeChart chart = ChartFactory.createTimeSeriesChart(
+              "Project Burndown",
+              "Date",
+              "Story Hours",
+              dataset,
+              false,
+              false,
+              false
+      );
+
+      chart.setBackgroundPaint(Color.white);
+
+      XYPlot plot1 = chart.getXYPlot();
+      ValueAxis rangeAxis = plot1.getRangeAxis();
+      NumberAxis numberAxis = (NumberAxis) rangeAxis;
+      numberAxis.setAutoRangeIncludesZero(true);
+      plot1.setOutlinePaint(null);
+      plot1.setBackgroundPaint(Color.white);
+      plot1.setDomainGridlinePaint(Color.gray);
+      plot1.setRangeGridlinePaint(Color.lightGray);
+      XYLineAndShapeRenderer renderer =
+              (XYLineAndShapeRenderer) plot1.getRenderer();
+      renderer.setBaseShapesVisible(true);
+
+
+      String pngFileName = "doc/doc-files/current.png";
+      try
+      {
+         ChartUtilities.saveChartAsPNG(new File(pngFileName), chart, 880, 550);
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+
+      return pngFileName;
+   }
+
+
+   private double getTotalHours()
+   {
       // collect hours remaining
       double totalHours = 0;
       for (LogEntry e : this.getEntries())
@@ -127,19 +141,7 @@ public  class MikadoLog implements SendableEntity
       {
          totalHours += g.getHoursTodo();
       }
-
-      String burndownDataPoints = "";
-
-      for (LogEntry e : this.getEntries())
-      {
-         totalHours -= e.getHoursDone();
-         burndownDataPoints += String.format(Locale.ENGLISH, "{x: \"%s\", y: %.1f},\n", e.getDate(), totalHours);
-      }
-
-
-      CGUtil.replaceAll(buf, "burndowndatapoints", burndownDataPoints);
-
-      return buf.toString();
+      return totalHours;
    }
 
    //==========================================================================

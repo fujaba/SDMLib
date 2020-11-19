@@ -24,9 +24,7 @@ package org.sdmlib.test.examples.groupaccount;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeSupport;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
@@ -37,10 +35,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import io.moquette.server.Server;
-import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.Test;
-import org.sdmlib.models.*;
+import org.sdmlib.SimpleSDMLib;
+import org.sdmlib.models.SDMComponentListener;
+import org.sdmlib.models.YamlFileMap;
+import org.sdmlib.models.YamlIdMap;
+import org.sdmlib.models.YamlMqttMap;
+import org.sdmlib.models.Yamler;
 import org.sdmlib.models.pattern.ModelIsomorphimOp;
 import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Goal;
@@ -48,8 +54,8 @@ import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.slf4j.LoggerFactory;
-import org.slf4j.impl.SimpleLogger;
+
+import io.moquette.server.Server;
 
 public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 {
@@ -110,7 +116,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
    /**
     * 
-    * <p>Storyboard GroupAccountYamlWithUserEncoding<</p>
+    * <p>Storyboard GroupAccountYamlWithUserEncoding</p>
     * <p>Start: start mqtt broker</p>
     * <p><a name = 'step_1'>Step 1: test mqtt broker</a></p>
     * <p>Check: got mqtt message World actual World</p>
@@ -121,35 +127,38 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p>Got message:</p>
     * <pre>msg: hello
     * user: abu
-    * lastTimeStamps: 2018-04-20T17:34:08.472.abu 
+    * lastTimeStamps: 2018-08-13T16:15:06.054.abu 
     * </pre>
     * <p>Check: its a lobby message:  hello actual hello</p>
     * <p>Got message:</p>
     * <pre>msg: hello
     * user: xia
-    * lastTimeStamps: 2018-04-20T17:34:08.815.xia 
+    * lastTimeStamps: 2018-08-13T16:15:06.407.xia 
     * </pre>
     * <p>Check: its a lobby message from:  xia actual xia</p>
     * <p>Got message:</p>
     * <pre>msg: welcome
     * newUser: xia
     * oldUser: abu
-    * lastTimeStamps: 2018-04-20T17:34:08.472.abu 
+    * lastTimeStamps: 2018-08-13T16:15:06.054.abu 
     * </pre>
     * <p>Check: its a lobby message:  welcome actual welcome</p>
     * <pre>- xia.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-20T17:34:09.047.xia
+    *   saldo.time: 	2018-08-13T16:15:06.685.xia
     * </pre>
     * <pre>- p1: 	Party
     *   guests: 	xia.p3
-    *   guests.xia.p3.time: 	2018-04-20T17:34:09.057.xia
+    *   guests.xia.p3.time: 	2018-08-13T16:15:06.740.xia
     * - xia.p3: 	PersonSet
     * </pre>
     */
    @Test
    public void testGroupAccountYamlWithUserEncoding() throws InterruptedException, IOException, MqttException
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       story.addStep("start mqtt broker");
@@ -284,46 +293,46 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
     * <pre>- p1: 	Party
     *   partyName: 	&quot;Lectures Done&quot;
-    *   partyName.time: 	2018-04-22T15:51:37.821.albert
+    *   partyName.time: 	2018-08-13T16:15:24.101.albert
     * - p1: 	Party
     *   share: 	0.0
-    *   share.time: 	2018-04-22T15:51:37.821.albert
+    *   share.time: 	2018-08-13T16:15:24.101.albert
     * - p1: 	Party
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.101.albert
     * - albert.p2: 	Person
     *   name: 	Albert
-    *   name.time: 	2018-04-22T15:51:37.821.albert
+    *   name.time: 	2018-08-13T16:15:24.103.albert
     * - albert.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:37.821.albert
+    *   saldo.time: 	2018-08-13T16:15:24.105.albert
     * - albert.p2: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.105.albert
     * - albert.p2: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:37.821.albert
+    *   party.time: 	2018-08-13T16:15:24.105.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p2
-    *   guests.albert.p2.time: 	2018-04-22T15:51:37.821.albert
+    *   guests.albert.p2.time: 	2018-08-13T16:15:24.109.albert
     * - albert.p2: 	Person
     * - albert.p3: 	Person
     *   name: 	Nathalie
-    *   name.time: 	2018-04-22T15:51:37.821.albert
+    *   name.time: 	2018-08-13T16:15:24.109.albert
     * - albert.p3: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:37.821.albert
+    *   saldo.time: 	2018-08-13T16:15:24.110.albert
     * - albert.p3: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-13T16:15:24.110.albert
     * - albert.p3: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:37.821.albert
+    *   party.time: 	2018-08-13T16:15:24.116.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p3
-    *   guests.albert.p3.time: 	2018-04-22T15:51:37.821.albert
+    *   guests.albert.p3.time: 	2018-08-13T16:15:24.116.albert
     * - albert.p3: 	Person
     * </pre>
     * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
@@ -332,10 +341,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <p><a name = 'step_4'>Step 4: deal with link removal</a></p>
     * <pre>- albert.p3: 	Person
     *   party.remove: 	p1
-    *   party.remove.time: 	2018-04-22T15:51:37.836.albert
+    *   party.remove.time: 	2018-08-13T16:15:24.130.albert
     * - p1: 	Party
     *   guests.remove: 	albert.p3
-    *   guests.remove.albert.p3.time: 	2018-04-22T15:51:37.836.albert
+    *   guests.remove.albert.p3.time: 	2018-08-13T16:15:24.130.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>original model</p>
@@ -344,7 +353,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png">
     * <p><a name = 'step_5'>Step 5: deal with object removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
+    *   Person.remove.time: 	2018-08-13T16:15:24.614.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>Check: orig idmap has removed natanull</p>
@@ -354,29 +363,32 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
     * <img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png">
     * <p><a name = 'step_6'>Step 6: add objects after removal</a></p>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
+    *   Person.remove.time: 	2018-08-13T16:15:24.614.albert
     * - albert.p4: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:39.491.albert
+    *   saldo.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:39.491.albert
+    *   total.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:39.491.albert
+    *   party.time: 	2018-08-13T16:15:24.926.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p4
-    *   guests.albert.p4.time: 	2018-04-22T15:51:39.491.albert
+    *   guests.albert.p4.time: 	2018-08-13T16:15:24.926.albert
     * - albert.p4: 	Person
     * - albert.p4: 	Person
     *   name: 	Ann
-    *   name.time: 	2018-04-22T15:51:39.492.albert
+    *   name.time: 	2018-08-13T16:15:24.926.albert
     * </pre>
     */
    @Test
    public void testGroupAccountMultiUserYamlMerging() throws InterruptedException
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       story.addStep("Create two parties");
@@ -451,108 +463,111 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    }
 
 
+
    /**
-    *
-    * <p>Storyboard GroupAccountMultiUserYaml</p>
-    * <p>Start: create a party data structure and store it with YamlIdMap</p>
-    * <img src="doc-files/GroupAccountMultiUserYamlStep1.png" alt="GroupAccountMultiUserYamlStep1.png">
-    * <p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
+    * 
+    * <h3>Storyboard GroupAccountMultiUserYaml</h3>
+    * <h4><a name = 'step_1'>Step 1: create a party data structure and store it with YamlIdMap</a></h4>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep1.png" alt="GroupAccountMultiUserYamlStep1.png" width='243'>
+    * <h4><a name = 'step_2'>Step 2: add component listener and log changes in yaml format</a></h4>
     * <pre>- p1: 	Party
     *   partyName: 	&quot;Lectures Done&quot;
-    *   partyName.time: 	2018-04-22T15:51:37.821.albert
+    *   partyName.time: 	2018-08-28T12:37:35.077.albert
     * - p1: 	Party
     *   share: 	0.0
-    *   share.time: 	2018-04-22T15:51:37.821.albert
+    *   share.time: 	2018-08-28T12:37:35.078.albert
     * - p1: 	Party
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p2: 	Person
     *   name: 	Albert
-    *   name.time: 	2018-04-22T15:51:37.821.albert
+    *   name.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p2: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:37.821.albert
+    *   saldo.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p2: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p2: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:37.821.albert
+    *   party.time: 	2018-08-28T12:37:35.078.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p2
-    *   guests.albert.p2.time: 	2018-04-22T15:51:37.821.albert
+    *   guests.albert.p2.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p2: 	Person
     * - albert.p3: 	Person
     *   name: 	Nathalie
-    *   name.time: 	2018-04-22T15:51:37.821.albert
+    *   name.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p3: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:37.821.albert
+    *   saldo.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p3: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:37.821.albert
+    *   total.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p3: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:37.821.albert
+    *   party.time: 	2018-08-28T12:37:35.078.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p3
-    *   guests.albert.p3.time: 	2018-04-22T15:51:37.821.albert
+    *   guests.albert.p3.time: 	2018-08-28T12:37:35.078.albert
     * - albert.p3: 	Person
     * </pre>
-    * <p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
-    * <p><a name = 'step_3'>Step 3: check isomorphism</a></p>
+    * <h4><a name = 'step_3'>Step 3: load changes into second model, continuously. </a></h4>
+    * <h4><a name = 'step_4'>Step 4: check isomorphism</a></h4>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
-    * <p><a name = 'step_4'>Step 4: deal with link removal</a></p>
+    * <h4><a name = 'step_5'>Step 5: deal with link removal</a></h4>
     * <pre>- albert.p3: 	Person
     *   party.remove: 	p1
-    *   party.remove.time: 	2018-04-22T15:51:37.836.albert
+    *   party.remove.time: 	2018-08-28T12:37:35.078.albert
     * - p1: 	Party
     *   guests.remove: 	albert.p3
-    *   guests.remove.albert.p3.time: 	2018-04-22T15:51:37.836.albert
+    *   guests.remove.albert.p3.time: 	2018-08-28T12:37:35.078.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>original model</p>
-    * <img src="doc-files/GroupAccountMultiUserYamlStep11.png" alt="GroupAccountMultiUserYamlStep11.png">
+    * <img src="doc-files/GroupAccountMultiUserYamlStep11.png" alt="GroupAccountMultiUserYamlStep11.png" width='184'>
     * <p>cloned model</p>
-    * <img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png">
-    * <p><a name = 'step_5'>Step 5: deal with object removal</a></p>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png" width='184'>
+    * <h4><a name = 'step_6'>Step 6: deal with object removal</a></h4>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
+    *   Person.remove.time: 	2018-08-28T12:37:35.279.albert
     * </pre>
     * <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
     * <p>Check: orig idmap has removed natanull</p>
     * <p>original model</p>
-    * <img src="doc-files/GroupAccountMultiUserYamlStep19.png" alt="GroupAccountMultiUserYamlStep19.png">
+    * <img src="doc-files/GroupAccountMultiUserYamlStep19.png" alt="GroupAccountMultiUserYamlStep19.png" width='184'>
     * <p>cloned model</p>
-    * <img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png">
-    * <p><a name = 'step_6'>Step 6: add objects after removal</a></p>
+    * <img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png" width='184'>
+    * <h4><a name = 'step_7'>Step 7: add objects after removal</a></h4>
     * <pre>- albert.p3: 	Person.remove
-    *   Person.remove.time: 	2018-04-22T15:51:38.631.albert
+    *   Person.remove.time: 	2018-08-28T12:37:35.279.albert
     * - albert.p4: 	Person
     *   saldo: 	0.0
-    *   saldo.time: 	2018-04-22T15:51:39.491.albert
+    *   saldo.time: 	2018-08-28T12:37:35.412.albert
     * - albert.p4: 	Person
     *   total: 	0.0
-    *   total.time: 	2018-04-22T15:51:39.491.albert
+    *   total.time: 	2018-08-28T12:37:35.412.albert
     * - albert.p4: 	Person
     *   party: 	p1
-    *   party.time: 	2018-04-22T15:51:39.491.albert
+    *   party.time: 	2018-08-28T12:37:35.412.albert
     * - p1: 	Party
     * - p1: 	Party
     *   guests: 	albert.p4
-    *   guests.albert.p4.time: 	2018-04-22T15:51:39.491.albert
+    *   guests.albert.p4.time: 	2018-08-28T12:37:35.412.albert
     * - albert.p4: 	Person
     * - albert.p4: 	Person
     *   name: 	Ann
-    *   name.time: 	2018-04-22T15:51:39.492.albert
+    *   name.time: 	2018-08-28T12:37:35.412.albert
     * </pre>
-    * @see <a href='../../../../../../../../doc/GroupAccountMultiUserYaml.html'>GroupAccountMultiUserYaml.html</a>
     */
    @Test
    public void testGroupAccountMultiUserYaml()
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard();
 
       story.addStep("create a party data structure and store it with YamlIdMap");
@@ -561,7 +576,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       Person albert = victoryParty.createGuests().withName("Albert");
       Person nata = victoryParty.createGuests().withName("Nathalie");
 
-      story.addObjectDiagramViaGraphViz(victoryParty);
+      story.addObjectDiagram(victoryParty);
 
 
       story.addStep("add component listener and log changes in yaml format");
@@ -608,10 +623,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       story.assertNotNull("match", match);
 
       story.add("original model");
-      story.addObjectDiagramViaGraphViz(victoryParty);
+      story.addObjectDiagram(victoryParty);
 
       story.add("cloned model");
-      story.addObjectDiagramViaGraphViz(copyParty);
+      story.addObjectDiagram(copyParty);
 
 
       //----------------------------------------------------------------------------
@@ -636,10 +651,10 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
       story.assertNull("orig idmap has removed nata", p3);
 
       story.add("original model");
-      story.addObjectDiagramViaGraphViz(victoryParty);
+      story.addObjectDiagram(victoryParty);
 
       story.add("cloned model");
-      story.addObjectDiagramViaGraphViz(copyParty);
+      story.addObjectDiagram(copyParty);
 
       //----------------------------------------------------------------------------
       story.addStep("add objects after removal");
@@ -659,545 +674,13 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
    }
 
 
-   /**
-    * 
-    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountTests.java' type='text/x-java'>MultiUserGroupAccountProjectPlan</a></p>
-    * <p>Start: Project plan: </p>
-    * <canvas id="myChart" width="880" height="550"></canvas>
-    * <script>
-    * var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
-    *     type: 'line',
-    *     data: {
-    *         datasets: [
-    *             {
-    *                 label: "Burn Down",
-    *                 data: [
-    *                     {x: "2018-02-28T12:00:00+01:00", y: 41.6},
-    * {x: "2018-02-28T15:00:00+01:00", y: 39.6},
-    * {x: "2018-02-28T16:00:00+01:00", y: 37.6},
-    * {x: "2018-03-01T21:30:00+01:00", y: 36.6},
-    * {x: "2018-03-01T22:30:00+01:00", y: 35.6},
-    * {x: "2018-03-01T23:30:00+01:00", y: 35.6},
-    * {x: "2018-03-02T00:30:00+01:00", y: 34.6},
-    * {x: "2018-03-02T14:17:00+01:00", y: 33.6},
-    * {x: "2018-03-09T14:00:00+01:00", y: 33.1},
-    * {x: "2018-03-11T22:00:00+01:00", y: 31.1},
-    * {x: "2018-03-11T23:57:00+01:00", y: 29.1},
-    * {x: "2018-03-12T18:30:00+01:00", y: 27.1},
-    * {x: "2018-03-13T15:45:00+01:00", y: 25.1},
-    * {x: "2018-03-13T16:00:00+01:00", y: 25.0},
-    * {x: "2018-03-16T14:30:00+01:00", y: 22.0},
-    * {x: "2018-03-17T15:12:00+01:00", y: 21.0},
-    * {x: "2018-03-17T16:00:00+01:00", y: 20.0},
-    *                 ]
-    *             }
-    *         ]
-    *     },
-    *     options: {
-    *         animation: false,
-    *         responsive: false,
-    *          animation: {
-    *             onComplete: function(animation) {
-    *                     java.screendump("42");
-    *                     java.close();
-    *                 }
-    *          },
-    *         scales: {
-    *             xAxes: [{
-    *                 type: "time",
-    *                 time: {
-    *                     displayFormats: {
-    *                        'millisecond': 'DD MMM hh:mm',
-    *                        'second': 'DD MMM hh:mm',
-    *                        'minute': 'DD MMM hh:mm',
-    *                        'hour': 'DD MMM hh:mm',
-    *                        'day': 'DD MMM',
-    *                        'week': 'DD MMM',
-    *                        'month': 'MMM YYYY',
-    *                        'quarter': 'MMM YYYY',
-    *                        'year': 'YYYY',
-    *                     }
-    *                 },
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'Date'
-    *                 },
-    *                 ticks: {
-    *                     major: {
-    *                         fontStyle: "bold",
-    *                         fontColor: "#FF0000"
-    *                     }
-    *                 }
-    *             }],
-    *             yAxes: [{
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'hours'
-    *                 },
-    *                 ticks: {
-    *                     beginAtZero: true
-    *                 }
-    *             }]
-    *         }
-    *     }});
-    * </script>
-    * <p><a name = 'step_1'>Step 1: open goals</a></p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"G1 : Goal",
-    *          "attributes":[
-    *             "description=Multi User Group Account",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G2 : Goal",
-    *          "attributes":[
-    *             "description=Gui Integration",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G3 : Goal",
-    *          "attributes":[
-    *             "description=YamlReplication",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G4 : Goal",
-    *          "attributes":[
-    *             "description=session protocols",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G5 : Goal",
-    *          "attributes":[
-    *             "description=refactor yaml file map",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=4.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G2 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G3 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G4 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G5 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G1 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G3 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G2 : Goal"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasMultiUserGroupAccountProjectPlan4", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
-    * <p><a name = 'step_2'>Step 2: closed goals</a></p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"G10 : Goal",
-    *          "attributes":[
-    *             "description=Persistence",
-    *             "hoursDone=3.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G11 : Goal",
-    *          "attributes":[
-    *             "description=Isomorphism Check",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G12 : Goal",
-    *          "attributes":[
-    *             "description=plain yaml",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G13 : Goal",
-    *          "attributes":[
-    *             "description=Write",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G14 : Goal",
-    *          "attributes":[
-    *             "description=Read",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G15 : Goal",
-    *          "attributes":[
-    *             "description=Remove Link",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G16 : Goal",
-    *          "attributes":[
-    *             "description=Remove Object",
-    *             "hoursDone=2.5",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G17 : Goal",
-    *          "attributes":[
-    *             "description=session ids",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G18 : Goal",
-    *          "attributes":[
-    *             "description=merge conflicts",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G19 : Goal",
-    *          "attributes":[
-    *             "description=timeStamps",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G20 : Goal",
-    *          "attributes":[
-    *             "description=yaml reader",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G6 : Goal",
-    *          "attributes":[
-    *             "description=done",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G7 : Goal",
-    *          "attributes":[
-    *             "description=Simple party objects",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G8 : Goal",
-    *          "attributes":[
-    *             "description=Component Listener",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G9 : Goal",
-    *          "attributes":[
-    *             "description=Yaml Deltas",
-    *             "hoursDone=0.1",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G7 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G8 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G9 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G10 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G11 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G12 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G13 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G9 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G14 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G9 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G15 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G9 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G16 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G9 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G17 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G9 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G18 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G9 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G19 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G9 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G20 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G12 : Goal"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasMultiUserGroupAccountProjectPlan6", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
-    */
+
    @Test
    public void testMultiUserGroupAccountProjectPlan()
    {
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       Storyboard story = new Storyboard().withDocDirName("doc/internal");
 
       story.addStep("Project plan: ");
@@ -1350,7 +833,7 @@ public class GroupAccountTests implements PropertyChangeInterface, MqttCallback
 
 
 
-      story.add(mikadoLog.burnDownChart());
+      story.add(mikadoLog.burnDownChartPng());
 
       Goal done = multiUserGroupAccount.clipDone();
 

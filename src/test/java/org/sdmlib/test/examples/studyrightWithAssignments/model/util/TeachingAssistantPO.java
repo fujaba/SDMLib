@@ -3,11 +3,8 @@ package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, TeachingAssistant>
 {
@@ -90,128 +87,6 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
-   public TeachingAssistantPO createNameCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TeachingAssistantPO createNameCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TeachingAssistantPO createNameAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((TeachingAssistant) getCurrentMatch()).getName();
-      }
-      return null;
-   }
-   
-   public TeachingAssistantPO withName(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((TeachingAssistant) getCurrentMatch()).setName(value);
-      }
-      return this;
-   }
-   
-   public TeachingAssistantPO createIdCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_ID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TeachingAssistantPO createIdCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_ID)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TeachingAssistantPO createIdAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_ID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getId()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((TeachingAssistant) getCurrentMatch()).getId();
-      }
-      return null;
-   }
-   
-   public TeachingAssistantPO withId(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((TeachingAssistant) getCurrentMatch()).setId(value);
-      }
-      return this;
-   }
-   
    public TeachingAssistantPO createAssignmentPointsCondition(int value)
    {
       new AttributeConstraint()
@@ -269,67 +144,6 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       if (this.getPattern().getHasMatch())
       {
          ((TeachingAssistant) getCurrentMatch()).setAssignmentPoints(value);
-      }
-      return this;
-   }
-   
-   public TeachingAssistantPO createMotivationCondition(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_MOTIVATION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TeachingAssistantPO createMotivationCondition(int lower, int upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_MOTIVATION)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public TeachingAssistantPO createMotivationAssignment(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(TeachingAssistant.PROPERTY_MOTIVATION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public int getMotivation()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((TeachingAssistant) getCurrentMatch()).getMotivation();
-      }
-      return 0;
-   }
-   
-   public TeachingAssistantPO withMotivation(int value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((TeachingAssistant) getCurrentMatch()).setMotivation(value);
       }
       return this;
    }
@@ -395,162 +209,189 @@ public class TeachingAssistantPO extends PatternObject<TeachingAssistantPO, Teac
       return this;
    }
    
-   public UniversityPO createUniversityPO()
+   public TeachingAssistantPO createIdCondition(String value)
    {
-      UniversityPO result = new UniversityPO(new University[]{});
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_ID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
       
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Student.PROPERTY_UNIVERSITY, result);
+      super.filterAttr();
       
-      return result;
+      return this;
    }
-
-   public UniversityPO createUniversityPO(String modifier)
+   
+   public TeachingAssistantPO createIdCondition(String lower, String upper)
    {
-      UniversityPO result = new UniversityPO(new University[]{});
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_ID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
       
-      result.setModifier(modifier);
-      super.hasLink(Student.PROPERTY_UNIVERSITY, result);
+      super.filterAttr();
       
-      return result;
+      return this;
    }
-
-   public TeachingAssistantPO createUniversityLink(UniversityPO tgt)
+   
+   public TeachingAssistantPO createIdAssignment(String value)
    {
-      return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY);
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_ID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
    }
-
-   public TeachingAssistantPO createUniversityLink(UniversityPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY, modifier);
-   }
-
-   public University getUniversity()
+   
+   public String getId()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Student) this.getCurrentMatch()).getUniversity();
+         return ((TeachingAssistant) getCurrentMatch()).getId();
       }
       return null;
    }
-
-   public RoomPO createInPO()
-   {
-      RoomPO result = new RoomPO(new Room[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Student.PROPERTY_IN, result);
-      
-      return result;
-   }
-
-   public RoomPO createInPO(String modifier)
-   {
-      RoomPO result = new RoomPO(new Room[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Student.PROPERTY_IN, result);
-      
-      return result;
-   }
-
-   public TeachingAssistantPO createInLink(RoomPO tgt)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_IN);
-   }
-
-   public TeachingAssistantPO createInLink(RoomPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_IN, modifier);
-   }
-
-   public Room getIn()
+   
+   public TeachingAssistantPO withId(String value)
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Student) this.getCurrentMatch()).getIn();
+         ((TeachingAssistant) getCurrentMatch()).setId(value);
       }
-      return null;
+      return this;
    }
-
-   public StudentPO createFriendsPO()
+   
+   public TeachingAssistantPO createMotivationCondition(int value)
    {
-      StudentPO result = new StudentPO(new Student[]{});
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_MOTIVATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
       
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Student.PROPERTY_FRIENDS, result);
+      super.filterAttr();
       
-      return result;
+      return this;
    }
-
-   public StudentPO createFriendsPO(String modifier)
+   
+   public TeachingAssistantPO createMotivationCondition(int lower, int upper)
    {
-      StudentPO result = new StudentPO(new Student[]{});
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_MOTIVATION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
       
-      result.setModifier(modifier);
-      super.hasLink(Student.PROPERTY_FRIENDS, result);
+      super.filterAttr();
       
-      return result;
+      return this;
    }
-
-   public TeachingAssistantPO createFriendsLink(StudentPO tgt)
+   
+   public TeachingAssistantPO createMotivationAssignment(int value)
    {
-      return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS);
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_MOTIVATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
    }
-
-   public TeachingAssistantPO createFriendsLink(StudentPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS, modifier);
-   }
-
-   public StudentSet getFriends()
+   
+   public int getMotivation()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Student) this.getCurrentMatch()).getFriends();
+         return ((TeachingAssistant) getCurrentMatch()).getMotivation();
       }
-      return null;
+      return 0;
    }
-
-   public AssignmentPO createDonePO()
-   {
-      AssignmentPO result = new AssignmentPO(new Assignment[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Student.PROPERTY_DONE, result);
-      
-      return result;
-   }
-
-   public AssignmentPO createDonePO(String modifier)
-   {
-      AssignmentPO result = new AssignmentPO(new Assignment[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Student.PROPERTY_DONE, result);
-      
-      return result;
-   }
-
-   public TeachingAssistantPO createDoneLink(AssignmentPO tgt)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_DONE);
-   }
-
-   public TeachingAssistantPO createDoneLink(AssignmentPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_DONE, modifier);
-   }
-
-   public AssignmentSet getDone()
+   
+   public TeachingAssistantPO withMotivation(int value)
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Student) this.getCurrentMatch()).getDone();
+         ((TeachingAssistant) getCurrentMatch()).setMotivation(value);
+      }
+      return this;
+   }
+   
+   public TeachingAssistantPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TeachingAssistantPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public TeachingAssistantPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(TeachingAssistant.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((TeachingAssistant) getCurrentMatch()).getName();
       }
       return null;
    }
-
+   
+   public TeachingAssistantPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((TeachingAssistant) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
    public RoomPO createRoomPO()
    {
       RoomPO result = new RoomPO(new Room[]{});

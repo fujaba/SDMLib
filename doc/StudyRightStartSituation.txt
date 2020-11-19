@@ -7,10 +7,7 @@
 	id:	4242				
 	name:	karli				
 						
--	albert: 	Prof				
-	topic:	SE				
-						
--	Assignment	content:	points:			
+-	Assignment	content:	points:
 	matrixMult:	"""Matrix Multiplication"""	5			
 	series:	Series	6			
 	a3:	Integrals	8			

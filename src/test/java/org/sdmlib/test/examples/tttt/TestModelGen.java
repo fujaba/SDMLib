@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Annotation;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Attribute;
-import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.DataTypeSet;
@@ -34,7 +34,7 @@ public class TestModelGen {
 		Method doitMethod = person.createMethod("doit");
 		person.enableInterface();
 		
-		uni.withBidirectional(person, "has", Cardinality.MANY, "owner", Cardinality.ONE);
+		uni.withBidirectional(person, "has", Association.MANY, "owner", Association.ONE);
 		
 //		model.generate("src/test/java");
 //		

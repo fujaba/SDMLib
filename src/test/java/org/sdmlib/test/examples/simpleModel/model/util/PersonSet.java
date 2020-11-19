@@ -27,7 +27,6 @@ import org.sdmlib.test.examples.simpleModel.model.Person;
 
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import de.uniks.networkparser.list.ObjectSet;
 
 public class PersonSet extends SimpleSet<Person>
 {

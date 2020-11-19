@@ -25,7 +25,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/SimpleModelWithSet/testSimpleSetModel.java'>testSimpleSetModel.java</a>

@@ -14,6 +14,7 @@ import org.sdmlib.models.objects.util.GenericObjectSet;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.converter.GraphConverter;
 import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.AssociationSet;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Attribute;
 import de.uniks.networkparser.graph.Clazz;
@@ -22,7 +23,6 @@ import de.uniks.networkparser.graph.GraphTokener;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
-import de.uniks.networkparser.graph.util.AssociationSet;
 import de.uniks.networkparser.interfaces.Entity;
 import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.json.JsonObject;
@@ -70,7 +70,7 @@ public class Javascript implements GuiAdapter
 
       // new diagram
       GraphConverter graphConverter = new GraphConverter();
-      Entity objectModel = graphConverter.convertToJson(GraphTokener.OBJECT, jsonArray, true);
+      Entity objectModel = graphConverter.convertToJson(GraphTokener.OBJECTDIAGRAM, jsonArray, true);
 
       String text =
             "<script>\n" +
@@ -197,7 +197,7 @@ public class Javascript implements GuiAdapter
 	         JsonArray jsonMethods = new JsonArray();
 	         for (Method method : clazz.getMethods())
 	         {
-	        	 jsonMethods.add("" + method.getName(false));
+	        	 jsonMethods.add("" + method.getName(false, false));
 	         }
 	         if(jsonMethods.size()>0){
 	        	 jsonClazz.put("methods", jsonMethods);
@@ -229,7 +229,7 @@ public class Javascript implements GuiAdapter
 //	         Role target = assoc.getTarget();
 	         
 	         jsonRole.put("id", assoc.getClazz().getName(true));
-	         if(assoc.getCardinality() != null) {
+	         if(assoc.getCardinality() != 0) {
 	        	 jsonRole.put("cardinality", assoc.getCardinality());
 	        	 jsonRole.put("property", assoc.getName());
 	         }

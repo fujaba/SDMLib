@@ -30,7 +30,6 @@ import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgSet;
 
 public class MSChatChannelSet extends SimpleSet<MSChatChannel>
 {

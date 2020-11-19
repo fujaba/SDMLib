@@ -25,8 +25,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.tables.Column;
-import org.sdmlib.models.tables.Row;
 /**
  * 
  * @see <a href='../../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>

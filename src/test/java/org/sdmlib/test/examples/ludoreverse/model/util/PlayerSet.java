@@ -30,7 +30,6 @@ import org.sdmlib.test.examples.ludoreverse.model.Player;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.ludoreverse.model.util.LudoSet;
 
 public class PlayerSet extends SimpleSet<Player>
 {

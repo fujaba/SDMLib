@@ -28,8 +28,6 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.simpleEnumModel.model.Alex;
-import org.sdmlib.test.examples.simpleEnumModel.model.TEnum;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/simpleEnumModel/SimpleClassModelWithEnumeration.java'>SimpleClassModelWithEnumeration.java</a>

@@ -21,16 +21,15 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.annotations.model.simple.House;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.annotations.model.simple.util.DoorSet;
+
 import org.sdmlib.test.examples.annotations.model.simple.Door;
-import org.sdmlib.test.examples.annotations.model.simple.util.WindowSet;
+import org.sdmlib.test.examples.annotations.model.simple.House;
 import org.sdmlib.test.examples.annotations.model.simple.Window;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class HouseSet extends SimpleSet<House>
 {
@@ -168,7 +167,7 @@ public class HouseSet extends SimpleSet<House>
    /**
     * Loop through current set of ModelType objects and attach the House object passed as parameter to the Doors attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Doors attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Doors attributes.
     */
    public HouseSet withDoors(Door value)
    {
@@ -183,7 +182,7 @@ public class HouseSet extends SimpleSet<House>
    /**
     * Loop through current set of ModelType objects and remove the House object passed as parameter from the Doors attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public HouseSet withoutDoors(Door value)
    {
@@ -248,7 +247,7 @@ public class HouseSet extends SimpleSet<House>
    /**
     * Loop through current set of ModelType objects and attach the House object passed as parameter to the Windows attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Windows attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Windows attributes.
     */
    public HouseSet withWindows(Window value)
    {
@@ -263,7 +262,7 @@ public class HouseSet extends SimpleSet<House>
    /**
     * Loop through current set of ModelType objects and remove the House object passed as parameter from the Windows attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public HouseSet withoutWindows(Window value)
    {

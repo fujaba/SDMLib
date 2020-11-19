@@ -1,16 +1,13 @@
 package org.sdmlib.test.examples.maumau.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
 import org.sdmlib.test.examples.maumau.model.Suit;
 import org.sdmlib.test.examples.maumau.model.Value;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.maumau.model.util.MauMauPO;
-import org.sdmlib.test.examples.maumau.model.util.CardPO;
-import org.sdmlib.test.examples.maumau.model.util.HolderPO;
 
 public class CardPO extends PatternObject<CardPO, Card>
 {

@@ -31,15 +31,9 @@ import org.sdmlib.models.pattern.MatchOtherThen;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.AttributeConstraintSet;
-import org.sdmlib.models.pattern.util.DestroyObjectElemSet;
-import org.sdmlib.models.pattern.util.PatternSet;
-import org.sdmlib.models.pattern.util.MatchOtherThenSet;
-import org.sdmlib.models.pattern.util.CardinalityConstraintSet;
 
 public class PatternObjectSet extends SimpleSet<PatternObject>
 {

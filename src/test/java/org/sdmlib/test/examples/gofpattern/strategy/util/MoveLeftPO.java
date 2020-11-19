@@ -3,8 +3,6 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import org.sdmlib.test.examples.gofpattern.strategy.MoveLeft;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategyPO;
-import org.sdmlib.test.examples.gofpattern.strategy.util.MoveLeftPO;
 
 public class MoveLeftPO extends PatternObject<MoveLeftPO, MoveLeft>
 {

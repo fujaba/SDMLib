@@ -3,7 +3,7 @@ package org.sdmlib.test.examples.features;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.Feature;
 
@@ -19,8 +19,8 @@ public class FeatureTest {
 //		Clazz door = model.createClazz("Door");
 //		Clazz window = model.createClazz("Window");
 //		
-//		house.withBidirectional(door, "doors", Cardinality.MANY, "house", Cardinality.ONE);
-//		house.withBidirectional(window, "windows", Cardinality.MANY, "house", Cardinality.ONE);
+//		house.withBidirectional(door, "doors", Association.MANY, "house", Association.ONE);
+//		house.withBidirectional(window, "windows", Association.MANY, "house", Association.ONE);
 //		
 //		model.generate("src/test/java");
 //	}
@@ -34,8 +34,8 @@ public class FeatureTest {
 		Clazz door = model.createClazz("Door");
 		Clazz window = model.createClazz("Window");
 		
-		house.withBidirectional(door, "doors", Cardinality.MANY, "house", Cardinality.ONE);
-		house.withBidirectional(window, "windows", Cardinality.MANY, "house", Cardinality.ONE);
+		house.withBidirectional(door, "doors", Association.MANY, "house", Association.ONE);
+		house.withBidirectional(window, "windows", Association.MANY, "house", Association.ONE);
 		
 		model.generate("src/test/java");
 	}
@@ -49,8 +49,8 @@ public class FeatureTest {
 		Clazz door = model.createClazz("Door");
 		Clazz window = model.createClazz("Window");
 		
-		house.withBidirectional(door, "doors", Cardinality.MANY, "house", Cardinality.ONE);
-		house.withBidirectional(window, "windows", Cardinality.MANY, "house", Cardinality.ONE);
+		house.withBidirectional(door, "doors", Association.MANY, "house", Association.ONE);
+		house.withBidirectional(window, "windows", Association.MANY, "house", Association.ONE);
 		
 		model.generate("src/test/java");
 	}
@@ -64,8 +64,8 @@ public class FeatureTest {
 //		Clazz door = model.createClazz("Door");
 //		Clazz window = model.createClazz("Window");
 //		
-//		house.withBidirectional(door, "doors", Cardinality.MANY, "house", Cardinality.ONE);
-//		house.withBidirectional(window, "windows", Cardinality.MANY, "house", Cardinality.ONE);
+//		house.withBidirectional(door, "doors", Association.MANY, "house", Association.ONE);
+//		house.withBidirectional(window, "windows", Association.MANY, "house", Association.ONE);
 //		
 //		model.generate("src/test/java");
 //	}

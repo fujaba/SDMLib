@@ -62,6 +62,8 @@ repositories {
     //mavenLocal()
     mavenCentral()
 
+	maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+
     // NetworkParser
 	if((gitVersion.isMaster() || isTravisSnapshot())== false) {
 			maven { url "http://oss.sonatype.org/content/repositories/snapshots" }
@@ -74,11 +76,12 @@ repositories {
 }
 
 dependencies {
-    implementation group: "junit", name: "junit", version: "4.+"
+	implementation(group: 'junit', name: 'junit', version: '[4,)')
 	implementation "org.eclipse.paho:org.eclipse.paho.client.mqttv3:+"
 	// https://mvnrepository.com/artifact/jfree/jfreechart
 	implementation  group: 'jfree', name: 'jfreechart', version: '+'
 
+	implementation 'org.gradle:gradle-tooling-api:4.3.+'
 
 	testImplementation 'org.testfx:testfx-junit:4.0+'
 
@@ -92,23 +95,23 @@ dependencies {
 		if (new File("../NetworkParser/build/libs/networkparser.local.jar").exists() )
 		{
 			println "using local networkparser.local.jar"
-			implementation files("../NetworkParser/build/libs/networkparser.local.jar")
+			compile files("../NetworkParser/build/libs/networkparser.local.jar")
 		}
 		else if((gitVersion.isMaster())) //  || isTravisSnapshot())== false)
 		{
 			println "using master networkparser.jar "
-			implementation group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources18", changing: true
+			compile group: "de.uniks", name: "NetworkParser", version: "latest.integration", classifier:"sources18", changing: true
 		}
 		else
 		{
 			println "using snapshot jar"
-			implementation 'de.uniks:NetworkParser:4.7.+:sources18'
+			compile 'de.uniks:NetworkParser:4.7.+:sources18'
 		}
 	}
 	else
 	{
 		println "using local networkparser"
-		implementation fileTree(dir: "../NetworkParser/build/libs", include: ['networkparser.local.jar'])
+		compile fileTree(dir: "../NetworkParser/build/libs", include: ['networkparser.local.jar'])
 	}
 }
 
@@ -138,7 +141,7 @@ jacocoTestReport {
 test {
     testLogging {
 		events "failed"
-		exceptionFormat "short"
+		exceptionFormat "full"
 		showStackTraces	true
 		showStandardStreams true
 		showCauses true

@@ -3,7 +3,6 @@ package org.sdmlib.test.examples.groupaccount.gui;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
-import javafx.beans.Observable;
 import org.sdmlib.test.examples.groupaccount.model.Item;
 
 import javafx.geometry.Pos;

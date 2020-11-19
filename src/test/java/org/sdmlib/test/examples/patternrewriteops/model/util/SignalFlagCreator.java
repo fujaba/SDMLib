@@ -21,10 +21,11 @@
    
 package org.sdmlib.test.examples.patternrewriteops.model.util;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import org.sdmlib.test.examples.patternrewriteops.model.SignalFlag;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.patternrewriteops.model.Station;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class SignalFlagCreator implements SendableEntityCreator
 {

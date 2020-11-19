@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.groupaccount.model.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.groupaccount.model.Party;
+
+import de.uniks.networkparser.IdMap;
 
 public class PartyPOCreator extends PatternObjectCreator
 {

@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Modifier;
@@ -386,24 +386,24 @@ public class LudoModel
       point.withExternal(true);
       
       Clazz player = model.createClazz("Player")
-            .withBidirectional(ludo, "game", Cardinality.ONE, "players", Cardinality.MANY)
+            .withBidirectional(ludo, "game", Association.ONE, "players", Association.MANY)
             .withAttribute("color", DataType.STRING)
             .withAttribute("enumColor", DataType.create(LudoColor.class))
             .withAttribute("name", DataType.STRING)
             .withAttribute("x", DataType.INT)
             .withAttribute("y", DataType.INT);
       
-      player.withBidirectional(player, "next", Cardinality.ONE, "prev", Cardinality.ONE);
+      player.withBidirectional(player, "next", Association.ONE, "prev", Association.ONE);
       
       Clazz dice = model.createClazz("Dice")
-            .withBidirectional(ludo, "game", Cardinality.ONE, "dice", Cardinality.ONE);
+            .withBidirectional(ludo, "game", Association.ONE, "dice", Association.ONE);
       
       dice.withAttribute("value", DataType.INT);
       
-      player.withBidirectional(dice, "dice", Cardinality.ONE, "player", Cardinality.ONE);
+      player.withBidirectional(dice, "dice", Association.ONE, "player", Association.ONE);
       
       Clazz field = model.createClazz("Field")
-            .withBidirectional(ludo, "game", Cardinality.ONE, "fields", Cardinality.MANY);
+            .withBidirectional(ludo, "game", Association.ONE, "fields", Association.MANY);
       
       field
          .withAttribute("color", DataType.STRING)
@@ -413,18 +413,18 @@ public class LudoModel
          .withAttribute("point", DataType.create(point));
 
      
-      field.withBidirectional(field, "next", Cardinality.ONE, "prev", Cardinality.ONE);
+      field.withBidirectional(field, "next", Association.ONE, "prev", Association.ONE);
       
-      field.withBidirectional(field, "landing", Cardinality.ONE, "entry", Cardinality.ONE);
+      field.withBidirectional(field, "landing", Association.ONE, "entry", Association.ONE);
       
-      player.withBidirectional(field, "start", Cardinality.ONE, "starter", Cardinality.ONE);
+      player.withBidirectional(field, "start", Association.ONE, "starter", Association.ONE);
       
-      player.withBidirectional(field, "base", Cardinality.ONE, "baseowner", Cardinality.ONE);
+      player.withBidirectional(field, "base", Association.ONE, "baseowner", Association.ONE);
       
-      player.withBidirectional(field, "landing", Cardinality.ONE, "lander", Cardinality.ONE);
+      player.withBidirectional(field, "landing", Association.ONE, "lander", Association.ONE);
      
       Clazz pawn = model.createClazz("Pawn")
-            .withBidirectional(player, "player", Cardinality.ONE, "pawns", Cardinality.MANY);
+            .withBidirectional(player, "player", Association.ONE, "pawns", Association.MANY);
                
       pawn
          .withAttribute("color", DataType.STRING)
@@ -432,7 +432,7 @@ public class LudoModel
          .withAttribute("y", DataType.INT);
 
       
-      pawn.withBidirectional(field, "pos", Cardinality.ONE, "pawns", Cardinality.MANY);
+      pawn.withBidirectional(field, "pos", Association.ONE, "pawns", Association.MANY);
       
       // model.updateFromCode("examples", "examples", "org.sdmlib.test.examples.ludo");
 

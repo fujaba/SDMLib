@@ -21,13 +21,13 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.annotations.model.simple.Door;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
+
+import org.sdmlib.test.examples.annotations.model.simple.Door;
 import org.sdmlib.test.examples.annotations.model.simple.House;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class DoorSet extends SimpleSet<Door>
 {
@@ -153,7 +153,7 @@ public class DoorSet extends SimpleSet<Door>
    /**
     * Loop through current set of ModelType objects and attach the Door object passed as parameter to the House attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their House attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their House attributes.
     */
    public DoorSet withHouse(House value)
    {

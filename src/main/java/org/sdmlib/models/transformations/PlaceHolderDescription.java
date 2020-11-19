@@ -32,9 +32,6 @@ import org.sdmlib.models.transformations.util.TemplateSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.transformations.Match;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.Template;
 
 public class PlaceHolderDescription implements PropertyChangeInterface, SendableEntity
 {

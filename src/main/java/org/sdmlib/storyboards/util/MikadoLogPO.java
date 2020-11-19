@@ -1,13 +1,9 @@
 package org.sdmlib.storyboards.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.storyboards.MikadoLog;
-import org.sdmlib.storyboards.util.LogEntryPO;
-import org.sdmlib.storyboards.LogEntry;
-import org.sdmlib.storyboards.util.MikadoLogPO;
-import org.sdmlib.storyboards.util.LogEntrySet;
-import org.sdmlib.storyboards.util.GoalPO;
 import org.sdmlib.storyboards.Goal;
+import org.sdmlib.storyboards.LogEntry;
+import org.sdmlib.storyboards.MikadoLog;
 
 public class MikadoLogPO extends PatternObject<MikadoLogPO, MikadoLog>
 {

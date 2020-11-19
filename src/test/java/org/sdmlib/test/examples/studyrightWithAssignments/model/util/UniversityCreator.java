@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,17 +21,19 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.serialization.EntityFactory;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class UniversityCreator extends EntityFactory
+public class UniversityCreator implements AggregatedEntityCreator
 {
+   public static final UniversityCreator it = new UniversityCreator();
+   
    private final String[] properties = new String[]
    {
       University.PROPERTY_NAME,
@@ -39,7 +41,17 @@ public class UniversityCreator extends EntityFactory
       University.PROPERTY_ROOMS,
       University.PROPERTY_PRESIDENT,
    };
-      
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
+   {
+      University.PROPERTY_ROOMS,
+      University.PROPERTY_PRESIDENT,
+   };
+   
    @Override
    public String[] getProperties()
    {
@@ -47,19 +59,15 @@ public class UniversityCreator extends EntityFactory
    }
    
    @Override
-   public String getOtherRole(String myRole)
+   public String[] getUpProperties()
    {
-      if (assocs == null)
-      {
-         assocs = new String[] 
-               {
-                     University.PROPERTY_STUDENTS + " " + Student.PROPERTY_UNIVERSITY,
-                     University.PROPERTY_ROOMS + " " + Room.PROPERTY_UNIVERSITY,
-                     University.PROPERTY_PRESIDENT + " " + President.PROPERTY_UNIVERSITY,
-               };
-      }
-      
-      return super.getOtherRole(myRole);
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
    }
    
    @Override
@@ -67,6 +75,7 @@ public class UniversityCreator extends EntityFactory
    {
       return new University();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -111,6 +120,10 @@ public class UniversityCreator extends EntityFactory
          return true;
       }
 
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((University)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;

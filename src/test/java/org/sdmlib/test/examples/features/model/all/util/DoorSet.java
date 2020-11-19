@@ -28,7 +28,6 @@ import org.sdmlib.test.examples.features.model.all.House;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.features.model.all.util.HouseSet;
 
 public class DoorSet extends SimpleSet<Door>
 {

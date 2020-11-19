@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,18 +21,10 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model;
 
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-
 /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public  class TeachingAssistant extends Student
 {
@@ -43,10 +35,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    @Override
    public void removeYou()
    {
-      setUniversity(null);
-      setIn(null);
-      withoutFriends(this.getFriends().toArray(new Student[this.getFriends().size()]));
-      withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       setRoom(null);
       firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -85,11 +73,11 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    {
       StringBuilder result = new StringBuilder();
       
-      result.append(" ").append(this.getName());
-      result.append(" ").append(this.getId());
       result.append(" ").append(this.getAssignmentPoints());
-      result.append(" ").append(this.getMotivation());
       result.append(" ").append(this.getCredits());
+      result.append(" ").append(this.getId());
+      result.append(" ").append(this.getMotivation());
+      result.append(" ").append(this.getName());
       return result.substring(1);
    }
 

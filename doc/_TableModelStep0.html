@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="includes/dagre.min.js"></script>
+    <script src="includes/drawer.js"></script>
+    <script src="includes/graph.js"></script>
+    <script src="includes/Chart.bundle.js"></script>
+    <script src="highlight.pack.js"></script>
+    <script src="highlightjs-line-numbers.min.js"></script>
+    <script language="Javascript">hljs.initHighlightingOnLoad();
+                                  hljs.initLineNumbersOnLoad();</script>    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    </head>
+<body>
+<!-- null -->
+<script>
+   var json = {
+   "typ":"class",
+   "nodes":[
+      {
+         "typ":"node",
+         "id":"Cell",
+         "attributes":[
+            "value : Object"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Column",
+         "attributes":[
+            "name : String",
+            "tdCssClass : String",
+            "thCssClass : String"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Row",
+         "attributes":[
+            "number : int"
+         ]
+      },
+      {
+         "typ":"node",
+         "id":"Table",
+         "attributes":[
+            "name : String"
+         ]
+      }
+   ],
+   "edges":[
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Cell",
+            "cardinality":"many",
+            "property":"cells"
+         },
+         "target":{
+            "id":"Column",
+            "cardinality":"one",
+            "property":"column"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Cell",
+            "cardinality":"many",
+            "property":"cells"
+         },
+         "target":{
+            "id":"Row",
+            "cardinality":"one",
+            "property":"row"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Column",
+            "cardinality":"one",
+            "property":"column"
+         },
+         "target":{
+            "id":"Cell",
+            "cardinality":"many",
+            "property":"cells"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Column",
+            "cardinality":"many",
+            "property":"columns"
+         },
+         "target":{
+            "id":"Table",
+            "cardinality":"one",
+            "property":"table"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Row",
+            "cardinality":"one",
+            "property":"row"
+         },
+         "target":{
+            "id":"Cell",
+            "cardinality":"many",
+            "property":"cells"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Row",
+            "cardinality":"many",
+            "property":"rows"
+         },
+         "target":{
+            "id":"Table",
+            "cardinality":"one",
+            "property":"table"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Table",
+            "cardinality":"one",
+            "property":"table"
+         },
+         "target":{
+            "id":"Column",
+            "cardinality":"many",
+            "property":"columns"
+         }
+      },
+      {
+         "typ":"assoc",
+         "source":{
+            "id":"Table",
+            "cardinality":"one",
+            "property":"table"
+         },
+         "target":{
+            "id":"Row",
+            "cardinality":"many",
+            "property":"rows"
+         }
+      }
+   ]
+}   ;
+   new Graph(json, {"canvasid":"canvasTableModelClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
+</script>
+
+</body>
+</html>

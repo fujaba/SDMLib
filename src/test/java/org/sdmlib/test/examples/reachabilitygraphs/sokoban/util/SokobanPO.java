@@ -1,17 +1,11 @@
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.AKarliPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.SokobanPO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.BoxSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.KarliPO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazePO;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanLevels.java'>SokobanLevels.java</a>

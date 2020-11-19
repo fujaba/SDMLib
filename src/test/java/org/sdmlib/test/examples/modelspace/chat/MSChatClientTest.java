@@ -2,7 +2,6 @@ package org.sdmlib.test.examples.modelspace.chat;
 
 import java.io.File;
 
-import org.junit.Test;
 import org.sdmlib.modelspace.ModelSpace;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelCreator;

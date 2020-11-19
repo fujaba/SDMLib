@@ -27,8 +27,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.models.tables.util.CellSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.models.tables.Cell;
-import org.sdmlib.models.tables.Table;
 
 /**
  * 

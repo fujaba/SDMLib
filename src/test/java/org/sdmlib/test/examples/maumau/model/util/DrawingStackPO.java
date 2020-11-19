@@ -5,9 +5,6 @@ import org.sdmlib.test.examples.maumau.model.Card;
 import org.sdmlib.test.examples.maumau.model.DrawingStack;
 import org.sdmlib.test.examples.maumau.model.Holder;
 import org.sdmlib.test.examples.maumau.model.MauMau;
-import org.sdmlib.test.examples.maumau.model.util.CardPO;
-import org.sdmlib.test.examples.maumau.model.util.DrawingStackPO;
-import org.sdmlib.test.examples.maumau.model.util.MauMauPO;
 
 public class DrawingStackPO extends PatternObject<DrawingStackPO, DrawingStack>
 {

@@ -21,12 +21,13 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import de.uniks.networkparser.EntityUtil;
+import java.beans.PropertyChangeSupport;
+
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UCargoSet;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.SendableEntity;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphExampleModels.java'>ReachabilityGraphExampleModels.java</a>

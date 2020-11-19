@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -28,18 +28,12 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
- * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testJsonPersistency
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testJsonPersistency
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public  class Assignment implements SendableEntity
 {
@@ -76,10 +70,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-   	if (listeners == null) {
+   	if (listeners != null) {
    		listeners.removePropertyChangeListener(listener);
    	}
-   	listeners.removePropertyChangeListener(listener);
    	return true;
    }
 
@@ -96,8 +89,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    
    public void removeYou()
    {
-      withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
       setRoom(null);
+      withoutStudents(this.getStudents().toArray(new Student[this.getStudents().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
 
@@ -167,6 +160,65 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    {
       setPoints(value);
       return this;
+   } 
+
+   
+   /********************************************************************
+    * <pre>
+    *              many                       one
+    * Assignment ----------------------------------- Room
+    *              assignments                   room
+    * </pre>
+    */
+   
+   public static final String PROPERTY_ROOM = "room";
+
+   private Room room = null;
+
+   public Room getRoom()
+   {
+      return this.room;
+   }
+
+   public boolean setRoom(Room value)
+   {
+      boolean changed = false;
+      
+      if (this.room != value)
+      {
+         Room oldValue = this.room;
+         
+         if (this.room != null)
+         {
+            this.room = null;
+            oldValue.withoutAssignments(this);
+         }
+         
+         this.room = value;
+         
+         if (value != null)
+         {
+            value.withAssignments(this);
+         }
+         
+         firePropertyChange(PROPERTY_ROOM, oldValue, value);
+         changed = true;
+      }
+      
+      return changed;
+   }
+
+   public Assignment withRoom(Room value)
+   {
+      setRoom(value);
+      return this;
+   } 
+
+   public Room createRoom()
+   {
+      Room value = new Room();
+      withRoom(value);
+      return value;
    } 
 
    
@@ -245,65 +297,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
    {
       TeachingAssistant value = new TeachingAssistant();
       withStudents(value);
-      return value;
-   } 
-
-   
-   /********************************************************************
-    * <pre>
-    *              many                       one
-    * Assignment ----------------------------------- Room
-    *              assignments                   room
-    * </pre>
-    */
-   
-   public static final String PROPERTY_ROOM = "room";
-
-   private Room room = null;
-
-   public Room getRoom()
-   {
-      return this.room;
-   }
-
-   public boolean setRoom(Room value)
-   {
-      boolean changed = false;
-      
-      if (this.room != value)
-      {
-         Room oldValue = this.room;
-         
-         if (this.room != null)
-         {
-            this.room = null;
-            oldValue.withoutAssignments(this);
-         }
-         
-         this.room = value;
-         
-         if (value != null)
-         {
-            value.withAssignments(this);
-         }
-         
-         firePropertyChange(PROPERTY_ROOM, oldValue, value);
-         changed = true;
-      }
-      
-      return changed;
-   }
-
-   public Assignment withRoom(Room value)
-   {
-      setRoom(value);
-      return this;
-   } 
-
-   public Room createRoom()
-   {
-      Room value = new Room();
-      withRoom(value);
       return value;
    } 
 }

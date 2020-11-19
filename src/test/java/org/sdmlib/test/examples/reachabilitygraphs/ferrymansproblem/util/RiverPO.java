@@ -4,9 +4,6 @@ import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>

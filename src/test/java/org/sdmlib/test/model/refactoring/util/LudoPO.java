@@ -1,12 +1,10 @@
 package org.sdmlib.test.model.refactoring.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.model.refactoring.util.PlayerPO;
-import org.sdmlib.test.model.refactoring.util.LudoPO;
 
 public class LudoPO extends PatternObject<LudoPO, Ludo>
 {

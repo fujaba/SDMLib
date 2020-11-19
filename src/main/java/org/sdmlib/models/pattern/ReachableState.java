@@ -26,7 +26,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -38,16 +37,12 @@ import org.sdmlib.models.pattern.util.RuleApplicationSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.MapEntity;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.json.JsonObject;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
-
-import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.ReachabilityGraph;
 
 public class ReachableState implements PropertyChangeInterface, SendableEntity
 {

@@ -1,13 +1,10 @@
 package org.sdmlib.test.examples.groupaccount.model.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonPO;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.examples.groupaccount.model.Party;
 import org.sdmlib.test.examples.groupaccount.model.Person;
-import org.sdmlib.test.examples.groupaccount.model.util.PartyPO;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
 
 public class PartyPO extends PatternObject<PartyPO, Party>
 {

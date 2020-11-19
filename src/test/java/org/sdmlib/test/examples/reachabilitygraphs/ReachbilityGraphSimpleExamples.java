@@ -1,15 +1,9 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
-import static org.junit.Assert.*;
-
-import java.util.LinkedHashMap;
-
 import org.junit.Test;
-import org.sdmlib.models.pattern.LazyCloneOp;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.storyboards.StoryPage;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.Node;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.SimpleState;
@@ -18,9 +12,6 @@ import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.NodeSet;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateCreator;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStatePO;
 import org.sdmlib.test.examples.reachabilitygraphs.simplestates.util.SimpleStateSet;
-
-import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class ReachbilityGraphSimpleExamples
 {

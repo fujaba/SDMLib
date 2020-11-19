@@ -41,9 +41,6 @@ import org.sdmlib.storyboards.GenericIdMap;
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.models.transformations.ChoiceTemplate;
-import org.sdmlib.models.transformations.PlaceHolderDescription;
-import org.sdmlib.models.transformations.Match;
 
 /**
  * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/templates/ModelToTextToModelClassModel.java'>ModelToTextToModelClassModel.java</a>

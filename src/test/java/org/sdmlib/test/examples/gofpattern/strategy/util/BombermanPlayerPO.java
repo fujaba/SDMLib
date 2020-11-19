@@ -1,9 +1,9 @@
 package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanPlayer;
-import org.sdmlib.models.pattern.Pattern;
 
 public class BombermanPlayerPO extends PatternObject<BombermanPlayerPO, BombermanPlayer>
 {

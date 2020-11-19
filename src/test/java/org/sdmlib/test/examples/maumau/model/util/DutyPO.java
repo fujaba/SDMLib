@@ -1,13 +1,11 @@
 package org.sdmlib.test.examples.maumau.model.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.maumau.model.Duty;
 import org.sdmlib.test.examples.maumau.model.DutyType;
 import org.sdmlib.test.examples.maumau.model.Player;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.maumau.model.util.PlayerPO;
-import org.sdmlib.test.examples.maumau.model.util.DutyPO;
 
 public class DutyPO extends PatternObject<DutyPO, Duty>
 {

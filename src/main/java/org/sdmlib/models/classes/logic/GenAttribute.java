@@ -21,7 +21,6 @@ import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.DataTypeMap;
 import de.uniks.networkparser.graph.DataTypeSet;
-import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
 import de.uniks.networkparser.list.BooleanList;
@@ -269,7 +268,7 @@ public class GenAttribute extends Generator<Attribute>
       Clazz attributClass = model.getClazz();
       String packageNameFromFindClass = CGUtil.packageName(findClass.getName(false));
       String packageNameFromOwnerClass = CGUtil.packageName(attributClass.getName(false));
-      if (findClass.isExternal())
+      if (GraphUtil.isExternal(findClass))
       {
          return packageNameFromFindClass + "." + CGUtil.shortClassName(findClass.getName(false));
       }
@@ -285,7 +284,7 @@ public class GenAttribute extends Generator<Attribute>
       Clazz findClass = ((ClassModel) model.getClazz().getClassModel()).getGenerator().findClass(type);
       if (findClass == null)
          return false;
-      else if (findClass.isExternal())
+      else if (GraphUtil.isExternal(findClass))
       {
          return true;
       }
@@ -334,7 +333,7 @@ public class GenAttribute extends Generator<Attribute>
       String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(false), parser);
       ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
       
-      if (ownerClazz.isExternal() || classModel.hasFeature(Feature.EMFSTYLE)) {
+      if (GraphUtil.isExternal(ownerClazz)) {
          modelClass = modelClass + "Creator";
       }
       template.insert(parser, 
@@ -377,7 +376,7 @@ public class GenAttribute extends Generator<Attribute>
 
       String modelClass = getGenerator(ownerClazz).shortNameAndImport(ownerClazz.getName(false), parser);
 
-      if (ownerClazz.isExternal() || classModel.hasFeature(Feature.EMFSTYLE)) {
+      if (GraphUtil.isExternal(ownerClazz)) {
          modelClass = modelClass + "Creator";
       }
       template.insert(parser, 
@@ -655,7 +654,7 @@ public class GenAttribute extends Generator<Attribute>
       String entitiyClassName = CGUtil.shortClassName(model.getClazz().getName(false));
       String entitiyNameClass = entitiyClassName;
 
-      if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+      if (GraphUtil.isExternal(model.getClazz()))
       {
          entitiyNameClass = CGUtil.shortClassName(model.getClazz().getName() + "Creator");
       }
@@ -766,7 +765,7 @@ public class GenAttribute extends Generator<Attribute>
       DataType dataType = model.getType();
       String type = dataType.getName(false);
       
-      if(!dataType.getClazz().isExternal()) 
+      if(!GraphUtil.isExternal(dataType.getClazz())) 
       {
          type = CGUtil.shortClassName(type);
       }
@@ -838,7 +837,7 @@ public class GenAttribute extends Generator<Attribute>
       
       ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
       
-      if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+      if (GraphUtil.isExternal(model.getClazz()))
       {
          entitiyClassName += "Creator";
       }
@@ -904,7 +903,7 @@ public class GenAttribute extends Generator<Attribute>
       // get parser from class
       Parser parser;
       ClassModel classModel = (ClassModel) clazz.getClassModel();
-      if (!clazz.isExternal() && ! classModel.hasFeature(Feature.EMFSTYLE))
+      if (!GraphUtil.isExternal(clazz))
       {
          parser = getGenerator(clazz).getOrCreateParser(rootDir);
          if (!fromSuperClass)
@@ -1026,7 +1025,7 @@ public class GenAttribute extends Generator<Attribute>
          // need to add property to string array
          StringBuilder text = new StringBuilder("   className.PROPERTY_NAME,\n   ");
 
-         if (ownerClazz.isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         if (GraphUtil.isExternal(ownerClazz))
          {
             // declare the property in the creator class
             CGUtil.replaceAll(text,
@@ -1043,7 +1042,7 @@ public class GenAttribute extends Generator<Attribute>
 
          parser.insert(endOfStringArrayInit, text.toString());
 
-         if (ownerClazz.isExternal()  || classModel.hasFeature(Feature.EMFSTYLE))
+         if (GraphUtil.isExternal(ownerClazz))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");

@@ -32,8 +32,6 @@ import de.uniks.networkparser.list.BooleanList;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.models.pattern.util.RuleApplicationSet;
-import org.sdmlib.models.pattern.util.ReachabilityGraphSet;
 
 public class ReachableStateSet extends SimpleSet<ReachableState>
 {

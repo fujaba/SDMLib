@@ -1,12 +1,12 @@
 package org.sdmlib.models;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.list.SimpleKeyValueList;
-import org.sdmlib.storyboards.GenericCreator;
-
 import java.util.ArrayList;
 import java.util.Map;
+
+import org.sdmlib.storyboards.GenericCreator;
+
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
+import de.uniks.networkparser.list.SimpleKeyValueList;
 
 public class CreatorMap
 {

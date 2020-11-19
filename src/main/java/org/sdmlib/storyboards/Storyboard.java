@@ -1,46 +1,51 @@
 package org.sdmlib.storyboards;
 
+import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.models.tables.Table;
 
+import de.uniks.networkparser.IdMap;
+
 
 /**
  * A StoryPage allows the use of the most important functionalities
  * of Storyboards.
- * 
+ *
  * @see StoryboardImpl
-*/
+ */
 public class Storyboard {
 
 	private StoryboardImpl storyboard;
-	
-	public StoryboardImpl getStoryboard()
+
+   public StoryboardImpl getStoryboard()
    {
       return storyboard;
    }
-	
-	/**
+
+   /**
 	 * Constructor for StoryPage, that creates a Storyboard by calling its
 	 * standard constructor, in order to use the necessary functionalities 
 	 * of the Storyboard class.
+	 *
 	*/
-	public Storyboard() {
+	public Storyboard()
+	{
 		this.storyboard = new StoryboardImpl();
 	}
 	
 	/**
 	 * Adds a new Step to the current Storyboard.
 	 * <p>
-	 * "Start:" + txt, for first step
-	 * <br>
 	 * stepcount + "." + txt, for every following step.
+    * </p>
 	 * 
 	 * @param txt text, that is added to the new step
 	 * @return return the Storyboard
 	*/
-	public StoryboardImpl addStep(String txt) {
+	public StoryboardImpl addStep(String txt)
+	{
 		return storyboard.addStep(txt);
 	}
 	
@@ -73,21 +78,34 @@ public class Storyboard {
 	 * Adds an image to the current step of the storyboard.
 	 * 
 	 * @param imageFile name of the file, that contains the image
+	 * @param dims The Dimension of Image
 	*/
-	public void addImage(String imageFile) {
-		storyboard.addImage(imageFile);
+	public void addImage(String imageFile, int... dims) {
+		storyboard.addImage(imageFile, dims);
 	}
-	
+
 	/**
 	 * Adds a diagram of an classmodel to the storyboard.
-	 * 
+	 *
 	 * @param model object of the classmodel, that will be displayed as a diagram
-	* @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
- */
+	 * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+	 */
 	public void addClassDiagram(ClassModel model) {
-		storyboard.addClassDiagram(model);
+		storyboard.addClassDiagramAsImage(model);
 	}
-	
+
+
+	/**
+	 * Adds a diagram of an classmodel to the storyboard.
+	 *
+	 * @param model object of the classmodel, that will be displayed as a diagram
+	 * @see <a href='../../../../../../src/main/java/org/sdmlib/models/tables/TableModel.java'>TableModel.java</a>
+	 */
+	public void addClassDiagram(de.uniks.networkparser.ext.ClassModel model) {
+		storyboard.addClassDiagramAsImage(model);
+	}
+
+
 	/**
 	 * Adds an object diagram to the storyboard, that contains the given objects.
 	 * 
@@ -96,33 +114,6 @@ public class Storyboard {
 	*/
 	public void addObjectDiagram(Object... elems) {
 		storyboard.addObjectDiagram(elems);
-	}
-
-
-	/**
-	 * Adds an object diagram to the storyboard, containing all objects reachable from the objects passed as parameters
-	 *
-	 * @param elems the elements, that the diagram will only consist of
-	 */
-	public void addObjectDiagramViaGraphViz(Object... elems)
-	{
-		storyboard.addObjectDiagramViaGraphViz(elems);
-	}
-
-	public void addObjectDiagramAsImage(Object... elems)
-	{
-		storyboard.addObjectDiagramAsImage(elems);
-	}
-
-
-
-	/**
-	 * Adds an object diagram to the storyboard, that only consists of the given objects.
-	 *
-	 * @param elems the elements, that the diagram will only consist of
-	 */
-	public void addObjectDiagramOnlyWithViaGraphViz(Object... elems) {
-		storyboard.addObjectDiagramWithViaGraphViz(elems);
 	}
 
 
@@ -348,30 +339,15 @@ public class Storyboard {
       return storyboard.getStoryboardSteps().size();
    }
 
-	/**
-	 * Parameter htmlText might be a javascript creating a diagram.<br>
-	 * <br>
-	 * We put this into an empty html page,<br>
-	 * open that page in a browser, and<br>
-	 * do a screen dump.<br>
-	 * <br>
-	 * This screen dump than works within e.g. a javadoc, too.<br>
-	 *
-	 * @param htmlText The HTMLText
-	 * @param dimensions Dimension for width and height
-	 */
-	public void addAsImage(String htmlText, int... dimensions)
+   public Storyboard withIdMap(IdMap map)
 	{
-		storyboard.addAsImage(htmlText, true, dimensions);
+		storyboard.withIdMap(map);
+		return this;
 	}
 
-	public void addAsImage(String htmlText, boolean autoClose, int... dimensions)
+	public Storyboard withIdMap(YamlIdMap map)
 	{
-		storyboard.addAsImage(htmlText, autoClose, dimensions);
-	}
-
-	public void addClassDiagramAsImage(ClassModel model, int... dimensions)
-	{
-		storyboard.addClassDiagramAsImage(model, dimensions);
+		storyboard.withIdMap(map);
+		return this;
 	}
 }

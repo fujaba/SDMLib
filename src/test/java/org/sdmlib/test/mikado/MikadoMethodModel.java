@@ -1,11 +1,14 @@
 package org.sdmlib.test.mikado;
 
-import static de.uniks.networkparser.graph.Cardinality.*;
-import de.uniks.networkparser.graph.Clazz;
-import static de.uniks.networkparser.graph.DataType.*;
+import static de.uniks.networkparser.graph.DataType.DOUBLE;
+import static de.uniks.networkparser.graph.DataType.STRING;
+
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
+
+import de.uniks.networkparser.graph.Association;
+import de.uniks.networkparser.graph.Clazz;
 
 public class MikadoMethodModel
 {
@@ -150,7 +153,7 @@ public class MikadoMethodModel
               .withAttribute("hoursDone", DOUBLE)
               ;
 
-      goal.withBidirectional(goal, "preGoals", MANY, "parents", MANY);
+      goal.withBidirectional(goal, "preGoals", Association.MANY, "parents", Association.MANY);
 
       Clazz mikadoLog = model.createClazz("MikadoLog");
 
@@ -159,11 +162,11 @@ public class MikadoMethodModel
               .withAttribute("hoursDone", DOUBLE)
               .withAttribute("hoursRemaining", DOUBLE);
 
-      mikadoLog.withUniDirectional(goal, "mainGoal", ONE);
+      mikadoLog.withUniDirectional(goal, "mainGoal", Association.ONE);
 
-      mikadoLog.withBidirectional(logEntry,"entries", MANY, "parent", ONE);
+      mikadoLog.withBidirectional(logEntry,"entries", Association.MANY, "parent", Association.ONE);
 
-      logEntry.withUniDirectional(goal, "goal", ONE);
+      logEntry.withUniDirectional(goal, "goal", Association.ONE);
 
       story.addClassDiagram(model);
 

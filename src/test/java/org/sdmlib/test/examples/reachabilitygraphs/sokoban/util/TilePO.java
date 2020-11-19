@@ -1,14 +1,10 @@
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TilePO;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazePO;
+import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.MazeSet;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
 
 public class TilePO extends PatternObject<TilePO, Tile>
 {

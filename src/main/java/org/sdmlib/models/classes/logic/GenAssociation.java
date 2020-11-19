@@ -10,13 +10,11 @@ import org.sdmlib.models.classes.ClassModel;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
+import de.uniks.networkparser.graph.ClazzSet;
 import de.uniks.networkparser.graph.Feature;
 import de.uniks.networkparser.graph.GraphUtil;
 import de.uniks.networkparser.graph.Modifier;
-import de.uniks.networkparser.graph.util.ClazzSet;
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 
@@ -25,12 +23,12 @@ public class GenAssociation extends Generator<Association>
    private void insertCaseInGenericGet(Clazz clazz, Parser parser, Association partnerRole, String rootDir)
    {
       ClassModel classModel = (ClassModel) clazz.getClassModel();
-      
-      if (GraphUtil.isInterface(clazz) && ! classModel.hasFeature(Feature.EMFSTYLE))
+
+      if (GraphUtil.isInterface(clazz))
       {
          return;
       }
-      
+
       int pos = parser.indexOf(Parser.METHOD + ":getValue(Object,String)");
 
       if (pos < 0)
@@ -45,42 +43,37 @@ public class GenAssociation extends Generator<Association>
 
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = parser.getMethodBodyStartPos();
-      
+
       pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":PROPERTY_" + partnerRole.getName().toUpperCase() , methodBodyStartPos);
 
       if (pos < 0)
-      {         
+      {
          // need to add if block to generic get method
          parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
-         
+
          int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to be after \n
          if (lastIfEndPos - 2  < 0)
          {
             lastIfEndPos = methodBodyStartPos + 1;
          }
-         
+
          StringBuilder text = new StringBuilder
-            (  "\n      if (DeclaratorName.PROPERTY_NAME.equalsIgnoreCase(attribute))" +
-               "\n      {" +
-               "\n         return ((ClassName) target).getPropertyName();" +
-               "\n      }" +
-               "\n" 
+               (  "\n      if (DeclaratorName.PROPERTY_NAME.equalsIgnoreCase(attribute))" +
+                     "\n      {" +
+                     "\n         return ((ClassName) target).getPropertyName();" +
+                     "\n      }" +
+                     "\n"
                );
 
          String partnerRoleNameUpFirst = StrUtil.upFirstChar(partnerRole.getName());
          String declaratorName = CGUtil.shortClassName(clazz.getName());
-         
-         if (classModel.hasFeature(Feature.EMFSTYLE))
-         {
-            declaratorName += "Creator";
-         }
-         
-         CGUtil.replaceAll(text, 
-            "DeclaratorName", declaratorName,
-            "ClassName", CGUtil.shortClassName(clazz.getName()),
-            "PropertyName", partnerRoleNameUpFirst,
-            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
-            );
+
+         CGUtil.replaceAll(text,
+               "DeclaratorName", declaratorName,
+               "ClassName", CGUtil.shortClassName(clazz.getName()),
+               "PropertyName", partnerRoleNameUpFirst,
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
+         );
 
          parser.insert(lastIfEndPos, text.toString());
       }
@@ -90,35 +83,35 @@ public class GenAssociation extends Generator<Association>
    {
       String myClassName = model.getClazz().getName(true);
       ClassModel clazzModel = (ClassModel) model.getClazz().getClassModel();
-      
+
       GenClazzEntity partnerClazz = getGenerator((Clazz)partnerRole.getClazz());
       String partnerClassName = partnerRole.getClazz().getName(true);
-      
-      
+
+
       String partnerRoleName = partnerRole.getName();
       String myRoleName = partnerRole.getOther().getName();
       String partnerClassNameSet = partnerClazz.getModelSetClassNameShort();
-      
+
       String partnerRoleUpFirstChar = StrUtil.upFirstChar(partnerRoleName);
-      
+
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_" + partnerRole.getName().toUpperCase());
 
       if (pos < 0)
       {
          text.append
-         (  "\n   " +
-               "\n   /********************************************************************" +
-               "\n    * <pre>" +
-               "\n    *              myCard                       partnerCard" +
-               "\n    * myClassName ----------------------------------- partnerClassName" +
-               "\n    *              myRoleName                   partnerRoleName" +
-               "\n    * </pre>" +
-               "\n    */" + 
-               "\n   " +
-               "\n   public static final String PROPERTY_PARTNER_ROLE_NAME = \"partnerRoleName\";" +
-               "\n" );
+               (  "\n   " +
+                     "\n   /********************************************************************" +
+                     "\n    * <pre>" +
+                     "\n    *              myCard                       partnerCard" +
+                     "\n    * myClassName ----------------------------------- partnerClassName" +
+                     "\n    *              myRoleName                   partnerRoleName" +
+                     "\n    * </pre>" +
+                     "\n    */" +
+                     "\n   " +
+                     "\n   public static final String PROPERTY_PARTNER_ROLE_NAME = \"partnerRoleName\";" +
+                     "\n" );
       }
-      
+
       if (GraphUtil.isInterface(clazz) == false)
       {
          pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
@@ -126,167 +119,166 @@ public class GenAssociation extends Generator<Association>
          if (pos < 0)
          {
             text.append ("\n   private type partnerRoleName = null;" +
-                         "\n   ");
+                  "\n   ");
          }
       }
-      
+
       pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "()");
 
       if (pos < 0)
       {
          if (GraphUtil.isInterface(clazz) == false)
          {
-            text.append 
-            (     "\n   public type getPartnerRoleName()" +
-                  "\n   {" +
-                  "\n      if (this.partnerRoleName == null)" +
-                  "\n      {" +
-                  "\n         return partnerClassNameSet.EMPTY_SET;" +
-                  "\n      }" +
-                  "\n   " +
-                  "\n      return this.partnerRoleName;" +
-                  "\n   }" +
-                  "\n");
-            
-            if (clazzModel.hasFeature(Feature.SETCLASS, clazz) == false 
-            		&& clazzModel.hasFeature(Feature.PATTERNOBJECT, clazz) == false
-            		&& clazzModel.hasFeature(Feature.SERIALIZATION, clazz) == false
-            		 ) {
-            	CGUtil.replaceAll(text, "partnerClassNameSet.EMPTY_SET", "new type()");
+            text.append
+                  (     "\n   public type getPartnerRoleName()" +
+                        "\n   {" +
+                        "\n      if (this.partnerRoleName == null)" +
+                        "\n      {" +
+                        "\n         return partnerClassNameSet.EMPTY_SET;" +
+                        "\n      }" +
+                        "\n   " +
+                        "\n      return this.partnerRoleName;" +
+                        "\n   }" +
+                        "\n");
+
+            if (clazzModel.hasFeature(Feature.SETCLASS, clazz) == false
+                  && clazzModel.hasFeature(Feature.SERIALIZATION, clazz) == false
+            ) {
+               CGUtil.replaceAll(text, "partnerClassNameSet.EMPTY_SET", "new type()");
             }
          }
          else
          {
             text.append
-            (     "\n   public type getPartnerRoleName();" +
-                  "\n");
+                  (     "\n   public type getPartnerRoleName();" +
+                        "\n");
          }
       }
-      
-      
+
+
       if (model.getClazz() == model.getOtherClazz())
       {
          // recursive assoc, add getTransitive methods
-         
+
          pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "Transitive()");
-         
+
          if (pos < 0)
          {
             if (GraphUtil.isInterface(clazz) == false)
             {
                text.append(
-                  "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
-                  "   {\n" + 
-                  "      partnerClassNameSet result = new partnerClassNameSet().with(this);\n" + 
-                  "      return result.getPartnerRoleNameTransitive();\n" + 
-                  "   }\n" + 
-                  "\n" 
-                  );
+                     "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" +
+                           "   {\n" +
+                           "      partnerClassNameSet result = new partnerClassNameSet().with(this);\n" +
+                           "      return result.getPartnerRoleNameTransitive();\n" +
+                           "   }\n" +
+                           "\n"
+               );
             }
             else
             {
                text.append
-               (     "\n   public partnerClassNameSet getPartnerRoleNameTransitive();" +
-                     "\n");
+                     (     "\n   public partnerClassNameSet getPartnerRoleNameTransitive();" +
+                           "\n");
             }
             getGenerator(clazz).insertImport(partnerClazz.getModelSetClassName());
          }
       }
-      
+
       pos = myParser.indexOf(Parser.METHOD + ":with" + partnerRoleUpFirstChar + "(" + partnerClassName  +  "...)");
-      
+
       if (pos < 0)
       {
          if (GraphUtil.isInterface(clazz) == false)
          {
-            String withMeth = 
+            String withMeth =
                   "\n   public myClassName withPartnerRoleName(partnerClassName... value)" +
-                  "\n   {" +
-                  "\n      if(value==null){" + 
-                  "\n         return this;" +
-                  "\n      }" +
-                  "\n      for (partnerClassName item : value)" +
-                  "\n      {" +
-                  "\n         if (item != null)" +
-                  "\n         {" +
-                  "\n            if (this.partnerRoleName == null)" +
-                  "\n            {" +
-                  "\n               this.partnerRoleName = initRoleVar;" +
-                  "\n            }" +
-                  "\n            " +
-                  "\n            boolean changed = this.partnerRoleName.add (item);" +
-                  "\n" +
-                  "\n            if (changed)" +
-                  "\n            {" +
-                  "\n               item.withMyRoleName(this);" +
-                  "\n               PROPERTYCHANGEADD" +
-                  "\n            }" +
-                  "\n         }" +
-                  "\n      }" +
-                  "\n      return this;" +
-                  "\n   } " +
-                  "\n";
-            
+                        "\n   {" +
+                        "\n      if(value==null){" +
+                        "\n         return this;" +
+                        "\n      }" +
+                        "\n      for (partnerClassName item : value)" +
+                        "\n      {" +
+                        "\n         if (item != null)" +
+                        "\n         {" +
+                        "\n            if (this.partnerRoleName == null)" +
+                        "\n            {" +
+                        "\n               this.partnerRoleName = initRoleVar;" +
+                        "\n            }" +
+                        "\n            " +
+                        "\n            boolean changed = this.partnerRoleName.add (item);" +
+                        "\n" +
+                        "\n            if (changed)" +
+                        "\n            {" +
+                        "\n               item.withMyRoleName(this);" +
+                        "\n               PROPERTYCHANGEADD" +
+                        "\n            }" +
+                        "\n         }" +
+                        "\n      }" +
+                        "\n      return this;" +
+                        "\n   } " +
+                        "\n";
+
             if (partnerRole.getType()==AssociationTypes.UNDIRECTIONAL)
             {
                // uni directional no reverse call
                withMeth = CGUtil.replaceAll(withMeth, "\n               item.withMyRoleName(this);", "");
             }
-            
+
             text.append(withMeth);
-           
+
          }
          else
          {
             text.append
-            (     "\n   public myClassName withPartnerRoleName(partnerClassName... value);" +
-                  "\n");
+                  (     "\n   public myClassName withPartnerRoleName(partnerClassName... value);" +
+                        "\n");
          }
       }
-      
-      
+
+
       pos = myParser.indexOf(Parser.METHOD + ":without" + partnerRoleUpFirstChar + "(" + partnerClassName  +  "...)");
-      
+
       if (pos < 0)
       {
          if (GraphUtil.isInterface(clazz) == false)
          {
-            String withOutMeth = 
+            String withOutMeth =
                   "\n   public myClassName withoutPartnerRoleName(partnerClassName... value)" +
-                  "\n   {" +
-                  "\n      for (partnerClassName item : value)" +
-                  "\n      {" +
-                  "\n         if ((this.partnerRoleName != null) && (item != null))" +
-                  "\n         {" +
-                  "\n            if (this.partnerRoleName.remove(item))" +
-                  "\n            {" +
-                  "\n               item.reverseWithoutCall(this);" +
-                  "\n               PROPERTYCHANGEREMOVE" +
-                  "\n            }" +
-                  "\n         }" +
-                  "\n      }" +
-                  "\n      return this;" +
-                  "\n   }" +
-                  "\n";
-            
+                        "\n   {" +
+                        "\n      for (partnerClassName item : value)" +
+                        "\n      {" +
+                        "\n         if ((this.partnerRoleName != null) && (item != null))" +
+                        "\n         {" +
+                        "\n            if (this.partnerRoleName.remove(item))" +
+                        "\n            {" +
+                        "\n               item.reverseWithoutCall(this);" +
+                        "\n               PROPERTYCHANGEREMOVE" +
+                        "\n            }" +
+                        "\n         }" +
+                        "\n      }" +
+                        "\n      return this;" +
+                        "\n   }" +
+                        "\n";
+
             if (partnerRole.getType()==AssociationTypes.UNDIRECTIONAL)
             {
                // uni directional no reverse call
                withOutMeth = CGUtil.replaceAll(withOutMeth, "\n               item.reverseWithoutCall(this);", "");
             }
-            
+
             text.append (withOutMeth);
          }
          else
          {
             text.append
-            (     "\n   public myClassName withoutPartnerRoleName(partnerClassName... value);" +
-                  "\n");
+                  (     "\n   public myClassName withoutPartnerRoleName(partnerClassName... value);" +
+                        "\n");
          }
       }
-      
+
       pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + "()");
-      
+
       String realPartnerClassName = partnerClassName;
       SimpleSet<Clazz> kidClasses = partnerRole.getClazz().getKidClazzes(false);
       ClazzSet kidClassesInterfaces =new ClazzSet();
@@ -299,135 +291,135 @@ public class GenAssociation extends Generator<Association>
       {
          realPartnerClassName = kidClassesInterfaces.first().getName(true);
       }
-      
+
       if (pos < 0 && GraphUtil.isWithNoObjects(partnerRole.getClazz()) == false && kidClassesInterfaces.size() != 1)
       {
          if (GraphUtil.isInterface(clazz) == false)
          {
-            text.append 
-            (     "\n   public partnerClassName createPartnerRoleName()" +
-                  "\n   {" +
-                  "\n      partnerClassName value = new realPartnerClassName();" +
-                  "\n      withPartnerRoleName(value);" +
-                  "\n      return value;" +
-                  "\n   } " +
-                  "\n");
+            text.append
+                  (     "\n   public partnerClassName createPartnerRoleName()" +
+                        "\n   {" +
+                        "\n      partnerClassName value = new realPartnerClassName();" +
+                        "\n      withPartnerRoleName(value);" +
+                        "\n      return value;" +
+                        "\n   } " +
+                        "\n");
          }
          else
          {
             text.append
-            (     "\n   public partnerClassName createPartnerRoleName();" +
-                  "\n");
+                  (     "\n   public partnerClassName createPartnerRoleName();" +
+                        "\n");
          }
       }
-      
+
       GenClazzEntity generator = getGenerator(model.getClazz());
-      
+
       // if my partnerclass has subclasses generate createPartnerRoleNameSubClassName() methods
       kidClasses = (SimpleSet<Clazz>) partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
-      
+
       for (Clazz kid : kidClasses)
       {
          String kidClassName = CGUtil.shortClassName(kid.getName());
          pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + kidClassName + "()");
-         
-         
+
+
          if (pos < 0 && GraphUtil.isInterface(kid) == false)
          {
             if (GraphUtil.isInterface(clazz) == false)
             {
-               text.append 
-               (     "\n   public KidClassName createPartnerRoleNameSubClassName()" +
-                     "\n   {" +
-                     "\n      KidClassName value = new KidClassName();" +
-                     "\n      withPartnerRoleName(value);" +
-                     "\n      return value;" +
-                     "\n   } " +
-                     "\n");
+               text.append
+                     (     "\n   public KidClassName createPartnerRoleNameSubClassName()" +
+                           "\n   {" +
+                           "\n      KidClassName value = new KidClassName();" +
+                           "\n      withPartnerRoleName(value);" +
+                           "\n      return value;" +
+                           "\n   } " +
+                           "\n");
             }
             else
             {
                text.append
-               (     "\n   public KidClassName createPartnerRoleNameSubClassName();" +
-                     "\n");
+                     (     "\n   public KidClassName createPartnerRoleNameSubClassName();" +
+                           "\n");
             }
          }
-         
-         CGUtil.replaceAll(text, 
-            "KidClassName", kidClassName, 
-            "PartnerRoleNameSubClassName", partnerRoleUpFirstChar + kidClassName
-        	);
-         
+
+         CGUtil.replaceAll(text,
+               "KidClassName", kidClassName,
+               "PartnerRoleNameSubClassName", partnerRoleUpFirstChar + kidClassName
+         );
+
          if(generator!=null)
          {
-        	 myParser.insertImport(kid.getName(false));
+            myParser.insertImport(kid.getName(false));
          }
       }
-      
+
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
-      
-      if (model.getCardinality() == Cardinality.MANY)
+
+      if (model.getCardinality() == Association.MANY)
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
-      
+
       String propertyChangeAdd = "";
       String propertyChangeRemove = "";
       if(clazzModel.hasFeature(Feature.PROPERTYCHANGESUPPORT, model.getClazz())){
-     	 propertyChangeAdd = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);";
-     	 propertyChangeRemove = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);"; 
+         propertyChangeAdd = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, null, item);";
+         propertyChangeRemove = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, item, null);";
       }
-      
+
       CGUtil.replaceAll(text, "PROPERTYCHANGEADD", propertyChangeAdd, "PROPERTYCHANGEREMOVE", propertyChangeRemove);
 
-      CGUtil.replaceAll(text, 
-         "myCard", model.getCardinality(),
-         "partnerCard", partnerRole.getCardinality(),
-         "type", partnerClassNameSet, 
-         "initRoleVar", "new " + partnerClassNameSet + "()", 
-         "myClassName", myClassName,
-         "partnerClassName", partnerClassName,
-         "realPartnerClassName", realPartnerClassName,
-         "myRoleName", myRoleName,
-         "MyRoleName", StrUtil.upFirstChar(myRoleName),
-         "partnerRoleName", partnerRoleName,
-         "PARTNER_ROLE_NAME", partnerRoleName.toUpperCase(),
-         "PartnerRoleName", partnerRoleUpFirstChar,
-         "reverseWithoutCall(this)", reverseWithoutCall
-         );
+      CGUtil.replaceAll(text,
+            "myCard", model.getCardinality(),
+            "partnerCard", partnerRole.getCardinality(),
+            "type", partnerClassNameSet,
+            "initRoleVar", "new " + partnerClassNameSet + "()",
+            "myClassName", myClassName,
+            "partnerClassName", partnerClassName,
+            "realPartnerClassName", realPartnerClassName,
+            "myRoleName", myRoleName,
+            "MyRoleName", StrUtil.upFirstChar(myRoleName),
+            "partnerRoleName", partnerRoleName,
+            "PARTNER_ROLE_NAME", partnerRoleName.toUpperCase(),
+            "PartnerRoleName", partnerRoleUpFirstChar,
+            "reverseWithoutCall(this)", reverseWithoutCall
+      );
       if(generator!=null){
-    	  myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
+         myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
       }
-   } 
-   
+   }
+
    private void generateToOneRole(Parser myParser, Clazz clazz, Association partnerRole, StringBuilder text)
    {
       String myClassName = model.getClazz().getName(true);
-      
+
       String partnerClassName = partnerRole.getClazz().getName(true);
-      
+
       String partnerRoleName = partnerRole.getName();
-      
+
       String partnerRoleUpFirstChar = StrUtil.upFirstChar(partnerRoleName);
-      
+
       int pos = myParser.indexOf(Parser.ATTRIBUTE + ":PROPERTY_" + partnerRole.getName().toUpperCase());
 
       if (pos < 0)
       {
          text.append
-         (  "\n   " +
-               "\n   /********************************************************************" +
-               "\n    * <pre>" +
-               "\n    *              myCard                       partnerCard" +
-               "\n    * myClassName ----------------------------------- partnerClassName" +
-               "\n    *              myRoleName                   partnerRoleName" +
-               "\n    * </pre>" +
-               "\n    */" + 
-               "\n   " +
-               "\n   public static final String PROPERTY_PARTNER_ROLE_NAME = \"partnerRoleName\";" +
-               "\n" );
+               (  "\n   " +
+                     "\n   /********************************************************************" +
+                     "\n    * <pre>" +
+                     "\n    *              myCard                       partnerCard" +
+                     "\n    * myClassName ----------------------------------- partnerClassName" +
+                     "\n    *              myRoleName                   partnerRoleName" +
+                     "\n    * </pre>" +
+                     "\n    */" +
+                     "\n   " +
+                     "\n   public static final String PROPERTY_PARTNER_ROLE_NAME = \"partnerRoleName\";" +
+                     "\n" );
       }
-      
+
       if (GraphUtil.isInterface(clazz) == false)
       {
          pos = myParser.indexOf(Parser.ATTRIBUTE + ":" + partnerRoleName);
@@ -435,316 +427,308 @@ public class GenAssociation extends Generator<Association>
          if (pos < 0)
          {
             text.append ("\n   private partnerClassName partnerRoleName = null;" +
-                         "\n");
+                  "\n");
          }
       }
-      
+
       pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "()");
 
       if (pos < 0)
       {
          if (GraphUtil.isInterface(clazz) == false)
          {
-            text.append 
-            (     "\n   public partnerClassName getPartnerRoleName()" +
-                  "\n   {" +
-                  "\n      return this.partnerRoleName;" +
-                  "\n   }" +
-                  "\n");
+            text.append
+                  (     "\n   public partnerClassName getPartnerRoleName()" +
+                        "\n   {" +
+                        "\n      return this.partnerRoleName;" +
+                        "\n   }" +
+                        "\n");
          }
          else
          {
             text.append
-            (     "\n   public partnerClassName getPartnerRoleName();" +
-                  "\n");
+                  (     "\n   public partnerClassName getPartnerRoleName();" +
+                        "\n");
          }
       }
-      
-      
+
+
       if (model.getClazz() == model.getOtherClazz())
       {
          // recursive assoc, add getTransitive methods
-         
+
          pos = myParser.indexOf(Parser.METHOD + ":get" + partnerRoleUpFirstChar + "Transitive()");
-         
+
          if (pos < 0)
          {
             if (GraphUtil.isInterface(clazz) == false)
             {
                text.append(
-                  "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" + 
-                  "   {\n" + 
-                  "      partnerClassNameSet result = new partnerClassNameSet().with(this);\n" + 
-                  "      return result.getPartnerRoleNameTransitive();\n" + 
-                  "   }\n" + 
-                  "\n");
+                     "   public partnerClassNameSet getPartnerRoleNameTransitive()\n" +
+                           "   {\n" +
+                           "      partnerClassNameSet result = new partnerClassNameSet().with(this);\n" +
+                           "      return result.getPartnerRoleNameTransitive();\n" +
+                           "   }\n" +
+                           "\n");
             }
             else
             {
                text.append
-               (     "\n   public partnerClassName getPartnerRoleNameTransitive();" +
-                     "\n");
+                     (     "\n   public partnerClassName getPartnerRoleNameTransitive();" +
+                           "\n");
             }
             getGenerator(clazz).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getName(false) ,"Set"));
-         
+
          }
       }
-      
+
       pos = myParser.indexOf(Parser.METHOD + ":set" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
-      
+
       if (pos < 0)
       {
          if (GraphUtil.isInterface(clazz) == false)
          {
-        	 String setMeth = "";
-        	 if (partnerRole.getType().equals(AssociationTypes.UNDIRECTIONAL)) {
-        		 // unidirectional
-        		 setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
-                         "\n   {" +
-                         "\n      boolean changed = false;" +
-                         "\n      " +
-                         "\n      if (this.partnerRoleName != value)" +
-                         "\n      {" +
-                         "\n         partnerClassName oldValue = this.partnerRoleName;" +
-                         "\n         " +
-                         "\n         this.partnerRoleName = value;" +
-                         "\n         " +
-                         "\n         PROPERTYCHANGEADD" +
-                         "\n         changed = true;" +
-                         "\n      }" +
-                         "\n      " +
-                         "\n      return changed;" +
-                         "\n   }" +
-                         "\n";
-        	 } else {
-        		 // bidirectional
-        		 setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
-                         "\n   {" +
-                         "\n      boolean changed = false;" +
-                         "\n      " +
-                         "\n      if (this.partnerRoleName != value)" +
-                         "\n      {" +
-                         "\n         partnerClassName oldValue = this.partnerRoleName;" +
-                         "\n         " +
-                         "\n         if (this.partnerRoleName != null)" +
-                         "\n         {" +
-                         "\n            this.partnerRoleName = null;" +
-                         "\n            oldValue.withoutMethodCall(this);" +
-                         "\n         }" +
-                         "\n         " +
-                         "\n         this.partnerRoleName = value;" +
-                         "\n         " +
-                         "\n         if (value != null)" +
-                         "\n         {" +
-                         "\n            value.withMyRoleName(this);" +
-                         "\n         }" +
-                         "\n         " +
-                         "\n         PROPERTYCHANGEADD" +
-                         "\n         changed = true;" +
-                         "\n      }" +
-                         "\n      " +
-                         "\n      return changed;" +
-                         "\n   }" +
-                         "\n";
-        	 }
-            
+            String setMeth = "";
+            if (partnerRole.getType().equals(AssociationTypes.UNDIRECTIONAL)) {
+               // unidirectional
+               setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
+                     "\n   {" +
+                     "\n      boolean changed = false;" +
+                     "\n      " +
+                     "\n      if (this.partnerRoleName != value)" +
+                     "\n      {" +
+                     "\n         partnerClassName oldValue = this.partnerRoleName;" +
+                     "\n         " +
+                     "\n         this.partnerRoleName = value;" +
+                     "\n         " +
+                     "\n         PROPERTYCHANGEADD" +
+                     "\n         changed = true;" +
+                     "\n      }" +
+                     "\n      " +
+                     "\n      return changed;" +
+                     "\n   }" +
+                     "\n";
+            } else {
+               // bidirectional
+               setMeth = "\n   public boolean setPartnerRoleName(partnerClassName value)" +
+                     "\n   {" +
+                     "\n      boolean changed = false;" +
+                     "\n      " +
+                     "\n      if (this.partnerRoleName != value)" +
+                     "\n      {" +
+                     "\n         partnerClassName oldValue = this.partnerRoleName;" +
+                     "\n         " +
+                     "\n         if (this.partnerRoleName != null)" +
+                     "\n         {" +
+                     "\n            this.partnerRoleName = null;" +
+                     "\n            oldValue.withoutMethodCall(this);" +
+                     "\n         }" +
+                     "\n         " +
+                     "\n         this.partnerRoleName = value;" +
+                     "\n         " +
+                     "\n         if (value != null)" +
+                     "\n         {" +
+                     "\n            value.withMyRoleName(this);" +
+                     "\n         }" +
+                     "\n         " +
+                     "\n         PROPERTYCHANGEADD" +
+                     "\n         changed = true;" +
+                     "\n      }" +
+                     "\n      " +
+                     "\n      return changed;" +
+                     "\n   }" +
+                     "\n";
+            }
+
             text.append(setMeth);
          }
          else
          {
             text.append
-            (     "\n   public boolean setPartnerRoleName(partnerClassName value);" +
-                  "\n");
+                  (     "\n   public boolean setPartnerRoleName(partnerClassName value);" +
+                        "\n");
          }
       }
-      
-      
+
+
       pos = myParser.indexOf(Parser.METHOD + ":with" + partnerRoleUpFirstChar + "(" + partnerClassName  +  ")");
-      
+
       if (pos < 0)
       {
-    	  if (GraphUtil.isInterface(clazz) == false)
+         if (GraphUtil.isInterface(clazz) == false)
          {
-            text.append 
-            (     "\n   public myClassName withPartnerRoleName(partnerClassName value)" +
-                  "\n   {" +
-                  "\n      setPartnerRoleName(value);" +
-                  "\n      return this;" +
-                  "\n   } " +
-                  "\n");
+            text.append
+                  (     "\n   public myClassName withPartnerRoleName(partnerClassName value)" +
+                        "\n   {" +
+                        "\n      setPartnerRoleName(value);" +
+                        "\n      return this;" +
+                        "\n   } " +
+                        "\n");
          }
          else
          {
             text.append
-            (     "\n   public myClassName withPartnerRoleName(partnerClassName value);" +
-                  "\n");
+                  (     "\n   public myClassName withPartnerRoleName(partnerClassName value);" +
+                        "\n");
          }
       }
-      
+
 
       pos = myParser.indexOf(Parser.METHOD + ":create" + partnerRoleUpFirstChar + "()");
-      
+
       String realPartnerClassName = partnerClassName;
-      
+
       SimpleSet<Clazz> kidClasses = (SimpleSet<Clazz>) partnerRole.getClazz().getKidClazzes(true).without(partnerRole.getClazz());
       ClazzSet kidClassesInterfaces =new ClazzSet();
       for(Clazz item : kidClasses){
-    	  if (item.getModifier().has(Modifier.ABSTRACT) || GraphUtil.isInterface(item)) {
+         if (item.getModifier().has(Modifier.ABSTRACT) || GraphUtil.isInterface(item)) {
             kidClassesInterfaces.add(item);
          }
       }
       if ((partnerRole.getClazz().getModifier().has(Modifier.ABSTRACT) || GraphUtil.isInterface(partnerRole.getClazz())) &&
-    		  kidClassesInterfaces.size() == 1)
+            kidClassesInterfaces.size() == 1)
       {
          realPartnerClassName = kidClassesInterfaces.first().getName(true);
       }
-      
+
       if (pos < 0 && ! (GraphUtil.isWithNoObjects(partnerRole.getClazz()) && kidClassesInterfaces.size() != 1))
       {
          if (!GraphUtil.isInterface(clazz))
          {
-        	 if(GraphUtil.isInterface(partnerRole.getClazz()) == false) {
-        		 if(GraphUtil.isEnumeration(partnerRole.getClazz()) == false) {
-	            text.append(     "\n   public partnerClassName createPartnerRoleName()" +
-	                  "\n   {" +
-	                  "\n      partnerClassName value = new realPartnerClassName();" +
-	                  "\n      withPartnerRoleName(value);" +
-	                  "\n      return value;" +
-	                  "\n   } " +
-	                  "\n");
-        		 }
-        	 }
+            if(GraphUtil.isInterface(partnerRole.getClazz()) == false) {
+               if(GraphUtil.isEnumeration(partnerRole.getClazz()) == false) {
+                  text.append(     "\n   public partnerClassName createPartnerRoleName()" +
+                        "\n   {" +
+                        "\n      partnerClassName value = new realPartnerClassName();" +
+                        "\n      withPartnerRoleName(value);" +
+                        "\n      return value;" +
+                        "\n   } " +
+                        "\n");
+               }
+            }
          }
          else
          {
             text.append
-            (     "\n   public partnerClassName createPartnerRoleName();" +
-                  "\n");
+                  (     "\n   public partnerClassName createPartnerRoleName();" +
+                        "\n");
          }
       }
-      
-      
+
+
 
       String reverseWithoutCall = "set" + StrUtil.upFirstChar(model.getName()) + "(null)";
-      
-      if (model.getCardinality() == Cardinality.MANY)
+
+      if (model.getCardinality() == Association.MANY)
       {
          reverseWithoutCall = "without" + StrUtil.upFirstChar(model.getName()) + "(this)";
       }
-      
+
       String propertyChangeAdd = "";
       if(((ClassModel) model.getClazz().getClassModel()).hasFeature(Feature.PROPERTYCHANGESUPPORT)){
-     	 propertyChangeAdd = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, oldValue, value);";
+         propertyChangeAdd = "firePropertyChange(PROPERTY_PARTNER_ROLE_NAME, oldValue, value);";
       }
       CGUtil.replaceAll(text, "PROPERTYCHANGEADD", propertyChangeAdd);
-      CGUtil.replaceAll(text, 
-         "myCard", model.getCardinality(),
-         "partnerCard", partnerRole.getCardinality(),
-         "myClassName", myClassName,
-         "partnerClassName", partnerClassName,
-         "realPartnerClassName", realPartnerClassName,
-         "myRoleName", model.getName(),
-         "MyRoleName", StrUtil.upFirstChar(model.getName()),
-         "partnerRoleName", partnerRoleName,
-         
-         "PARTNER_ROLE_NAME", partnerRoleName.toUpperCase(),
-         "PartnerRoleName", partnerRoleUpFirstChar,
-         "withoutMethodCall(this)", reverseWithoutCall
-         );
-      
+      CGUtil.replaceAll(text,
+            "myCard", model.getCardinality(),
+            "partnerCard", partnerRole.getCardinality(),
+            "myClassName", myClassName,
+            "partnerClassName", partnerClassName,
+            "realPartnerClassName", realPartnerClassName,
+            "myRoleName", model.getName(),
+            "MyRoleName", StrUtil.upFirstChar(model.getName()),
+            "partnerRoleName", partnerRoleName,
+
+            "PARTNER_ROLE_NAME", partnerRoleName.toUpperCase(),
+            "PartnerRoleName", partnerRoleUpFirstChar,
+            "withoutMethodCall(this)", reverseWithoutCall
+      );
+
       GenClazzEntity generator = getGenerator(model.getClazz());
-      if (model.getOther().getCardinality() == Cardinality.MANY){
+      if (model.getOther().getCardinality() == Association.MANY){
          if(generator!=null ){
-        	 myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
+            myParser.insertImport(getGenerator(partnerRole.getClazz()).getModelSetClassName());
          }
       }
-   } 
+   }
    public void generate(String rootDir, String helperDir, Association partnerRole)
    {
       generate(model.getClazz(), rootDir, helperDir, partnerRole, false);
    }
-   
-   
+
+
    public void generate(Clazz clazz, String rootDir, String helperDir, Association partnerRole, boolean fromSuperClass)
    {
       ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
-      
-      if (clazz.isExternal())
+
+      if (GraphUtil.isExternal(clazz))
       {
          return;
       }
-      
+
       Parser myParser = getGenerator(clazz).getOrCreateParser(rootDir);
-      
-      if ( ! fromSuperClass && ! classModel.hasFeature(Feature.EMFSTYLE))
-      {
-            // add attribute declaration in class file
-            StringBuilder text = new StringBuilder();
 
-            if (partnerRole.getCardinality() == Cardinality.MANY) {
-               generateToManyRole(myParser, clazz, partnerRole, text);
-            }
-            else
-            {
-               generateToOneRole(myParser, clazz, partnerRole, text);
-            }
-
-            int pos = myParser.indexOf(Parser.CLASS_END);
-            try{
-            	myParser.insert(pos, text.toString());
-            }catch(Exception e){
-            	System.out.println("FILE: "+myParser.getFileName());
-            	System.out.println("FILEBODY: " +myParser.getFileBody());
-            	throw e;
-            }
-      }
-      
-      if (! classModel.hasFeature(Feature.EMFSTYLE))
       {
-         //import partner role class if package name has changed
-         if (!StrUtil.stringEquals(clazz.getName(true), partnerRole.getClazz().getName(true)))
-         {
-            getGenerator(clazz).insertImport(partnerRole.getClazz().getName(false));
+         // add attribute declaration in class file
+         StringBuilder text = new StringBuilder();
+
+         if (partnerRole.getCardinality() == Association.MANY) {
+            generateToManyRole(myParser, clazz, partnerRole, text);
          }
-         if (!((ClassModel) clazz.getClassModel()).hasFeature(Feature.SERIALIZATION))
+         else
          {
-            insertRemovalInRemoveYou(clazz, myParser, partnerRole);
-            getGenerator(clazz).printFile();
-            return;
-         } 
+            generateToOneRole(myParser, clazz, partnerRole, text);
+         }
+
+         int pos = myParser.indexOf(Parser.CLASS_END);
+         try{
+            myParser.insert(pos, text.toString());
+         }catch(Exception e){
+            System.out.println("FILE: "+myParser.getFileName());
+            System.out.println("FILEBODY: " +myParser.getFileBody());
+            throw e;
+         }
       }
-      
+
+      //import partner role class if package name has changed
+      if (!StrUtil.stringEquals(clazz.getName(true), partnerRole.getClazz().getName(true)))
+      {
+         getGenerator(clazz).insertImport(partnerRole.getClazz().getName(false));
+      }
+      if (!((ClassModel) clazz.getClassModel()).hasFeature(Feature.SERIALIZATION))
+      {
+         insertRemovalInRemoveYou(clazz, myParser, partnerRole);
+         getGenerator(clazz).printFile();
+         return;
+      }
+
       Parser creatorParser = getGenerator(clazz).getOrCreateParserForCreatorClass(helperDir);
-      
+
       insertCaseInGenericGet(clazz, creatorParser, partnerRole, rootDir);
 
-      if (partnerRole.getCardinality() == Cardinality.MANY) {
+      if (partnerRole.getCardinality() == Association.MANY) {
          insertCaseInGenericSetToMany(clazz, creatorParser, partnerRole, rootDir);
       }
       else
       {
          insertCaseInGenericSetToOne(clazz, creatorParser, partnerRole, rootDir);
       }
-      
-      if (! classModel.hasFeature(Feature.EMFSTYLE))
-      {
-         insertRemovalInRemoveYou(clazz, myParser, partnerRole);
-         
-         getGenerator(clazz).printFile();
-      }
-      
-      
+
+      insertRemovalInRemoveYou(clazz, myParser, partnerRole);
+
+      getGenerator(clazz).printFile();
+
+
       // generate property in creator class
-      if (( ! GraphUtil.isInterface(clazz) && classModel.hasFeature(Feature.SERIALIZATION, partnerRole.getClazz()))
-            || classModel.hasFeature(Feature.EMFSTYLE))
+      if ( ! GraphUtil.isInterface(clazz) && classModel.hasFeature(Feature.SERIALIZATION, partnerRole.getClazz()))
       {
          insertPropertyInCreatorClass(clazz, creatorParser, partnerRole);
 
          getGenerator(clazz).printFile(creatorParser);
       }
-      
-    		  
-      if (classModel.hasFeature(Feature.SERIALIZATION, partnerRole.getClazz())) 
+
+
+      if (classModel.hasFeature(Feature.SERIALIZATION, partnerRole.getClazz()))
       {
          // generate property in model set class
          Parser modelSetParser = getGenerator(clazz).getOrCreateParserForModelSetFile(helperDir);
@@ -754,17 +738,15 @@ public class GenAssociation extends Generator<Association>
 
          getGenerator(clazz).printFile(modelSetParser);
 
-         if(((ClassModel) getModel().getClazz().getClassModel()).hasFeature(Feature.PATTERNOBJECT)){
-            // generate property in pattern object class
-            Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
+         // generate property in pattern object class
+         Parser patternObjectParser = getGenerator(clazz).getOrCreateParserForPatternObjectFile(helperDir);
 
-            insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
+         insertGetterInPatternObjectFile(clazz, patternObjectParser, partnerRole);
 
-            getGenerator(clazz).printFile(patternObjectParser);
-         }
+         getGenerator(clazz).printFile(patternObjectParser);
       }
    }
-   
+
    private void insertRemovalInRemoveYou(Clazz clazz, Parser parser, Association partnerRole)
    {
       if (partnerRole.getOther().getType() == AssociationTypes.UNDIRECTIONAL)
@@ -772,12 +754,12 @@ public class GenAssociation extends Generator<Association>
          // no reverse link, nothing to delete
          return;
       }
-      
+
       if (GraphUtil.isInterface(clazz))
       {
          return;
       }
-      
+
       int pos = parser.indexOf(Parser.METHOD + ":removeYou()");
 
       if (pos < 0)
@@ -790,63 +772,63 @@ public class GenAssociation extends Generator<Association>
          return;
       }
 
-      
+
       // OK, found method, parse its body to find if that handles me. 
       String roleName = StrUtil.upFirstChar(partnerRole.getName());
       String clazzName = StrUtil.upFirstChar(partnerRole.getClazz().getName());
-      clazzName = CGUtil.shortClassName(clazzName); 
-      
-      
+      clazzName = CGUtil.shortClassName(clazzName);
+
+
       String removeCall = "set" + StrUtil.upFirstChar(partnerRole.getName());
       String fullRemoveCall = removeCall + "(null);\n      ";
-      
+
       if (partnerRole.getOther().getType() == AssociationTypes.AGGREGATION)
       {
          removeCall = "get"+roleName;
          fullRemoveCall = "if (getPresident() != null) { getPresident().removeYou(); }\n      ";
-               
-         fullRemoveCall =  CGUtil.replaceAll(fullRemoveCall, 
-            "getPresident", "get"+roleName);  
+
+         fullRemoveCall =  CGUtil.replaceAll(fullRemoveCall,
+               "getPresident", "get"+roleName);
       }
-      
-      if (partnerRole.getCardinality() == Cardinality.MANY) 
+
+      if (partnerRole.getCardinality() == Association.MANY)
       {
          if (partnerRole.getOther().getType() == AssociationTypes.AGGREGATION)
          {
             fullRemoveCall = "for (RoomType obj : new RoomSet(this.getRooms())) { obj.removeYou(); }\n      ";
-            
+
             removeCall = "get"+roleName;
-            
-            fullRemoveCall = CGUtil.replaceAll(fullRemoveCall, 
-               "RoomType", clazzName,
-               "getRooms", "get"+roleName,
-               "RoomSet", clazzName+"Set");
+
+            fullRemoveCall = CGUtil.replaceAll(fullRemoveCall,
+                  "RoomType", clazzName,
+                  "getRooms", "get"+roleName,
+                  "RoomSet", clazzName+"Set");
          }
          else
          {
             removeCall = "without"+roleName;
             fullRemoveCall = removeCall + "(this.get"+roleName+"().toArray(new "+clazzName+"[this.get"+roleName+"().size()]));\n      ";
          }
-      }            
-      
+      }
+
       int methodBodyStartPos = parser.getMethodBodyStartPos();
-      
+
       pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":" + removeCall, methodBodyStartPos);
 
       if (pos < 0)
-      {         
+      {
          // need to add remove call
          pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":firePropertyChange", methodBodyStartPos);
-         
+
          if (pos < 0)
          {
-            System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + clazz.getName(false) 
-               + ": \nDid not find firePropertyChange call in method removeYou(). Should have been generated by my clazz. " 
-               + "\nCould not add required code fragment there. :( ");
+            System.err.println("Warning: SDMLib codgen for role " + partnerRole.getName() + " for class " + clazz.getName(false)
+                  + ": \nDid not find firePropertyChange call in method removeYou(). Should have been generated by my clazz. "
+                  + "\nCould not add required code fragment there. :( ");
 
             return;
          }
-         
+
          parser.insert(pos, fullRemoveCall);
       }
    }
@@ -857,153 +839,153 @@ public class GenAssociation extends Generator<Association>
       int pos = parser.indexOf(key);
 
       StringBuilder text = new StringBuilder();
-      
+
       if (pos < 0)
       {
-         text.append(
-                  "   /**\n" +
-                  "    * Loop through the current set of ContentType objects and collect a set of the ModelType objects reached via thename. \n" +
-                  "    * \n" +
-                  "    * @return Set of ModelType objects reachable via thename\n" +
-                  "    */\n" + 
-                  "   public ModelSetType getName()\n" +
-                  "   {\n" + 
-                  "      ModelSetType result = new ModelSetType();\n" + 
-                  "      \n" + 
-                  "      for (ContentType obj : this)\n" + 
-                  "      {\n" + 
-                  "         result.with(obj.getName());\n" + 
-                  "      }\n" + 
-                  "      \n" + 
-                  "      return result;\n" + 
-                  "   }\n" + 
-                  "\n");
-         	if(this.getClazz().hasFeature(Feature.STANDALONE) == false) {
-         		 text.append("   /**\n" +
-                  "    * Loop through the current set of ContentType objects and collect all contained objects with "
-                        + "reference thename pointing to the object passed as parameter. \n" +
-                  "    * \n" +
-                  "    * @param value The object required as thename neighbor of the collected results. \n" +
-                  "    * \n" +
-                  "    * @return Set of ModelType objects referring to value via thename\n" +
-                  "    */\n" + 
-                  "   public ContentTypeSet filterName(Object value)\n" + 
-                  "   {\n" + 
-                  "      ObjectSet neighbors = new ObjectSet();\n" + 
-                  "\n" + 
-                  "      if (value instanceof Collection)\n" + 
-                  "      {\n" + 
-                  "         neighbors.addAll((Collection<?>) value);\n" + 
-                  "      }\n" + 
-                  "      else\n" + 
-                  "      {\n" + 
-                  "         neighbors.add(value);\n" + 
-                  "      }\n" + 
-                  "      \n" + 
-                  "      ContentTypeSet answer = new ContentTypeSet();\n" + 
-                  "      \n" + 
-                  "      for (ContentType obj : this)\n" + 
-                  "      {\n" + 
-                  "         if (containsClause)\n" + 
-                  "         {\n" + 
-                  "            answer.add(obj);\n" + 
-                  "         }\n" + 
-                  "      }\n" + 
-                  "      \n" + 
-                  "      return answer;\n" + 
-                  "   }\n" + 
-                  "\n");
-         		 parser.insertImport(Collection.class.getName());
-         		 parser.insertImport(ObjectSet.class.getName());
-         	}
-            
-            String containsClause = "neighbors.contains(obj.get"
-                  + StrUtil.upFirstChar(partnerRole.getName()) + "())"
-                  + " || (neighbors.isEmpty() && obj.get"
-                  + StrUtil.upFirstChar(partnerRole.getName())
-                  + "() == null)";
-            
-            if (partnerRole.getCardinality() == Cardinality.MANY) {
-               containsClause = " ! Collections.disjoint(neighbors, obj.get" 
-                     + StrUtil.upFirstChar(partnerRole.getName()) + "())";
-               parser.insertImport(Collections.class.getName());
-            }
-            CGUtil.replaceAll(text, 
-            		"containsClause", containsClause,
-            		"filterName", "filter" + StrUtil.upFirstChar(partnerRole.getName()));
-            
+         text.append("" +
+               "   /**\n" +
+               "    * Loop through the current set of ContentType objects and collect a set of the ModelType objects reached via thename. \n" +
+               "    * \n" +
+               "    * @return Set of ModelType objects reachable via thename\n" +
+               "    */\n" +
+               "   public ModelSetType getName()\n" +
+               "   {\n" +
+               "      ModelSetType result = new ModelSetType();\n" +
+               "      \n" +
+               "      for (ContentType obj : this)\n" +
+               "      {\n" +
+               "         result.with(obj.getName());\n" +
+               "      }\n" +
+               "      \n" +
+               "      return result;\n" +
+               "   }\n" +
+               "\n");
+
+         text.append("" +
+               "   /**\n" +
+               "    * Loop through the current set of ContentType objects and collect all contained objects with "
+               + "reference thename pointing to the object passed as parameter. \n" +
+               "    * \n" +
+               "    * @param value The object required as thename neighbor of the collected results. \n" +
+               "    * \n" +
+               "    * @return Set of ModelType objects referring to value via thename\n" +
+               "    */\n" +
+               "   public ContentTypeSet filterName(Object value)\n" +
+               "   {\n" +
+               "      ObjectSet neighbors = new ObjectSet();\n" +
+               "\n" +
+               "      if (value instanceof Collection)\n" +
+               "      {\n" +
+               "         neighbors.addAll((Collection<?>) value);\n" +
+               "      }\n" +
+               "      else\n" +
+               "      {\n" +
+               "         neighbors.add(value);\n" +
+               "      }\n" +
+               "      \n" +
+               "      ContentTypeSet answer = new ContentTypeSet();\n" +
+               "      \n" +
+               "      for (ContentType obj : this)\n" +
+               "      {\n" +
+               "         if (containsClause)\n" +
+               "         {\n" +
+               "            answer.add(obj);\n" +
+               "         }\n" +
+               "      }\n" +
+               "      \n" +
+               "      return answer;\n" +
+               "   }\n" +
+               "\n");
+         parser.insertImport(Collection.class.getName());
+         parser.insertImport(ObjectSet.class.getName());
+
+         String containsClause = "neighbors.contains(obj.get"
+               + StrUtil.upFirstChar(partnerRole.getName()) + "())"
+               + " || (neighbors.isEmpty() && obj.get"
+               + StrUtil.upFirstChar(partnerRole.getName())
+               + "() == null)";
+
+         if (partnerRole.getCardinality() == Association.MANY) {
+            containsClause = " ! Collections.disjoint(neighbors, obj.get"
+                  + StrUtil.upFirstChar(partnerRole.getName()) + "())";
+            parser.insertImport(Collections.class.getName());
+         }
+         CGUtil.replaceAll(text,
+               "containsClause", containsClause,
+               "filterName", "filter" + StrUtil.upFirstChar(partnerRole.getName()));
+
       }
-       
-      
+
+
       String key2 = Parser.METHOD + ":get" + StrUtil.upFirstChar(partnerRole.getName()) + "Transitive()";
       int pos2 = parser.indexOf(key2);
-      
+
       if (pos2 < 0)
       {
          if (model.getClazz() == model.getOtherClazz())
          {
             text
-            .append("   /**\n" +
-                    "    * Follow thename reference zero or more times and collect all reachable objects. Detect cycles and deal with them. \n" +
-                    "    * \n" +
-                    "    * @return Set of ModelType objects reachable via thename transitively (including the start set)\n" +
-                    "    */\n" 
-                  + "   public ModelSetType getNameTransitive()\n"
-                  + "   {\n"
-                  + "      ModelSetType todo = new ModelSetType().with(this);\n"
-                  + "      \n"
-                  + "      ModelSetType result = new ModelSetType();\n"
-                  + "      \n" + "      while ( ! todo.isEmpty())\n"
-                  + "      {\n"
-                  + "         ModelType current = todo.first();\n"
-                  + "         \n" + "         todo.remove(current);\n"
-                  + "         \n"
-                  + "         if ( ! result.contains(current))\n"
-                  + "         {\n" 
-                  + "            result.add(current);\n"
-                  + "            \n"
-                  + "            todo.with(current.getPartnerrolenameupfirst()).minus(result);\n"
-                  + "         }\n" + "      }\n" + "      \n"
-                  + "      return result;\n" + "   }\n" + "\n" + "");
+                  .append("   /**\n" +
+                        "    * Follow thename reference zero or more times and collect all reachable objects. Detect cycles and deal with them. \n" +
+                        "    * \n" +
+                        "    * @return Set of ModelType objects reachable via thename transitively (including the start set)\n" +
+                        "    */\n"
+                        + "   public ModelSetType getNameTransitive()\n"
+                        + "   {\n"
+                        + "      ModelSetType todo = new ModelSetType().with(this);\n"
+                        + "      \n"
+                        + "      ModelSetType result = new ModelSetType();\n"
+                        + "      \n" + "      while ( ! todo.isEmpty())\n"
+                        + "      {\n"
+                        + "         ModelType current = todo.first();\n"
+                        + "         \n" + "         todo.remove(current);\n"
+                        + "         \n"
+                        + "         if ( ! result.contains(current))\n"
+                        + "         {\n"
+                        + "            result.add(current);\n"
+                        + "            \n"
+                        + "            todo.with(current.getPartnerrolenameupfirst()).minus(result);\n"
+                        + "         }\n" + "      }\n" + "      \n"
+                        + "      return result;\n" + "   }\n" + "\n" + "");
 
-            if (partnerRole.getCardinality() == Cardinality.ONE) {
-               CGUtil.replaceAll(text, 
-                  "todo.with(current.getPartnerrolenameupfirst()).minus(result);", 
-                  "if ( ! result.contains(current.getName()))\n"
-                  + "            {\n"
-                  + "               todo.with(current.getName());\n"
-                  + "            }");
+            if (partnerRole.getCardinality() == Association.ONE) {
+               CGUtil.replaceAll(text,
+                     "todo.with(current.getPartnerrolenameupfirst()).minus(result);",
+                     "if ( ! result.contains(current.getName()))\n"
+                           + "            {\n"
+                           + "               todo.with(current.getName());\n"
+                           + "            }");
             }
             getGenerator(model.getClazz()).insertImport(CGUtil.helperClassName(partnerRole.getClazz().getName(false) ,"Set"));
          }
       }
-      
+
       if (pos < 0 || pos2 < 0)
-      {      
+      {
          String partnerRoleNameUpFirst = StrUtil.upFirstChar(partnerRole.getName());
          String partnerGetterName = partnerRoleNameUpFirst;
-         
+
          modelClassParser.indexOf(key);
-         
-         CGUtil.replaceAll(text, 
-            "ContentType", tgtClass.getName(true),
-            "ModelType", partnerRole.getClazz().getName(true),
-            "ModelSetType", partnerRole.getClazz().getName(true) + "Set",
-            "Name", partnerRoleNameUpFirst,
-            "thename", partnerRole.getName(),
-            "Partnerrolenameupfirst", partnerGetterName
-            );
+
+         CGUtil.replaceAll(text,
+               "ContentType", tgtClass.getName(true),
+               "ModelType", partnerRole.getClazz().getName(true),
+               "ModelSetType", partnerRole.getClazz().getName(true) + "Set",
+               "Name", partnerRoleNameUpFirst,
+               "thename", partnerRole.getName(),
+               "Partnerrolenameupfirst", partnerGetterName
+         );
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         
+
          parser.insert(classEnd, text.toString());
-         
-         if (! partnerRole.getClazz().isExternal())
+
+         if (! GraphUtil.isExternal(partnerRole.getClazz()))
          {
             // external classes get a set in this util package, no need for an import
             // thus just for real classes that may be in other packages
             String helperClassName = CGUtil.helperClassName(partnerRole.getClazz().getName(false),"Set");
-            
+
             parser.insertImport(helperClassName);
          }
       }
@@ -1028,35 +1010,35 @@ public class GenAssociation extends Generator<Association>
       {
          StringBuilder text = new StringBuilder();
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
-         
-         if ( ! classModel.hasFeature(Feature.EMFSTYLE) || partnerRole.getCardinality() == Cardinality.ONE) {
+
+         if (partnerRole.getCardinality() == Association.ONE) {
             text.append
-            (       "   public TargetType getRoleName()\n"
-                  + "   {\n"
-                  + "      if (this.getPattern().getHasMatch())\n"
-                  + "      {\n"
-                  + "         return ((ModelClass) this.getCurrentMatch()).getRoleName();\n"
-                  + "      }\n" 
-                  + "      return null;\n" + "   }\n\n");
+                  (       "   public TargetType getRoleName()\n"
+                        + "   {\n"
+                        + "      if (this.getPattern().getHasMatch())\n"
+                        + "      {\n"
+                        + "         return ((ModelClass) this.getCurrentMatch()).getRoleName();\n"
+                        + "      }\n"
+                        + "      return null;\n" + "   }\n\n");
          }
          else
          {
             text.append
-            (       "   public TargetType getRoleName()\n"
-                  + "   {\n"
-                  + "      if (this.getPattern().getHasMatch())\n"
-                  + "      {\n"
-                  + "         return new TargetType(((ModelClass) this.getCurrentMatch()).getRoleName());\n"
-                  + "      }\n" 
-                  + "      return null;\n" + "   }\n\n");
+                  (       "   public TargetType getRoleName()\n"
+                        + "   {\n"
+                        + "      if (this.getPattern().getHasMatch())\n"
+                        + "      {\n"
+                        + "         return new TargetType(((ModelClass) this.getCurrentMatch()).getRoleName());\n"
+                        + "      }\n"
+                        + "      return null;\n" + "   }\n\n");
          }
-         
-         
+
+
          String targetType;
-         
-         if (partnerRole.getCardinality() == Cardinality.MANY) {
+
+         if (partnerRole.getCardinality() == Association.MANY) {
             String fullTargetType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "Set");
-            if (partnerRole.getClazz().isExternal())
+            if (GraphUtil.isExternal(partnerRole.getClazz()))
             {
                targetType = CGUtil.shortClassName(partnerRole.getClazz().getName()) + "Set";
             }
@@ -1067,73 +1049,73 @@ public class GenAssociation extends Generator<Association>
          }else{
             targetType = getGenerator(partnerRole.getClazz()).shortNameAndImport(partnerRole.getClazz().getName(false), parser);
          }
-         
-         CGUtil.replaceAll(text, 
-            "TargetType", targetType,
-            "ModelClass", getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser),
-            "RoleName", StrUtil.upFirstChar(partnerRole.getName()), 
-            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         CGUtil.replaceAll(text,
+               "TargetType", targetType,
+               "ModelClass", getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser),
+               "RoleName", StrUtil.upFirstChar(partnerRole.getName()),
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         
+
          parser.insert(classEnd, text.toString());
       }
    }
 
 
    private void insertCreateNoParamInPatternObjectFile(Clazz clazz, Parser parser,
-         Association partnerRole)
+                                                       Association partnerRole)
    {
-	   if (GraphUtil.isEnumeration(partnerRole.getClazz())) {
-		   return;
-	   }
+      if (GraphUtil.isEnumeration(partnerRole.getClazz())) {
+         return;
+      }
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO()";
       int pos = parser.indexOf(key);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "   public PatternObjectType filterName()\n" + 
-            "   {\n" + 
-            "      PatternObjectType result = new PatternObjectType(new ClassObjectType[]{});\n" + 
-            "      \n" + 
-            "      result.setModifier(this.getPattern().getModifier());\n" + 
-            "      super.hasLink(ModelClass.PROPERTY_NAME, result);\n" + 
-            "      \n" + 
-            "      return result;\n" + 
-            "   }\n\n");
+               "   public PatternObjectType filterName()\n" +
+                     "   {\n" +
+                     "      PatternObjectType result = new PatternObjectType(new ClassObjectType[]{});\n" +
+                     "      \n" +
+                     "      result.setModifier(this.getPattern().getModifier());\n" +
+                     "      super.hasLink(ModelClass.PROPERTY_NAME, result);\n" +
+                     "      \n" +
+                     "      return result;\n" +
+                     "   }\n\n");
 
          //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
          String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
-                  
-         if ( ! partnerRole.getClazz().isExternal())
+
+         if ( ! GraphUtil.isExternal(partnerRole.getClazz() ))
          {
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
-         
+
          String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
-         
-         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+
+         if (GraphUtil.isExternal(model.getClazz()))
          {
             modelClassName += "Creator";
          }
-         
+
          String partnerClass = partnerRole.getClazz().getName();
-         
-         CGUtil.replaceAll(text, 
-            "PatternObjectType", patternObjectType,
-            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO", 
-            "ClassObjectType", partnerClass,
-            "ModelClass", modelClassName,
-            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         CGUtil.replaceAll(text,
+               "PatternObjectType", patternObjectType,
+               "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO",
+               "ClassObjectType", partnerClass,
+               "ModelClass", modelClassName,
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         
+
          parser.insert(classEnd, text.toString());
-         
-         if(partnerClass.indexOf(".") < 0) 
+
+         if(partnerClass.indexOf(".") < 0)
          {
             parser.insertImport(partnerRole.getClazz().getName(false));
          }
@@ -1142,11 +1124,11 @@ public class GenAssociation extends Generator<Association>
 
 
    private void insertCreateModifierParamInPatternObjectFile(Clazz clazz, Parser parser,
-         Association partnerRole)
+                                                             Association partnerRole)
    {
-	   if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
-		   return;
-	   }
+      if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
+         return;
+      }
 
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO(String)";
       int pos = parser.indexOf(key);
@@ -1154,47 +1136,47 @@ public class GenAssociation extends Generator<Association>
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "   public PatternObjectType filterName(String modifier)\n" + 
-            "   {\n" + 
-            "      PatternObjectType result = new PatternObjectType(new ClassObjectType[]{});\n" + 
-            "      \n" + 
-            "      result.setModifier(modifier);\n" + 
-            "      super.hasLink(ModelClass.PROPERTY_NAME, result);\n" + 
-            "      \n" + 
-            "      return result;\n" + 
-            "   }\n\n");
+               "   public PatternObjectType filterName(String modifier)\n" +
+                     "   {\n" +
+                     "      PatternObjectType result = new PatternObjectType(new ClassObjectType[]{});\n" +
+                     "      \n" +
+                     "      result.setModifier(modifier);\n" +
+                     "      super.hasLink(ModelClass.PROPERTY_NAME, result);\n" +
+                     "      \n" +
+                     "      return result;\n" +
+                     "   }\n\n");
 
          //         getGenerator(clazz).insertImport(parser, PatternLink.class.getName());
          String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
          String patternObjectType = CGUtil.shortClassName(partnerRole.getClazz()+"PO");
-                  
-         if ( ! partnerRole.getClazz().isExternal())
+
+         if ( ! GraphUtil.isExternal(partnerRole.getClazz()))
          {
             patternObjectType = getGenerator(partnerRole.getClazz()).shortNameAndImport(fullPatternObjectType, parser);
          }
-         
+
          String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
-         
-         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+
+         if (GraphUtil.isExternal(model.getClazz()))
          {
             modelClassName += "Creator";
          }
-         
+
          String partnerClass = partnerRole.getClazz().getName();
-         
-         CGUtil.replaceAll(text, 
-            "PatternObjectType", patternObjectType,
-            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO", 
-            "ClassObjectType", partnerClass,
-            "ModelClass", modelClassName,
-            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         CGUtil.replaceAll(text,
+               "PatternObjectType", patternObjectType,
+               "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "PO",
+               "ClassObjectType", partnerClass,
+               "ModelClass", modelClassName,
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         
+
          parser.insert(classEnd, text.toString());
-         
-         if(partnerClass.indexOf(".") < 0) 
+
+         if(partnerClass.indexOf(".") < 0)
          {
             parser.insertImport(partnerRole.getClazz().getName(false));
          }
@@ -1203,92 +1185,92 @@ public class GenAssociation extends Generator<Association>
 
 
    private void insertFilterWithParamInPatternObjectFile(Clazz clazz, Parser parser,
-         Association partnerRole)
+                                                         Association partnerRole)
    {
-	   if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
-		   return;
-	   }
+      if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
+         return;
+      }
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
       String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
-      
+
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link(" + patternObjectType + ")";
       int pos = parser.indexOf(key);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "   public ModelPOType filterName(PatternObjectType tgt)\n" + 
-            "   {\n" + 
-            "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME);\n" + 
-            "   }\n\n");
+               "   public ModelPOType filterName(PatternObjectType tgt)\n" +
+                     "   {\n" +
+                     "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME);\n" +
+                     "   }\n\n");
 
-         
+
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(false), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
          String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
-         
+
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         if (GraphUtil.isExternal(model.getClazz()))
          {
             modelClassName += "Creator";
          }
-         
-         CGUtil.replaceAll(text, 
-            "PatternObjectType", patternObjectType,
-            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link", 
-            "ModelClass", modelClassName,
-            "ModelPOType", modelPOType, 
-            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         CGUtil.replaceAll(text,
+               "PatternObjectType", patternObjectType,
+               "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link",
+               "ModelClass", modelClassName,
+               "ModelPOType", modelPOType,
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         
+
          parser.insert(classEnd, text.toString());
       }
    }
 
    private void insertFilterWithPOAndModifierParamInPatternObjectFile(Clazz clazz, Parser parser,
-         Association partnerRole)
+                                                                      Association partnerRole)
    {
-	   if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
-		   return;
-	   }
+      if(GraphUtil.isEnumeration(partnerRole.getClazz())) {
+         return;
+      }
 
       String fullPatternObjectType = CGUtil.helperClassName(partnerRole.getClazz().getName(false), "PO");
       String patternObjectType = CGUtil.shortClassName(fullPatternObjectType);
-      
+
       String key = Parser.METHOD + ":create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link(" + patternObjectType + ",String)";
       int pos = parser.indexOf(key);
 
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "   public ModelPOType filterName(PatternObjectType tgt, String modifier)\n" + 
-            "   {\n" + 
-            "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME, modifier);\n" + 
-            "   }\n\n");
+               "   public ModelPOType filterName(PatternObjectType tgt, String modifier)\n" +
+                     "   {\n" +
+                     "      return hasLinkConstraint(tgt, ModelClass.PROPERTY_NAME, modifier);\n" +
+                     "   }\n\n");
 
-         
+
          String fullModelPOType = CGUtil.helperClassName(clazz.getName(false), "PO");
          String modelPOType = getGenerator(clazz).shortNameAndImport(fullModelPOType, parser);
          String modelClassName = getGenerator(clazz).shortNameAndImport(clazz.getName(false), parser);
-         
+
          ClassModel classModel = (ClassModel) model.getClazz().getClassModel();
 
-         if (model.getClazz().isExternal() || classModel.hasFeature(Feature.EMFSTYLE))
+         if (GraphUtil.isExternal(model.getClazz()))
          {
             modelClassName += "Creator";
          }
-         
-         CGUtil.replaceAll(text, 
-            "PatternObjectType", patternObjectType,
-            "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link", 
-            "ModelClass", modelClassName,
-            "ModelPOType", modelPOType, 
-            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
+
+         CGUtil.replaceAll(text,
+               "PatternObjectType", patternObjectType,
+               "filterName", "create" + StrUtil.upFirstChar(partnerRole.getName()) + "Link",
+               "ModelClass", modelClassName,
+               "ModelPOType", modelPOType,
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase());
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         
+
          parser.insert(classEnd, text.toString());
       }
    }
@@ -1298,7 +1280,7 @@ public class GenAssociation extends Generator<Association>
    private void insertSetterInModelSetFile(Clazz tgtClass, Parser parser, Association partnerRole)
    {
       String targetType = partnerRole.getClazz().getName(true);
-      
+
       String key = Parser.METHOD + ":with" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
       int pos = parser.indexOf(key);
 
@@ -1307,53 +1289,41 @@ public class GenAssociation extends Generator<Association>
       if (pos < 0)
       {
          StringBuilder text = new StringBuilder(
-            "   /**\n" +
-            "    * Loop through current set of ModelType objects and attach the ContentType object passed as parameter to the Name attribute of each of it. \n" +
-            "    * \n" +
-            "    * @param value value" +
-            "    * @return The original set of ModelType objects now with the new neighbor attached to their Name attributes.\n" +
-            "    */\n" + 
-            "   public ModelSetType withName(TargetType value)\n" + 
-            "   {\n" + 
-            "      for (ContentType obj : this)\n" + 
-            "      {\n" + 
-            "         obj.setMethod(value);\n" + 
-            "      }\n" + 
-            "      \n" + 
-            "      return this;\n" + 
-            "   }\n\n"
-            );
-         
-         String setMethod = "with" + StrUtil.upFirstChar(partnerRole.getName());
-         
-         if (classModel.hasFeature(Feature.EMFSTYLE)) 
-         {
-            if (partnerRole.getCardinality() == Cardinality.MANY)
-            {
-               setMethod = "get" + StrUtil.upFirstChar(partnerRole.getName()) + "().add";
-            }
-            else
-            {
-               setMethod = "set" + StrUtil.upFirstChar(partnerRole.getName());               
-            }
-         }
+               "   /**\n" +
+                     "    * Loop through current set of ModelType objects and attach the ContentType object passed as parameter to the Name attribute of each of it. \n" +
+                     "    * \n" +
+                     "    * @param value value" +
+                     "    * @return The original set of ModelType objects now with the new neighbor attached to their Name attributes.\n" +
+                     "    */\n" +
+                     "   public ModelSetType withName(TargetType value)\n" +
+                     "   {\n" +
+                     "      for (ContentType obj : this)\n" +
+                     "      {\n" +
+                     "         obj.setMethod(value);\n" +
+                     "      }\n" +
+                     "      \n" +
+                     "      return this;\n" +
+                     "   }\n\n"
+         );
 
-         CGUtil.replaceAll(text, 
-            "TargetType", targetType,
-            "ContentType", CGUtil.shortClassName(tgtClass.getName(false)),
-            "ModelSetType", CGUtil.shortClassName(tgtClass.getName(false)) + "Set",
-            "setMethod", setMethod,
-            "Name", StrUtil.upFirstChar(partnerRole.getName())
-            );
+         String setMethod = "with" + StrUtil.upFirstChar(partnerRole.getName());
+
+         CGUtil.replaceAll(text,
+               "TargetType", targetType,
+               "ContentType", CGUtil.shortClassName(tgtClass.getName(false)),
+               "ModelSetType", CGUtil.shortClassName(tgtClass.getName(false)) + "Set",
+               "setMethod", setMethod,
+               "Name", StrUtil.upFirstChar(partnerRole.getName())
+         );
 
          int classEnd = parser.indexOf(Parser.CLASS_END);
-         
+
          parser.insert(classEnd, text.toString());
-         
+
          parser.insertImport(partnerRole.getClazz().getName(false));
       }
-      
-      if (partnerRole.getCardinality() == Cardinality.MANY) 
+
+      if (partnerRole.getCardinality() == Association.MANY)
       {
          key = Parser.METHOD + ":without" + StrUtil.upFirstChar(partnerRole.getName()) + "(" + targetType + ")";
          pos = parser.indexOf(key);
@@ -1361,42 +1331,37 @@ public class GenAssociation extends Generator<Association>
          if (pos < 0)
          {
             StringBuilder text = new StringBuilder(
-               "   /**\n" +
-               "    * Loop through current set of ModelType objects and remove the ContentType object passed as parameter from the Name attribute of each of it. \n" +
-               "    * \n" +
-               "    * @param value value" +
-               "    * @return The original set of ModelType objects now without the old neighbor.\n" +
-               "    */\n" + 
-               "   public ModelSetType withoutName(TargetType value)\n" + 
-               "   {\n" + 
-               "      for (ContentType obj : this)\n" + 
-               "      {\n" + 
-               "         obj.removeMethod(value);\n" + 
-               "      }\n" + 
-               "      \n" + 
-               "      return this;\n" + 
-               "   }\n\n"
-               );
-            
-            String removeMethod = "without" + StrUtil.upFirstChar(partnerRole.getName());
-            
-            if (classModel.hasFeature(Feature.EMFSTYLE))
-            {
-               removeMethod = "get" + StrUtil.upFirstChar(partnerRole.getName()) + "().remove";
-            }
+                  "   /**\n" +
+                        "    * Loop through current set of ModelType objects and remove the ContentType object passed as parameter from the Name attribute of each of it. \n" +
+                        "    * \n" +
+                        "    * @param value value" +
+                        "    * @return The original set of ModelType objects now without the old neighbor.\n" +
+                        "    */\n" +
+                        "   public ModelSetType withoutName(TargetType value)\n" +
+                        "   {\n" +
+                        "      for (ContentType obj : this)\n" +
+                        "      {\n" +
+                        "         obj.removeMethod(value);\n" +
+                        "      }\n" +
+                        "      \n" +
+                        "      return this;\n" +
+                        "   }\n\n"
+            );
 
-            CGUtil.replaceAll(text, 
-               "TargetType", targetType,
-               "ContentType", CGUtil.shortClassName(tgtClass.getName(false)),
-               "ModelSetType", CGUtil.shortClassName(tgtClass.getName(false)) + "Set",
-               "removeMethod", removeMethod,
-               "Name", StrUtil.upFirstChar(partnerRole.getName())
-               );
+            String removeMethod = "without" + StrUtil.upFirstChar(partnerRole.getName());
+
+            CGUtil.replaceAll(text,
+                  "TargetType", targetType,
+                  "ContentType", CGUtil.shortClassName(tgtClass.getName(false)),
+                  "ModelSetType", CGUtil.shortClassName(tgtClass.getName(false)) + "Set",
+                  "removeMethod", removeMethod,
+                  "Name", StrUtil.upFirstChar(partnerRole.getName())
+            );
 
             int classEnd = parser.indexOf(Parser.CLASS_END);
-            
+
             parser.insert(classEnd, text.toString());
-            
+
             parser.insertImport(partnerRole.getClazz().getName(false));
          }
       }
@@ -1408,7 +1373,7 @@ public class GenAssociation extends Generator<Association>
       insertDownPropertyInCreatorClass(clazz, parser, partnerRole);
       insertUpPropertyInCreatorClass(clazz, parser, partnerRole);
    }
-   
+
    private void insertPlainPropertyInCreatorClass(Clazz clazz, Parser parser, Association partnerRole)
    {
       String key = Parser.ATTRIBUTE + ":properties";
@@ -1426,16 +1391,16 @@ public class GenAssociation extends Generator<Association>
 
       // OK, found method, parse its body to find if that handles me. 
       int endOfStringArrayInit = parser.getEndOfAttributeInitialization();
-      
+
       String plainPropertyName = "PROPERTY_" + partnerRole.getName().toUpperCase();
       String propertyName = plainPropertyName + ",";
-      
+
       int propertyNameIndex = parser.search(propertyName, pos);
 
       if (propertyNameIndex < 0 || propertyNameIndex > endOfStringArrayInit)
-      {         
+      {
          // need to add property to string array
-         
+
          StringBuilder text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
 
          String shortClassName = CGUtil.shortClassName(clazz.getName(false));
@@ -1443,42 +1408,37 @@ public class GenAssociation extends Generator<Association>
 //        	 shortClassName = CGUtil.shortClassName(partnerRole.getClazz().getName(false));
 //         }
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
-         
-         if (classModel.hasFeature(Feature.EMFSTYLE))
-         {
-            shortClassName += "Creator";
-         }
-         
-         CGUtil.replaceAll(text, 
-            "className", shortClassName,
-            "PROPERTY_NAME", plainPropertyName
-            );
+
+         CGUtil.replaceAll(text,
+               "className", shortClassName,
+               "PROPERTY_NAME", plainPropertyName
+         );
 
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
-         
-         if (clazz.isExternal()  || classModel.hasFeature(Feature.EMFSTYLE))
+
+         if (GraphUtil.isExternal(clazz))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
 
             CGUtil.replaceAll(text,
-               "PROPERTY_NAME", plainPropertyName,
-               "propertyName", partnerRole.getName()
-                  );
+                  "PROPERTY_NAME", plainPropertyName,
+                  "propertyName", partnerRole.getName()
+            );
 
             parser.insert(pos, text.toString());
          }
       }
    }
-   
+
    private void insertDownPropertyInCreatorClass(Clazz clazz, Parser parser, Association partnerRole)
    {
       if (model.getType() != AssociationTypes.AGGREGATION)
       {
          return;
       }
-      
+
       String key = Parser.ATTRIBUTE + ":downProperties";
       int pos = parser.indexOf(key);
 
@@ -1494,16 +1454,16 @@ public class GenAssociation extends Generator<Association>
 
       // OK, found method, parse its body to find if that handles me. 
       int endOfStringArrayInit = parser.getEndOfAttributeInitialization();
-      
+
       String plainPropertyName = "PROPERTY_" + partnerRole.getName().toUpperCase();
       String propertyName = plainPropertyName + ",";
-      
+
       int propertyNameIndex = parser.search(propertyName, pos);
 
       if (propertyNameIndex < 0 || propertyNameIndex > endOfStringArrayInit)
-      {         
+      {
          // need to add property to string array
-         
+
          StringBuilder text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
 
          String shortClassName = CGUtil.shortClassName(clazz.getName(false));
@@ -1511,42 +1471,37 @@ public class GenAssociation extends Generator<Association>
 //           shortClassName = CGUtil.shortClassName(partnerRole.getClazz().getName(false));
 //         }
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
-         
-         if (classModel.hasFeature(Feature.EMFSTYLE))
-         {
-            shortClassName += "Creator";
-         }
-         
-         CGUtil.replaceAll(text, 
-            "className", shortClassName,
-            "PROPERTY_NAME", plainPropertyName
-            );
+
+         CGUtil.replaceAll(text,
+               "className", shortClassName,
+               "PROPERTY_NAME", plainPropertyName
+         );
 
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
-         
-         if (clazz.isExternal()  || classModel.hasFeature(Feature.EMFSTYLE))
+
+         if (GraphUtil.isExternal(clazz))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
 
             CGUtil.replaceAll(text,
-               "PROPERTY_NAME", plainPropertyName,
-               "propertyName", partnerRole.getName()
-                  );
+                  "PROPERTY_NAME", plainPropertyName,
+                  "propertyName", partnerRole.getName()
+            );
 
             parser.insert(pos, text.toString());
          }
       }
    }
-   
+
    private void insertUpPropertyInCreatorClass(Clazz clazz, Parser parser, Association partnerRole)
    {
       if (partnerRole.getType() != AssociationTypes.AGGREGATION)
       {
          return;
       }
-      
+
       String key = Parser.ATTRIBUTE + ":upProperties";
       int pos = parser.indexOf(key);
 
@@ -1562,16 +1517,16 @@ public class GenAssociation extends Generator<Association>
 
       // OK, found method, parse its body to find if that handles me. 
       int endOfStringArrayInit = parser.getEndOfAttributeInitialization();
-      
+
       String plainPropertyName = "PROPERTY_" + partnerRole.getName().toUpperCase();
       String propertyName = plainPropertyName + ",";
-      
+
       int propertyNameIndex = parser.search(propertyName, pos);
 
       if (propertyNameIndex < 0 || propertyNameIndex > endOfStringArrayInit)
-      {         
+      {
          // need to add property to string array
-         
+
          StringBuilder text = new StringBuilder(  "   className.PROPERTY_NAME,\n   ");
 
          String shortClassName = CGUtil.shortClassName(clazz.getName(false));
@@ -1579,29 +1534,24 @@ public class GenAssociation extends Generator<Association>
 //           shortClassName = CGUtil.shortClassName(partnerRole.getClazz().getName(false));
 //         }
          ClassModel classModel = (ClassModel) partnerRole.getClazz().getClassModel();
-         
-         if (classModel.hasFeature(Feature.EMFSTYLE))
-         {
-            shortClassName += "Creator";
-         }
-         
-         CGUtil.replaceAll(text, 
-            "className", shortClassName,
-            "PROPERTY_NAME", plainPropertyName
-            );
+
+         CGUtil.replaceAll(text,
+               "className", shortClassName,
+               "PROPERTY_NAME", plainPropertyName
+         );
 
          parser.insert(endOfStringArrayInit, text.toString());
          parser.insertImport(model.getClazz().getName(false));
-         
-         if (clazz.isExternal()  || classModel.hasFeature(Feature.EMFSTYLE))
+
+         if (GraphUtil.isExternal(clazz))
          {
             // declare the property
             text = new StringBuilder("public static final String PROPERTY_NAME = \"propertyName\";\n   ");
 
             CGUtil.replaceAll(text,
-               "PROPERTY_NAME", plainPropertyName,
-               "propertyName", partnerRole.getName()
-                  );
+                  "PROPERTY_NAME", plainPropertyName,
+                  "propertyName", partnerRole.getName()
+            );
 
             parser.insert(pos, text.toString());
          }
@@ -1609,14 +1559,14 @@ public class GenAssociation extends Generator<Association>
    }
 
    private void insertCaseInGenericSetToMany(Clazz clazz, Parser parser, Association partnerRole, String rootDir)
-   {   
+   {
       ClassModel classModel = (ClassModel) clazz.getClassModel();
-      
-      if (GraphUtil.isInterface(clazz) && ! classModel.hasFeature(Feature.EMFSTYLE))
+
+      if (GraphUtil.isInterface(clazz))
       {
          return;
       }
-      
+
       int pos = parser.indexOf(Parser.METHOD + ":setValue(Object,String,Object,String)");
 
       if (pos < 0)
@@ -1631,64 +1581,56 @@ public class GenAssociation extends Generator<Association>
 
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = parser.getMethodBodyStartPos();
-      
+
       pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":PROPERTY_" + partnerRole.getName().toUpperCase() , methodBodyStartPos);
 
       if (pos < 0)
-      {         
+      {
          // need to add if block to generic set method
          parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
-         
+
          int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to be after \n
          if (lastIfEndPos - 2  < 0)
          {
             lastIfEndPos = methodBodyStartPos + 1;
          }
-         
+
          StringBuilder text = new StringBuilder
-            (  "\n      if (DeclarationName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
-               "\n      {" +
-               "\n         ((ClassName) target).withPropertyName((type) value);" +
-               "\n         return true;" +
-               "\n      }" +
-               "\n      " + 
-               "\n      if ((DeclarationName.PROPERTY_NAME + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))" +
-               "\n      {" +
-               "\n         ((ClassName) target).withoutPropertyName((type) value);" +
-               "\n         return true;" +
-               "\n      }" +
-               "\n" 
+               (  "\n      if (DeclarationName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+                     "\n      {" +
+                     "\n         ((ClassName) target).withPropertyName((type) value);" +
+                     "\n         return true;" +
+                     "\n      }" +
+                     "\n      " +
+                     "\n      if ((DeclarationName.PROPERTY_NAME + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))" +
+                     "\n      {" +
+                     "\n         ((ClassName) target).withoutPropertyName((type) value);" +
+                     "\n         return true;" +
+                     "\n      }" +
+                     "\n"
                );
 
          String typePlaceholder = "type";
          String type = partnerRole.getClazz().getName(true);
-         
+
          String declaratorName = CGUtil.shortClassName(clazz.getName());
-         
+
          String withPropertyName = "with" + StrUtil.upFirstChar(partnerRole.getName());
          String withoutPropertyName = "without" + StrUtil.upFirstChar(partnerRole.getName());
-         
-         if (classModel.hasFeature(Feature.EMFSTYLE))
-         {
-            declaratorName += "Creator";
-            withPropertyName = "get" + StrUtil.upFirstChar(partnerRole.getName()) + "().add";
-            withoutPropertyName = "get" + StrUtil.upFirstChar(partnerRole.getName()) + "().remove";
-         }
 
-         
-         CGUtil.replaceAll(text, 
-            typePlaceholder, type, 
-            "DeclarationName", declaratorName,
-            "ClassName", CGUtil.shortClassName(clazz.getName()),
-            "withPropertyName", withPropertyName,
-            "withoutPropertyName", withoutPropertyName,
-            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
-            );
+         CGUtil.replaceAll(text,
+               typePlaceholder, type,
+               "DeclarationName", declaratorName,
+               "ClassName", CGUtil.shortClassName(clazz.getName()),
+               "withPropertyName", withPropertyName,
+               "withoutPropertyName", withoutPropertyName,
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
+         );
 
          parser.insert(lastIfEndPos, text.toString());
-         
+
          parser.insertImport(partnerRole.getClazz().getName(false));
-         
+
       }
    }
 
@@ -1698,7 +1640,7 @@ public class GenAssociation extends Generator<Association>
       {
          return;
       }
-      
+
       int pos = parser.indexOf(Parser.METHOD + ":setValue(Object,String,Object,String)");
 
       if (pos < 0)
@@ -1713,44 +1655,44 @@ public class GenAssociation extends Generator<Association>
 
       // OK, found method, parse its body to find if that handles me. 
       int methodBodyStartPos = parser.getMethodBodyStartPos();
-      
+
       pos = parser.methodBodyIndexOf(Parser.NAME_TOKEN + ":PROPERTY_" + partnerRole.getName().toUpperCase() , methodBodyStartPos);
 
       if (pos < 0)
-      {         
+      {
          // need to add if block to generic set method
          parser.methodBodyIndexOf(Parser.METHOD_END, methodBodyStartPos);
-         
+
          int lastIfEndPos = parser.lastIfEnd + 2; // add 1 to be after } and 1 to be after \n
          if (lastIfEndPos - 2  < 0)
          {
             lastIfEndPos = methodBodyStartPos + 1;
          }
-         
+
          StringBuilder text = new StringBuilder
-            (  "\n      if (ClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
-               "\n      {" +
-               "\n         ((ClassName) target).setPropertyName((type) value);" +
-               "\n         return true;" +
-               "\n      }" +
-               "\n" 
+               (  "\n      if (ClassName.PROPERTY_NAME.equalsIgnoreCase(attrName))" +
+                     "\n      {" +
+                     "\n         ((ClassName) target).setPropertyName((type) value);" +
+                     "\n         return true;" +
+                     "\n      }" +
+                     "\n"
                );
 
          String typePlaceholder = "type";
          String type = partnerRole.getClazz().getName(true);
 
-         CGUtil.replaceAll(text, 
-            typePlaceholder, type, 
-            "ClassName", CGUtil.shortClassName(clazz.getName()),
-            "PropertyName", StrUtil.upFirstChar(partnerRole.getName()),
-            "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
-            );
+         CGUtil.replaceAll(text,
+               typePlaceholder, type,
+               "ClassName", CGUtil.shortClassName(clazz.getName()),
+               "PropertyName", StrUtil.upFirstChar(partnerRole.getName()),
+               "PROPERTY_NAME", "PROPERTY_" + partnerRole.getName().toUpperCase()
+         );
 
          parser.insert(lastIfEndPos, text.toString());
          parser.insertImport(partnerRole.getClazz().getName(false));
       }
    }
-   
+
    public String toString()
    {
       return "gen " + model.toString();
@@ -1758,161 +1700,161 @@ public class GenAssociation extends Generator<Association>
 
    /**
     * Deletes the generated code of the associated role, within the corresponding model, set, creator and pattern object classes.
-    * 
-    * 
+    *
+    *
     * @param rootDir root directory, where the code of the associated role is located
     */
    public void removeGeneratedCode(String rootDir) {
-	   
-	   GenClazzEntity genClass = getGenerator(this.getModel().getClazz());
-	   
-	   Parser parser = genClass.getParser();	   
-   
-	   String roleName = StrUtil.upFirstChar(this.getModel().getOther().getName());
-	   
-	   String cardType = "";
-	   
-	   if (this.getModel().getOther().getCardinality() == Cardinality.MANY) {
-		   cardType = "...";
-	   }
-	   
-	   String partnerClass = "" + this.getModel().getOtherClazz();
-	   
-	   String roleWithCard = partnerClass + cardType;
-	   
-	   String partnerPO = partnerClass + "PO";
-	   
-	   String partnerProperty = "PROPERTY_" + this.getModel().getOther().getName().toUpperCase();
-	   
-	   genClass.removeFragment(parser, Parser.ATTRIBUTE + ":" + partnerProperty);
-	   
-	   genClass.removeFragment(parser, Parser.ATTRIBUTE + ":" + this.getModel().getOther().getName());
-	   
-	   genClass.removeFragment(parser, Parser.METHOD + ":get" + roleName + "()");
-	   
-	   genClass.removeFragment(parser, Parser.METHOD + ":set" + roleName + "(" + roleWithCard + ")");
-	   
-	   genClass.removeFragment(parser, Parser.METHOD + ":with" + roleName + "(" + roleWithCard + ")");
-	   
-	   genClass.removeFragment(parser, Parser.METHOD + ":without" + roleName + "(" + roleWithCard + ")");
-	   
-	   genClass.removeFragment(parser, Parser.METHOD + ":create" + roleName + "()");
-	   
-	   for (Clazz kidClass : this.getModel().getOther().getClazz().getKidClazzes(true))
-	   {
-	      String createName = roleName + kidClass.getName(true);
-	      genClass.removeFragment(parser, Parser.METHOD + ":create" + createName + "()");
-	   }
-	   
-	   genClass.removeLineFromFragment(parser, Parser.METHOD + ":removeYou()", roleName, roleName);
-	   
-	   CGUtil.printFile(parser);
-	   
-	   Parser creatorParser = genClass.getOrCreateParserForCreatorClass(rootDir);
-	   
-	   genClass.removeLineFromFragment(creatorParser, Parser.ATTRIBUTE + ":properties", partnerProperty, partnerProperty);
-	   
-	   genClass.removeLineFromFragment(creatorParser, Parser.METHOD + ":getValue(Object,String)" , partnerProperty, "}");
-	   
-	   genClass.removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)" , partnerProperty, "}");
-	  
-	   genClass.removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)" , partnerProperty, "}");
-	   
-	   CGUtil.printFile(creatorParser);
-	   
-	   Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
-	   
+
+      GenClazzEntity genClass = getGenerator(this.getModel().getClazz());
+
+      Parser parser = genClass.getParser();
+
+      String roleName = StrUtil.upFirstChar(this.getModel().getOther().getName());
+
+      String cardType = "";
+
+      if (this.getModel().getOther().getCardinality() == Association.MANY) {
+         cardType = "...";
+      }
+
+      String partnerClass = "" + this.getModel().getOtherClazz();
+
+      String roleWithCard = partnerClass + cardType;
+
+      String partnerPO = partnerClass + "PO";
+
+      String partnerProperty = "PROPERTY_" + this.getModel().getOther().getName().toUpperCase();
+
+      genClass.removeFragment(parser, Parser.ATTRIBUTE + ":" + partnerProperty);
+
+      genClass.removeFragment(parser, Parser.ATTRIBUTE + ":" + this.getModel().getOther().getName());
+
+      genClass.removeFragment(parser, Parser.METHOD + ":get" + roleName + "()");
+
+      genClass.removeFragment(parser, Parser.METHOD + ":set" + roleName + "(" + roleWithCard + ")");
+
+      genClass.removeFragment(parser, Parser.METHOD + ":with" + roleName + "(" + roleWithCard + ")");
+
+      genClass.removeFragment(parser, Parser.METHOD + ":without" + roleName + "(" + roleWithCard + ")");
+
+      genClass.removeFragment(parser, Parser.METHOD + ":create" + roleName + "()");
+
+      for (Clazz kidClass : this.getModel().getOther().getClazz().getKidClazzes(true))
+      {
+         String createName = roleName + kidClass.getName(true);
+         genClass.removeFragment(parser, Parser.METHOD + ":create" + createName + "()");
+      }
+
+      genClass.removeLineFromFragment(parser, Parser.METHOD + ":removeYou()", roleName, roleName);
+
+      CGUtil.printFile(parser);
+
+      Parser creatorParser = genClass.getOrCreateParserForCreatorClass(rootDir);
+
+      genClass.removeLineFromFragment(creatorParser, Parser.ATTRIBUTE + ":properties", partnerProperty, partnerProperty);
+
+      genClass.removeLineFromFragment(creatorParser, Parser.METHOD + ":getValue(Object,String)" , partnerProperty, "}");
+
+      genClass.removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)" , partnerProperty, "}");
+
+      genClass.removeLineFromFragment(creatorParser, Parser.METHOD + ":setValue(Object,String,Object,String)" , partnerProperty, "}");
+
+      CGUtil.printFile(creatorParser);
+
+      Parser poParser = genClass.getOrCreateParserForPatternObjectFile(rootDir);
+
       genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO()");
-      
+
       genClass.removeFragment(poParser, Parser.METHOD + ":get" + roleName + "()");
-      
+
       genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "PO(String)");
-	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "Link(" + partnerPO + ")");
-	   
-	   genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "Link(" + partnerPO + ",String)");
-	   
-	   CGUtil.printFile(poParser);
-	   
-	   Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
-	   
-	   genClass.removeFragment(setParser, Parser.METHOD + ":get" + roleName + "()");
-	   
-	   genClass.removeFragment(setParser, Parser.METHOD + ":filter" + roleName + "(Object)");
-	   
-	   genClass.removeFragment(setParser, Parser.METHOD + ":with" + roleName + "(" + partnerClass + ")");
-	   
-	   genClass.removeFragment(setParser, Parser.METHOD + ":without" + roleName + "(" + partnerClass + ")");
-	   
-	   CGUtil.printFile(setParser);
-	   
+
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "Link(" + partnerPO + ")");
+
+      genClass.removeFragment(poParser, Parser.METHOD + ":create" + roleName + "Link(" + partnerPO + ",String)");
+
+      CGUtil.printFile(poParser);
+
+      Parser setParser = genClass.getOrCreateParserForModelSetFile(rootDir);
+
+      genClass.removeFragment(setParser, Parser.METHOD + ":get" + roleName + "()");
+
+      genClass.removeFragment(setParser, Parser.METHOD + ":filter" + roleName + "(Object)");
+
+      genClass.removeFragment(setParser, Parser.METHOD + ":with" + roleName + "(" + partnerClass + ")");
+
+      genClass.removeFragment(setParser, Parser.METHOD + ":without" + roleName + "(" + partnerClass + ")");
+
+      CGUtil.printFile(setParser);
+
    }
-	@Override
-	ClassModel getClazz() {
-		Clazz clazz = (Clazz) this.getModel().getClazz();
-		return (ClassModel)clazz.getClassModel();
-	}
+   @Override
+   ClassModel getClazz() {
+      Clazz clazz = (Clazz) this.getModel().getClazz();
+      return (ClassModel)clazz.getClassModel();
+   }
 
-	public GenAssociation generate(String rootDir, String helperDir) {
-		// open source class and get or insert role implementation
-	   //		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
-	   //		ClassModelAdapter generator = classModel.getGenerator();
-	   //		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
-		if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.GENERALISATION) {
-			return this;
-		}
-		if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.IMPLEMENTS) {
-			return this;
-		}
-		if (model.getType() == AssociationTypes.UNDIRECTIONAL)
-		{
-		   return this;
-		}
-		
-		this.generate(rootDir, helperDir, model.getOther());
-		//		if(model.getOtherClazz() == model.getClazz()) {
-		//			this.generate(rootDir, helperDir, model);
-		//		}
+   public GenAssociation generate(String rootDir, String helperDir) {
+      // open source class and get or insert role implementation
+      //		ClassModel classModel = (ClassModel) ((Clazz) model.getClazz()).getClassModel();
+      //		ClassModelAdapter generator = classModel.getGenerator();
+      //		GenRole sourceGenRole = generator.getOrCreate((Clazz) model.getClazz());
+      if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.GENERALISATION) {
+         return this;
+      }
+      if(model.getOther().getType()==AssociationTypes.EDGE || model.getOther().getType()==AssociationTypes.IMPLEMENTS) {
+         return this;
+      }
+      if (model.getType() == AssociationTypes.UNDIRECTIONAL)
+      {
+         return this;
+      }
 
-		// also for subclasses
-		fixSubclasses(model, rootDir, helperDir);
-		// Other subClasses		
-		fixSubclasses(model.getOther(), rootDir, helperDir);
+      this.generate(rootDir, helperDir, model.getOther());
+      //		if(model.getOtherClazz() == model.getClazz()) {
+      //			this.generate(rootDir, helperDir, model);
+      //		}
 
-		//		if (model.getName() == null || model.getType()==AssociationTypes.EDGE || model.getType() == AssociationTypes.UNDIRECTIONAL) {
-		//			// uni directional assoc, do not generate reverse direction
-		//			return this;
-		//		}
-		return this;
-	}
-	
-	void fixSubclasses(Association assoc, String rootDir, String helperDir) 
-	{
-	   if (assoc.getType() == AssociationTypes.UNDIRECTIONAL)
-	   {
-	      // nothing generated for the reverse direction
-	      return;
-	   }
+      // also for subclasses
+      // fixSubclasses(model, rootDir, helperDir);
+      // Other subClasses
+      // fixSubclasses(model.getOther(), rootDir, helperDir);
 
-	   Clazz clazz = assoc.getClazz();
-		ClazzSet allClazzes = new ClazzSet();
-		if(GraphUtil.isInterface(clazz)) {
-			allClazzes.addAll(clazz.getImplements());
-		} else {
-			allClazzes.add(clazz);
-		}
-		for(Clazz child : allClazzes) {
-			ClazzSet kids = child.getKidClazzes(true);
-	
-			for (Clazz kidClass : kids) {
-				if (GraphUtil.isInterface(kidClass)) {
-					continue;
-				}
-				boolean needsImplementation = kidClass.getInterfaces(false).contains(child);
-				// GenAssociation otherGen = this.getGenerator(model.getOther());
-				this.generate(kidClass, rootDir, helperDir, assoc.getOther(), !needsImplementation);
-			}
-		}
-	}
-	
+      //		if (model.getName() == null || model.getType()==AssociationTypes.EDGE || model.getType() == AssociationTypes.UNDIRECTIONAL) {
+      //			// uni directional assoc, do not generate reverse direction
+      //			return this;
+      //		}
+      return this;
+   }
+
+   void fixSubclasses(Association assoc, String rootDir, String helperDir)
+   {
+      if (assoc.getType() == AssociationTypes.UNDIRECTIONAL)
+      {
+         // nothing generated for the reverse direction
+         return;
+      }
+
+      Clazz clazz = assoc.getClazz();
+      ClazzSet allClazzes = new ClazzSet();
+      if(GraphUtil.isInterface(clazz)) {
+         allClazzes.addAll(clazz.getImplements());
+      } else {
+         allClazzes.add(clazz);
+      }
+      for(Clazz child : allClazzes) {
+         ClazzSet kids = child.getKidClazzes(true);
+
+         for (Clazz kidClass : kids) {
+            if (GraphUtil.isInterface(kidClass)) {
+               continue;
+            }
+            boolean needsImplementation = kidClass.getInterfaces(false).contains(child);
+            // GenAssociation otherGen = this.getGenerator(model.getOther());
+            this.generate(kidClass, rootDir, helperDir, assoc.getOther(), !needsImplementation);
+         }
+      }
+   }
+
 }

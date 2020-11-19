@@ -1,12 +1,10 @@
 package org.sdmlib.test.examples.modelspace.chat.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.modelspace.chat.MSChatChannel;
 import org.sdmlib.test.examples.modelspace.chat.MSChatMsg;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelPO;
-import org.sdmlib.test.examples.modelspace.chat.util.MSChatMsgPO;
 
 public class MSChatMsgPO extends PatternObject<MSChatMsgPO, MSChatMsg>
 {

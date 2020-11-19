@@ -31,7 +31,6 @@ import org.sdmlib.test.examples.helloworld.model.util.GraphComponentSet;
 import org.sdmlib.test.examples.helloworld.model.util.NodeSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.helloworld.model.Node;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>

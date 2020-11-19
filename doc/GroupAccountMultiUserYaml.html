@@ -1,120 +1,124 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="style.css">
-<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+    <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="includes/dagre.min.js"></script>
-<script src="includes/drawer.js"></script>
-<script src="includes/graph.js"></script>
-<script src="includes/Chart.bundle.js"></script>
-<style>
-    canvas{
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-    }
-</style>
-</head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="includes/dagre.min.js"></script>
+    <script src="includes/drawer.js"></script>
+    <script src="includes/graph.js"></script>
+    <script src="includes/Chart.bundle.js"></script>
+    <script src="highlight.pack.js"></script>
+    <script src="highlightjs-line-numbers.min.js"></script>
+    <script language="Javascript">hljs.initHighlightingOnLoad();
+                                  hljs.initLineNumbersOnLoad();</script>    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    </head>
 <body>
-<p>Storyboard GroupAccountMultiUserYaml</p>
-<p>Start: create a party data structure and store it with YamlIdMap</p>
-<img src="doc-files/GroupAccountMultiUserYamlStep1.png" alt="GroupAccountMultiUserYamlStep1.png">
-<p><a name = 'step_1'>Step 1: add component listener and log changes in yaml format</a></p>
+<h3>Storyboard GroupAccountMultiUserYaml</h3>
+<h4><a name = 'step_1'>Step 1: create a party data structure and store it with YamlIdMap</a></h4>
+<img src="doc-files/GroupAccountMultiUserYamlStep1.png" alt="GroupAccountMultiUserYamlStep1.png" width='243'>
+<h4><a name = 'step_2'>Step 2: add component listener and log changes in yaml format</a></h4>
 <pre>- p1: 	Party
   partyName: 	&quot;Lectures Done&quot;
-  partyName.time: 	2018-04-22T15:51:37.821.albert
+  partyName.time: 	2018-08-28T12:37:35.077.albert
 - p1: 	Party
   share: 	0.0
-  share.time: 	2018-04-22T15:51:37.821.albert
+  share.time: 	2018-08-28T12:37:35.078.albert
 - p1: 	Party
   total: 	0.0
-  total.time: 	2018-04-22T15:51:37.821.albert
+  total.time: 	2018-08-28T12:37:35.078.albert
 - albert.p2: 	Person
   name: 	Albert
-  name.time: 	2018-04-22T15:51:37.821.albert
+  name.time: 	2018-08-28T12:37:35.078.albert
 - albert.p2: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-04-22T15:51:37.821.albert
+  saldo.time: 	2018-08-28T12:37:35.078.albert
 - albert.p2: 	Person
   total: 	0.0
-  total.time: 	2018-04-22T15:51:37.821.albert
+  total.time: 	2018-08-28T12:37:35.078.albert
 - albert.p2: 	Person
   party: 	p1
-  party.time: 	2018-04-22T15:51:37.821.albert
+  party.time: 	2018-08-28T12:37:35.078.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p2
-  guests.albert.p2.time: 	2018-04-22T15:51:37.821.albert
+  guests.albert.p2.time: 	2018-08-28T12:37:35.078.albert
 - albert.p2: 	Person
 - albert.p3: 	Person
   name: 	Nathalie
-  name.time: 	2018-04-22T15:51:37.821.albert
+  name.time: 	2018-08-28T12:37:35.078.albert
 - albert.p3: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-04-22T15:51:37.821.albert
+  saldo.time: 	2018-08-28T12:37:35.078.albert
 - albert.p3: 	Person
   total: 	0.0
-  total.time: 	2018-04-22T15:51:37.821.albert
+  total.time: 	2018-08-28T12:37:35.078.albert
 - albert.p3: 	Person
   party: 	p1
-  party.time: 	2018-04-22T15:51:37.821.albert
+  party.time: 	2018-08-28T12:37:35.078.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p3
-  guests.albert.p3.time: 	2018-04-22T15:51:37.821.albert
+  guests.albert.p3.time: 	2018-08-28T12:37:35.078.albert
 - albert.p3: 	Person
 </pre>
-<p><a name = 'step_2'>Step 2: load changes into second model, continuously. </a></p>
-<p><a name = 'step_3'>Step 3: check isomorphism</a></p>
+<h4><a name = 'step_3'>Step 3: load changes into second model, continuously. </a></h4>
+<h4><a name = 'step_4'>Step 4: check isomorphism</a></h4>
 <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0, Nathalie 0.0 0.0=Nathalie 0.0 0.0}</p>
-<p><a name = 'step_4'>Step 4: deal with link removal</a></p>
+<h4><a name = 'step_5'>Step 5: deal with link removal</a></h4>
 <pre>- albert.p3: 	Person
   party.remove: 	p1
-  party.remove.time: 	2018-04-22T15:51:37.836.albert
+  party.remove.time: 	2018-08-28T12:37:35.078.albert
 - p1: 	Party
   guests.remove: 	albert.p3
-  guests.remove.albert.p3.time: 	2018-04-22T15:51:37.836.albert
+  guests.remove.albert.p3.time: 	2018-08-28T12:37:35.078.albert
 </pre>
 <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
 <p>original model</p>
-<img src="doc-files/GroupAccountMultiUserYamlStep11.png" alt="GroupAccountMultiUserYamlStep11.png">
+<img src="doc-files/GroupAccountMultiUserYamlStep11.png" alt="GroupAccountMultiUserYamlStep11.png" width='184'>
 <p>cloned model</p>
-<img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png">
-<p><a name = 'step_5'>Step 5: deal with object removal</a></p>
+<img src="doc-files/GroupAccountMultiUserYamlStep13.png" alt="GroupAccountMultiUserYamlStep13.png" width='184'>
+<h4><a name = 'step_6'>Step 6: deal with object removal</a></h4>
 <pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-04-22T15:51:38.631.albert
+  Person.remove.time: 	2018-08-28T12:37:35.279.albert
 </pre>
 <p>Check: match {Lectures Done 0.0 0.0=Lectures Done 0.0 0.0, Albert 0.0 0.0=Albert 0.0 0.0}</p>
 <p>Check: orig idmap has removed natanull</p>
 <p>original model</p>
-<img src="doc-files/GroupAccountMultiUserYamlStep19.png" alt="GroupAccountMultiUserYamlStep19.png">
+<img src="doc-files/GroupAccountMultiUserYamlStep19.png" alt="GroupAccountMultiUserYamlStep19.png" width='184'>
 <p>cloned model</p>
-<img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png">
-<p><a name = 'step_6'>Step 6: add objects after removal</a></p>
+<img src="doc-files/GroupAccountMultiUserYamlStep21.png" alt="GroupAccountMultiUserYamlStep21.png" width='184'>
+<h4><a name = 'step_7'>Step 7: add objects after removal</a></h4>
 <pre>- albert.p3: 	Person.remove
-  Person.remove.time: 	2018-04-22T15:51:38.631.albert
+  Person.remove.time: 	2018-08-28T12:37:35.279.albert
 - albert.p4: 	Person
   saldo: 	0.0
-  saldo.time: 	2018-04-22T15:51:39.491.albert
+  saldo.time: 	2018-08-28T12:37:35.412.albert
 - albert.p4: 	Person
   total: 	0.0
-  total.time: 	2018-04-22T15:51:39.491.albert
+  total.time: 	2018-08-28T12:37:35.412.albert
 - albert.p4: 	Person
   party: 	p1
-  party.time: 	2018-04-22T15:51:39.491.albert
+  party.time: 	2018-08-28T12:37:35.412.albert
 - p1: 	Party
 - p1: 	Party
   guests: 	albert.p4
-  guests.albert.p4.time: 	2018-04-22T15:51:39.491.albert
+  guests.albert.p4.time: 	2018-08-28T12:37:35.412.albert
 - albert.p4: 	Person
 - albert.p4: 	Person
   name: 	Ann
-  name.time: 	2018-04-22T15:51:39.492.albert
+  name.time: 	2018-08-28T12:37:35.412.albert
 </pre>
 
 </body>

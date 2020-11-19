@@ -30,8 +30,6 @@ import org.sdmlib.test.examples.modelspace.chat.util.MSChatChannelDescriptionSet
 import org.sdmlib.test.examples.modelspace.chat.util.MSChatMemberSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.modelspace.chat.MSChatChannelDescription;
-import org.sdmlib.test.examples.modelspace.chat.MSChatMember;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/modelspace/chat/ModelSpaceChatModel.java'>ModelSpaceChatModel.java</a>

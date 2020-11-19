@@ -1,114 +1,123 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="style.css">
-<link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
+    <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="includes/diagramstyle.css" rel="stylesheet" type="text/css">
 
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="includes/dagre.min.js"></script>
-<script src="includes/drawer.js"></script>
-<script src="includes/graph.js"></script>
-<script src="includes/Chart.bundle.js"></script>
-<style>
-    canvas{
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-    }
-</style>
-</head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="includes/dagre.min.js"></script>
+    <script src="includes/drawer.js"></script>
+    <script src="includes/graph.js"></script>
+    <script src="includes/Chart.bundle.js"></script>
+    <script src="highlight.pack.js"></script>
+    <script src="highlightjs-line-numbers.min.js"></script>
+    <script language="Javascript">hljs.initHighlightingOnLoad();
+                                  hljs.initLineNumbersOnLoad();</script>    <style>
+        canvas{
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+    </head>
 <body>
-<p>Storyboard StudyRightWithAssignmentsStoryboard</p>
+<h3>Storyboard StudyRightWithAssignmentsStoryboard</h3>
 <p>1. (start situation/pre-condition) Karli enters the Study-Right University 
 in the math room. Karli has no credits yet and still a motivation of 214. </p>
-<pre>            University university = new University()
-         .withName(&quot;StudyRight&quot;);
+<pre><code class="java" data-lang="java">
+      &#x2F;&#x2F; =============================================================
+      storyboard.add(&quot;1. (start situation&#x2F;pre-condition) Karli enters the Study-Right University \n&quot;
+            + &quot;in the math room. Karli has no credits yet and still a motivation of 214. &quot;);
+
+      storyboard.markCodeStart();
+      University university = new University()
+            .withName(&quot;StudyRight&quot;);
 
       Student karli = university.createStudents()
-         .withId(&quot;4242&quot;)
-         .withName(&quot;Karli&quot;);
+            .withId(&quot;4242&quot;)
+            .withName(&quot;Karli&quot;);
 
       Assignment matrixMult = new Assignment()
-         .withContent(&quot;Matrix Multiplication&quot;)
-         .withPoints(5);
+            .withContent(&quot;Matrix Multiplication&quot;)
+            .withPoints(5);
 
       Assignment series = new Assignment()
-         .withContent(&quot;Series&quot;)
-         .withPoints(6);
+            .withContent(&quot;Series&quot;)
+            .withPoints(6);
 
       Assignment a3 = new Assignment()
-         .withContent(&quot;Integrals&quot;)
-         .withPoints(8);
+            .withContent(&quot;Integrals&quot;)
+            .withPoints(8);
 
       Room mathRoom = university.createRooms()
-         .withName(&quot;senate&quot;)
-         .withTopic(&quot;math&quot;)
-         .withCredits(17)
-         .withStudents(karli)
-         .withAssignments(matrixMult, series, a3);
+            .withName(&quot;senate&quot;)
+            .withTopic(&quot;math&quot;)
+            .withCredits(17)
+            .withStudents(karli)
+            .withAssignments(matrixMult, series, a3);
 
       Room artsRoom = university.createRooms()
-         .withName(&quot;7522&quot;)
-         .withTopic(&quot;arts&quot;)
-         .withCredits(16)
-         .withDoors(mathRoom);
+            .withName(&quot;7522&quot;)
+            .withTopic(&quot;arts&quot;)
+            .withCredits(16)
+            .withDoors(mathRoom);
 
       Room sportsRoom = university.createRooms()
-         .withName(&quot;gymnasium&quot;)
-         .withTopic(&quot;sports&quot;)
-         .withCredits(25)
-         .withDoors(mathRoom, artsRoom);
+            .withName(&quot;gymnasium&quot;)
+            .withTopic(&quot;sports&quot;)
+            .withCredits(25)
+            .withDoors(mathRoom, artsRoom);
 
       Room examRoom = university.createRooms()
-         .withName(&quot;The End&quot;)
-         .withTopic(&quot;exam&quot;)
-         .withCredits(0)
-         .withDoors(sportsRoom, artsRoom);
+            .withName(&quot;The End&quot;)
+            .withTopic(&quot;exam&quot;)
+            .withCredits(0)
+            .withDoors(sportsRoom, artsRoom);
 
-      Room softwareEngineering = university.createRooms()
-         .withName(&quot;7422&quot;)
-         .withTopic(&quot;Software Engineering&quot;)
-         .withCredits(42)
-         .withDoors(artsRoom, examRoom);
-</pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png">
+</code></pre>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep2.png" alt="StudyRightWithAssignmentsStoryboardStep2.png" width='904'>
 <p>2. Karli does assignment a1 on Matrix Multiplication and earns 5 points <br>
 (general rule: the student earns always full points for doing an assignment). <br>
 Karli's motivation is reduced by 5 points to now 209.
 </p>
-<pre>            karli.setAssignmentPoints(karli.getAssignmentPoints() + matrixMult.getPoints());
-      karli.withDone(matrixMult);
-</pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png">
+<pre><code class="java" data-lang="java">
+      storyboard.add(&quot;2. Karli does assignment a1 on Matrix Multiplication and earns 5 points &lt;br&gt;\n&quot;
+            + &quot;(general rule: the student earns always full points for doing an assignment). &lt;br&gt;\n&quot;
+</code></pre>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep5.png" alt="StudyRightWithAssignmentsStoryboardStep5.png" width='659'>
 <p>3. Karli does assignment a2 on Series and earns another 6 points. <br>
 Thus Karli has 11 points now. Motivation is reduced to 203.
 </p>
-<pre>            karli.setAssignmentPoints(karli.getAssignmentPoints() + series.getPoints());
-      karli.withDone(series);
-</pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png">
+<pre><code class="java" data-lang="java">
+      &#x2F;&#x2F; ===============================================================================================
+      storyboard.add(&quot;3. Karli does assignment a2 on Series and earns another 6 points. &lt;br&gt;\n&quot;
+</code></pre>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep8.png" alt="StudyRightWithAssignmentsStoryboardStep8.png" width='659'>
 <p>4. Karli does the third assignment on Integrals, earns <br>
 another 8 points and thus Karli has now 19 points and a motivation of 195.
 </p>
-<pre>            karli.setAssignmentPoints(karli.getAssignmentPoints() + a3.getPoints());
-      karli.withDone(a3);
-</pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png">
+<pre><code class="java" data-lang="java">
+      &#x2F;&#x2F; ===============================================================================================
+      storyboard.add(&quot;4. Karli does the third assignment on Integrals, earns &lt;br&gt;\n&quot;
+</code></pre>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep11.png" alt="StudyRightWithAssignmentsStoryboardStep11.png" width='659'>
 <p>5. Since 19 points are more than the 17 points required 
 for the 17 math credits, Karli hands the points in and earns the credits 
 and has his assignmnet points reset to 0. <br>
 (General rule: if the points earned by the assignments are higher or equal than 
 the credit points, the credit points will be awarded to the student.)</p>
-<pre>            if (karli.getAssignmentPoints() &gt;= mathRoom.getCredits())
-      {
-         karli.setCredits(karli.getCredits() + mathRoom.getCredits());
-         karli.setAssignmentPoints(0);
-      }
-</pre>
-<img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png">
+<pre><code class="java" data-lang="java">
+            + &quot;and has his assignmnet points reset to 0. &lt;br&gt;\n&quot;
+            + &quot;(General rule: if the points earned by the assignments are higher or equal than \n&quot;
+            + &quot;the credit points, the credit points will be awarded to the student.)&quot;);
+
+      storyboard.markCodeStart();
+</code></pre>
+<img src="doc-files/StudyRightWithAssignmentsStoryboardStep14.png" alt="StudyRightWithAssignmentsStoryboardStep14.png" width='659'>
 <p>6. (end situation/post-condition) Karli has completed the math topic and moves to sports.</p>
 <p>Check: Karli's credits:  17 actual 17</p>
 <p>Check: Karli's assignment points:  0 actual 0</p>

@@ -30,14 +30,7 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.replication.Lane;
-/**
- * 
- * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
- * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
- * @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
- * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
- */
+
 public class RemoteTaskBoard implements PropertyChangeInterface, SendableEntity
 {
 
@@ -206,7 +199,6 @@ public class RemoteTaskBoard implements PropertyChangeInterface, SendableEntity
       * Create a new Lane
     * @return The created Lane 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public Lane createLanes()
    {
@@ -248,7 +240,6 @@ public class RemoteTaskBoard implements PropertyChangeInterface, SendableEntity
       * @param name The name of new Lane
     * @return The created Lane 
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-* @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public Lane createLanes(String name)
    {

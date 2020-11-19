@@ -21,12 +21,11 @@
    
 package org.sdmlib.storyboards;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import de.uniks.networkparser.EntityUtil;
-import org.sdmlib.storyboards.Goal;
-import org.sdmlib.storyboards.MikadoLog;
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 
    public  class LogEntry implements SendableEntity

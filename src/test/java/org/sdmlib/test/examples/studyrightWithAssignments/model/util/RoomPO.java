@@ -10,8 +10,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    /**
     * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public class RoomPO extends PatternObject<RoomPO, Room>
 {
@@ -35,8 +34,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
      /**
     * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public RoomPO(){
       newInstance(null);
@@ -44,8 +42,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
      /**
     * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public RoomPO(Room... hostGraphObject) {
       if(hostGraphObject==null || hostGraphObject.length<1){
@@ -56,8 +53,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
      /**
     * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public RoomPO(String modifier)
    {
@@ -75,6 +71,67 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
       return null;
    }
 
+   public RoomPO createCreditsCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO createCreditsCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public RoomPO createCreditsAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Room.PROPERTY_CREDITS)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public int getCredits()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) getCurrentMatch()).getCredits();
+      }
+      return 0;
+   }
+   
+   public RoomPO withCredits(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Room) getCurrentMatch()).setCredits(value);
+      }
+      return this;
+   }
+   
    public RoomPO createNameCondition(String value)
    {
       new AttributeConstraint()
@@ -197,153 +254,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
       return this;
    }
    
-   public RoomPO createCreditsCondition(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_CREDITS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public RoomPO createCreditsCondition(int lower, int upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_CREDITS)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public RoomPO createCreditsAssignment(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Room.PROPERTY_CREDITS)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public int getCredits()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) getCurrentMatch()).getCredits();
-      }
-      return 0;
-   }
-   
-   public RoomPO withCredits(int value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Room) getCurrentMatch()).setCredits(value);
-      }
-      return this;
-   }
-   
-   public UniversityPO createUniversityPO()
-   {
-      UniversityPO result = new UniversityPO(new University[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Room.PROPERTY_UNIVERSITY, result);
-      
-      return result;
-   }
-
-   public UniversityPO createUniversityPO(String modifier)
-   {
-      UniversityPO result = new UniversityPO(new University[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Room.PROPERTY_UNIVERSITY, result);
-      
-      return result;
-   }
-
-   public RoomPO createUniversityLink(UniversityPO tgt)
-   {
-      return hasLinkConstraint(tgt, Room.PROPERTY_UNIVERSITY);
-   }
-
-   public RoomPO createUniversityLink(UniversityPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Room.PROPERTY_UNIVERSITY, modifier);
-   }
-
-   public University getUniversity()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) this.getCurrentMatch()).getUniversity();
-      }
-      return null;
-   }
-
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- */
-   public StudentPO createStudentsPO()
-   {
-      StudentPO result = new StudentPO(new Student[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Room.PROPERTY_STUDENTS, result);
-      
-      return result;
-   }
-
-     /**
-    * 
-    * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- */
-   public StudentPO createStudentsPO(String modifier)
-   {
-      StudentPO result = new StudentPO(new Student[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Room.PROPERTY_STUDENTS, result);
-      
-      return result;
-   }
-
-   public RoomPO createStudentsLink(StudentPO tgt)
-   {
-      return hasLinkConstraint(tgt, Room.PROPERTY_STUDENTS);
-   }
-
-   public RoomPO createStudentsLink(StudentPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Room.PROPERTY_STUDENTS, modifier);
-   }
-
-   public StudentSet getStudents()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Room) this.getCurrentMatch()).getStudents();
-      }
-      return null;
-   }
-
    public RoomPO createDoorsPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
@@ -378,7 +288,46 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Room) this.getCurrentMatch()).getDoors();
+         return new RoomSet(((Room) this.getCurrentMatch()).getDoors());
+      }
+      return null;
+   }
+
+   public StudentPO createStudentsPO()
+   {
+      StudentPO result = new StudentPO(new Student[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Room.PROPERTY_STUDENTS, result);
+      
+      return result;
+   }
+
+   public StudentPO createStudentsPO(String modifier)
+   {
+      StudentPO result = new StudentPO(new Student[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Room.PROPERTY_STUDENTS, result);
+      
+      return result;
+   }
+
+   public RoomPO createStudentsLink(StudentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Room.PROPERTY_STUDENTS);
+   }
+
+   public RoomPO createStudentsLink(StudentPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Room.PROPERTY_STUDENTS, modifier);
+   }
+
+   public StudentSet getStudents()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return new StudentSet(((Room) this.getCurrentMatch()).getStudents());
       }
       return null;
    }
@@ -417,7 +366,7 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Room) this.getCurrentMatch()).getAssignments();
+         return new AssignmentSet(((Room) this.getCurrentMatch()).getAssignments());
       }
       return null;
    }
@@ -456,7 +405,46 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Room) this.getCurrentMatch()).getTas();
+         return new TeachingAssistantSet(((Room) this.getCurrentMatch()).getTas());
+      }
+      return null;
+   }
+
+   public UniversityPO createUniversityPO()
+   {
+      UniversityPO result = new UniversityPO(new University[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Room.PROPERTY_UNIVERSITY, result);
+      
+      return result;
+   }
+
+   public UniversityPO createUniversityPO(String modifier)
+   {
+      UniversityPO result = new UniversityPO(new University[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Room.PROPERTY_UNIVERSITY, result);
+      
+      return result;
+   }
+
+   public RoomPO createUniversityLink(UniversityPO tgt)
+   {
+      return hasLinkConstraint(tgt, Room.PROPERTY_UNIVERSITY);
+   }
+
+   public RoomPO createUniversityLink(UniversityPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Room.PROPERTY_UNIVERSITY, modifier);
+   }
+
+   public University getUniversity()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Room) this.getCurrentMatch()).getUniversity();
       }
       return null;
    }

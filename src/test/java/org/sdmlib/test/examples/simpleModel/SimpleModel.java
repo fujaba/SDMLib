@@ -1,6 +1,7 @@
 package org.sdmlib.test.examples.simpleModel;
 
 import org.junit.Test;
+import org.sdmlib.SimpleSDMLib;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.classes.logic.GenClassModel.DIFF;
 
@@ -14,6 +15,9 @@ public class SimpleModel
 {
    @Test
    public void testSimpleModel(){
+	   if(SimpleSDMLib.ENABLE() == false) {
+		   return;
+	   }
       ClassModel model = new ClassModel("org.sdmlib.test.examples.simpleModel.model");
       
       Clazz createClazz = model.createClazz("Alex");

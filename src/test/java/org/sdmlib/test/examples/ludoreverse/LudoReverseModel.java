@@ -5,7 +5,7 @@ import java.awt.Point;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Modifier;
@@ -30,7 +30,7 @@ public class LudoReverseModel
       Clazz player = model.createClazz("Player")
             .withAttribute("name", DataType.STRING)
             .withAttribute("color", DataType.STRING)
-            .withBidirectional(ludo, "players", Cardinality.MANY, "game", Cardinality.ONE);
+            .withBidirectional(ludo, "players", Association.MANY, "game", Association.ONE);
 
       model.generate("src/test/java");
    }
@@ -48,7 +48,7 @@ public class LudoReverseModel
       .withAttribute("name", DataType.create("String"))
       .withAttribute("color", DataType.create("String"));
 
-      ludoClass.withBidirectional(playerClass, "game", Cardinality.ONE, "players", Cardinality.MANY);
+      ludoClass.withBidirectional(playerClass, "game", Association.ONE, "players", Association.MANY);
 
 
       model.getGenerator().updateFromCode("examples", "org.sdmlib.test.examples.ludoreverse.model");

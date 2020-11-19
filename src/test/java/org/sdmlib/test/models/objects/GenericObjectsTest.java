@@ -35,7 +35,7 @@ import org.sdmlib.test.examples.roombook.Building;
 import org.sdmlib.test.examples.roombook.util.BuildingCreator;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -558,7 +558,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
     *             .withAttribute(&quot;guest&quot;, DataType.STRING);    
     * 
     *       &#x2F;* add assoc *&#x2F;
-    *       buildingClass.withBidirectional(floorClass, &quot;has&quot;, Cardinality.MANY, &quot;buildings&quot;, Cardinality.ONE);
+    *       buildingClass.withBidirectional(floorClass, &quot;has&quot;, Association.MANY, &quot;buildings&quot;, Association.ONE);
     * 
     *       &#x2F;&#x2F; FIXME: Alex
     *       &#x2F;&#x2F; learnedModel.getGenerator().insertModelCreationCodeHere(&quot;examples&quot;);
@@ -1010,7 +1010,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
       .withTgtLabel("has");
 
       // IdMap jsonIdMap = GenericGraphCreator.createIdMap("go");
-      // storyboard.withJsonIdMap(GenericGraphCreator.createIdMap("g"));
+      // storyboard.withIdMap(GenericGraphCreator.createIdMap("g"));
       storyboard.addObjectDiagram(graph);
 
 
@@ -1045,7 +1045,7 @@ public class GenericObjectsTest implements PropertyChangeInterface
             .withAttribute("guest", DataType.STRING);    
 
       /* add assoc */
-      buildingClass.withBidirectional(floorClass, "has", Cardinality.MANY, "buildings", Cardinality.ONE);
+      buildingClass.withBidirectional(floorClass, "has", Association.MANY, "buildings", Association.ONE);
 
       // FIXME: Alex
       // learnedModel.getGenerator().insertModelCreationCodeHere("examples");

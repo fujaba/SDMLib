@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -274,7 +274,7 @@ public class ModelToTextToModelClassModel
          .withAttribute("name", DataType.STRING);
 
       Clazz placeholderDescription = model.createClazz("PlaceHolderDescription")
-         .withBidirectional(template, "owners", Cardinality.MANY, "placeholders", Cardinality.MANY)
+         .withBidirectional(template, "owners", Association.MANY, "placeholders", Association.MANY)
          .withAttribute("textFragment", DataType.STRING)
          .withAttribute("value", DataType.STRING)
          .withAttribute("attrName", DataType.STRING)
@@ -283,7 +283,7 @@ public class ModelToTextToModelClassModel
 
       model.createClazz("ChoiceTemplate")
          .withSuperClazz(template)
-         .withBidirectional(template, "choices", Cardinality.MANY, "chooser", Cardinality.ONE);
+         .withBidirectional(template, "choices", Association.MANY, "chooser", Association.ONE);
 
       Clazz matchClazz = model.createClazz("Match")
          .withAttribute("startPos", DataType.INT)
@@ -291,12 +291,12 @@ public class ModelToTextToModelClassModel
          .withAttribute("fullText", DataType.STRING)
          .withAttribute("matchText", DataType.STRING);
 
-      matchClazz.withBidirectional(template, "template", Cardinality.ONE, "matches", Cardinality.MANY);
-      matchClazz.withBidirectional(placeholderDescription, "placeholder", Cardinality.ONE, "matches", Cardinality.MANY);
+      matchClazz.withBidirectional(template, "template", Association.ONE, "matches", Association.MANY);
+      matchClazz.withBidirectional(placeholderDescription, "placeholder", Association.ONE, "matches", Association.MANY);
       matchClazz.withAttribute("modelObject", DataType.OBJECT);
-      matchClazz.withBidirectional(matchClazz, "subMatches", Cardinality.MANY, "parentMatch", Cardinality.ONE);
+      matchClazz.withBidirectional(matchClazz, "subMatches", Association.MANY, "parentMatch", Association.ONE);
 
-      placeholderDescription.withBidirectional(template, "subTemplate", Cardinality.ONE, "parents", Cardinality.MANY);
+      placeholderDescription.withBidirectional(template, "subTemplate", Association.ONE, "parents", Association.MANY);
 
       story.addClassDiagram(model);
 

@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -13,7 +13,7 @@ public class GroupAccountClassModel
 {
      /**
     * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/groupaccount/GroupAccountClassModel.java' type='text/x-java'>GroupAccountCodegen</a></p>
+    * <p>Storyboard GroupAccountCodegen</p>
     * <p>Start situation: Nothing here yet. Generate classes</p>
     * <img src="doc-files/GroupAccountCodegenStep1.png" alt="GroupAccountCodegenStep1.png">
     * @see <a href='../../../../../../../../doc/GroupAccountCodegen.html'>GroupAccountCodegen.html</a>
@@ -39,19 +39,19 @@ public class GroupAccountClassModel
             .withAttribute("saldo", DataType.DOUBLE)
             ;
 
-      partyClass.createBidirectional(personClass, "guests", Cardinality.MANY, 
-         "party", Cardinality.ONE);
+      partyClass.createBidirectional(personClass, "guests", Association.MANY, 
+         "party", Association.ONE);
 
       Clazz itemClass = model.createClazz("Item")
             .withAttribute("description", DataType.STRING)
             .withAttribute("price", DataType.DOUBLE);
 
-      personClass.createBidirectional(itemClass, "items", Cardinality.MANY, 
-         "person", Cardinality.ONE);
+      personClass.createBidirectional(itemClass, "items", Association.MANY, 
+         "person", Association.ONE);
 
       model.generate("src/test/java");
       
-      storyboard.addClassDiagramAsImage(model, 400, 350);
+      storyboard.addClassDiagram(model);
       
       storyboard.dumpHTML();
    }

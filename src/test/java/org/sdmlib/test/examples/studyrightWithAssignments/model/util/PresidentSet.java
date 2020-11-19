@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -28,7 +28,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
 
 public class PresidentSet extends SimpleSet<President>
 {
@@ -57,12 +56,6 @@ public class PresidentSet extends SimpleSet<President>
    public static final PresidentSet EMPTY_SET = new PresidentSet().withFlag(PresidentSet.READONLY);
 
 
-   public PresidentPO createPresidentPO()
-   {
-      return new PresidentPO(this.toArray(new President[this.size()]));
-   }
-
-
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.President";
@@ -74,6 +67,7 @@ public class PresidentSet extends SimpleSet<President>
    {
       return new PresidentSet();
    }
+
 
    @SuppressWarnings("unchecked")
    public PresidentSet with(Object value)
@@ -153,7 +147,7 @@ public class PresidentSet extends SimpleSet<President>
    /**
     * Loop through current set of ModelType objects and attach the President object passed as parameter to the University attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their University attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their University attributes.
     */
    public PresidentSet withUniversity(University value)
    {

@@ -27,7 +27,6 @@ import org.sdmlib.models.modelsets.SDMSet;
 import org.sdmlib.test.examples.SimpleModelWithSet.model.Person;
 
 import de.uniks.networkparser.list.SimpleKeyValueList;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class PersonSet extends SDMSet<Person>
 {

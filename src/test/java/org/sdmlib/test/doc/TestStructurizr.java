@@ -1,12 +1,13 @@
 package org.sdmlib.test.doc;
 
-import guru.nidi.graphviz.engine.Format;
-import guru.nidi.graphviz.engine.Graphviz;
+import java.io.File;
+import java.io.IOException;
+
 import org.junit.Test;
 import org.sdmlib.storyboards.Storyboard;
 
-import java.io.File;
-import java.io.IOException;
+import guru.nidi.graphviz.engine.Format;
+import guru.nidi.graphviz.engine.Graphviz;
 
 public class TestStructurizr
 {

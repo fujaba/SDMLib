@@ -1,12 +1,10 @@
 package org.sdmlib.test.examples.couchspace.tasks.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.couchspace.tasks.Task;
 import org.sdmlib.test.examples.couchspace.tasks.TaskFlow;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.couchspace.tasks.util.TaskPO;
-import org.sdmlib.test.examples.couchspace.tasks.util.TaskFlowPO;
 
 public class TaskFlowPO extends PatternObject<TaskFlowPO, TaskFlow>
 {

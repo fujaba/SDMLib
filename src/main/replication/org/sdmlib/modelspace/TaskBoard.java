@@ -29,7 +29,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.IdMap;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.modelspace.TaskLane;
 
 
    public  class TaskBoard implements PropertyChangeInterface, SendableEntity

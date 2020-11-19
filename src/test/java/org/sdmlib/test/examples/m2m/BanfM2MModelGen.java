@@ -2,7 +2,7 @@ package org.sdmlib.test.examples.m2m;
 
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -24,17 +24,17 @@ public class BanfM2MModelGen
       Clazz edgeClazz = model.createClazz("Relation");
       edgeClazz.createAttribute("kind", DataType.STRING );
 
-      graphClazz.withBidirectional(graphComponentClazz, "gcs", Cardinality.MANY, "parent", Cardinality.ONE);
+      graphClazz.withBidirectional(graphComponentClazz, "gcs", Association.MANY, "parent", Association.ONE);
       
-      graphClazz.withBidirectional(nodeClazz, "persons", Cardinality.MANY, "graph", Cardinality.ONE);
+      graphClazz.withBidirectional(nodeClazz, "persons", Association.MANY, "graph", Association.ONE);
 
-      graphClazz.withBidirectional(edgeClazz, "relations", Cardinality.MANY, "graph", Cardinality.ONE);
+      graphClazz.withBidirectional(edgeClazz, "relations", Association.MANY, "graph", Association.ONE);
 
-      edgeClazz.withBidirectional(nodeClazz, "src", Cardinality.ONE, "outEdges", Cardinality.MANY);
+      edgeClazz.withBidirectional(nodeClazz, "src", Association.ONE, "outEdges", Association.MANY);
 
-      edgeClazz.withBidirectional(nodeClazz, "tgt", Cardinality.ONE, "inEdges", Cardinality.MANY);
+      edgeClazz.withBidirectional(nodeClazz, "tgt", Association.ONE, "inEdges", Association.MANY);
       
-      nodeClazz.withBidirectional(nodeClazz, "knows", Cardinality.MANY, "knows", Cardinality.MANY);
+      nodeClazz.withBidirectional(nodeClazz, "knows", Association.MANY, "knows", Association.MANY);
 
       model.generate("src/test/java");
       

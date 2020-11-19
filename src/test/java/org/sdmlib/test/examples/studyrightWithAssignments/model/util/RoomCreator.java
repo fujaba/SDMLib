@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -28,20 +28,32 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistan
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class RoomCreator implements SendableEntityCreator
+public class RoomCreator implements AggregatedEntityCreator
 {
+   public static final RoomCreator it = new RoomCreator();
+   
    private final String[] properties = new String[]
    {
+      Room.PROPERTY_CREDITS,
       Room.PROPERTY_NAME,
       Room.PROPERTY_TOPIC,
-      Room.PROPERTY_CREDITS,
-      Room.PROPERTY_UNIVERSITY,
-      Room.PROPERTY_STUDENTS,
       Room.PROPERTY_DOORS,
+      Room.PROPERTY_STUDENTS,
       Room.PROPERTY_ASSIGNMENTS,
       Room.PROPERTY_TAS,
+      Room.PROPERTY_UNIVERSITY,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+      Room.PROPERTY_UNIVERSITY,
+   };
+   
+   private final String[] downProperties = new String[]
+   {
    };
    
    @Override
@@ -51,10 +63,23 @@ public class RoomCreator implements SendableEntityCreator
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Room();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -67,6 +92,11 @@ public class RoomCreator implements SendableEntityCreator
          attribute = attrName.substring(0, pos);
       }
 
+      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attribute))
+      {
+         return ((Room) target).getCredits();
+      }
+
       if (Room.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
          return ((Room) target).getName();
@@ -77,24 +107,14 @@ public class RoomCreator implements SendableEntityCreator
          return ((Room) target).getTopic();
       }
 
-      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attribute))
+      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attribute))
       {
-         return ((Room) target).getCredits();
-      }
-
-      if (Room.PROPERTY_UNIVERSITY.equalsIgnoreCase(attribute))
-      {
-         return ((Room) target).getUniversity();
+         return ((Room) target).getDoors();
       }
 
       if (Room.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
       {
          return ((Room) target).getStudents();
-      }
-
-      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attribute))
-      {
-         return ((Room) target).getDoors();
       }
 
       if (Room.PROPERTY_ASSIGNMENTS.equalsIgnoreCase(attribute))
@@ -106,6 +126,11 @@ public class RoomCreator implements SendableEntityCreator
       {
          return ((Room) target).getTas();
       }
+
+      if (Room.PROPERTY_UNIVERSITY.equalsIgnoreCase(attribute))
+      {
+         return ((Room) target).getUniversity();
+      }
       
       return null;
    }
@@ -113,12 +138,6 @@ public class RoomCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
-      {
-         ((Room) target).setCredits(Integer.parseInt(value.toString()));
-         return true;
-      }
-
       if (Room.PROPERTY_TOPIC.equalsIgnoreCase(attrName))
       {
          ((Room) target).setTopic((String) value);
@@ -131,14 +150,30 @@ public class RoomCreator implements SendableEntityCreator
          return true;
       }
 
+      if (Room.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      {
+         ((Room) target).setCredits(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Room)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
       }
 
-      if (Room.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
+      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attrName))
       {
-         ((Room) target).setUniversity((University) value);
+         ((Room) target).withDoors((Room) value);
+         return true;
+      }
+      
+      if ((Room.PROPERTY_DOORS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
+      {
+         ((Room) target).withoutDoors((Room) value);
          return true;
       }
 
@@ -151,18 +186,6 @@ public class RoomCreator implements SendableEntityCreator
       if ((Room.PROPERTY_STUDENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutStudents((Student) value);
-         return true;
-      }
-
-      if (Room.PROPERTY_DOORS.equalsIgnoreCase(attrName))
-      {
-         ((Room) target).withDoors((Room) value);
-         return true;
-      }
-      
-      if ((Room.PROPERTY_DOORS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((Room) target).withoutDoors((Room) value);
          return true;
       }
 
@@ -187,6 +210,12 @@ public class RoomCreator implements SendableEntityCreator
       if ((Room.PROPERTY_TAS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Room) target).withoutTas((TeachingAssistant) value);
+         return true;
+      }
+
+      if (Room.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
+      {
+         ((Room) target).setUniversity((University) value);
          return true;
       }
       

@@ -29,8 +29,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.storyboards.Kanban;
 
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.models.pattern.PatternObject;
 
 
    public class CardinalityConstraint extends PatternElement implements PropertyChangeInterface

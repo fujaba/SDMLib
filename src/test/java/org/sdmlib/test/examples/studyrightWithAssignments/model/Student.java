@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -29,16 +29,8 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 import de.uniks.networkparser.EntityUtil;
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- */
-   public  class Student implements SendableEntity
+
+public  class Student implements SendableEntity
 {
 
    
@@ -73,10 +65,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-   	if (listeners == null) {
+   	if (listeners != null) {
    		listeners.removePropertyChangeListener(listener);
    	}
-   	listeners.removePropertyChangeListener(listener);
    	return true;
    }
 
@@ -93,9 +84,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    
    public void removeYou()
    {
-      setUniversity(null);
-      setIn(null);
       withoutFriends(this.getFriends().toArray(new Student[this.getFriends().size()]));
+      setIn(null);
+      setUniversity(null);
       withoutDone(this.getDone().toArray(new Assignment[this.getDone().size()]));
       firePropertyChange("REMOVE_YOU", this, null);
    }
@@ -103,28 +94,32 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    
    //==========================================================================
    
-   public static final String PROPERTY_NAME = "name";
+   public static final String PROPERTY_ASSIGNMENTPOINTS = "assignmentPoints";
    
-   private String name;
+   private int assignmentPoints;
 
-   public String getName()
+   public int getAssignmentPoints()
    {
-      return this.name;
+      return this.assignmentPoints;
    }
    
-   public void setName(String value)
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ */
+   public void setAssignmentPoints(int value)
    {
-      if ( ! EntityUtil.stringEquals(this.name, value)) {
+      if (this.assignmentPoints != value) {
       
-         String oldValue = this.name;
-         this.name = value;
-         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
+         int oldValue = this.assignmentPoints;
+         this.assignmentPoints = value;
+         this.firePropertyChange(PROPERTY_ASSIGNMENTPOINTS, oldValue, value);
       }
    }
    
-   public Student withName(String value)
+   public Student withAssignmentPoints(int value)
    {
-      setName(value);
+      setAssignmentPoints(value);
       return this;
    } 
 
@@ -134,14 +129,46 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    {
       StringBuilder result = new StringBuilder();
       
-      result.append(" ").append(this.getName());
-      result.append(" ").append(this.getId());
       result.append(" ").append(this.getAssignmentPoints());
-      result.append(" ").append(this.getMotivation());
       result.append(" ").append(this.getCredits());
+      result.append(" ").append(this.getId());
+      result.append(" ").append(this.getMotivation());
+      result.append(" ").append(this.getName());
       return result.substring(1);
    }
 
+
+   
+   //==========================================================================
+   
+   public static final String PROPERTY_CREDITS = "credits";
+   
+   private int credits;
+
+   public int getCredits()
+   {
+      return this.credits;
+   }
+   
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ */
+   public void setCredits(int value)
+   {
+      if (this.credits != value) {
+      
+         int oldValue = this.credits;
+         this.credits = value;
+         this.firePropertyChange(PROPERTY_CREDITS, oldValue, value);
+      }
+   }
+   
+   public Student withCredits(int value)
+   {
+      setCredits(value);
+      return this;
+   } 
 
    
    //==========================================================================
@@ -168,39 +195,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    public Student withId(String value)
    {
       setId(value);
-      return this;
-   } 
-
-   
-   //==========================================================================
-   
-   public static final String PROPERTY_ASSIGNMENTPOINTS = "assignmentPoints";
-   
-   private int assignmentPoints;
-
-   public int getAssignmentPoints()
-   {
-      return this.assignmentPoints;
-   }
-   
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
- */
-   public void setAssignmentPoints(int value)
-   {
-      if (this.assignmentPoints != value) {
-      
-         int oldValue = this.assignmentPoints;
-         this.assignmentPoints = value;
-         this.firePropertyChange(PROPERTY_ASSIGNMENTPOINTS, oldValue, value);
-      }
-   }
-   
-   public Student withAssignmentPoints(int value)
-   {
-      setAssignmentPoints(value);
       return this;
    } 
 
@@ -235,97 +229,118 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    
    //==========================================================================
    
-   public static final String PROPERTY_CREDITS = "credits";
+   public static final String PROPERTY_NAME = "name";
    
-   private int credits;
+   private String name;
 
-   public int getCredits()
+   public String getName()
    {
-      return this.credits;
+      return this.name;
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
- */
-   public void setCredits(int value)
+   public void setName(String value)
    {
-      if (this.credits != value) {
+      if ( ! EntityUtil.stringEquals(this.name, value)) {
       
-         int oldValue = this.credits;
-         this.credits = value;
-         this.firePropertyChange(PROPERTY_CREDITS, oldValue, value);
+         String oldValue = this.name;
+         this.name = value;
+         this.firePropertyChange(PROPERTY_NAME, oldValue, value);
       }
    }
    
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightReachabilityGraph
- */
-   public Student withCredits(int value)
+   public Student withName(String value)
    {
-      setCredits(value);
+      setName(value);
       return this;
    } 
 
    
    /********************************************************************
     * <pre>
-    *              many                       one
-    * Student ----------------------------------- University
-    *              students                   university
+    *              many                       many
+    * Student ----------------------------------- Student
+    *              friends                   friends
     * </pre>
     */
    
-   public static final String PROPERTY_UNIVERSITY = "university";
+   public static final String PROPERTY_FRIENDS = "friends";
 
-   private University university = null;
-
-   public University getUniversity()
+   private StudentSet friends = null;
+   
+   public StudentSet getFriends()
    {
-      return this.university;
-   }
-
-   public boolean setUniversity(University value)
-   {
-      boolean changed = false;
-      
-      if (this.university != value)
+      if (this.friends == null)
       {
-         University oldValue = this.university;
-         
-         if (this.university != null)
-         {
-            this.university = null;
-            oldValue.withoutStudents(this);
-         }
-         
-         this.university = value;
-         
-         if (value != null)
-         {
-            value.withStudents(this);
-         }
-         
-         firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
-         changed = true;
+         return StudentSet.EMPTY_SET;
       }
-      
-      return changed;
+   
+      return this.friends;
+   }
+   public StudentSet getFriendsTransitive()
+   {
+      StudentSet result = new StudentSet().with(this);
+      return result.getFriendsTransitive();
    }
 
-   public Student withUniversity(University value)
+
+     /**
+    * 
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+ */
+   public Student withFriends(Student... value)
    {
-      setUniversity(value);
+      if(value==null){
+         return this;
+      }
+      for (Student item : value)
+      {
+         if (item != null)
+         {
+            if (this.friends == null)
+            {
+               this.friends = new StudentSet();
+            }
+            
+            boolean changed = this.friends.add (item);
+
+            if (changed)
+            {
+               item.withFriends(this);
+               firePropertyChange(PROPERTY_FRIENDS, null, item);
+            }
+         }
+      }
       return this;
    } 
 
-   public University createUniversity()
+   public Student withoutFriends(Student... value)
    {
-      University value = new University();
-      withUniversity(value);
+      for (Student item : value)
+      {
+         if ((this.friends != null) && (item != null))
+         {
+            if (this.friends.remove(item))
+            {
+               item.withoutFriends(this);
+               firePropertyChange(PROPERTY_FRIENDS, item, null);
+            }
+         }
+      }
+      return this;
+   }
+
+   public Student createFriends()
+   {
+      Student value = new Student();
+      withFriends(value);
+      return value;
+   } 
+
+   public TeachingAssistant createFriendsTeachingAssistant()
+   {
+      TeachingAssistant value = new TeachingAssistant();
+      withFriends(value);
       return value;
    } 
 
@@ -391,91 +406,59 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
    
    /********************************************************************
     * <pre>
-    *              many                       many
-    * Student ----------------------------------- Student
-    *              friends                   friends
+    *              many                       one
+    * Student ----------------------------------- University
+    *              students                   university
     * </pre>
     */
    
-   public static final String PROPERTY_FRIENDS = "friends";
+   public static final String PROPERTY_UNIVERSITY = "university";
 
-   private StudentSet friends = null;
-   
-   public StudentSet getFriends()
+   private University university = null;
+
+   public University getUniversity()
    {
-      if (this.friends == null)
-      {
-         return StudentSet.EMPTY_SET;
-      }
-   
-      return this.friends;
-   }
-   public StudentSet getFriendsTransitive()
-   {
-      StudentSet result = new StudentSet().with(this);
-      return result.getFriendsTransitive();
+      return this.university;
    }
 
-
-     /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
- */
-   public Student withFriends(Student... value)
+   public boolean setUniversity(University value)
    {
-      if(value==null){
-         return this;
-      }
-      for (Student item : value)
+      boolean changed = false;
+      
+      if (this.university != value)
       {
-         if (item != null)
+         University oldValue = this.university;
+         
+         if (this.university != null)
          {
-            if (this.friends == null)
-            {
-               this.friends = new StudentSet();
-            }
-            
-            boolean changed = this.friends.add (item);
-
-            if (changed)
-            {
-               item.withFriends(this);
-               firePropertyChange(PROPERTY_FRIENDS, null, item);
-            }
+            this.university = null;
+            oldValue.withoutStudents(this);
          }
+         
+         this.university = value;
+         
+         if (value != null)
+         {
+            value.withStudents(this);
+         }
+         
+         firePropertyChange(PROPERTY_UNIVERSITY, oldValue, value);
+         changed = true;
       }
+      
+      return changed;
+   }
+
+   public Student withUniversity(University value)
+   {
+      setUniversity(value);
       return this;
    } 
 
-   public Student withoutFriends(Student... value)
+   public University createUniversity()
    {
-      for (Student item : value)
-      {
-         if ((this.friends != null) && (item != null))
-         {
-            if (this.friends.remove(item))
-            {
-               item.withoutFriends(this);
-               firePropertyChange(PROPERTY_FRIENDS, item, null);
-            }
-         }
-      }
-      return this;
-   }
-
-   public Student createFriends()
-   {
-      Student value = new Student();
-      withFriends(value);
-      return value;
-   } 
-
-   public TeachingAssistant createFriendsTeachingAssistant()
-   {
-      TeachingAssistant value = new TeachingAssistant();
-      withFriends(value);
+      University value = new University();
+      withUniversity(value);
       return value;
    } 
 
@@ -504,10 +487,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 
      /**
     * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsStoryboards.java'>StudyRightWithAssignmentsStoryboards.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
+    * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightObjectModelNavigationAndQueries
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightWithAssignmentsStoryboard
+ * see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsStoryboards#testStudyRightTablesAndReports
  */
    public Student withDone(Assignment... value)
    {

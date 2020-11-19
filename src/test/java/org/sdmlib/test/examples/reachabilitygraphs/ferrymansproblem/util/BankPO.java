@@ -1,16 +1,12 @@
 package org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Boat;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Cargo;
 import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.River;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BoatPO;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.BankPO;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.CargoPO;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.util.RiverPO;
 
 public class BankPO extends PatternObject<BankPO, Bank>
 {

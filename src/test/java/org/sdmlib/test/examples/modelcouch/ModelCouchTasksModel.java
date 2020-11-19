@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -225,16 +225,16 @@ public class ModelCouchTasksModel
 
 		// assocs
 		taskFlow
-		.withBidirectional(task, "tasks", Cardinality.MANY, "taskFlow", Cardinality.ONE)
-		.withBidirectional(task, "firstTasks", Cardinality.MANY, "taskFlowFirst", Cardinality.ONE);
+		.withBidirectional(task, "tasks", Association.MANY, "taskFlow", Association.ONE)
+		.withBidirectional(task, "firstTasks", Association.MANY, "taskFlowFirst", Association.ONE);
 
 		task
-		.withBidirectional(task, "transitionSource", Cardinality.ONE, "transitionTargets", Cardinality.MANY)
-		.withBidirectional(userGroup, "responsibles", Cardinality.MANY, "responsible", Cardinality.MANY)
-		.withBidirectional(user, "handledBy", Cardinality.ONE, "handledTasks", Cardinality.MANY);
+		.withBidirectional(task, "transitionSource", Association.ONE, "transitionTargets", Association.MANY)
+		.withBidirectional(userGroup, "responsibles", Association.MANY, "responsible", Association.MANY)
+		.withBidirectional(user, "handledBy", Association.ONE, "handledTasks", Association.MANY);
 		
 		userGroup
-		.withBidirectional(user, "members", Cardinality.MANY, "groups", Cardinality.MANY);
+		.withBidirectional(user, "members", Association.MANY, "groups", Association.MANY);
 
 		model.generate("src/test/java");
 		story.addClassDiagram(model);

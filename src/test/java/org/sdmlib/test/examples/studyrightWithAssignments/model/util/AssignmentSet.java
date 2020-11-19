@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -31,8 +31,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
 
 public class AssignmentSet extends SimpleSet<Assignment>
 {
@@ -61,12 +59,6 @@ public class AssignmentSet extends SimpleSet<Assignment>
    public static final AssignmentSet EMPTY_SET = new AssignmentSet().withFlag(AssignmentSet.READONLY);
 
 
-   public AssignmentPO createAssignmentPO()
-   {
-      return new AssignmentPO(this.toArray(new Assignment[this.size()]));
-   }
-
-
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment";
@@ -78,6 +70,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
    {
       return new AssignmentSet();
    }
+
 
    @SuppressWarnings("unchecked")
    public AssignmentSet with(Object value)
@@ -130,7 +123,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
     * 
     * @return Subset of Assignment objects that match the parameter
     */
-   public AssignmentSet filterContent(String value)
+   public AssignmentSet createContentCondition(String value)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -154,7 +147,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
     * 
     * @return Subset of Assignment objects that match the parameter
     */
-   public AssignmentSet filterContent(String lower, String upper)
+   public AssignmentSet createContentCondition(String lower, String upper)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -213,7 +206,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
     * 
     * @return Subset of Assignment objects that match the parameter
     */
-   public AssignmentSet filterPoints(int value)
+   public AssignmentSet createPointsCondition(int value)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -237,7 +230,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
     * 
     * @return Subset of Assignment objects that match the parameter
     */
-   public AssignmentSet filterPoints(int lower, int upper)
+   public AssignmentSet createPointsCondition(int lower, int upper)
    {
       AssignmentSet result = new AssignmentSet();
       
@@ -265,86 +258,6 @@ public class AssignmentSet extends SimpleSet<Assignment>
       for (Assignment obj : this)
       {
          obj.setPoints(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through the current set of Assignment objects and collect a set of the Student objects reached via students. 
-    * 
-    * @return Set of Student objects reachable via students
-    */
-   public StudentSet getStudents()
-   {
-      StudentSet result = new StudentSet();
-      
-      for (Assignment obj : this)
-      {
-         result.with(obj.getStudents());
-      }
-      
-      return result;
-   }
-
-   /**
-    * Loop through the current set of Assignment objects and collect all contained objects with reference students pointing to the object passed as parameter. 
-    * 
-    * @param value The object required as students neighbor of the collected results. 
-    * 
-    * @return Set of Student objects referring to value via students
-    */
-   public AssignmentSet filterStudents(Object value)
-   {
-      ObjectSet neighbors = new ObjectSet();
-
-      if (value instanceof Collection)
-      {
-         neighbors.addAll((Collection<?>) value);
-      }
-      else
-      {
-         neighbors.add(value);
-      }
-      
-      AssignmentSet answer = new AssignmentSet();
-      
-      for (Assignment obj : this)
-      {
-         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
-         {
-            answer.add(obj);
-         }
-      }
-      
-      return answer;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and attach the Assignment object passed as parameter to the Students attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
-    */
-   public AssignmentSet withStudents(Student value)
-   {
-      for (Assignment obj : this)
-      {
-         obj.withStudents(value);
-      }
-      
-      return this;
-   }
-
-   /**
-    * Loop through current set of ModelType objects and remove the Assignment object passed as parameter from the Students attribute of each of it. 
-    * 
-    * @return The original set of ModelType objects now without the old neighbor.
-    */
-   public AssignmentSet withoutStudents(Student value)
-   {
-      for (Assignment obj : this)
-      {
-         obj.withoutStudents(value);
       }
       
       return this;
@@ -403,7 +316,7 @@ public class AssignmentSet extends SimpleSet<Assignment>
    /**
     * Loop through current set of ModelType objects and attach the Assignment object passed as parameter to the Room attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Room attributes.
     */
    public AssignmentSet withRoom(Room value)
    {
@@ -415,98 +328,84 @@ public class AssignmentSet extends SimpleSet<Assignment>
       return this;
    }
 
-
    /**
-    * Loop through the current set of Assignment objects and collect those Assignment objects where the content attribute matches the parameter value. 
+    * Loop through the current set of Assignment objects and collect a set of the Student objects reached via students. 
     * 
-    * @param value Search value
-    * 
-    * @return Subset of Assignment objects that match the parameter
+    * @return Set of Student objects reachable via students
     */
-   public AssignmentSet createContentCondition(String value)
+   public StudentSet getStudents()
    {
-      AssignmentSet result = new AssignmentSet();
+      StudentSet result = new StudentSet();
       
       for (Assignment obj : this)
       {
-         if (value.equals(obj.getContent()))
-         {
-            result.add(obj);
-         }
+         result.with(obj.getStudents());
       }
       
       return result;
    }
 
-
    /**
-    * Loop through the current set of Assignment objects and collect those Assignment objects where the content attribute is between lower and upper. 
+    * Loop through the current set of Assignment objects and collect all contained objects with reference students pointing to the object passed as parameter. 
     * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
+    * @param value The object required as students neighbor of the collected results. 
     * 
-    * @return Subset of Assignment objects that match the parameter
+    * @return Set of Student objects referring to value via students
     */
-   public AssignmentSet createContentCondition(String lower, String upper)
+   public AssignmentSet filterStudents(Object value)
    {
-      AssignmentSet result = new AssignmentSet();
+      ObjectSet neighbors = new ObjectSet();
+
+      if (value instanceof Collection)
+      {
+         neighbors.addAll((Collection<?>) value);
+      }
+      else
+      {
+         neighbors.add(value);
+      }
+      
+      AssignmentSet answer = new AssignmentSet();
       
       for (Assignment obj : this)
       {
-         if (lower.compareTo(obj.getContent()) <= 0 && obj.getContent().compareTo(upper) <= 0)
+         if ( ! Collections.disjoint(neighbors, obj.getStudents()))
          {
-            result.add(obj);
+            answer.add(obj);
          }
       }
       
-      return result;
+      return answer;
    }
 
-
    /**
-    * Loop through the current set of Assignment objects and collect those Assignment objects where the points attribute matches the parameter value. 
+    * Loop through current set of ModelType objects and attach the Assignment object passed as parameter to the Students attribute of each of it. 
     * 
-    * @param value Search value
-    * 
-    * @return Subset of Assignment objects that match the parameter
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
     */
-   public AssignmentSet createPointsCondition(int value)
+   public AssignmentSet withStudents(Student value)
    {
-      AssignmentSet result = new AssignmentSet();
-      
       for (Assignment obj : this)
       {
-         if (value == obj.getPoints())
-         {
-            result.add(obj);
-         }
+         obj.withStudents(value);
       }
       
-      return result;
+      return this;
    }
 
-
    /**
-    * Loop through the current set of Assignment objects and collect those Assignment objects where the points attribute is between lower and upper. 
+    * Loop through current set of ModelType objects and remove the Assignment object passed as parameter from the Students attribute of each of it. 
     * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of Assignment objects that match the parameter
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
-   public AssignmentSet createPointsCondition(int lower, int upper)
+   public AssignmentSet withoutStudents(Student value)
    {
-      AssignmentSet result = new AssignmentSet();
-      
       for (Assignment obj : this)
       {
-         if (lower <= obj.getPoints() && obj.getPoints() <= upper)
-         {
-            result.add(obj);
-         }
+         obj.withoutStudents(value);
       }
       
-      return result;
+      return this;
    }
 
 }

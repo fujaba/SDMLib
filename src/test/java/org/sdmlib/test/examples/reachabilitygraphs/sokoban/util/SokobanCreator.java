@@ -21,15 +21,15 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Box;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Karli;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Maze;
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Sokoban;
+
+import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class SokobanCreator implements AggregatedEntityCreator
 {

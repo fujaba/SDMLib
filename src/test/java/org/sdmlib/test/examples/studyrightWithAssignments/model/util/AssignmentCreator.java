@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -26,16 +26,27 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class AssignmentCreator implements SendableEntityCreator
+public class AssignmentCreator implements AggregatedEntityCreator
 {
+   public static final AssignmentCreator it = new AssignmentCreator();
+   
    private final String[] properties = new String[]
    {
       Assignment.PROPERTY_CONTENT,
       Assignment.PROPERTY_POINTS,
-      Assignment.PROPERTY_STUDENTS,
       Assignment.PROPERTY_ROOM,
+      Assignment.PROPERTY_STUDENTS,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
+   {
    };
    
    @Override
@@ -45,10 +56,23 @@ public class AssignmentCreator implements SendableEntityCreator
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new Assignment();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -71,14 +95,14 @@ public class AssignmentCreator implements SendableEntityCreator
          return ((Assignment) target).getPoints();
       }
 
-      if (Assignment.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
-      {
-         return ((Assignment) target).getStudents();
-      }
-
       if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attribute))
       {
          return ((Assignment) target).getRoom();
+      }
+
+      if (Assignment.PROPERTY_STUDENTS.equalsIgnoreCase(attribute))
+      {
+         return ((Assignment) target).getStudents();
       }
       
       return null;
@@ -99,9 +123,19 @@ public class AssignmentCreator implements SendableEntityCreator
          return true;
       }
 
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((Assignment)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
+      }
+
+      if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attrName))
+      {
+         ((Assignment) target).setRoom((Room) value);
+         return true;
       }
 
       if (Assignment.PROPERTY_STUDENTS.equalsIgnoreCase(attrName))
@@ -113,12 +147,6 @@ public class AssignmentCreator implements SendableEntityCreator
       if ((Assignment.PROPERTY_STUDENTS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
       {
          ((Assignment) target).withoutStudents((Student) value);
-         return true;
-      }
-
-      if (Assignment.PROPERTY_ROOM.equalsIgnoreCase(attrName))
-      {
-         ((Assignment) target).setRoom((Room) value);
          return true;
       }
       

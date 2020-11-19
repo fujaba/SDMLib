@@ -1,11 +1,8 @@
 package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
 import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBankPO;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBoatPO;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UCargoPO;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
 
 public class UBoatPO extends PatternObject<UBoatPO, UBoat>

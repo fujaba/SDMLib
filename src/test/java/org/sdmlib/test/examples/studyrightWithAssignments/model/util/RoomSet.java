@@ -21,23 +21,19 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.StringList;
+import java.util.Collections;
+
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
+import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+
 import de.uniks.networkparser.list.NumberList;
 import de.uniks.networkparser.list.ObjectSet;
-import java.util.Collections;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.AssignmentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.TeachingAssistantSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.UniversitySet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
+import de.uniks.networkparser.list.SimpleSet;
+import de.uniks.networkparser.list.StringList;
 
 public class RoomSet extends SimpleSet<Room>
 {
@@ -64,12 +60,6 @@ public class RoomSet extends SimpleSet<Room>
    }
 
    public static final RoomSet EMPTY_SET = new RoomSet().withFlag(RoomSet.READONLY);
-
-
-   public RoomPO createRoomPO()
-   {
-      return new RoomPO(this.toArray(new Room[this.size()]));
-   }
 
 
    public String getEntryType()
@@ -455,7 +445,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and attach the Room object passed as parameter to the Doors attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Doors attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Doors attributes.
     */
    public RoomSet withDoors(Room value)
    {
@@ -470,7 +460,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and remove the Room object passed as parameter from the Doors attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public RoomSet withoutDoors(Room value)
    {
@@ -535,7 +525,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and attach the Room object passed as parameter to the Students attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
     */
    public RoomSet withStudents(Student value)
    {
@@ -550,7 +540,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and remove the Room object passed as parameter from the Students attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public RoomSet withoutStudents(Student value)
    {
@@ -615,7 +605,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and attach the Room object passed as parameter to the Assignments attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Assignments attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Assignments attributes.
     */
    public RoomSet withAssignments(Assignment value)
    {
@@ -630,7 +620,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and remove the Room object passed as parameter from the Assignments attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public RoomSet withoutAssignments(Assignment value)
    {
@@ -695,7 +685,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and attach the Room object passed as parameter to the Tas attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Tas attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Tas attributes.
     */
    public RoomSet withTas(TeachingAssistant value)
    {
@@ -710,7 +700,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and remove the Room object passed as parameter from the Tas attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public RoomSet withoutTas(TeachingAssistant value)
    {
@@ -775,7 +765,7 @@ public class RoomSet extends SimpleSet<Room>
    /**
     * Loop through current set of ModelType objects and attach the Room object passed as parameter to the University attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their University attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their University attributes.
     */
    public RoomSet withUniversity(University value)
    {

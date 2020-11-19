@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.Modifier;
@@ -14,7 +14,7 @@ public class StrategyModel
 {
      /**
     * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/gofpattern/StrategyModel.java' type='text/x-java'>GofStrategyModel</a></p>
+    * <p>Storyboard GofStrategyModel</p>
     * <script>
     *    var json = {
     *    "typ":"class",
@@ -268,8 +268,8 @@ public class StrategyModel
       cm.createClazz("Blast").withSuperClazz(bStrategy);
       cm.createClazz("Stay").withSuperClazz(bStrategy);
 
-      bStrategy.withUniDirectional(bStrategy, "successor", Cardinality.ONE);
-      // bStrategy.withBidirectional(bStrategy, "suc", Cardinality.ONE, "pre", Cardinality.ONE);
+      bStrategy.withUniDirectional(bStrategy, "successor", Association.ONE);
+      // bStrategy.withBidirectional(bStrategy, "suc", Association.ONE, "pre", Association.ONE);
 
       // cm.removeAllGeneratedCode("src/test/java");
       cm.setAuthorName("zuendorf");

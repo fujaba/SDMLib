@@ -1,8 +1,9 @@
 package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
 import org.sdmlib.models.pattern.util.PatternObjectCreator;
-import de.uniks.networkparser.IdMap;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.URiver;
+
+import de.uniks.networkparser.IdMap;
 
 public class URiverPOCreator extends PatternObjectCreator
 {

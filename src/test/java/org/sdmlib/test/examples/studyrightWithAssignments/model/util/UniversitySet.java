@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -31,9 +31,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.StudentSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.RoomSet;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.util.PresidentSet;
 
 public class UniversitySet extends SimpleSet<University>
 {
@@ -62,12 +59,6 @@ public class UniversitySet extends SimpleSet<University>
    public static final UniversitySet EMPTY_SET = new UniversitySet().withFlag(UniversitySet.READONLY);
 
 
-   public UniversityPO createUniversityPO()
-   {
-      return new UniversityPO(this.toArray(new University[this.size()]));
-   }
-
-
    public String getEntryType()
    {
       return "org.sdmlib.test.examples.studyrightWithAssignments.model.University";
@@ -79,6 +70,7 @@ public class UniversitySet extends SimpleSet<University>
    {
       return new UniversitySet();
    }
+
 
    @SuppressWarnings("unchecked")
    public UniversitySet with(Object value)
@@ -131,7 +123,7 @@ public class UniversitySet extends SimpleSet<University>
     * 
     * @return Subset of University objects that match the parameter
     */
-   public UniversitySet filterName(String value)
+   public UniversitySet createNameCondition(String value)
    {
       UniversitySet result = new UniversitySet();
       
@@ -155,7 +147,7 @@ public class UniversitySet extends SimpleSet<University>
     * 
     * @return Subset of University objects that match the parameter
     */
-   public UniversitySet filterName(String lower, String upper)
+   public UniversitySet createNameCondition(String lower, String upper)
    {
       UniversitySet result = new UniversitySet();
       
@@ -241,7 +233,7 @@ public class UniversitySet extends SimpleSet<University>
    /**
     * Loop through current set of ModelType objects and attach the University object passed as parameter to the Students attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Students attributes.
     */
    public UniversitySet withStudents(Student value)
    {
@@ -256,7 +248,7 @@ public class UniversitySet extends SimpleSet<University>
    /**
     * Loop through current set of ModelType objects and remove the University object passed as parameter from the Students attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public UniversitySet withoutStudents(Student value)
    {
@@ -321,7 +313,7 @@ public class UniversitySet extends SimpleSet<University>
    /**
     * Loop through current set of ModelType objects and attach the University object passed as parameter to the Rooms attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their Rooms attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their Rooms attributes.
     */
    public UniversitySet withRooms(Room value)
    {
@@ -336,7 +328,7 @@ public class UniversitySet extends SimpleSet<University>
    /**
     * Loop through current set of ModelType objects and remove the University object passed as parameter from the Rooms attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now without the old neighbor.
+    * @param value value    * @return The original set of ModelType objects now without the old neighbor.
     */
    public UniversitySet withoutRooms(Room value)
    {
@@ -346,53 +338,6 @@ public class UniversitySet extends SimpleSet<University>
       }
       
       return this;
-   }
-
-
-   /**
-    * Loop through the current set of University objects and collect those University objects where the name attribute matches the parameter value. 
-    * 
-    * @param value Search value
-    * 
-    * @return Subset of University objects that match the parameter
-    */
-   public UniversitySet createNameCondition(String value)
-   {
-      UniversitySet result = new UniversitySet();
-      
-      for (University obj : this)
-      {
-         if (value.equals(obj.getName()))
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
-   }
-
-
-   /**
-    * Loop through the current set of University objects and collect those University objects where the name attribute is between lower and upper. 
-    * 
-    * @param lower Lower bound 
-    * @param upper Upper bound 
-    * 
-    * @return Subset of University objects that match the parameter
-    */
-   public UniversitySet createNameCondition(String lower, String upper)
-   {
-      UniversitySet result = new UniversitySet();
-      
-      for (University obj : this)
-      {
-         if (lower.compareTo(obj.getName()) <= 0 && obj.getName().compareTo(upper) <= 0)
-         {
-            result.add(obj);
-         }
-      }
-      
-      return result;
    }
 
    /**
@@ -448,7 +393,7 @@ public class UniversitySet extends SimpleSet<University>
    /**
     * Loop through current set of ModelType objects and attach the University object passed as parameter to the President attribute of each of it. 
     * 
-    * @return The original set of ModelType objects now with the new neighbor attached to their President attributes.
+    * @param value value    * @return The original set of ModelType objects now with the new neighbor attached to their President attributes.
     */
    public UniversitySet withPresident(President value)
    {

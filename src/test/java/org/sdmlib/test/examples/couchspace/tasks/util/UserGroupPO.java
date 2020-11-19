@@ -1,14 +1,11 @@
 package org.sdmlib.test.examples.couchspace.tasks.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.couchspace.tasks.Task;
 import org.sdmlib.test.examples.couchspace.tasks.User;
 import org.sdmlib.test.examples.couchspace.tasks.UserGroup;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.test.examples.couchspace.tasks.util.UserPO;
-import org.sdmlib.test.examples.couchspace.tasks.util.UserGroupPO;
-import org.sdmlib.test.examples.couchspace.tasks.util.TaskPO;
 
 public class UserGroupPO extends PatternObject<UserGroupPO, UserGroup>
 {

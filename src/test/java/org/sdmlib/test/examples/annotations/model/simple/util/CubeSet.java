@@ -21,12 +21,12 @@
    
 package org.sdmlib.test.examples.annotations.model.simple.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.annotations.model.simple.Cube;
-import de.uniks.networkparser.interfaces.Condition;
-import org.sdmlib.test.examples.annotations.model.simple.House;
-import org.sdmlib.test.examples.annotations.model.simple.util.HouseSet;
 import java.util.Collection;
+
+import org.sdmlib.test.examples.annotations.model.simple.Cube;
+import org.sdmlib.test.examples.annotations.model.simple.House;
+
+import de.uniks.networkparser.list.SimpleSet;
 
 public class CubeSet extends SimpleSet<Cube>
 {

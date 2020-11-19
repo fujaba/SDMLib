@@ -3,8 +3,6 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
 import org.sdmlib.test.examples.gofpattern.strategy.Stay;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategyPO;
-import org.sdmlib.test.examples.gofpattern.strategy.util.StayPO;
 
 public class StayPO extends PatternObject<StayPO, Stay>
 {

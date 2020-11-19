@@ -3,7 +3,7 @@ package org.sdmlib.simple;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -19,7 +19,7 @@ public class testGen {
 
 		room.withMethod("init", DataType.VOID);
 		
-		person.withBidirectional(room, "room", Cardinality.ONE, "persons", Cardinality.MANY);
+		person.withBidirectional(room, "room", Association.ONE, "persons", Association.MANY);
 		
 //		model.generate("gen");
 	}

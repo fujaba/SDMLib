@@ -21,16 +21,15 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.URiver;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBankSet;
+
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBank;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBoatSet;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UBoat;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.URiver;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/reachabilitygraphs/ReachabilityGraphFerrymansProblemExample.java'>ReachabilityGraphFerrymansProblemExample.java</a>

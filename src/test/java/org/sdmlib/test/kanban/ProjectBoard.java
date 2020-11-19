@@ -27,7 +27,6 @@ import org.sdmlib.storyboards.StoryboardImpl;
 
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
-import de.uniks.networkparser.graph.Cardinality;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -175,9 +174,9 @@ public class ProjectBoard
 
       Clazz logEntryClass = model.createClazz("LogEntryStoryBoard");
 
-      new Association(kanbanEntryClass).with("kanbanEntry").with(Cardinality.ONE)
+      new Association(kanbanEntryClass).with("kanbanEntry").with(Association.ONE)
       	.with(AssociationTypes.AGGREGATION)
-      	.with(new Association(logEntryClass).with("logEntries").with(Cardinality.MANY));
+      	.with(new Association(logEntryClass).with("logEntries").with(Association.MANY));
       
       Clazz storyboardWallClass = model.createClazz("StoryboardWall");
 
@@ -186,12 +185,12 @@ public class ProjectBoard
             .withAttribute("stepCounter", DataType.INT) 
             .withAttribute("stepDoneCounter", DataType.INT);
 
-      storyboardWallClass.withBidirectional(storyboardClass, "storyboard", Cardinality.ONE, "wall", Cardinality.ONE);
+      storyboardWallClass.withBidirectional(storyboardClass, "storyboard", Association.ONE, "wall", Association.ONE);
 
       Clazz storyboardStepClass = model.createClazz("StoryboardStep")
             .withAttribute("text", DataType.STRING);
 
-      storyboardClass.withBidirectional(storyboardStepClass, "storyboardSteps", Cardinality.MANY, "storyboard", Cardinality.ONE);
+      storyboardClass.withBidirectional(storyboardStepClass, "storyboardSteps", Association.MANY, "storyboard", Association.ONE);
 
       story.addClassDiagram(model);
 

@@ -1,9 +1,9 @@
 package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util;
 
-import org.sdmlib.models.pattern.PatternObject;
-import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
 import org.sdmlib.models.pattern.AttributeConstraint;
 import org.sdmlib.models.pattern.Pattern;
+import org.sdmlib.models.pattern.PatternObject;
+import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.UCargo;
 
 public class UCargoPO extends PatternObject<UCargoPO, UCargo>
 {

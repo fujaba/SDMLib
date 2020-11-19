@@ -28,8 +28,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 import org.sdmlib.test.examples.helloworld.util.GreetingSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.helloworld.Person;
-import org.sdmlib.test.examples.helloworld.GreetingMessage;
    /**
     * 
     * @see <a href='../../../../../../../../src/test/java/org/sdmlib/test/examples/helloworld/HelloWorldTTC2011.java'>HelloWorldTTC2011.java</a>

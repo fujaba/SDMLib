@@ -3,16 +3,12 @@ package org.sdmlib.replication.util;
 import java.net.Socket;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationChannel;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.replication.util.ReplicationChannelPO;
-import org.sdmlib.replication.util.SharedSpacePO;
-import org.sdmlib.replication.util.ChangeHistoryPO;
-import org.sdmlib.replication.util.ReplicationNodePO;
 
 public class SharedSpacePO extends PatternObject<SharedSpacePO, SharedSpace>
 {

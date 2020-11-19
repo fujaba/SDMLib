@@ -43,128 +43,6 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    {
       this.setModifier(modifier);
    }
-   public StudentPO createNameCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public StudentPO createNameCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_NAME)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public StudentPO createNameAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_NAME)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getName()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Student) getCurrentMatch()).getName();
-      }
-      return null;
-   }
-   
-   public StudentPO withName(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Student) getCurrentMatch()).setName(value);
-      }
-      return this;
-   }
-   
-   public StudentPO createIdCondition(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_ID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public StudentPO createIdCondition(String lower, String upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_ID)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public StudentPO createIdAssignment(String value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_ID)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public String getId()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Student) getCurrentMatch()).getId();
-      }
-      return null;
-   }
-   
-   public StudentPO withId(String value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Student) getCurrentMatch()).setId(value);
-      }
-      return this;
-   }
-   
    public StudentPO createAssignmentPointsCondition(int value)
    {
       new AttributeConstraint()
@@ -222,67 +100,6 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       if (this.getPattern().getHasMatch())
       {
          ((Student) getCurrentMatch()).setAssignmentPoints(value);
-      }
-      return this;
-   }
-   
-   public StudentPO createMotivationCondition(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_MOTIVATION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public StudentPO createMotivationCondition(int lower, int upper)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_MOTIVATION)
-      .withTgtValue(lower)
-      .withUpperTgtValue(upper)
-      .withSrc(this)
-      .withModifier(this.getPattern().getModifier())
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public StudentPO createMotivationAssignment(int value)
-   {
-      new AttributeConstraint()
-      .withAttrName(Student.PROPERTY_MOTIVATION)
-      .withTgtValue(value)
-      .withSrc(this)
-      .withModifier(Pattern.CREATE)
-      .withPattern(this.getPattern());
-      
-      super.filterAttr();
-      
-      return this;
-   }
-   
-   public int getMotivation()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Student) getCurrentMatch()).getMotivation();
-      }
-      return 0;
-   }
-   
-   public StudentPO withMotivation(int value)
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         ((Student) getCurrentMatch()).setMotivation(value);
       }
       return this;
    }
@@ -348,41 +165,224 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return this;
    }
    
-   public UniversityPO createUniversityPO()
+   public StudentPO createIdCondition(String value)
    {
-      UniversityPO result = new UniversityPO(new University[]{});
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_ID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
       
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Student.PROPERTY_UNIVERSITY, result);
+      super.filterAttr();
       
-      return result;
+      return this;
    }
-
-   public UniversityPO createUniversityPO(String modifier)
+   
+   public StudentPO createIdCondition(String lower, String upper)
    {
-      UniversityPO result = new UniversityPO(new University[]{});
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_ID)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
       
-      result.setModifier(modifier);
-      super.hasLink(Student.PROPERTY_UNIVERSITY, result);
+      super.filterAttr();
       
-      return result;
+      return this;
    }
-
-   public StudentPO createUniversityLink(UniversityPO tgt)
+   
+   public StudentPO createIdAssignment(String value)
    {
-      return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY);
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_ID)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
    }
-
-   public StudentPO createUniversityLink(UniversityPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY, modifier);
-   }
-
-   public University getUniversity()
+   
+   public String getId()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Student) this.getCurrentMatch()).getUniversity();
+         return ((Student) getCurrentMatch()).getId();
+      }
+      return null;
+   }
+   
+   public StudentPO withId(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Student) getCurrentMatch()).setId(value);
+      }
+      return this;
+   }
+   
+   public StudentPO createMotivationCondition(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_MOTIVATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO createMotivationCondition(int lower, int upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_MOTIVATION)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO createMotivationAssignment(int value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_MOTIVATION)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public int getMotivation()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) getCurrentMatch()).getMotivation();
+      }
+      return 0;
+   }
+   
+   public StudentPO withMotivation(int value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Student) getCurrentMatch()).setMotivation(value);
+      }
+      return this;
+   }
+   
+   public StudentPO createNameCondition(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO createNameCondition(String lower, String upper)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_NAME)
+      .withTgtValue(lower)
+      .withUpperTgtValue(upper)
+      .withSrc(this)
+      .withModifier(this.getPattern().getModifier())
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public StudentPO createNameAssignment(String value)
+   {
+      new AttributeConstraint()
+      .withAttrName(Student.PROPERTY_NAME)
+      .withTgtValue(value)
+      .withSrc(this)
+      .withModifier(Pattern.CREATE)
+      .withPattern(this.getPattern());
+      
+      super.filterAttr();
+      
+      return this;
+   }
+   
+   public String getName()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return ((Student) getCurrentMatch()).getName();
+      }
+      return null;
+   }
+   
+   public StudentPO withName(String value)
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         ((Student) getCurrentMatch()).setName(value);
+      }
+      return this;
+   }
+   
+   public StudentPO createFriendsPO()
+   {
+      StudentPO result = new StudentPO(new Student[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Student.PROPERTY_FRIENDS, result);
+      
+      return result;
+   }
+
+   public StudentPO createFriendsPO(String modifier)
+   {
+      StudentPO result = new StudentPO(new Student[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Student.PROPERTY_FRIENDS, result);
+      
+      return result;
+   }
+
+   public StudentPO createFriendsLink(StudentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS);
+   }
+
+   public StudentPO createFriendsLink(StudentPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS, modifier);
+   }
+
+   public StudentSet getFriends()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return new StudentSet(((Student) this.getCurrentMatch()).getFriends());
       }
       return null;
    }
@@ -426,41 +426,41 @@ public class StudentPO extends PatternObject<StudentPO, Student>
       return null;
    }
 
-   public StudentPO createFriendsPO()
+   public UniversityPO createUniversityPO()
    {
-      StudentPO result = new StudentPO(new Student[]{});
+      UniversityPO result = new UniversityPO(new University[]{});
       
       result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Student.PROPERTY_FRIENDS, result);
+      super.hasLink(Student.PROPERTY_UNIVERSITY, result);
       
       return result;
    }
 
-   public StudentPO createFriendsPO(String modifier)
+   public UniversityPO createUniversityPO(String modifier)
    {
-      StudentPO result = new StudentPO(new Student[]{});
+      UniversityPO result = new UniversityPO(new University[]{});
       
       result.setModifier(modifier);
-      super.hasLink(Student.PROPERTY_FRIENDS, result);
+      super.hasLink(Student.PROPERTY_UNIVERSITY, result);
       
       return result;
    }
 
-   public StudentPO createFriendsLink(StudentPO tgt)
+   public StudentPO createUniversityLink(UniversityPO tgt)
    {
-      return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS);
+      return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY);
    }
 
-   public StudentPO createFriendsLink(StudentPO tgt, String modifier)
+   public StudentPO createUniversityLink(UniversityPO tgt, String modifier)
    {
-      return hasLinkConstraint(tgt, Student.PROPERTY_FRIENDS, modifier);
+      return hasLinkConstraint(tgt, Student.PROPERTY_UNIVERSITY, modifier);
    }
 
-   public StudentSet getFriends()
+   public University getUniversity()
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Student) this.getCurrentMatch()).getFriends();
+         return ((Student) this.getCurrentMatch()).getUniversity();
       }
       return null;
    }
@@ -499,7 +499,7 @@ public class StudentPO extends PatternObject<StudentPO, Student>
    {
       if (this.getPattern().getHasMatch())
       {
-         return ((Student) this.getCurrentMatch()).getDone();
+         return new AssignmentSet(((Student) this.getCurrentMatch()).getDone());
       }
       return null;
    }

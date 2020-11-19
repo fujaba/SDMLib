@@ -31,9 +31,6 @@ import org.sdmlib.models.taskflows.util.LoggerSet;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.json.JsonArray;
-import org.sdmlib.models.taskflows.PeerProxy;
-import org.sdmlib.models.taskflows.LogEntry;
-import org.sdmlib.models.taskflows.TaskFlow;
 
 
    public class Logger extends TaskFlow implements PropertyChangeInterface
@@ -208,8 +205,6 @@ import org.sdmlib.models.taskflows.TaskFlow;
 	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
 	 *      TaskFlowObjectScenarioForCoverage.java</a>
 	 * @return the LogEntry
-	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
- * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  */
 	public LogEntry createEntries()
    {

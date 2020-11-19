@@ -13,15 +13,12 @@ import javax.imageio.ImageIO;
 import org.junit.Test;
 import org.sdmlib.storyboards.Storyboard;
 import org.sdmlib.test.examples.groupaccount.gui.PartyAccountApp;
-
-import org.testfx.api.*;
 import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.TextField;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
@@ -48,7 +45,7 @@ public class TestPartyAccount extends ApplicationTest
 
    /**
     * 
-    * <p>Storyboard <a href='.././src/test/java/org/sdmlib/test/examples/groupaccount/TestPartyAccount.java' type='text/x-java'>GroupAccountYamlPersistence</a></p>
+    * <p>Storyboard GroupAccountYamlPersistence</p>
     * <p>Start: Start a Party GUI and load changes from file</p>
     * <p><a name = 'step_1'>Step 1: do some editing and log changes to file</a></p>
     * <p><a name = 'step_2'>Step 2: stop gui</a></p>

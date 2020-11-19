@@ -134,7 +134,7 @@ public class ReplicationChatServer
                   // protocol result
                   StoryboardImpl story = (StoryboardImpl) task.getFromTaskObjects("story");
                   
-                  story.withJsonIdMap(SeppelSpaceProxyCreator.createIdMap("sb"));
+                  story.withIdMap(SeppelSpaceProxyCreator.createIdMap("sb"));
                   
                   story.addObjectDiagramWith(selfProxy, selfProxy.getPartners(), 
                      selfProxy.getPartners().getTasks(), task);

@@ -6,8 +6,6 @@ import org.sdmlib.replication.ChangeHistory;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ReplicationServer;
 import org.sdmlib.replication.SharedSpace;
-import org.sdmlib.replication.util.SharedSpacePO;
-import org.sdmlib.replication.util.ReplicationServerPO;
 
 public class ReplicationServerPO extends PatternObject<ReplicationServerPO, ReplicationServer>
 {

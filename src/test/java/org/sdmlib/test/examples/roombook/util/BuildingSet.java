@@ -30,7 +30,6 @@ import org.sdmlib.test.examples.roombook.Floor;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.roombook.util.FloorSet;
 
 public class BuildingSet extends SDMSet<Building>
 {

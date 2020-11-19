@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,13 +25,25 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.President;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class PresidentCreator implements SendableEntityCreator
+public class PresidentCreator implements AggregatedEntityCreator
 {
+   public static final PresidentCreator it = new PresidentCreator();
+   
    private final String[] properties = new String[]
    {
       President.PROPERTY_UNIVERSITY,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+      President.PROPERTY_UNIVERSITY,
+   };
+   
+   private final String[] downProperties = new String[]
+   {
    };
    
    @Override
@@ -41,10 +53,23 @@ public class PresidentCreator implements SendableEntityCreator
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new President();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)

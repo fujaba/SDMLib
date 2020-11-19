@@ -1,14 +1,11 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.ModelCloud;
 import org.sdmlib.modelspace.ModelCloudProxy;
 import org.sdmlib.modelspace.ModelSpaceProxy;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.modelspace.util.ModelSpaceProxyPO;
-import org.sdmlib.modelspace.util.ModelCloudPO;
-import org.sdmlib.modelspace.util.ModelCloudProxyPO;
 
 public class ModelCloudPO extends PatternObject<ModelCloudPO, ModelCloud>
 {

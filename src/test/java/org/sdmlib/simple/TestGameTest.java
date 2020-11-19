@@ -3,7 +3,7 @@ package org.sdmlib.simple;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 
 public class TestGameTest {
@@ -12,8 +12,8 @@ public class TestGameTest {
 		ClassModel model = new ClassModel("org.sdmlib.simple.model.game");
 		Clazz game = model.createClazz("Game");
 		Clazz player = model.createClazz("Player");
-		game.withBidirectional(player, "won", Cardinality.ONE, "winGame", Cardinality.ONE);
-		player.withBidirectional(game, "currentGame", Cardinality.ONE, "currentPlayer", Cardinality.ONE);
+		game.withBidirectional(player, "won", Association.ONE, "winGame", Association.ONE);
+		player.withBidirectional(game, "currentGame", Association.ONE, "currentPlayer", Association.ONE);
 
 		model.dumpHTML("game");
 	}
@@ -26,8 +26,8 @@ public class TestGameTest {
 		
 		game.withSuperClazz(entity);
 		player.withSuperClazz(entity);
-		//		game.withBidirectional(player, "won", Cardinality.ONE, "winGame", Cardinality.ONE);
-//		player.withBidirectional(game, "currentGame", Cardinality.ONE, "currentPlayer", Cardinality.ONE);
+		//		game.withBidirectional(player, "won", Association.ONE, "winGame", Association.ONE);
+//		player.withBidirectional(game, "currentGame", Association.ONE, "currentPlayer", Association.ONE);
 
 		model.dumpHTML("game");
 	}

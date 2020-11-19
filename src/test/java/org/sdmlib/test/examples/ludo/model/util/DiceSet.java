@@ -30,9 +30,6 @@ import org.sdmlib.test.examples.ludo.model.Player;
 
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
-import org.sdmlib.test.examples.ludo.model.util.LudoSet;
 
 public class DiceSet extends SimpleSet<Dice>
 {

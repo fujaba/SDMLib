@@ -1,12 +1,10 @@
 package org.sdmlib.modelspace.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.CloudModelDirectory;
 import org.sdmlib.modelspace.CloudModelFile;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.modelspace.util.CloudModelDirectoryPO;
-import org.sdmlib.modelspace.util.CloudModelFilePO;
 
 public class CloudModelFilePO extends PatternObject<CloudModelFilePO, CloudModelFile>
 {

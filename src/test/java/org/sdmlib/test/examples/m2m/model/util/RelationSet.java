@@ -30,8 +30,6 @@ import org.sdmlib.test.examples.m2m.model.Relation;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.m2m.model.util.GraphSet;
-import org.sdmlib.test.examples.m2m.model.util.PersonSet;
 
 public class RelationSet extends SimpleSet<Relation>
 {

@@ -38,9 +38,6 @@ import de.uniks.networkparser.interfaces.SendableEntity;
  * @see <a href=
  *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowModel.java'>
  *      TaskFlowModel.java</a>
- * @see <a href='../../../../../../../src/test/java/org/sdmlib/test/models/taskflows/TaskFlowModel.java'>TaskFlowModel.java</a>
- * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
- * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  */
 public class SDMTimer extends Timer implements PropertyChangeInterface, SendableEntity {
 	/**
@@ -49,7 +46,6 @@ public class SDMTimer extends Timer implements PropertyChangeInterface, Sendable
 	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
 	 *      TaskFlowObjectScenarioForCoverage.java</a>
 	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
- * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  */
 	public SDMTimer(String name) {
 		super(name);
@@ -64,7 +60,6 @@ public class SDMTimer extends Timer implements PropertyChangeInterface, Sendable
 	 *      '../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>
 	 *      TaskFlowObjectScenarioForCoverage.java</a>
 	 * @see <a href='../../../../../../../src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java'>TaskFlowObjectScenarioForCoverage.java</a>
- * @see org.sdmlib.models.taskflows.TaskFlowObjectScenarioForCoverage#testTaskFlowObjectScenarioForCoverage
  */
 	public SDMTimer() {
 

@@ -21,13 +21,14 @@
    
 package org.sdmlib.storyboards;
 
-import de.uniks.networkparser.interfaces.SendableEntity;
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
-import de.uniks.networkparser.EntityUtil;
 import org.sdmlib.storyboards.util.GoalSet;
+
+import de.uniks.networkparser.EntityUtil;
+import de.uniks.networkparser.interfaces.SendableEntity;
 
 
    public  class Goal implements SendableEntity
@@ -169,6 +170,18 @@ import org.sdmlib.storyboards.util.GoalSet;
    {
       return this.hoursTodo;
    }
+
+   public double getHoursTodo4SubTree()
+   {
+      double sum = getHoursTodo();
+
+      for (Goal preGoal : this.getPreGoals())
+      {
+         sum += preGoal.getHoursTodo4SubTree();
+      }
+
+      return sum;
+   }
    
    public void setHoursTodo(double value)
    {
@@ -184,7 +197,7 @@ import org.sdmlib.storyboards.util.GoalSet;
    {
       setHoursTodo(value);
       return this;
-   } 
+   }
 
    
    /********************************************************************
@@ -369,7 +382,7 @@ import org.sdmlib.storyboards.util.GoalSet;
 
       for (Goal pre : preGoals)
       {
-         if (pre.getHoursTodo() == 0)
+         if (pre.getHoursTodo4SubTree() == 0)
          {
             this.withoutPreGoals(pre);
 

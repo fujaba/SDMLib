@@ -31,9 +31,6 @@ import org.sdmlib.test.examples.ludo.model.util.FieldSet;
 import org.sdmlib.test.examples.ludo.model.util.PlayerSet;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.ludo.model.Player;
-import org.sdmlib.test.examples.ludo.model.Dice;
-import org.sdmlib.test.examples.ludo.model.Field;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/ludo/LudoStoryboard.java'>LudoStoryboard.java</a>

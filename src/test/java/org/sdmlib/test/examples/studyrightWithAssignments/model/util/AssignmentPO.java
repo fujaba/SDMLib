@@ -164,45 +164,6 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       return this;
    }
    
-   public StudentPO createStudentsPO()
-   {
-      StudentPO result = new StudentPO(new Student[]{});
-      
-      result.setModifier(this.getPattern().getModifier());
-      super.hasLink(Assignment.PROPERTY_STUDENTS, result);
-      
-      return result;
-   }
-
-   public StudentPO createStudentsPO(String modifier)
-   {
-      StudentPO result = new StudentPO(new Student[]{});
-      
-      result.setModifier(modifier);
-      super.hasLink(Assignment.PROPERTY_STUDENTS, result);
-      
-      return result;
-   }
-
-   public AssignmentPO createStudentsLink(StudentPO tgt)
-   {
-      return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS);
-   }
-
-   public AssignmentPO createStudentsLink(StudentPO tgt, String modifier)
-   {
-      return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS, modifier);
-   }
-
-   public StudentSet getStudents()
-   {
-      if (this.getPattern().getHasMatch())
-      {
-         return ((Assignment) this.getCurrentMatch()).getStudents();
-      }
-      return null;
-   }
-
    public RoomPO createRoomPO()
    {
       RoomPO result = new RoomPO(new Room[]{});
@@ -238,6 +199,45 @@ public class AssignmentPO extends PatternObject<AssignmentPO, Assignment>
       if (this.getPattern().getHasMatch())
       {
          return ((Assignment) this.getCurrentMatch()).getRoom();
+      }
+      return null;
+   }
+
+   public StudentPO createStudentsPO()
+   {
+      StudentPO result = new StudentPO(new Student[]{});
+      
+      result.setModifier(this.getPattern().getModifier());
+      super.hasLink(Assignment.PROPERTY_STUDENTS, result);
+      
+      return result;
+   }
+
+   public StudentPO createStudentsPO(String modifier)
+   {
+      StudentPO result = new StudentPO(new Student[]{});
+      
+      result.setModifier(modifier);
+      super.hasLink(Assignment.PROPERTY_STUDENTS, result);
+      
+      return result;
+   }
+
+   public AssignmentPO createStudentsLink(StudentPO tgt)
+   {
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS);
+   }
+
+   public AssignmentPO createStudentsLink(StudentPO tgt, String modifier)
+   {
+      return hasLinkConstraint(tgt, Assignment.PROPERTY_STUDENTS, modifier);
+   }
+
+   public StudentSet getStudents()
+   {
+      if (this.getPattern().getHasMatch())
+      {
+         return new StudentSet(((Assignment) this.getCurrentMatch()).getStudents());
       }
       return null;
    }

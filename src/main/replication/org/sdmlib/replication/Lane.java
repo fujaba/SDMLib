@@ -32,14 +32,8 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.replication.RemoteTaskBoard;
-import org.sdmlib.replication.BoardTask;
-   /**
-    * 
-    * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationModel.java'>ReplicationModel.java</a>
-* @see <a href='../../../../../../src/test/java/org/sdmlib/test/replication/ReplicationModel.java'>ReplicationModel.java</a>
- */
-   public class Lane implements PropertyChangeInterface, SendableEntity
+
+public class Lane implements PropertyChangeInterface, SendableEntity
 {
 
    // ==========================================================================
@@ -328,7 +322,6 @@ import org.sdmlib.replication.BoardTask;
    /**
     * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public BoardTask createTasks()
    {
@@ -342,7 +335,6 @@ import org.sdmlib.replication.BoardTask;
     * @param taskName The Name of BoardTask
     * @return The created BoardTask
     * @see <a href='../../../../../../src/main/replication/org/sdmlib/replication/ReplicationObjectScenarioForCoverage.java'>ReplicationObjectScenarioForCoverage.java</a>
-    * @see org.sdmlib.replication.ReplicationObjectScenarioForCoverage#testReplicationObjectScenarioForCoverage
  */
    public BoardTask createTask(String taskName)
    {

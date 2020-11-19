@@ -3,8 +3,6 @@ package org.sdmlib.modelspace.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.modelspace.TaskBoard;
 import org.sdmlib.modelspace.TaskLane;
-import org.sdmlib.modelspace.util.TaskLanePO;
-import org.sdmlib.modelspace.util.TaskBoardPO;
 
 public class TaskBoardPO extends PatternObject<TaskBoardPO, TaskBoard>
 {

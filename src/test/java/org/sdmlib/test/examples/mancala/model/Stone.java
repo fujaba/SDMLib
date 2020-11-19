@@ -27,7 +27,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.mancala.model.Player;
    /**
     * 
     * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/mancala/MancalaModel.java'>MancalaModel.java</a>

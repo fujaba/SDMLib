@@ -25,7 +25,6 @@ import java.util.Collection;
 
 import org.sdmlib.replication.RemoteTask;
 
-import de.uniks.networkparser.interfaces.Condition;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class RunnableSet extends SimpleSet<Runnable>

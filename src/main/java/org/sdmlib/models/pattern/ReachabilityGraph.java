@@ -43,7 +43,6 @@ import org.sdmlib.StrUtil;
 import org.sdmlib.doc.GraphFactory;
 import org.sdmlib.doc.interfaze.Adapter.GuiAdapter;
 import org.sdmlib.models.SDMLibIdMap;
-import org.sdmlib.models.pattern.ReachabilityGraph.PathTrafo;
 import org.sdmlib.models.pattern.util.PatternElementSet;
 import org.sdmlib.models.pattern.util.PatternSet;
 import org.sdmlib.models.pattern.util.ReachableStateSet;
@@ -59,10 +58,6 @@ import de.uniks.networkparser.json.JsonArray;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
-import org.sdmlib.models.pattern.ReachableState;
-import org.sdmlib.models.pattern.NegativeApplicationCondition;
-import org.sdmlib.models.pattern.OptionalSubPattern;
-import org.sdmlib.models.pattern.Pattern;
 
 
 public class ReachabilityGraph implements PropertyChangeInterface, SendableEntity

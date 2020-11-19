@@ -21,14 +21,14 @@
    
 package org.sdmlib.test.examples.groupaccount.model.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.groupaccount.model.Item;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.NumberList;
-import org.sdmlib.test.examples.groupaccount.model.util.PersonSet;
+
+import org.sdmlib.test.examples.groupaccount.model.Item;
 import org.sdmlib.test.examples.groupaccount.model.Person;
+
+import de.uniks.networkparser.list.NumberList;
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class ItemSet extends SimpleSet<Item>
 {

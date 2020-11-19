@@ -1,10 +1,10 @@
 package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.ReplicationNode;
 import org.sdmlib.replication.ServerSocketAcceptThread;
-import org.sdmlib.models.pattern.Pattern;
 
 public class ServerSocketAcceptThreadPO extends PatternObject<ServerSocketAcceptThreadPO, ServerSocketAcceptThread>
 {

@@ -2,7 +2,6 @@ package org.sdmlib.test.examples.gofpattern.strategy.util;
 
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.examples.gofpattern.strategy.BombermanStrategy;
-import org.sdmlib.test.examples.gofpattern.strategy.util.BombermanStrategyPO;
 
 public class BombermanStrategyPO extends PatternObject<BombermanStrategyPO, BombermanStrategy>
 {

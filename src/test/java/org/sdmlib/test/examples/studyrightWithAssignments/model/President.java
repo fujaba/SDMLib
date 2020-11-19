@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2017 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,21 +25,14 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
-   /**
-    * 
-    * @see <a href='../../../../../../../../../src/test/java/org/sdmlib/test/examples/studyrightWithAssignments/StudyRightWithAssignmentsModel.java'>StudyRightWithAssignmentsModel.java</a>
- * @see org.sdmlib.test.examples.studyrightWithAssignments.StudyRightWithAssignmentsModel#testStudyRightWithAssignmentsClassGeneration
- */
-   public  class President implements SendableEntity
+
+public  class President implements SendableEntity
 {
 
    
    //==========================================================================
    
    protected PropertyChangeSupport listeners = null;
-
-   public boolean alive = true;
    
    public boolean firePropertyChange(String propertyName, Object oldValue, Object newValue)
    {
@@ -68,10 +61,9 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    }
    
    public boolean removePropertyChangeListener(PropertyChangeListener listener) {
-   	if (listeners == null) {
+   	if (listeners != null) {
    		listeners.removePropertyChangeListener(listener);
    	}
-   	listeners.removePropertyChangeListener(listener);
    	return true;
    }
 
@@ -89,7 +81,6 @@ import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
    public void removeYou()
    {
       setUniversity(null);
-      alive  = false;
       firePropertyChange("REMOVE_YOU", this, null);
    }
 

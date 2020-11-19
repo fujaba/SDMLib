@@ -1,16 +1,12 @@
 package org.sdmlib.replication.util;
 
 import org.sdmlib.models.pattern.AttributeConstraint;
+import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.replication.BoardTask;
 import org.sdmlib.replication.SeppelChannel;
 import org.sdmlib.replication.SeppelScope;
 import org.sdmlib.replication.SeppelSpaceProxy;
-import org.sdmlib.models.pattern.Pattern;
-import org.sdmlib.replication.util.SeppelChannelPO;
-import org.sdmlib.replication.util.SeppelSpaceProxyPO;
-import org.sdmlib.replication.util.SeppelScopePO;
-import org.sdmlib.replication.util.BoardTaskPO;
 
 public class SeppelSpaceProxyPO extends PatternObject<SeppelSpaceProxyPO, SeppelSpaceProxy>
 {

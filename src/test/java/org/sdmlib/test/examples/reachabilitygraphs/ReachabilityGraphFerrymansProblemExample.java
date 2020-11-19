@@ -1,14 +1,10 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
-import java.util.Collection;
-
 import org.junit.Test;
-import org.sdmlib.models.pattern.LazyCloneOp;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
 import org.sdmlib.models.pattern.RuleApplication;
-import org.sdmlib.models.pattern.ReachabilityGraph.Searchmode;
 import org.sdmlib.models.pattern.util.ReachabilityGraphCreator;
 import org.sdmlib.storyboards.Kanban;
 import org.sdmlib.storyboards.Storyboard;
@@ -36,9 +32,7 @@ import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.U
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.URiverSet;
 
 import de.uniks.networkparser.IdMap;
-import de.uniks.networkparser.list.AbstractArray;
 import de.uniks.networkparser.list.ObjectSet;
-import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleSet;
 
 public class ReachabilityGraphFerrymansProblemExample

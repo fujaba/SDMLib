@@ -3,8 +3,7 @@ package org.sdmlib.test.modelcouch;
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Attribute;
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
@@ -22,7 +21,7 @@ public class ModelCouchModel
 		
 		Clazz modelDBListener = mCModel.createClazz("ModelDBListener");
 		
-		modelCouch.withBidirectional(modelDBListener, "modelDBListener", Cardinality.ONE, "couch", Cardinality.ONE);
+		modelCouch.withBidirectional(modelDBListener, "modelDBListener", Association.ONE, "couch", Association.ONE);
 		
 		mCModel.generate("src/main/replication");
 	}

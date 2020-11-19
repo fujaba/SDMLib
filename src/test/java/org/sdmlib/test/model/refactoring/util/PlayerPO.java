@@ -3,8 +3,6 @@ package org.sdmlib.test.model.refactoring.util;
 import org.sdmlib.models.pattern.PatternObject;
 import org.sdmlib.test.model.refactoring.Ludo;
 import org.sdmlib.test.model.refactoring.Player;
-import org.sdmlib.test.model.refactoring.util.LudoPO;
-import org.sdmlib.test.model.refactoring.util.PlayerPO;
 
 public class PlayerPO extends PatternObject<PlayerPO, Player>
 {

@@ -27,7 +27,6 @@ import java.beans.PropertyChangeSupport;
 import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
-import org.sdmlib.test.examples.features.model.all.House;
    /**
     * 
     * @see <a href='../../../../../../../../../../src/test/java/org/sdmlib/test/examples/features/FeatureTest.java'>FeatureTest.java</a>

@@ -21,14 +21,14 @@
 </style>
 </head>
 <body>
-<p>Storyboard <a href='./src/main/replication/org/sdmlib/models/taskflows/TaskFlowObjectScenarioForCoverage.java' type='text/x-java'>TaskFlowObjectScenarioForCoverage</a></p>
+<p>Storyboard TaskFlowObjectScenarioForCoverage</p>
 <p>Create some objects just for coverage. This does not serve as an usage example.</p>
 <script>
    var json = {
    "type":"objectdiagram",
    "nodes":[
       {
-         "type":"clazz",
+         "type":"class",
          "id":"F1 : FetchFileFlow",
          "attributes":[
             "fileName=null",
@@ -37,7 +37,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"L5 : Logger",
          "attributes":[
             "idMap=null",
@@ -46,7 +46,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"L6 : LogEntry",
          "attributes":[
             "nodeName=null",
@@ -54,7 +54,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"L7 : LogEntry",
          "attributes":[
             "nodeName=null",
@@ -63,7 +63,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"L8 : LogEntry",
          "attributes":[
             "logger=null",
@@ -72,7 +72,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"P4 : PeerProxy",
          "attributes":[
             "idMap=null",
@@ -81,7 +81,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"S2 : SocketThread",
          "attributes":[
             "defaultTargetThread=null",
@@ -91,7 +91,7 @@
          ]
       },
       {
-         "type":"clazz",
+         "type":"class",
          "id":"S3 : SDMTimer"
       }
    ],
@@ -99,65 +99,65 @@
       {
          "type":"assoc",
          "source":{
-            "cardinality":"many",
             "property":"children",
+            "cardinality":"many",
             "id":"L8 : LogEntry"
          },
          "target":{
-            "cardinality":"one",
             "property":"parent",
+            "cardinality":"one",
             "id":"L6 : LogEntry"
          }
       },
       {
          "type":"assoc",
          "source":{
-            "cardinality":"many",
             "property":"entries",
+            "cardinality":"many",
             "id":"L6 : LogEntry"
          },
          "target":{
-            "cardinality":"one",
             "property":"logger",
+            "cardinality":"one",
             "id":"L5 : Logger"
          }
       },
       {
          "type":"assoc",
          "source":{
-            "cardinality":"many",
             "property":"entries",
+            "cardinality":"many",
             "id":"L7 : LogEntry"
          },
          "target":{
-            "cardinality":"one",
             "property":"logger",
+            "cardinality":"one",
             "id":"L5 : Logger"
          }
       },
       {
          "type":"edge",
          "source":{
-            "cardinality":"one",
             "property":"fileServer",
+            "cardinality":"one",
             "id":"P4 : PeerProxy"
          },
          "target":{
-            "cardinality":"one",
             "property":"fetchfileflow",
+            "cardinality":"one",
             "id":"F1 : FetchFileFlow"
          }
       },
       {
          "type":"assoc",
          "source":{
-            "cardinality":"one",
             "property":"subFlow",
+            "cardinality":"one",
             "id":"L5 : Logger"
          },
          "target":{
-            "cardinality":"one",
             "property":"parent",
+            "cardinality":"one",
             "id":"F1 : FetchFileFlow"
          }
       }

@@ -26,7 +26,6 @@ import java.util.Collection;
 import org.sdmlib.replication.ChangeEventList;
 
 import de.uniks.networkparser.list.SimpleSet;
-import de.uniks.networkparser.interfaces.Condition;
 
 public class ChangeEventListSet extends SimpleSet<ChangeEventList>
 {

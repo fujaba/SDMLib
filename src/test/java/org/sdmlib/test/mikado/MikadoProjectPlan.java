@@ -6,195 +6,17 @@ import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class MikadoProjectPlan
 {
-     /**
+   /**
     * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/mikado/MikadoProjectPlan.java' type='text/x-java'>ExcelProjectPlan</a></p>
-    * <canvas id="myChart" width="880" height="550"></canvas>
-    * <script>
-    * var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
-    *     type: 'line',
-    *     data: {
-    *         datasets: [
-    *             {
-    *                 label: "Burn Down",
-    *                 data: [
-    *                     {x: "2018-01-03T12:00:00+01:00", y: 5.1},
-    * {x: "2018-01-04T12:00:00+01:00", y: 4.1},
-    * {x: "2018-03-03T12:00:00+01:00", y: 3.1},
-    * {x: "2018-03-04T00:52:00+01:00", y: 2.1},
-    * {x: "2018-03-04T17:22:00+01:00", y: 1.1},
-    * {x: "2018-03-04T17:30:00+01:00", y: 1.0},
-    *                 ]
-    *             }
-    *         ]
-    *     },
-    *     options: {
-    *         animation: false,
-    *         responsive: false,
-    *          animation: {
-    *             onComplete: function(animation) {
-    *                     java.screendump("42");
-    *                     java.close();
-    *                 }
-    *          },
-    *         scales: {
-    *             xAxes: [{
-    *                 type: "time",
-    *                 time: {
-    *                     displayFormats: {
-    *                        'millisecond': 'DD MMM hh:mm',
-    *                        'second': 'DD MMM hh:mm',
-    *                        'minute': 'DD MMM hh:mm',
-    *                        'hour': 'DD MMM hh:mm',
-    *                        'day': 'DD MMM',
-    *                        'week': 'DD MMM',
-    *                        'month': 'MMM YYYY',
-    *                        'quarter': 'MMM YYYY',
-    *                        'year': 'YYYY',
-    *                     }
-    *                 },
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'Date'
-    *                 },
-    *                 ticks: {
-    *                     major: {
-    *                         fontStyle: "bold",
-    *                         fontColor: "#FF0000"
-    *                     }
-    *                 }
-    *             }],
-    *             yAxes: [{
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'hours'
-    *                 },
-    *                 ticks: {
-    *                     beginAtZero: true
-    *                 }
-    *             }]
-    *         }
-    *     }});
-    * </script>
-    * <p>Start: open goals</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"G1 : Goal",
-    *          "attributes":[
-    *             "description=Summer 18 Release",
-    *             "hoursDone=0.1",
-    *             "hoursTodo=1.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":null
-    * }   ;
-    *    json["options"]={"canvasid":"canvasExcelProjectPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
-    * <p><a name = 'step_1'>Step 1: closed goals</a></p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"G2 : Goal",
-    *          "attributes":[
-    *             "description=done",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G3 : Goal",
-    *          "attributes":[
-    *             "description=Mikado planning support",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G4 : Goal",
-    *          "attributes":[
-    *             "description=Yaml based id map",
-    *             "hoursDone=8.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G5 : Goal",
-    *          "attributes":[
-    *             "description=Allow editing with Excel CSV",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G3 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G2 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G4 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G2 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G5 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G3 : Goal"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasExcelProjectPlan5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
-    * @see <a href='../../../../../../../doc/ExcelProjectPlan.html'>ExcelProjectPlan.html</a>
- */
+    * <h3>Storyboard ExcelProjectPlan</h3>
+    * <img src='doc-files/ExcelProjectPlanStep0.png' width='880'>
+    * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
+    * <img src="doc-files/ExcelProjectPlanStep2.png" alt="ExcelProjectPlanStep2.png" width='212'>
+    * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
+    * <img src="doc-files/ExcelProjectPlanStep4.png" alt="ExcelProjectPlanStep4.png" width='479'>
+    */
    @Test
    public void testExcelProjectPlan()
    {
@@ -208,7 +30,7 @@ public class MikadoProjectPlan
 
       MikadoLog relst18log = (MikadoLog) idMap.getObject("relst18log");
 
-      story.add(relst18log.burnDownChart());
+      story.addImage(relst18log.burnDownChartPng());
 
       Goal done = relst18.clipDone();
 
@@ -223,301 +45,16 @@ public class MikadoProjectPlan
       story.dumpHTML();
    }
    
-     /**
+
+   /**
     * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/mikado/MikadoProjectPlan.java' type='text/x-java'>MikadoProjectPlan</a></p>
-    * <canvas id="myChart" width="880" height="550"></canvas>
-    * <script>
-    * var ctx = document.getElementById("myChart").getContext('2d');var myLineChart = new Chart(ctx, {
-    *     type: 'line',
-    *     data: {
-    *         datasets: [
-    *             {
-    *                 label: "Burn Down",
-    *                 data: [
-    *                     {x: "2018-02-28T12:00:00+01:00", y: 10.3},
-    * {x: "2018-03-01T13:00:00+01:00", y: 8.3},
-    * {x: "2018-03-02T15:12:00+01:00", y: 6.3},
-    * {x: "2018-03-02T15:16:00+01:00", y: 6.2},
-    * {x: "2018-03-03T15:19:00+01:00", y: 4.2},
-    * {x: "2018-03-04T01:00:00+01:00", y: 2.2},
-    * {x: "2018-03-04T01:10:00+01:00", y: 2.1},
-    * {x: "2018-03-04T16:30:00+01:00", y: 1.6},
-    * {x: "2018-03-04T18:30:00+01:00", y: 0.1},
-    * {x: "2018-03-04T18:30:00+01:00", y: -0.0},
-    *                 ]
-    *             }
-    *         ]
-    *     },
-    *     options: {
-    *         animation: false,
-    *         responsive: false,
-    *          animation: {
-    *             onComplete: function(animation) {
-    *                     java.screendump("42");
-    *                     java.close();
-    *                 }
-    *          },
-    *         scales: {
-    *             xAxes: [{
-    *                 type: "time",
-    *                 time: {
-    *                     displayFormats: {
-    *                        'millisecond': 'DD MMM hh:mm',
-    *                        'second': 'DD MMM hh:mm',
-    *                        'minute': 'DD MMM hh:mm',
-    *                        'hour': 'DD MMM hh:mm',
-    *                        'day': 'DD MMM',
-    *                        'week': 'DD MMM',
-    *                        'month': 'MMM YYYY',
-    *                        'quarter': 'MMM YYYY',
-    *                        'year': 'YYYY',
-    *                     }
-    *                 },
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'Date'
-    *                 },
-    *                 ticks: {
-    *                     major: {
-    *                         fontStyle: "bold",
-    *                         fontColor: "#FF0000"
-    *                     }
-    *                 }
-    *             }],
-    *             yAxes: [{
-    *                 display: true,
-    *                 scaleLabel: {
-    *                     display: true,
-    *                     labelString: 'hours'
-    *                 },
-    *                 ticks: {
-    *                     beginAtZero: true
-    *                 }
-    *             }]
-    *         }
-    *     }});
-    * </script>
-    * <p>Start: open goals</p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"G1 : Goal",
-    *          "attributes":[
-    *             "description=mikado support",
-    *             "hoursDone=0.1",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":null
-    * }   ;
-    *    json["options"]={"canvasid":"canvasMikadoProjectPlan3", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
-    * <p><a name = 'step_1'>Step 1: closed goals</a></p>
-    * <script>
-    *    var json = {
-    *    "type":"objectdiagram",
-    *    "nodes":[
-    *       {
-    *          "type":"clazz",
-    *          "id":"G10 : Goal",
-    *          "attributes":[
-    *             "description=auto import excel file",
-    *             "hoursDone=1.5",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G2 : Goal",
-    *          "attributes":[
-    *             "description=done",
-    *             "hoursDone=0.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G3 : Goal",
-    *          "attributes":[
-    *             "description=class model",
-    *             "hoursDone=1.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G4 : Goal",
-    *          "attributes":[
-    *             "description=burn down charts",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G5 : Goal",
-    *          "attributes":[
-    *             "description=imput per yaml",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G6 : Goal",
-    *          "attributes":[
-    *             "description=imput per excel",
-    *             "hoursDone=0.2",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G7 : Goal",
-    *          "attributes":[
-    *             "description=support for releases and sprints",
-    *             "hoursDone=0.5",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G8 : Goal",
-    *          "attributes":[
-    *             "description=decide on csv variant",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       },
-    *       {
-    *          "type":"clazz",
-    *          "id":"G9 : Goal",
-    *          "attributes":[
-    *             "description=convert csv to yaml",
-    *             "hoursDone=2.0",
-    *             "hoursTodo=0.0"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G3 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G2 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G4 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G2 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G5 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G2 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G6 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G2 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G7 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G2 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G8 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G9 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       },
-    *       {
-    *          "type":"edge",
-    *          "source":{
-    *             "cardinality":"many",
-    *             "property":"preGoals",
-    *             "id":"G10 : Goal"
-    *          },
-    *          "target":{
-    *             "cardinality":"one",
-    *             "property":"goal",
-    *             "id":"G6 : Goal"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    json["options"]={"canvasid":"canvasMikadoProjectPlan5", "display":"svg", "fontsize":10,"bar":true};   var g = new Graph(json);
-    *    g.layout(100,100);
-    * </script>
-    * @see <a href='../../../../../../../doc/MikadoProjectPlan.html'>MikadoProjectPlan.html</a>
- */
+    * <h3>Storyboard MikadoProjectPlan</h3>
+    * <img src='doc-files/MikadoProjectPlanStep0.png' width='880'>
+    * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
+    * <img src="doc-files/MikadoProjectPlanStep2.png" alt="MikadoProjectPlanStep2.png" width='189'>
+    * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
+    * <img src="doc-files/MikadoProjectPlanStep4.png" alt="MikadoProjectPlanStep4.png" width='1069'>
+    */
    @Test
    public void testMikadoProjectPlan()
    {
@@ -540,6 +77,7 @@ public class MikadoProjectPlan
               "\n" +
               "- LogEntry  goal:              date:                           hoursDone: hoursRemaining: parent:        \n" +
               "  l1:       model              2018-02-28T12:00:00+01:00       1           0              mikadoLog      \n" +
+              "  l1:       model              2018-02-28T12:00:00+01:00       1           0              mikadoLog      \n" +
               "  l2:       burnDown           2018-03-01T13:00:00+01:00       2           0              mikadoLog      \n" +
               "  l3:       yaml               2018-03-02T15:12:00+01:00       2           0              mikadoLog      \n" +
               "  l4:       root               2018-03-02T15:16:00+01:00       0.1         0              mikadoLog      \n" +
@@ -547,8 +85,8 @@ public class MikadoProjectPlan
               "  l6:       yamlExcel          2018-03-04T01:00:00+01:00       2           0              mikadoLog      \n" +
               "  l7:       excel              2018-03-04T01:10:00+01:00       0.1         1              mikadoLog      \n" +
               "  l8:       releases           2018-03-04T16:30:00+01:00       0.5         0              mikadoLog      \n" +
-              "  l9:       excelAutoImport    2018-03-04T18:30:00+01:00       1.5         0              mikadoLog      \n" +
-              "  l10:      excel              2018-03-04T18:30:00+01:00       0.1         0              mikadoLog      \n" +
+              "  l9:       excelAutoImport    2018-03-04T18:30:01+01:00       1.5         0              mikadoLog      \n" +
+              "  l10:      excel              2018-03-04T18:30:02+01:00       0.1         0              mikadoLog      \n" +
                       "";
 
 
@@ -558,7 +96,7 @@ public class MikadoProjectPlan
 
       MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
 
-      story.add(mikadoLog.burnDownChart());
+      story.addImage(mikadoLog.burnDownChartPng());
 
       Goal done = root.clipDone();
 

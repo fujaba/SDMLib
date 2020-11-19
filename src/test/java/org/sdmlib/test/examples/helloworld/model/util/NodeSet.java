@@ -31,7 +31,6 @@ import org.sdmlib.test.examples.helloworld.model.Node;
 import de.uniks.networkparser.list.ObjectSet;
 import de.uniks.networkparser.list.SimpleSet;
 import de.uniks.networkparser.list.StringList;
-import org.sdmlib.test.examples.helloworld.model.util.GraphSet;
 
 public class NodeSet extends SimpleSet<Node>
 {

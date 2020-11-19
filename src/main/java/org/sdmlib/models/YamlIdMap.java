@@ -5,8 +5,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -16,12 +23,11 @@ import de.uniks.networkparser.interfaces.SendableEntityCreator;
 import de.uniks.networkparser.list.AbstractArray;
 import de.uniks.networkparser.list.SimpleKeyValueList;
 import de.uniks.networkparser.list.SimpleList;
-import org.sdmlib.CGUtil;
 
  /**
     * 
-    * <p>Storyboard Yaml</p>
-    * <p>Start: Read graph from yaml text:</p>
+    * <h3>Storyboard Yaml</h3>
+    * <h4><a name = 'step_1'>Step 1: Read graph from yaml text:</a></h4>
     * <pre>- studyRight: University 
     *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students:   karli
@@ -31,8 +37,6 @@ import org.sdmlib.CGUtil;
     *   id:    4242
     *   name:  karli
     * 
-    * - albert: Prof
-    *   topic:  SE
     * 
     * - Assignment   content:                      points: 
     *   matrixMult:  &quot;Matrix Multiplication&quot;     5
@@ -46,62 +50,61 @@ import org.sdmlib.CGUtil;
     *   examRoom:             exam     0       [sportsRoom artsRoom]
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
-    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p>
-    * <pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
-    *       
+    * <h4><a name = 'step_2'>Step 2: Call YamlIdMap.decode:</a></h4>
+    * <pre>&lt;code class="java" data-lang="java"&gt;
+    *       YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
     *       University studyRight = (University) yamlIdMap.decode(yaml);
-    * </pre>
-    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p>
-    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png">
+    * &lt;/code%gt;</pre>
+    * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='869'>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
-    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@56e8b606</p>
-    * <p>Check: pojo attr SE actual SE</p>
-    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p>
+    * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
     * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students: 	s2 	
     *   rooms: 	r3 	r4 	r5 	r6 	r7 	
     * 
     * - s2: 	Student
-    *   name: 	karli
-    *   id: 	4242
     *   assignmentPoints: 	0
-    *   motivation: 	0
     *   credits: 	0
-    *   university: 	u1
+    *   id: 	4242
+    *   motivation: 	0
+    *   name: 	karli
     *   in: 	r3
+    *   university: 	u1
     * 
     * - r3: 	Room
-    *   topic: 	math
     *   credits: 	17
-    *   university: 	u1
-    *   students: 	s2 	
+    *   topic: 	math
     *   doors: 	r4 	r5 	
+    *   students: 	s2 	
     *   assignments: 	a8 	a9 	a10 	
+    *   university: 	u1
     * 
     * - r4: 	Room
-    *   topic: 	arts
     *   credits: 	16
-    *   university: 	u1
+    *   topic: 	arts
     *   doors: 	r3 	r5 	r6 	r7 	
+    *   university: 	u1
     * 
     * - r5: 	Room
-    *   topic: 	sports
     *   credits: 	25
-    *   university: 	u1
+    *   topic: 	sports
     *   doors: 	r3 	r4 	r6 	
+    *   university: 	u1
     * 
     * - r6: 	Room
-    *   topic: 	exam
     *   credits: 	0
-    *   university: 	u1
+    *   topic: 	exam
     *   doors: 	r5 	r4 	r7 	
+    *   university: 	u1
     * 
     * - r7: 	Room
-    *   topic: 	&quot;Software Engineering&quot;
     *   credits: 	42
-    *   university: 	u1
+    *   topic: 	&quot;Software Engineering&quot;
     *   doors: 	r4 	r6 	
+    *   university: 	u1
     * 
     * - a8: 	Assignment
     *   content: 	&quot;Matrix Multiplication&quot;
@@ -120,16 +123,17 @@ import org.sdmlib.CGUtil;
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
-    * <p><a name = 'step_4'>Step 4: decoded again:</a></p>
-    * <img src="doc-files/YamlStep13.png" alt="YamlStep13.png">
-    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p>
-    * <pre>          *       {
-    *     *          &quot;type&quot;:&quot;clazz&quot;,
-    *     *          &quot;id&quot;:&quot;artsRoom : Room&quot;,
-    *     *          &quot;attributes&quot;:[
-    *     *             &quot;credits=16&quot;,
-    *     *             &quot;name=7522&quot;,
-    * </pre>
+    * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='876'>
+    * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
+    * <pre>&lt;code class="java" data-lang="java"&gt;
+    *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
+    *       String excelText = new String(readAllBytes);
+    * 
+    *       YamlIdMap excelIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
+    *       studyRight = (University) excelIdMap.decode(excelText);
+    * &lt;/code&gt;</pre>
     * <p>doc/StudyRightStartSituation.txt</p>
     * <pre>-	studyRight:	University				
     * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
@@ -140,10 +144,7 @@ import org.sdmlib.CGUtil;
     * 	id:	4242				
     * 	name:	karli				
     * 						
-    * -	albert: 	Prof				
-    * 	topic:	SE				
-    * 						
-    * -	Assignment	content:	points:			
+    * -	Assignment	content:	points:
     * 	matrixMult:	&quot;&quot;&quot;Matrix Multiplication&quot;&quot;&quot;	5			
     * 	series:	Series	6			
     * 	a3:	Integrals	8			
@@ -156,7 +157,7 @@ import org.sdmlib.CGUtil;
     * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
     * </pre>
     * <p>result:</p>
-    * <img src="doc-files/YamlStep19.png" alt="YamlStep19.png">
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='795'>
     */
    public class YamlIdMap
 {
@@ -181,10 +182,11 @@ import org.sdmlib.CGUtil;
 
 
 
+
    /**
     * 
-    * <p>Storyboard Yaml</p>
-    * <p>Start: Read graph from yaml text:</p>
+    * <h3>Storyboard Yaml</h3>
+    * <h4><a name = 'step_1'>Step 1: Read graph from yaml text:</a></h4>
     * <pre>- studyRight: University 
     *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students:   karli
@@ -194,8 +196,6 @@ import org.sdmlib.CGUtil;
     *   id:    4242
     *   name:  karli
     * 
-    * - albert: Prof
-    *   topic:  SE
     * 
     * - Assignment   content:                      points: 
     *   matrixMult:  &quot;Matrix Multiplication&quot;     5
@@ -209,62 +209,61 @@ import org.sdmlib.CGUtil;
     *   examRoom:             exam     0       [sportsRoom artsRoom]
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
-    * <p><a name = 'step_1'>Step 1: Call YamlIdMap.decode:</a></p>
-    * <pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
-    *       
+    * <h4><a name = 'step_2'>Step 2: Call YamlIdMap.decode:</a></h4>
+    * <pre><code class="java" data-lang="java">
+    *       YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
     *       University studyRight = (University) yamlIdMap.decode(yaml);
-    * </pre>
-    * <p><a name = 'step_2'>Step 2: Decoded object structure:</a></p>
-    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png">
+    * </code></pre>
+    * <h4><a name = 'step_3'>Step 3: Decoded object structure:</a></h4>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='869'>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
-    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@56e8b606</p>
-    * <p>Check: pojo attr SE actual SE</p>
-    * <p><a name = 'step_3'>Step 3: Generate Yaml from model:</a></p>
+    * <h4><a name = 'step_4'>Step 4: Generate Yaml from model:</a></h4>
     * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students: 	s2 	
     *   rooms: 	r3 	r4 	r5 	r6 	r7 	
     * 
     * - s2: 	Student
-    *   name: 	karli
-    *   id: 	4242
     *   assignmentPoints: 	0
-    *   motivation: 	0
     *   credits: 	0
-    *   university: 	u1
+    *   id: 	4242
+    *   motivation: 	0
+    *   name: 	karli
     *   in: 	r3
+    *   university: 	u1
     * 
     * - r3: 	Room
-    *   topic: 	math
     *   credits: 	17
-    *   university: 	u1
-    *   students: 	s2 	
+    *   topic: 	math
     *   doors: 	r4 	r5 	
+    *   students: 	s2 	
     *   assignments: 	a8 	a9 	a10 	
+    *   university: 	u1
     * 
     * - r4: 	Room
-    *   topic: 	arts
     *   credits: 	16
-    *   university: 	u1
+    *   topic: 	arts
     *   doors: 	r3 	r5 	r6 	r7 	
+    *   university: 	u1
     * 
     * - r5: 	Room
-    *   topic: 	sports
     *   credits: 	25
-    *   university: 	u1
+    *   topic: 	sports
     *   doors: 	r3 	r4 	r6 	
+    *   university: 	u1
     * 
     * - r6: 	Room
-    *   topic: 	exam
     *   credits: 	0
-    *   university: 	u1
+    *   topic: 	exam
     *   doors: 	r5 	r4 	r7 	
+    *   university: 	u1
     * 
     * - r7: 	Room
-    *   topic: 	&quot;Software Engineering&quot;
     *   credits: 	42
-    *   university: 	u1
+    *   topic: 	&quot;Software Engineering&quot;
     *   doors: 	r4 	r6 	
+    *   university: 	u1
     * 
     * - a8: 	Assignment
     *   content: 	&quot;Matrix Multiplication&quot;
@@ -283,16 +282,17 @@ import org.sdmlib.CGUtil;
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
-    * <p><a name = 'step_4'>Step 4: decoded again:</a></p>
-    * <img src="doc-files/YamlStep13.png" alt="YamlStep13.png">
-    * <p><a name = 'step_5'>Step 5: now read from excel file</a></p>
-    * <pre>          *       {
-    *     *          &quot;type&quot;:&quot;clazz&quot;,
-    *     *          &quot;id&quot;:&quot;artsRoom : Room&quot;,
-    *     *          &quot;attributes&quot;:[
-    *     *             &quot;credits=16&quot;,
-    *     *             &quot;name=7522&quot;,
-    * </pre>
+    * <h4><a name = 'step_5'>Step 5: decoded again:</a></h4>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='876'>
+    * <h4><a name = 'step_6'>Step 6: now read from excel file</a></h4>
+    * <pre><code class="java" data-lang="java">
+    *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
+    *       String excelText = new String(readAllBytes);
+    * 
+    *       YamlIdMap excelIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
+    *       studyRight = (University) excelIdMap.decode(excelText);
+    * </code></pre>
     * <p>doc/StudyRightStartSituation.txt</p>
     * <pre>-	studyRight:	University				
     * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
@@ -303,10 +303,7 @@ import org.sdmlib.CGUtil;
     * 	id:	4242				
     * 	name:	karli				
     * 						
-    * -	albert: 	Prof				
-    * 	topic:	SE				
-    * 						
-    * -	Assignment	content:	points:			
+    * -	Assignment	content:	points:
     * 	matrixMult:	&quot;&quot;&quot;Matrix Multiplication&quot;&quot;&quot;	5			
     * 	series:	Series	6			
     * 	a3:	Integrals	8			
@@ -319,7 +316,7 @@ import org.sdmlib.CGUtil;
     * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
     * </pre>
     * <p>result:</p>
-    * <img src="doc-files/YamlStep19.png" alt="YamlStep19.png">
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='795'>
     */
    private YamlIdMap()
    {
@@ -327,10 +324,11 @@ import org.sdmlib.CGUtil;
    }
 
 
+
    /**
     * 
-    * <p>Storyboard Yaml</p>
-    * <p>Start: Read graph from yaml text:</p>
+    * <h3>Storyboard Yaml</h3>
+    * <h4>&lt;a name = 'step_1'&gt;Step 1: Read graph from yaml text:&lt;/a&gt;</h4>
     * <pre>- studyRight: University 
     *   name:       &quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students:   karli
@@ -340,8 +338,6 @@ import org.sdmlib.CGUtil;
     *   id:    4242
     *   name:  karli
     * 
-    * - albert: Prof
-    *   topic:  SE
     * 
     * - Assignment   content:                      points: 
     *   matrixMult:  &quot;Matrix Multiplication&quot;     5
@@ -355,62 +351,61 @@ import org.sdmlib.CGUtil;
     *   examRoom:             exam     0       [sportsRoom artsRoom]
     *   softwareEngineering:  &quot;Software Engineering&quot; 42 [artsRoom examRoom]
     * </pre>
-    * <p><a name = 'step_1_1'>Step 1: Call YamlIdMap.decode:</a></p>
-    * <pre>            YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
-    *       
+    * <h4>&lt;a name = 'step_2'&gt;Step 2: Call YamlIdMap.decode:&lt;/a&gt;</h4>
+    * <pre>&lt;code class="java" data-lang="java"&gt;
+    *       YamlIdMap yamlIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
     *       University studyRight = (University) yamlIdMap.decode(yaml);
-    * </pre>
-    * <p><a name = 'step_2_1'>Step 2: Decoded object structure:</a></p>
-    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png">
+    * &lt;/code&gt;</pre>
+    * <h4>&lt;a name = 'step_3'&gt;Step 3: Decoded object structure:&lt;/a&gt;</h4>
+    * <img src="doc-files/YamlStep5.png" alt="YamlStep5.png" width='869'>
     * <p>Check: root object exists "Study " Right"And"Fast now"</p>
-    * <p>Check: pojo albert exists org.sdmlib.test.examples.studyrightWithAssignments.model.Prof@56e8b606</p>
-    * <p>Check: pojo attr SE actual SE</p>
-    * <p><a name = 'step_3_1'>Step 3: Generate Yaml from model:</a></p>
+    * <h4>&lt;a name = 'step_4'&gt;Step 4: Generate Yaml from model:&lt;/a&gt;</h4>
     * <pre>- u1: 	University
     *   name: 	&quot;\&quot;Study \&quot; Right\&quot;And\&quot;Fast now\&quot;&quot;
     *   students: 	s2 	
     *   rooms: 	r3 	r4 	r5 	r6 	r7 	
     * 
     * - s2: 	Student
-    *   name: 	karli
-    *   id: 	4242
     *   assignmentPoints: 	0
-    *   motivation: 	0
     *   credits: 	0
-    *   university: 	u1
+    *   id: 	4242
+    *   motivation: 	0
+    *   name: 	karli
     *   in: 	r3
+    *   university: 	u1
     * 
     * - r3: 	Room
-    *   topic: 	math
     *   credits: 	17
-    *   university: 	u1
-    *   students: 	s2 	
+    *   topic: 	math
     *   doors: 	r4 	r5 	
+    *   students: 	s2 	
     *   assignments: 	a8 	a9 	a10 	
+    *   university: 	u1
     * 
     * - r4: 	Room
-    *   topic: 	arts
     *   credits: 	16
-    *   university: 	u1
+    *   topic: 	arts
     *   doors: 	r3 	r5 	r6 	r7 	
+    *   university: 	u1
     * 
     * - r5: 	Room
-    *   topic: 	sports
     *   credits: 	25
-    *   university: 	u1
+    *   topic: 	sports
     *   doors: 	r3 	r4 	r6 	
+    *   university: 	u1
     * 
     * - r6: 	Room
-    *   topic: 	exam
     *   credits: 	0
-    *   university: 	u1
+    *   topic: 	exam
     *   doors: 	r5 	r4 	r7 	
+    *   university: 	u1
     * 
     * - r7: 	Room
-    *   topic: 	&quot;Software Engineering&quot;
     *   credits: 	42
-    *   university: 	u1
+    *   topic: 	&quot;Software Engineering&quot;
     *   doors: 	r4 	r6 	
+    *   university: 	u1
     * 
     * - a8: 	Assignment
     *   content: 	&quot;Matrix Multiplication&quot;
@@ -429,16 +424,17 @@ import org.sdmlib.CGUtil;
     * 
     * </pre>
     * <p>Check: yaml starts with - u... true</p>
-    * <p><a name = 'step_4_1'>Step 4: decoded again:</a></p>
-    * <img src="doc-files/YamlStep13.png" alt="YamlStep13.png">
-    * <p><a name = 'step_5_1'>Step 5: now read from excel file</a></p>
-    * <pre>          *       {
-    *     *          &quot;type&quot;:&quot;clazz&quot;,
-    *     *          &quot;id&quot;:&quot;artsRoom : Room&quot;,
-    *     *          &quot;attributes&quot;:[
-    *     *             &quot;credits=16&quot;,
-    *     *             &quot;name=7522&quot;,
-    * </pre>
+    * <h4>&lt;a name = 'step_5'&gt;Step 5: decoded again:&lt;/a&gt;</h4>
+    * <img src="doc-files/YamlStep11.png" alt="YamlStep11.png" width='876'>
+    * <h4>&lt;a name = 'step_6'&gt;Step 6: now read from excel file&lt;/a&gt;</h4>
+    * <pre>&lt;code class="java" data-lang="java"&gt;s
+    *       byte[] readAllBytes = Files.readAllBytes(Paths.get(&quot;doc&#x2F;StudyRightStartSituation.txt&quot;));
+    *       String excelText = new String(readAllBytes);
+    * 
+    *       YamlIdMap excelIdMap = new YamlIdMap(&quot;org.sdmlib.test.examples.studyrightWithAssignments.model&quot;);
+    * 
+    *       studyRight = (University) excelIdMap.decode(excelText);
+    * &lt;/code&gt;</pre>
     * <p>doc/StudyRightStartSituation.txt</p>
     * <pre>-	studyRight:	University				
     * 	name: 	&quot;&quot;&quot;Study Right&quot;&quot;&quot;				
@@ -449,10 +445,7 @@ import org.sdmlib.CGUtil;
     * 	id:	4242				
     * 	name:	karli				
     * 						
-    * -	albert: 	Prof				
-    * 	topic:	SE				
-    * 						
-    * -	Assignment	content:	points:			
+    * -	Assignment	content:	points:
     * 	matrixMult:	&quot;&quot;&quot;Matrix Multiplication&quot;&quot;&quot;	5			
     * 	series:	Series	6			
     * 	a3:	Integrals	8			
@@ -465,8 +458,8 @@ import org.sdmlib.CGUtil;
     * 	softwareEngineering:	&quot;&quot;&quot;Software Engineering&quot;&quot;&quot;	42	[artsRoom examRoom]		
     * </pre>
     * <p>result:</p>
-    * <img src="doc-files/YamlStep19.png" alt="YamlStep19.png">
-    * @param packageNames Name of Package
+    * <img src="doc-files/YamlStep17.png" alt="YamlStep17.png" width='795'>
+    * @param packageNames The Name of Package
     */
    public YamlIdMap(String... packageNames)
    {
@@ -707,7 +700,7 @@ import org.sdmlib.CGUtil;
 
          // skip time stamp, if necessary
          while ( ! yamler.getCurrentToken().equals("")
-                 && ! yamler.getCurrentToken().equals("-"))
+               && ! yamler.getCurrentToken().equals("-"))
          {
             yamler.nextToken();
          }
@@ -727,7 +720,7 @@ import org.sdmlib.CGUtil;
 
             // many values
             while ( ! yamler.getCurrentToken().equals("")
-                    && ! yamler.getCurrentToken().endsWith(":"))
+                  && ! yamler.getCurrentToken().endsWith(":"))
             {
                value = yaml.substring(valueStart, yamler.getCurrentPos() + yamler.getCurrentToken().length());
                yamler.nextToken();
@@ -753,8 +746,8 @@ import org.sdmlib.CGUtil;
                // no object created by parseObjectIds. Object has been removed.
                // ignore attr changes
                while (!yamler.getCurrentToken().equals("")
-                       && !yamler.getCurrentToken().endsWith(":")
-                       && !yamler.getCurrentToken().equals("-"))
+                     && !yamler.getCurrentToken().endsWith(":")
+                     && !yamler.getCurrentToken().equals("-"))
                {
                   yamler.nextToken();
                }
@@ -763,8 +756,8 @@ import org.sdmlib.CGUtil;
 
             // many values
             while (!yamler.getCurrentToken().equals("")
-                    && !yamler.getCurrentToken().endsWith(":")
-                    && !yamler.getCurrentToken().equals("-"))
+                  && !yamler.getCurrentToken().endsWith(":")
+                  && !yamler.getCurrentToken().equals("-"))
             {
                String attrValue = yamler.getCurrentToken();
 

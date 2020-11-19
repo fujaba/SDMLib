@@ -21,14 +21,14 @@
    
 package org.sdmlib.test.examples.reachabilitygraphs.sokoban.util;
 
-import de.uniks.networkparser.list.SimpleSet;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
-import de.uniks.networkparser.interfaces.Condition;
 import java.util.Collection;
-import de.uniks.networkparser.list.ObjectSet;
 import java.util.Collections;
-import org.sdmlib.test.examples.reachabilitygraphs.sokoban.util.TileSet;
+
+import org.sdmlib.test.examples.reachabilitygraphs.sokoban.AKarli;
 import org.sdmlib.test.examples.reachabilitygraphs.sokoban.Tile;
+
+import de.uniks.networkparser.list.ObjectSet;
+import de.uniks.networkparser.list.SimpleSet;
 
 public class AKarliSet extends SimpleSet<AKarli>
 {

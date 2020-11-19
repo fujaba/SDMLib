@@ -31,7 +31,6 @@ import org.sdmlib.serialization.PropertyChangeInterface;
 
 import de.uniks.networkparser.interfaces.SendableEntity;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.models.taskflows.Logger;
 
 
    public class LogEntry implements PropertyChangeInterface, SendableEntity

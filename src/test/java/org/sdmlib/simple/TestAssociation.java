@@ -1,12 +1,12 @@
 package org.sdmlib.simple;
 
-import static de.uniks.networkparser.graph.Cardinality.MANY;
+import static de.uniks.networkparser.graph.Association.MANY;
 import static de.uniks.networkparser.graph.DataType.STRING;
 
 import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 
-import de.uniks.networkparser.graph.Cardinality;
+import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.Clazz;
 
 public class TestAssociation {
@@ -18,7 +18,7 @@ public class TestAssociation {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room"); 
 		
-		person.withUniDirectional(room, "room", Cardinality.ONE);
+		person.withUniDirectional(room, "room", Association.ONE);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -31,8 +31,8 @@ public class TestAssociation {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.withUniDirectional(room, "room", Cardinality.ONE);
-		room.withUniDirectional(person, "persons", Cardinality.MANY);
+		person.withUniDirectional(room, "room", Association.ONE);
+		room.withUniDirectional(person, "persons", Association.MANY);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -44,9 +44,9 @@ public class TestAssociation {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room"); 
 		
-		person.withUniDirectional(room, "room", Cardinality.ONE);
-		person.withUniDirectional(person, "prevPerson", Cardinality.ONE);
-		person.withUniDirectional(person, "nextPerson", Cardinality.ONE);
+		person.withUniDirectional(room, "room", Association.ONE);
+		person.withUniDirectional(person, "prevPerson", Association.ONE);
+		person.withUniDirectional(person, "nextPerson", Association.ONE);
 		
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
@@ -59,7 +59,7 @@ public class TestAssociation {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.withBidirectional(room, "room", Cardinality.ONE, "person", Cardinality.ONE);
+		person.withBidirectional(room, "room", Association.ONE, "person", Association.ONE);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -72,7 +72,7 @@ public class TestAssociation {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		room.withBidirectional(person, "persons", Cardinality.MANY, "room", Cardinality.ONE);
+		room.withBidirectional(person, "persons", Association.MANY, "room", Association.ONE);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -85,7 +85,7 @@ public class TestAssociation {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.withBidirectional(room, "room", Cardinality.ONE, "persons", Cardinality.MANY);
+		person.withBidirectional(room, "room", Association.ONE, "persons", Association.MANY);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 		
@@ -98,9 +98,9 @@ public class TestAssociation {
 		Clazz room = model.createClazz("Room");
 		Clazz teacher = model.createClazz("Teacher");
 		
-		person.withBidirectional(room, "room", Cardinality.ONE, "person", Cardinality.ONE);
-		person.withBidirectional(teacher, "teacher", Cardinality.ONE, "person", Cardinality.ONE);
-		room.withBidirectional(teacher, "teacher", Cardinality.ONE, "room", Cardinality.ONE);
+		person.withBidirectional(room, "room", Association.ONE, "person", Association.ONE);
+		person.withBidirectional(teacher, "teacher", Association.ONE, "person", Association.ONE);
+		room.withBidirectional(teacher, "teacher", Association.ONE, "room", Association.ONE);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 
@@ -114,9 +114,9 @@ public class TestAssociation {
 		Clazz room = model.createClazz("Room");
 		Clazz teacher = model.createClazz("Teacher");
 
-		person.withBidirectional(room, "rooms", Cardinality.MANY, "person", Cardinality.ONE);
-		person.withBidirectional(teacher, "teachers", Cardinality.MANY, "person", Cardinality.ONE);
-		room.withBidirectional(teacher, "teachers", Cardinality.MANY, "room", Cardinality.ONE);
+		person.withBidirectional(room, "rooms", Association.MANY, "person", Association.ONE);
+		person.withBidirectional(teacher, "teachers", Association.MANY, "person", Association.ONE);
+		room.withBidirectional(teacher, "teachers", Association.MANY, "room", Association.ONE);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 
@@ -130,9 +130,9 @@ public class TestAssociation {
 		Clazz room = model.createClazz("Room");
 		Clazz teacher = model.createClazz("Teacher");
 
-		person.withBidirectional(room, "room", Cardinality.ONE, "persons", Cardinality.MANY);
-		person.withBidirectional(teacher, "teacher", Cardinality.ONE, "persons", Cardinality.MANY);
-		room.withBidirectional(teacher, "teacher", Cardinality.ONE, "rooms", Cardinality.MANY);
+		person.withBidirectional(room, "room", Association.ONE, "persons", Association.MANY);
+		person.withBidirectional(teacher, "teacher", Association.ONE, "persons", Association.MANY);
+		room.withBidirectional(teacher, "teacher", Association.ONE, "rooms", Association.MANY);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 
@@ -145,8 +145,8 @@ public class TestAssociation {
 		Clazz person = model.createClazz("Person");
 		Clazz room = model.createClazz("Room");
 		
-		person.withUniDirectional(room, "rooms", Cardinality.MANY);
-		person.withBidirectional(room, "room", Cardinality.ONE, "persons", Cardinality.MANY);
+		person.withUniDirectional(room, "rooms", Association.MANY);
+		person.withBidirectional(room, "room", Association.ONE, "persons", Association.MANY);
 		model.getGenerator().testGeneratedCode();
 //		model.generate("src/test/java");
 	}
@@ -158,7 +158,7 @@ public class TestAssociation {
 //		Clazz lecture = model.createClazz("Lecture");
 //		Clazz student = model.createClazz("Student");
 //
-//		student.withBidirectional(lecture, "attended", Cardinality.MANY, "has", Cardinality.MANY);
+//		student.withBidirectional(lecture, "attended", Association.MANY, "has", Association.MANY);
 		
 	    Clazz task = model.createClazz("Task").withAttribute("name", STRING);
 	    task.withBidirectional(task, "subTasks", MANY, "parentTasks", MANY);
@@ -176,8 +176,8 @@ public class TestAssociation {
 		uni.enableInterface();
 		lecture.enableInterface();
 
-		student.withBidirectional(lecture, "attended", Cardinality.MANY, "has", Cardinality.MANY);
-		student.withBidirectional(uni, "studs", Cardinality.ONE, "students", Cardinality.MANY);
+		student.withBidirectional(lecture, "attended", Association.MANY, "has", Association.MANY);
+		student.withBidirectional(uni, "studs", Association.ONE, "students", Association.MANY);
 		
 
 		model.getGenerator().testGeneratedCode();

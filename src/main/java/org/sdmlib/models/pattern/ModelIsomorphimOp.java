@@ -1,12 +1,12 @@
 package org.sdmlib.models.pattern;
 
-import de.uniks.networkparser.interfaces.SendableEntityCreator;
-import org.sdmlib.models.CreatorMap;
-
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
+
+import org.sdmlib.models.CreatorMap;
+
+import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
 public class ModelIsomorphimOp
 {

@@ -7,7 +7,6 @@ import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 import de.uniks.networkparser.graph.DataTypeMap;
 import de.uniks.networkparser.graph.DataTypeSet;
-import de.uniks.networkparser.graph.Method;
 import de.uniks.networkparser.graph.Parameter;
 
 public class TestMethods {

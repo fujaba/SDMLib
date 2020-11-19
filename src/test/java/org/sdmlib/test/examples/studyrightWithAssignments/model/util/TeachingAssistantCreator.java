@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2016 zuendorf
+   Copyright (c) 2018 zuendorf
    
    Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
    and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -21,30 +21,35 @@
    
 package org.sdmlib.test.examples.studyrightWithAssignments.model.util;
 
-import org.sdmlib.test.examples.studyrightWithAssignments.model.Assignment;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Room;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.Student;
 import org.sdmlib.test.examples.studyrightWithAssignments.model.TeachingAssistant;
-import org.sdmlib.test.examples.studyrightWithAssignments.model.University;
 
 import de.uniks.networkparser.IdMap;
+import de.uniks.networkparser.interfaces.AggregatedEntityCreator;
 import de.uniks.networkparser.interfaces.SendableEntityCreator;
 
-public class TeachingAssistantCreator implements SendableEntityCreator
+public class TeachingAssistantCreator implements AggregatedEntityCreator
 {
+   public static final TeachingAssistantCreator it = new TeachingAssistantCreator();
+   
    private final String[] properties = new String[]
    {
       TeachingAssistant.PROPERTY_CERTIFIED,
-      Student.PROPERTY_NAME,
-      Student.PROPERTY_ID,
       Student.PROPERTY_ASSIGNMENTPOINTS,
-      Student.PROPERTY_MOTIVATION,
       Student.PROPERTY_CREDITS,
-      Student.PROPERTY_UNIVERSITY,
-      Student.PROPERTY_IN,
-      Student.PROPERTY_FRIENDS,
-      Student.PROPERTY_DONE,
+      Student.PROPERTY_ID,
+      Student.PROPERTY_MOTIVATION,
+      Student.PROPERTY_NAME,
       TeachingAssistant.PROPERTY_ROOM,
+   };
+   
+   private final String[] upProperties = new String[]
+   {
+   };
+   
+   private final String[] downProperties = new String[]
+   {
    };
    
    @Override
@@ -54,10 +59,23 @@ public class TeachingAssistantCreator implements SendableEntityCreator
    }
    
    @Override
+   public String[] getUpProperties()
+   {
+      return upProperties;
+   }
+   
+   @Override
+   public String[] getDownProperties()
+   {
+      return downProperties;
+   }
+   
+   @Override
    public Object getSendableInstance(boolean reference)
    {
       return new TeachingAssistant();
    }
+   
    
    @Override
    public Object getValue(Object target, String attrName)
@@ -75,24 +93,9 @@ public class TeachingAssistantCreator implements SendableEntityCreator
          return ((TeachingAssistant) target).isCertified();
       }
 
-      if (Student.PROPERTY_NAME.equalsIgnoreCase(attribute))
-      {
-         return ((Student) target).getName();
-      }
-
-      if (Student.PROPERTY_ID.equalsIgnoreCase(attribute))
-      {
-         return ((Student) target).getId();
-      }
-
       if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attribute))
       {
          return ((Student) target).getAssignmentPoints();
-      }
-
-      if (Student.PROPERTY_MOTIVATION.equalsIgnoreCase(attribute))
-      {
-         return ((Student) target).getMotivation();
       }
 
       if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attribute))
@@ -100,24 +103,19 @@ public class TeachingAssistantCreator implements SendableEntityCreator
          return ((Student) target).getCredits();
       }
 
-      if (TeachingAssistant.PROPERTY_UNIVERSITY.equalsIgnoreCase(attribute))
+      if (Student.PROPERTY_ID.equalsIgnoreCase(attribute))
       {
-         return ((TeachingAssistant) target).getUniversity();
+         return ((Student) target).getId();
       }
 
-      if (TeachingAssistant.PROPERTY_IN.equalsIgnoreCase(attribute))
+      if (Student.PROPERTY_MOTIVATION.equalsIgnoreCase(attribute))
       {
-         return ((TeachingAssistant) target).getIn();
+         return ((Student) target).getMotivation();
       }
 
-      if (TeachingAssistant.PROPERTY_FRIENDS.equalsIgnoreCase(attribute))
+      if (Student.PROPERTY_NAME.equalsIgnoreCase(attribute))
       {
-         return ((TeachingAssistant) target).getFriends();
-      }
-
-      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attribute))
-      {
-         return ((TeachingAssistant) target).getDone();
+         return ((Student) target).getName();
       }
 
       if (TeachingAssistant.PROPERTY_ROOM.equalsIgnoreCase(attribute))
@@ -131,9 +129,9 @@ public class TeachingAssistantCreator implements SendableEntityCreator
    @Override
    public boolean setValue(Object target, String attrName, Object value, String type)
    {
-      if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_NAME.equalsIgnoreCase(attrName))
       {
-         ((Student) target).setCredits(Integer.parseInt(value.toString()));
+         ((Student) target).setName((String) value);
          return true;
       }
 
@@ -143,69 +141,37 @@ public class TeachingAssistantCreator implements SendableEntityCreator
          return true;
       }
 
-      if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
-      {
-         ((Student) target).setAssignmentPoints(Integer.parseInt(value.toString()));
-         return true;
-      }
-
       if (Student.PROPERTY_ID.equalsIgnoreCase(attrName))
       {
          ((Student) target).setId((String) value);
          return true;
       }
 
-      if (Student.PROPERTY_NAME.equalsIgnoreCase(attrName))
+      if (Student.PROPERTY_CREDITS.equalsIgnoreCase(attrName))
       {
-         ((Student) target).setName((String) value);
+         ((Student) target).setCredits(Integer.parseInt(value.toString()));
+         return true;
+      }
+
+      if (Student.PROPERTY_ASSIGNMENTPOINTS.equalsIgnoreCase(attrName))
+      {
+         ((Student) target).setAssignmentPoints(Integer.parseInt(value.toString()));
          return true;
       }
 
       if (TeachingAssistant.PROPERTY_CERTIFIED.equalsIgnoreCase(attrName))
       {
-         ((TeachingAssistant) target).setCertified((Boolean) value);
+         ((TeachingAssistant) target).setCertified(Boolean.valueOf(value.toString()));
          return true;
       }
 
+      if(SendableEntityCreator.REMOVE_YOU.equals(type)) {
+           ((TeachingAssistant)target).removeYou();
+           return true;
+      }
       if (SendableEntityCreator.REMOVE.equals(type) && value != null)
       {
          attrName = attrName + type;
-      }
-
-      if (TeachingAssistant.PROPERTY_UNIVERSITY.equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).setUniversity((University) value);
-         return true;
-      }
-
-      if (TeachingAssistant.PROPERTY_IN.equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).setIn((Room) value);
-         return true;
-      }
-
-      if (TeachingAssistant.PROPERTY_FRIENDS.equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withFriends((Student) value);
-         return true;
-      }
-      
-      if ((TeachingAssistant.PROPERTY_FRIENDS + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withoutFriends((Student) value);
-         return true;
-      }
-
-      if (TeachingAssistant.PROPERTY_DONE.equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withDone((Assignment) value);
-         return true;
-      }
-      
-      if ((TeachingAssistant.PROPERTY_DONE + SendableEntityCreator.REMOVE).equalsIgnoreCase(attrName))
-      {
-         ((TeachingAssistant) target).withoutDone((Assignment) value);
-         return true;
       }
 
       if (TeachingAssistant.PROPERTY_ROOM.equalsIgnoreCase(attrName))
