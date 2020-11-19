@@ -23,7 +23,6 @@ package org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import org.sdmlib.test.examples.reachabilitygraphs.ferrymansproblem.Bank;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.UBankSet;
 import org.sdmlib.test.examples.reachabilitygraphs.unidirferrymansproblem.util.URiverSet;
 import de.uniks.networkparser.interfaces.SendableEntity;
@@ -219,7 +218,7 @@ public class URiver implements SendableEntity {
 
 
     buf.append("left: ");
-    UBankSet banks = this.getBanks().filter(b -> ((Bank) b).getName().equals("left"));
+    UBankSet banks = this.getBanks().filter(b -> ((UBank) b).getName().equals("left"));
 
     buf.append(banks.getCargos().getName());
 
@@ -235,7 +234,7 @@ public class URiver implements SendableEntity {
 
     buf.append("\nright: ");
 
-    banks = this.getBanks().filter(b -> ((Bank) b).getName().equals("right"));
+    banks = this.getBanks().filter(b -> ((UBank) b).getName().equals("right"));
 
     buf.append(banks.getCargos().getName());
 

@@ -4814,7 +4814,7 @@ public class ReachabilityGraphFerrymansProblemExample {
     URiverSet rivers = new URiverSet().with(reachabilityGraph.getStates().getGraphRoot());
     SimpleSet<UBank> banks = rivers.getBanks()
         .createNameCondition("right")
-        .filter(bank -> ((Bank) bank).getCargos().size() == 3);
+        .filter(bank -> ((UBank) bank).getCargos().size() == 3);
 
     storyboard.assertTrue("found a solution ", !banks.isEmpty());
 

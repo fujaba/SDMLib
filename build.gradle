@@ -147,4 +147,4 @@ def isTravisSnapshot() {
 	return result;
 }
 
-defaultTasks 'clean', 'test', 'jar'
+defaultTasks 'clean', 'jar'
