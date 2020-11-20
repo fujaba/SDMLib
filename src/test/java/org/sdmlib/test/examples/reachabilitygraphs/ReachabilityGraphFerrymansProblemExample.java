@@ -1616,7 +1616,7 @@ public class ReachabilityGraphFerrymansProblemExample {
    * @see <a href=
    *      '../../../../../../../../doc/FerrymansProblemExample.html'>FerrymansProblemExample.html</a>
    */
-  @Test //
+  // @Test //
   public void FerrymansProblemExample() {
     Storyboard storyboard = new Storyboard();
 
@@ -3248,7 +3248,7 @@ public class ReachabilityGraphFerrymansProblemExample {
    * @see <a href=
    *      '../../../../../../../../doc/FerrymansProblemManuel.html'>FerrymansProblemManuel.html</a>
    */
-  @Test
+  // @Test
   public void FerrymansProblemManuel() {
     Storyboard storyboard = new Storyboard();
 
@@ -4738,7 +4738,7 @@ public class ReachabilityGraphFerrymansProblemExample {
    * @see <a href=
    *      '../../../../../../../../doc/FerrymansProblemLazyBackup.html'>FerrymansProblemLazyBackup.html</a>
    */
-  @Test
+  // @Test
   public void FerrymansProblemLazyBackup() {
     Storyboard storyboard = new Storyboard();
 
