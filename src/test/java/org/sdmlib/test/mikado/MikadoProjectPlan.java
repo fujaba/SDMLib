@@ -1,113 +1,108 @@
 package org.sdmlib.test.mikado;
 
-import org.junit.Test;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.storyboards.Goal;
 import org.sdmlib.storyboards.MikadoLog;
 import org.sdmlib.storyboards.Storyboard;
 
-public class MikadoProjectPlan
-{
-   /**
-    * 
-    * <h3>Storyboard ExcelProjectPlan</h3>
-    * <img src='doc-files/ExcelProjectPlanStep0.png' width='880'>
-    * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
-    * <img src="doc-files/ExcelProjectPlanStep2.png" alt="ExcelProjectPlanStep2.png" width='212'>
-    * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
-    * <img src="doc-files/ExcelProjectPlanStep4.png" alt="ExcelProjectPlanStep4.png" width='479'>
-    */
-   @Test
-   public void testExcelProjectPlan()
-   {
-      Storyboard story = new Storyboard();
+public class MikadoProjectPlan {
+  /**
+   * 
+   * <h3>Storyboard ExcelProjectPlan</h3> <img src='doc-files/ExcelProjectPlanStep0.png' width='880'>
+   * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
+   * <img src="doc-files/ExcelProjectPlanStep2.png" alt="ExcelProjectPlanStep2.png" width='212'>
+   * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
+   * <img src="doc-files/ExcelProjectPlanStep4.png" alt="ExcelProjectPlanStep4.png" width='479'>
+   */
+  // @Test
+  public void testExcelProjectPlan() {
+    Storyboard story = new Storyboard();
 
-      YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
+    YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
 
-      idMap.decodeCSV("doc/projectPlans/SDMLibPlan.csv");
+    idMap.decodeCSV("doc/projectPlans/SDMLibPlan.csv");
 
-      Goal relst18 = (Goal) idMap.getObject("relst18");
+    Goal relst18 = (Goal) idMap.getObject("relst18");
 
-      MikadoLog relst18log = (MikadoLog) idMap.getObject("relst18log");
+    MikadoLog relst18log = (MikadoLog) idMap.getObject("relst18log");
 
-      story.addImage(relst18log.burnDownChartPng());
+    story.addImage(relst18log.burnDownChartPng());
 
-      Goal done = relst18.clipDone();
+    Goal done = relst18.clipDone();
 
-      story.addStep("open goals");
+    story.addStep("open goals");
 
-      story.addObjectDiagram(relst18);
+    story.addObjectDiagram(relst18);
 
-      story.addStep("closed goals");
+    story.addStep("closed goals");
 
-      story.addObjectDiagram(done);
+    story.addObjectDiagram(done);
 
-      story.dumpHTML();
-   }
-   
-
-   /**
-    * 
-    * <h3>Storyboard MikadoProjectPlan</h3>
-    * <img src='doc-files/MikadoProjectPlanStep0.png' width='880'>
-    * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
-    * <img src="doc-files/MikadoProjectPlanStep2.png" alt="MikadoProjectPlanStep2.png" width='189'>
-    * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
-    * <img src="doc-files/MikadoProjectPlanStep4.png" alt="MikadoProjectPlanStep4.png" width='1069'>
-    */
-   @Test
-   public void testMikadoProjectPlan()
-   {
-      Storyboard story = new Storyboard();
-
-      String yaml =
-              "- Goal                  description:                             parents:   \n" +
-              "  root:                 \"mikado support\"                       null       \n" +
-              "  model:                \"class model\"                          root       \n" +
-              "  burnDown:             \"burn down charts\"                     root       \n" +
-              "  yaml:                 \"imput per yaml\"                       root       \n" +
-              "  excel:                \"imput per excel\"                      root       \n" +
-              "  format:               \"decide on csv variant\"                excel      \n" +
-              "  yamlExcel:            \"convert csv to yaml\"                  excel      \n" +
-              "  excelAutoImport:      \"auto import excel file\"               excel      \n" +
-              "  releases:             \"support for releases and sprints\"     root       \n" +
-              "                                                                            \n" +
-              "- mikadoLog: MikadoLog                                                      \n" +
-              "  mainGoal: root                                                            \n" +
-              "\n" +
-              "- LogEntry  goal:              date:                           hoursDone: hoursRemaining: parent:        \n" +
-              "  l1:       model              2018-02-28T12:00:00+01:00       1           0              mikadoLog      \n" +
-              "  l1:       model              2018-02-28T12:00:00+01:00       1           0              mikadoLog      \n" +
-              "  l2:       burnDown           2018-03-01T13:00:00+01:00       2           0              mikadoLog      \n" +
-              "  l3:       yaml               2018-03-02T15:12:00+01:00       2           0              mikadoLog      \n" +
-              "  l4:       root               2018-03-02T15:16:00+01:00       0.1         0              mikadoLog      \n" +
-              "  l5:       format             2018-03-03T15:19:00+01:00       2           0              mikadoLog      \n" +
-              "  l6:       yamlExcel          2018-03-04T01:00:00+01:00       2           0              mikadoLog      \n" +
-              "  l7:       excel              2018-03-04T01:10:00+01:00       0.1         1              mikadoLog      \n" +
-              "  l8:       releases           2018-03-04T16:30:00+01:00       0.5         0              mikadoLog      \n" +
-              "  l9:       excelAutoImport    2018-03-04T18:30:01+01:00       1.5         0              mikadoLog      \n" +
-              "  l10:      excel              2018-03-04T18:30:02+01:00       0.1         0              mikadoLog      \n" +
-                      "";
+    story.dumpHTML();
+  }
 
 
-      YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
+  /**
+   * 
+   * <h3>Storyboard MikadoProjectPlan</h3>
+   * <img src='doc-files/MikadoProjectPlanStep0.png' width='880'>
+   * <h4><a name = 'step_1'>Step 1: open goals</a></h4>
+   * <img src="doc-files/MikadoProjectPlanStep2.png" alt="MikadoProjectPlanStep2.png" width='189'>
+   * <h4><a name = 'step_2'>Step 2: closed goals</a></h4>
+   * <img src="doc-files/MikadoProjectPlanStep4.png" alt="MikadoProjectPlanStep4.png" width='1069'>
+   */
+  // @Test
+  public void testMikadoProjectPlan() {
+    Storyboard story = new Storyboard();
 
-      Goal root = (Goal) idMap.decode(yaml);
+    String yaml =
+        "- Goal                  description:                             parents:   \n" +
+            "  root:                 \"mikado support\"                       null       \n" +
+            "  model:                \"class model\"                          root       \n" +
+            "  burnDown:             \"burn down charts\"                     root       \n" +
+            "  yaml:                 \"imput per yaml\"                       root       \n" +
+            "  excel:                \"imput per excel\"                      root       \n" +
+            "  format:               \"decide on csv variant\"                excel      \n" +
+            "  yamlExcel:            \"convert csv to yaml\"                  excel      \n" +
+            "  excelAutoImport:      \"auto import excel file\"               excel      \n" +
+            "  releases:             \"support for releases and sprints\"     root       \n" +
+            "                                                                            \n" +
+            "- mikadoLog: MikadoLog                                                      \n" +
+            "  mainGoal: root                                                            \n" +
+            "\n" +
+            "- LogEntry  goal:              date:                           hoursDone: hoursRemaining: parent:        \n" +
+            "  l1:       model              2018-02-28T12:00:00+01:00       1           0              mikadoLog      \n" +
+            "  l1:       model              2018-02-28T12:00:00+01:00       1           0              mikadoLog      \n" +
+            "  l2:       burnDown           2018-03-01T13:00:00+01:00       2           0              mikadoLog      \n" +
+            "  l3:       yaml               2018-03-02T15:12:00+01:00       2           0              mikadoLog      \n" +
+            "  l4:       root               2018-03-02T15:16:00+01:00       0.1         0              mikadoLog      \n" +
+            "  l5:       format             2018-03-03T15:19:00+01:00       2           0              mikadoLog      \n" +
+            "  l6:       yamlExcel          2018-03-04T01:00:00+01:00       2           0              mikadoLog      \n" +
+            "  l7:       excel              2018-03-04T01:10:00+01:00       0.1         1              mikadoLog      \n" +
+            "  l8:       releases           2018-03-04T16:30:00+01:00       0.5         0              mikadoLog      \n" +
+            "  l9:       excelAutoImport    2018-03-04T18:30:01+01:00       1.5         0              mikadoLog      \n" +
+            "  l10:      excel              2018-03-04T18:30:02+01:00       0.1         0              mikadoLog      \n" +
+            "";
 
-      MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
 
-      story.addImage(mikadoLog.burnDownChartPng());
+    YamlIdMap idMap = new YamlIdMap(Goal.class.getPackage().getName());
 
-      Goal done = root.clipDone();
+    Goal root = (Goal) idMap.decode(yaml);
 
-      story.addStep("open goals");
+    MikadoLog mikadoLog = (MikadoLog) idMap.getObject("mikadoLog");
 
-      story.addObjectDiagram(root);
+    story.addImage(mikadoLog.burnDownChartPng());
 
-      story.addStep("closed goals");
-      story.addObjectDiagram(done);
+    Goal done = root.clipDone();
+
+    story.addStep("open goals");
+
+    story.addObjectDiagram(root);
+
+    story.addStep("closed goals");
+    story.addObjectDiagram(done);
 
 
-      story.dumpHTML();
-   }
+    story.dumpHTML();
+  }
 }

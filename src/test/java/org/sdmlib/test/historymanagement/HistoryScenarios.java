@@ -3,7 +3,6 @@ package org.sdmlib.test.historymanagement;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.Test;
 import org.sdmlib.HistoryIdMap;
 import org.sdmlib.HistoryIdMap.AttrTimeStampMap;
 import org.sdmlib.HistoryIdMap.RefTime;
@@ -127,7 +126,7 @@ public class HistoryScenarios {
    * Check: Only non-overwritten changes 15 actual 15
    * </p>
    */
-  @Test
+  // @Test
   public void updateHistoryOnNewComplexNeighbors() throws Exception {
     Storyboard story = new Storyboard().withDocDirName("doc/rigorous");
 
@@ -292,7 +291,7 @@ public class HistoryScenarios {
    * Check: change message should contain REMOVE_YOU true
    * </p>
    */
-  @Test
+  // @Test
   public void updateHistoryOnObjectRemoval() throws Exception {
     Storyboard story = new Storyboard().withDocDirName("doc/rigorous");
 
@@ -330,7 +329,7 @@ public class HistoryScenarios {
    * Check: history should store time stamp for market time true
    * </p>
    */
-  @Test
+  // @Test
   public void updateHistoryOnNewObjectAttributes() throws Exception {
     Storyboard story = new Storyboard().withDocDirName("doc/rigorous");
 

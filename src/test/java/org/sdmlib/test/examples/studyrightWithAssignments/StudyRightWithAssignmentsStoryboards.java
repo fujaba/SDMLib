@@ -26,7 +26,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import org.junit.Assert;
-import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.YamlIdMap;
 import org.sdmlib.models.tables.Row;
@@ -214,7 +213,7 @@ public class StudyRightWithAssignmentsStoryboards {
    * 
    * @throws IOException
    */
-  @Test
+  // @Test
   public void testYaml() throws IOException {
 
     System.out.println(" (StudyRightWithAssignmentsStoryboards.java:85)");
@@ -448,7 +447,7 @@ public class StudyRightWithAssignmentsStoryboards {
    * Check: Number of students: 1 actual 1
    * </p>
    */
-  @Test
+  // @Test
   public void testStudyRightWithAssignmentsStoryboard() {
     Storyboard storyboard = new Storyboard();
 
@@ -582,7 +581,7 @@ public class StudyRightWithAssignmentsStoryboards {
   }
 
 
-  @Test
+  // @Test
   public void testStudyRightWithAssignmentsAggregation() {
     University university = new University()
         .withName("StudyRight");
@@ -746,7 +745,7 @@ public class StudyRightWithAssignmentsStoryboards {
    * 
    * <img src="doc-files/JsonPersistencyStep8.png" alt="JsonPersistencyStep8.png" width='147'>
    */
-  @Test
+  // @Test
   public void testJsonPersistency() {
     Storyboard storyboard = new Storyboard();
 
@@ -976,7 +975,7 @@ public class StudyRightWithAssignmentsStoryboards {
    * <img src="doc-files/StudyRightObjectModelNavigationAndQueriesStep28.png" alt=
    * "StudyRightObjectModelNavigationAndQueriesStep28.png" width='345'>
    */
-  @Test
+  // @Test
   public void testStudyRightObjectModelNavigationAndQueries() {
     Storyboard story = new Storyboard();
 
@@ -1636,7 +1635,7 @@ public class StudyRightWithAssignmentsStoryboards {
    * 
    * </table>
    */
-  @Test
+  // @Test
   public void testStudyRightTablesAndReports() {
     Storyboard story = new Storyboard();
 

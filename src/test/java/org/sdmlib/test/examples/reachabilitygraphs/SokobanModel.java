@@ -1,340 +1,111 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
-import org.junit.Test;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.storyboards.Storyboard;
-
 import de.uniks.networkparser.graph.Association;
 import de.uniks.networkparser.graph.AssociationTypes;
 import de.uniks.networkparser.graph.Clazz;
 import de.uniks.networkparser.graph.DataType;
 
-public class SokobanModel
-{
-     /**
-    * 
-    * <p>Storyboard <a href='./src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java' type='text/x-java'>SokobanModelGen</a></p>
-    * <script>
-    *    var json = {
-    *    "typ":"class",
-    *    "nodes":[
-    *       {
-    *          "typ":"node",
-    *          "id":"AKarli"
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Box"
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Karli"
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Maze",
-    *          "attributes":[
-    *             "height : int",
-    *             "width : int"
-    *          ]
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Sokoban"
-    *       },
-    *       {
-    *          "typ":"node",
-    *          "id":"Tile",
-    *          "attributes":[
-    *             "goal : boolean",
-    *             "wall : boolean",
-    *             "x : int",
-    *             "y : int"
-    *          ]
-    *       }
-    *    ],
-    *    "edges":[
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"AKarli",
-    *             "cardinality":"one",
-    *             "property":"akarli"
-    *          },
-    *          "target":{
-    *             "id":"Sokoban",
-    *             "cardinality":"one",
-    *             "property":"sokoban"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Tile",
-    *             "cardinality":"many",
-    *             "property":"tiles"
-    *          },
-    *          "target":{
-    *             "id":"AKarli",
-    *             "cardinality":"one",
-    *             "property":"akarli"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Box",
-    *             "cardinality":"many",
-    *             "property":"boxes"
-    *          },
-    *          "target":{
-    *             "id":"Sokoban",
-    *             "cardinality":"one",
-    *             "property":"sokoban"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Tile",
-    *             "cardinality":"one",
-    *             "property":"tile"
-    *          },
-    *          "target":{
-    *             "id":"Box",
-    *             "cardinality":"one",
-    *             "property":"box"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Karli",
-    *             "cardinality":"one",
-    *             "property":"karli"
-    *          },
-    *          "target":{
-    *             "id":"Sokoban",
-    *             "cardinality":"one",
-    *             "property":"sokoban"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Tile",
-    *             "cardinality":"one",
-    *             "property":"tile"
-    *          },
-    *          "target":{
-    *             "id":"Karli",
-    *             "cardinality":"one",
-    *             "property":"karli"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Maze",
-    *             "cardinality":"one",
-    *             "property":"maze"
-    *          },
-    *          "target":{
-    *             "id":"Sokoban",
-    *             "cardinality":"one",
-    *             "property":"sokoban"
-    *          }
-    *       },
-    *       {
-    *          "typ":"aggregation",
-    *          "source":{
-    *             "id":"Maze",
-    *             "cardinality":"many",
-    *             "property":"maze"
-    *          },
-    *          "target":{
-    *             "id":"Tile",
-    *             "cardinality":"many",
-    *             "property":"tiles"
-    *          }
-    *       },
-    *       {
-    *          "typ":"aggregation",
-    *          "source":{
-    *             "id":"Sokoban",
-    *             "cardinality":"one",
-    *             "property":"sokoban"
-    *          },
-    *          "target":{
-    *             "id":"Maze",
-    *             "cardinality":"one",
-    *             "property":"maze"
-    *          }
-    *       },
-    *       {
-    *          "typ":"aggregation",
-    *          "source":{
-    *             "id":"Sokoban",
-    *             "cardinality":"one",
-    *             "property":"sokoban"
-    *          },
-    *          "target":{
-    *             "id":"Box",
-    *             "cardinality":"many",
-    *             "property":"boxes"
-    *          }
-    *       },
-    *       {
-    *          "typ":"aggregation",
-    *          "source":{
-    *             "id":"Sokoban",
-    *             "cardinality":"one",
-    *             "property":"sokoban"
-    *          },
-    *          "target":{
-    *             "id":"Karli",
-    *             "cardinality":"one",
-    *             "property":"karli"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"AKarli",
-    *             "cardinality":"one",
-    *             "property":"akarli"
-    *          },
-    *          "target":{
-    *             "id":"Sokoban",
-    *             "cardinality":"one",
-    *             "property":"sokoban"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Tile",
-    *             "cardinality":"many",
-    *             "property":"neighbors"
-    *          },
-    *          "target":{
-    *             "id":"Tile",
-    *             "cardinality":"many",
-    *             "property":"neighbors"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Tile",
-    *             "cardinality":"one",
-    *             "property":"tile"
-    *          },
-    *          "target":{
-    *             "id":"Box",
-    *             "cardinality":"one",
-    *             "property":"box"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Tile",
-    *             "cardinality":"one",
-    *             "property":"tile"
-    *          },
-    *          "target":{
-    *             "id":"Karli",
-    *             "cardinality":"one",
-    *             "property":"karli"
-    *          }
-    *       },
-    *       {
-    *          "typ":"assoc",
-    *          "source":{
-    *             "id":"Tile",
-    *             "cardinality":"many",
-    *             "property":"tiles"
-    *          },
-    *          "target":{
-    *             "id":"Maze",
-    *             "cardinality":"many",
-    *             "property":"maze"
-    *          }
-    *       },
-    *       {
-    *          "typ":"unidirectional",
-    *          "source":{
-    *             "id":"Tile",
-    *             "cardinality":"many",
-    *             "property":"tiles"
-    *          },
-    *          "target":{
-    *             "id":"AKarli",
-    *             "cardinality":"one",
-    *             "property":"akarli"
-    *          }
-    *       }
-    *    ]
-    * }   ;
-    *    new Graph(json, {"canvasid":"canvasSokobanModelGenClassDiagram0", "display":"html", fontsize:10, bar:false, propertyinfo:false}).layout(100,100);
-    * </script>
-    * @see <a href='../../../../../../../../doc/SokobanModelGen.html'>SokobanModelGen.html</a>
- */
-   @Test
-   public void SokobanModelGen() throws Exception
-   {
-      Storyboard story = new Storyboard();
-      
-      ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.sokoban");
-      
-      Clazz sokoban = model.createClazz("Sokoban");
-      
-      Clazz maze = model.createClazz("Maze")
-            .withAttribute("width", DataType.INT)
-            .withAttribute("height", DataType.INT);
+public class SokobanModel {
+  /**
+   * 
+   * <p>
+   * Storyboard
+   * <a href='./src/test/java/org/sdmlib/test/examples/reachabilitygraphs/SokobanModel.java' type=
+   * 'text/x-java'>SokobanModelGen</a>
+   * </p>
+   * <script> var json = { "typ":"class", "nodes":[ { "typ":"node", "id":"AKarli" }, { "typ":"node",
+   * "id":"Box" }, { "typ":"node", "id":"Karli" }, { "typ":"node", "id":"Maze", "attributes":[ "height
+   * : int", "width : int" ] }, { "typ":"node", "id":"Sokoban" }, { "typ":"node", "id":"Tile",
+   * "attributes":[ "goal : boolean", "wall : boolean", "x : int", "y : int" ] } ], "edges":[ {
+   * "typ":"unidirectional", "source":{ "id":"AKarli", "cardinality":"one", "property":"akarli" },
+   * "target":{ "id":"Sokoban", "cardinality":"one", "property":"sokoban" } }, {
+   * "typ":"unidirectional", "source":{ "id":"Tile", "cardinality":"many", "property":"tiles" },
+   * "target":{ "id":"AKarli", "cardinality":"one", "property":"akarli" } }, { "typ":"unidirectional",
+   * "source":{ "id":"Box", "cardinality":"many", "property":"boxes" }, "target":{ "id":"Sokoban",
+   * "cardinality":"one", "property":"sokoban" } }, { "typ":"unidirectional", "source":{ "id":"Tile",
+   * "cardinality":"one", "property":"tile" }, "target":{ "id":"Box", "cardinality":"one",
+   * "property":"box" } }, { "typ":"unidirectional", "source":{ "id":"Karli", "cardinality":"one",
+   * "property":"karli" }, "target":{ "id":"Sokoban", "cardinality":"one", "property":"sokoban" } }, {
+   * "typ":"unidirectional", "source":{ "id":"Tile", "cardinality":"one", "property":"tile" },
+   * "target":{ "id":"Karli", "cardinality":"one", "property":"karli" } }, { "typ":"unidirectional",
+   * "source":{ "id":"Maze", "cardinality":"one", "property":"maze" }, "target":{ "id":"Sokoban",
+   * "cardinality":"one", "property":"sokoban" } }, { "typ":"aggregation", "source":{ "id":"Maze",
+   * "cardinality":"many", "property":"maze" }, "target":{ "id":"Tile", "cardinality":"many",
+   * "property":"tiles" } }, { "typ":"aggregation", "source":{ "id":"Sokoban", "cardinality":"one",
+   * "property":"sokoban" }, "target":{ "id":"Maze", "cardinality":"one", "property":"maze" } }, {
+   * "typ":"aggregation", "source":{ "id":"Sokoban", "cardinality":"one", "property":"sokoban" },
+   * "target":{ "id":"Box", "cardinality":"many", "property":"boxes" } }, { "typ":"aggregation",
+   * "source":{ "id":"Sokoban", "cardinality":"one", "property":"sokoban" }, "target":{ "id":"Karli",
+   * "cardinality":"one", "property":"karli" } }, { "typ":"unidirectional", "source":{ "id":"AKarli",
+   * "cardinality":"one", "property":"akarli" }, "target":{ "id":"Sokoban", "cardinality":"one",
+   * "property":"sokoban" } }, { "typ":"assoc", "source":{ "id":"Tile", "cardinality":"many",
+   * "property":"neighbors" }, "target":{ "id":"Tile", "cardinality":"many", "property":"neighbors" }
+   * }, { "typ":"unidirectional", "source":{ "id":"Tile", "cardinality":"one", "property":"tile" },
+   * "target":{ "id":"Box", "cardinality":"one", "property":"box" } }, { "typ":"unidirectional",
+   * "source":{ "id":"Tile", "cardinality":"one", "property":"tile" }, "target":{ "id":"Karli",
+   * "cardinality":"one", "property":"karli" } }, { "typ":"assoc", "source":{ "id":"Tile",
+   * "cardinality":"many", "property":"tiles" }, "target":{ "id":"Maze", "cardinality":"many",
+   * "property":"maze" } }, { "typ":"unidirectional", "source":{ "id":"Tile", "cardinality":"many",
+   * "property":"tiles" }, "target":{ "id":"AKarli", "cardinality":"one", "property":"akarli" } } ] }
+   * ; new Graph(json, {"canvasid":"canvasSokobanModelGenClassDiagram0", "display":"html",
+   * fontsize:10, bar:false, propertyinfo:false}).layout(100,100); </script>
+   * 
+   * @see <a href='../../../../../../../../doc/SokobanModelGen.html'>SokobanModelGen.html</a>
+   */
+  // @Test
+  public void SokobanModelGen() throws Exception {
+    Storyboard story = new Storyboard();
 
-      sokoban.createUniDirectional(maze, "maze", Association.ONE)
-      .with(AssociationTypes.AGGREGATION);
-      
-      Clazz tile = model.createClazz("Tile")
-            .withAttribute("x", DataType.INT)
-            .withAttribute("y", DataType.INT)
-            .withAttribute("wall", DataType.BOOLEAN)
-            .withAttribute("goal", DataType.BOOLEAN);
+    ClassModel model = new ClassModel("org.sdmlib.test.examples.reachabilitygraphs.sokoban");
 
-      maze.createBidirectional(tile, "tiles", Association.MANY, "maze", Association.MANY)
-      .with(AssociationTypes.AGGREGATION);
-      
-      tile.createBidirectional(tile, "neighbors", Association.MANY, "neighbors", Association.MANY);
-      
-      Clazz box = model.createClazz("Box");
-      
-      sokoban.createUniDirectional(box, "boxes", Association.MANY)
-      .with(AssociationTypes.AGGREGATION);
-      
-      box.createUniDirectional(tile, "tile", Association.ONE);
-      
-      Clazz karli = model.createClazz("Karli");
+    Clazz sokoban = model.createClazz("Sokoban");
 
-      sokoban.createUniDirectional(karli, "karli", Association.ONE)
-      .with(AssociationTypes.AGGREGATION);
+    Clazz maze = model.createClazz("Maze")
+        .withAttribute("width", DataType.INT)
+        .withAttribute("height", DataType.INT);
 
-      karli.createUniDirectional(tile, "tile", Association.ONE);
-      
-      Clazz akarli = model.createClazz("AKarli");
+    sokoban.createUniDirectional(maze, "maze", Association.ONE)
+        .with(AssociationTypes.AGGREGATION);
 
-      sokoban.createUniDirectional(akarli, "akarli", Association.ONE);
+    Clazz tile = model.createClazz("Tile")
+        .withAttribute("x", DataType.INT)
+        .withAttribute("y", DataType.INT)
+        .withAttribute("wall", DataType.BOOLEAN)
+        .withAttribute("goal", DataType.BOOLEAN);
 
-      akarli.createUniDirectional(tile, "tiles", Association.MANY);
-      
-      
+    maze.createBidirectional(tile, "tiles", Association.MANY, "maze", Association.MANY)
+        .with(AssociationTypes.AGGREGATION);
 
-      
-      story.addClassDiagram(model);
-      
-      model.generate("src/test/java");
-      
-      story.dumpHTML();
-   }
+    tile.createBidirectional(tile, "neighbors", Association.MANY, "neighbors", Association.MANY);
+
+    Clazz box = model.createClazz("Box");
+
+    sokoban.createUniDirectional(box, "boxes", Association.MANY)
+        .with(AssociationTypes.AGGREGATION);
+
+    box.createUniDirectional(tile, "tile", Association.ONE);
+
+    Clazz karli = model.createClazz("Karli");
+
+    sokoban.createUniDirectional(karli, "karli", Association.ONE)
+        .with(AssociationTypes.AGGREGATION);
+
+    karli.createUniDirectional(tile, "tile", Association.ONE);
+
+    Clazz akarli = model.createClazz("AKarli");
+
+    sokoban.createUniDirectional(akarli, "akarli", Association.ONE);
+
+    akarli.createUniDirectional(tile, "tiles", Association.MANY);
+
+
+
+    story.addClassDiagram(model);
+
+    model.generate("src/test/java");
+
+    story.dumpHTML();
+  }
 }

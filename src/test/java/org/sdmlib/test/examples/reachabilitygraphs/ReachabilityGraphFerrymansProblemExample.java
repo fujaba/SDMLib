@@ -1,6 +1,5 @@
 package org.sdmlib.test.examples.reachabilitygraphs;
 
-import org.junit.Test;
 import org.sdmlib.models.pattern.Pattern;
 import org.sdmlib.models.pattern.ReachabilityGraph;
 import org.sdmlib.models.pattern.ReachableState;
@@ -6692,7 +6691,7 @@ public class ReachabilityGraphFerrymansProblemExample {
    * @see <a href=
    *      '../../../../../../../../doc/UniDirFerrymansProblemRules.html'>UniDirFerrymansProblemRules.html</a>
    */
-  @Test
+  // @Test
   public void UniDirFerrymansProblemRules() {
     Storyboard storyboard = new Storyboard();
 
