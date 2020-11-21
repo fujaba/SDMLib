@@ -1,7 +1,6 @@
 package org.sdmlib.test.examples.helloworld;
 
 import java.util.Arrays;
-import org.junit.Test;
 import org.sdmlib.CGUtil;
 import org.sdmlib.models.classes.ClassModel;
 import org.sdmlib.models.objects.Generic2Specific;
@@ -269,7 +268,7 @@ public class HelloWorldTTC2011 {
 
 
   // ==========================================================================
-  @Test
+  // @Test
   public void testTTC2011HelloWorldModelToText() {
     Storyboard storyboard = new Storyboard();
     storyboard.add("For model to text transformation we provide a simple template mechanism. ");
